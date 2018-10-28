@@ -31,7 +31,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">浅谈URL标准化</h3>
+    <h3 class="subtitle">Python3 用CSV模块读写CSV文件</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -48,18 +48,39 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">浅谈URL标准化</h1>
+        <h1 class="title">Python3 用CSV模块读写CSV文件</h1>
         <div class="stuff">
             <span>十月 28, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）</p>
-<h4 id="有WWW和没有WWW的区别"><a href="#有WWW和没有WWW的区别" class="headerlink" title="有WWW和没有WWW的区别"></a><b>有WWW和没有WWW的区别</b></h4><p>　　首先，我们应该知道一个常识，二级域名，是主要的没有WWW的域名。搜索引擎是有区别的，<b>有WWW和没有WWW的URL是不同的两个URL</b>，当他们指向同一个网站，会让搜索引擎不知道应该选择哪一个作为主要的URL。所以，建议一些合格的主机使用301重定向URL标准化集。</p>
-<p>　　很多人发现有WWW和没有WWW包括不一样，通常不包括比较好，这是为什么？没有WWW站点我们几乎不碰他(优化)，因为我们不去优化它，不给他增加外部链接，甚至不添加内容链接，然后讨论一下影响。说实话没有WWW的一般不会参与关键词排名，所以你没有和他一起去，我们首选域优化通常是与网站WWW。</p>
-<p>　　为什么不带WWW通常包括所有比较好？因为没有WWW处于正常状态，因为他没有外部链接和内部链接的重量减少。我们都知道，随着WWW经常饱受外部链接，因为我们需要与WWW关键词排名，所以我们必须努力增加外部链接和内部链接，所以矛盾。</p>
-
+            <p>参考链接：<a href="https://blog.csdn.net/u012162613/article/details/41915859?utm_source=blogxgwz0" target="_blank" rel="noopener">https://blog.csdn.net/u012162613/article/details/41915859?utm_source=blogxgwz0</a></p>
+<h3 id="1、CSV简介"><a href="#1、CSV简介" class="headerlink" title="1、CSV简介"></a><b>1、CSV简介</b></h3><p><b>CSV (Comma Separated Values)</b><br>即逗号分隔值（也称字符分隔值，因为分隔符可以不是逗号），是一种常用的文本格式，用以存储表格数据，包括数字或者字符。很多程序在处理数据时都会碰到CSV这种格式的文件，它的使用是比较广泛的。CSV虽然使用广泛，但却没有通用的标准，所以在处理CSV格式时常常会碰到麻烦，幸好Python内置了CSV模块。下面简单介绍CSV模块中最常用的一些函数。</p>
+<hr>
+<h3 id="2、CSV模块中的函数"><a href="#2、CSV模块中的函数" class="headerlink" title="2、CSV模块中的函数"></a><b>2、CSV模块中的函数</b></h3><p><b>2.1 读取CSV文件：</b></p>
+<ul>
+<li><b>reader(csvfile,  dialect=’excel’,  **fmtparams)</b><blockquote>
+<p>参数说明：<br>csvfile，必须是支持迭代(Iterator)的对象，可以是文件(file)对象或者列表(list)对象，如果是文件对象，打开时需要加”b”标志参数。<br>　　　　　　<br>dialect，编码风格，默认为excel的风格，也就是用逗号（,）分隔，dialect方式也支持自定义，通过调用register_dialect方法来注册。<br>　　　　<br>＞fmtparam，格式化参数，用来覆盖之前dialect对象指定的编码风格。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'xxx.csv'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> myFile:</span><br><span class="line">    <span class="comment">#读取csv文件，返回的是迭代类型</span></span><br><span class="line">    lines = csv.reader(myFile)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">        print(line)</span><br></pre></td></tr></table></figure>
+<p><b>上面程序的效果是将csv文件中的文本按行打印，每一行的元素都是以逗号分隔符’,’分隔得来</b></p>
+<blockquote>
+<p>例如程序输出结果：<br>[‘1’, ‘2’]<br>[‘3’, ‘a’]<br>[‘4’, ‘b’]</p>
+</blockquote>
+<hr>
+<p><b>2.2 存为CSV文件：</b></p>
+<ul>
+<li><b>writer(csvfile, dialect=’excel’, **fmtparams)</b></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'xxx.csv'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> myFile:    </span><br><span class="line">    myWriter=csv.writer(myFile)</span><br><span class="line">    myWriter.writerow([<span class="number">7</span>,<span class="string">'g'</span>])</span><br><span class="line">    myWriter.writerow([<span class="number">8</span>,<span class="string">'h'</span>])</span><br><span class="line">    myList=[[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]]</span><br><span class="line">    myWriter.writerows(myList)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><b>‘w’表示写模式。</b><br>　　　　<br><b>首先open()函数打开当前路径下的名字为’xxx.csv’的文件，如果不存在这个文件，则创建它，返回myFile文件对象。如果文件’xxx.csv’事先存在，调用writer函数会先清空原文件中的文本，再执行writerow/writerows方法。</b><br>　　　　<br><b>csv.writer(myFile)返回writer对象myWriter。</b><br>　　　　　　<br><b>writerow()方法是一行一行写入，writerows方法是一次写入多行。</b></p>
+</blockquote>
+<hr>
+<h5 id="除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect-下次碰到了再继续补充。"><a href="#除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect-下次碰到了再继续补充。" class="headerlink" title="除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect 下次碰到了再继续补充。"></a><b>除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect 下次碰到了再继续补充。</b></h5>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
