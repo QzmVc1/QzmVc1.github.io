@@ -106,7 +106,10 @@
 <p>很多表中某些字段的数据存在重复的值，可以使用DISTINCT关键字来过滤重复的值，只保留一个值。<br>　　　　　　　　　　　　<br>语法：SELECT DISTINCT 字段名 FROM 表名；<br>举例：查询student2表中gender字段的值，结果中不允许出行重复的值。<br>命令：SELECT DISTINCT gender FROM student2;</p>
 </blockquote>
 <h5 id="4-9-带-LIKE-关键字的查询"><a href="#4-9-带-LIKE-关键字的查询" class="headerlink" title="4.9 带 LIKE 关键字的查询"></a><b>4.9 带 LIKE 关键字的查询</b></h5><blockquote>
-<p>语法：SELECT <em> | 字段名1，字段名2，… FROM 表名 WHERE 字段名 [ NOT ] LIKE ‘匹配字符串’;<br>　　　　　　　　　　　　　　　　　　　　　<br><b>（1）百分号（%）通配符</b><br>匹配任意长度的字符串，包括空字符串。例如，字符串“ c% ”匹配以字符 c 开始，任意长度的字符串，如“ ct  ”，“ cut ”，“ current ”等；字符串“ c%g ”表示以字符 c 开始，以 g 结尾的字符串；字符串“ %y% ”表示包含字符“ y ”的字符串，无论“ y ”在字符串的什么位置。<br>　　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例1：查询student2表中name字段以字符“ s ”开头的人的id,name<br>命令：SELECT id,name FROM student2  WHERE name LIKE “S%”;<br>　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例2：查询student2表中name字段以字符“ w ”开始，以字符“ g ”结尾的人的id，name。<br>命令：SELECT id,name FROM student2 WHERE name LIKE ‘w%g’;<br>　　　　　　　　　　　　　　　　　　　　　　　　<br>举例3：查询student2表中name字段不包含“ y ”的人的id，name。<br>命令：SELECT id,name FROM student2 WHERE name NOT LIKE ‘%y%’;<br>　　　　　　　　　　　　　　　　　　　　　　　　<br><b>（2）下划线（<em>）通配符</em></b><br>下划线通配符只匹配单个字符，若要匹配多个字符，需要使用多个下划线通配符。例如，字符串“ cu</em> ”匹配以字符串“ cu ”开始，长度为3的字符，如“ cut ”，“ cup ”；字符串“ c__l”匹配在“ c ”和“ l ”之间包含两个字符的字符串，如“ cool ”。需要注意的是，连续的“<em>”之间不能有空格，例如“M</em> _QL”只能匹配“My SQL”，不能匹配“MySQL”。<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例：查询在student2表中name字段值以“ wu ”开始，以“ ong ”结束，并且中间只有一个字符的记录。<br>命令：SELECT  FROM student2 WHERE name LIKE ‘wu_ong’;</p>
+<p>语法：SELECT * | 字段名1，字段名2，… FROM 表名 WHERE 字段名 [ NOT ] LIKE ‘匹配字符串’;</p>
+</blockquote>
+<blockquote>
+<p><b>（1）百分号（%）通配符</b><br>匹配任意长度的字符串，包括空字符串。例如，字符串“ c% ”匹配以字符 c 开始，任意长度的字符串，如“ ct  ”，“ cut ”，“ current ”等；字符串“ c%g ”表示以字符 c 开始，以 g 结尾的字符串；字符串“ %y% ”表示包含字符“ y ”的字符串，无论“ y ”在字符串的什么位置。<br>　　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例1：查询student2表中name字段以字符“ s ”开头的人的id,name<br>命令：SELECT id,name FROM student2  WHERE name LIKE “S%”;<br>　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例2：查询student2表中name字段以字符“ w ”开始，以字符“ g ”结尾的人的id，name。<br>命令：SELECT id,name FROM student2 WHERE name LIKE ‘w%g’;<br>　　　　　　　　　　　　　　　　　　　　　　　　<br>举例3：查询student2表中name字段不包含“ y ”的人的id，name。<br>命令：SELECT id,name FROM student2 WHERE name NOT LIKE ‘%y%’;<br>　　　　　　　　　　　　　　　　　　　　　　　　<br><b>（2）下划线（<em>）通配符</em></b><br>下划线通配符只匹配单个字符，若要匹配多个字符，需要使用多个下划线通配符。例如，字符串“ cu ”匹配以字符串“ cu ”开始，长度为3的字符，如“ cut ”，“ cup ”；字符串“ c__l”匹配在“ c ”和“ l ”之间包含两个字符的字符串，如“ cool ”。需要注意的是，连续的“<em>”之间不能有空格，例如“M</em> _QL”只能匹配“My SQL”，不能匹配“MySQL”。<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例：查询在student2表中name字段值以“ wu ”开始，以“ ong ”结束，并且中间只有一个字符的记录。<br>命令：SELECT * FROM student2 WHERE name LIKE ‘wu_ong’;</p>
 </blockquote>
 <hr>
 <h3 id="高级查询"><a href="#高级查询" class="headerlink" title="高级查询"></a><b>高级查询</b></h3><p><b>（1）COUNT()函数：统计记录的条数</b></p>
@@ -131,9 +134,9 @@
 </blockquote>
 <hr>
 <h3 id="对查询结果进行排序"><a href="#对查询结果进行排序" class="headerlink" title="对查询结果进行排序"></a><b>对查询结果进行排序</b></h3><p>语法：SELECT 字段名1，字段名2，… FROM 表名 ORDER BY 字段名1 [ ASC | DESC ],字段名2 [ ASC|DESC ]…<br>　　　　　　　　　　　　　　　　　　　　<br>在该语法中指定的字段名是对查询结果进行排序的依据，ASC表示升序排列，DESC 表示降序排列，默认情况是升序排列。
-　　　　　　　　　　　　　　　　　　　　　</p>
+　　　　　　　　　　　　　　　　　　　　　　　　　　        </p>
 <blockquote>
-<p>举例1：查出student2表中的所有记录，并按照grade字段进行升序排序<br>命令：SELECT <em> FROM student2 ORDER BY grade;<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>举例2：查出student2表中的所有记录，并按照grade字段进行降序排序<br>命令：SELECT </em> FROM student2 ORDER BY grade DESC;</p>
+<p>举例2：查出student2表中的所有记录，并按照grade字段进行降序排序<br>命令：SELECT * FROM student2 ORDER BY grade DESC;</p>
 </blockquote>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
