@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QzmVc1 - 别装作很努力，因为结局不会陪你演戏</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="参考链接：https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1
+一、OS模块概述Python3,"> 
+    <meta name="author" content="QzmVc1"> 
+    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Python3 OS模块常用命令总结</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">Python3 OS模块常用命令总结</h1>
+        <div class="stuff">
+            <span>十月 28, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>参考链接：<a href="https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1" target="_blank" rel="noopener">https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1</a></p>
+<h3 id="一、OS模块概述"><a href="#一、OS模块概述" class="headerlink" title="一、OS模块概述"></a><b>一、OS模块概述</b></h3><p>Python3 OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的。(一语中的）</p>
+<h3 id="二、OS模块常用方法"><a href="#二、OS模块常用方法" class="headerlink" title="二、OS模块常用方法"></a><b>二、OS模块常用方法</b></h3><p><b>1、os.name</b><br>输出字符串指示正在使用的平台。如果是window 则用’nt’表示，对于Linux/Unix用户，它是’posix’。</p>
+<p><b>2、os.getcwd()</b><br>函数得到当前工作目录，即当前Python脚本工作的目录路径。</p>
+<p><b>3、os.listdir()</b><br>返回指定目录下的所有文件和目录名。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.listdir(os.getcwd())</span><br><span class="line">[<span class="string">'Django'</span>, <span class="string">'DLLs'</span>, <span class="string">'Doc'</span>, <span class="string">'include'</span>, <span class="string">'Lib'</span>, <span class="string">'libs'</span>, <span class="string">'LICENSE.txt'</span>, <span class="string">'MySQL-python-wininst.log'</span>, <span class="string">'NEWS.txt'</span>, <span class="string">'PIL-wininst.log'</span>, <span class="string">'python.exe'</span>, <span class="string">'pythonw.exe'</span>, <span class="string">'README.txt'</span>, <span class="string">'RemoveMySQL-python.exe'</span>, <span class="string">'RemovePIL.exe'</span>, <span class="string">'Removesetuptools.exe'</span>, <span class="string">'Scripts'</span>, <span class="string">'setuptools-wininst.log'</span>, <span class="string">'tcl'</span>, <span class="string">'Tools'</span>, <span class="string">'w9xpopen.exe'</span>]</span><br></pre></td></tr></table></figure></p>
+<p><b>4、os.remove()</b><br>删除一个文件。</p>
+<p><b>5、os.system()</b><br>运行shell命令。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.system(<span class="string">'dir'</span>)</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.system(<span class="string">'cmd'</span>) <span class="comment">#启动dos</span></span><br></pre></td></tr></table></figure>
+<p><b>6、os.sep </b><br>可以取代操作系统特定的路径分割符。</p>
+<p><b>7、os.linesep</b><br>字符串给出当前平台使用的行终止符<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.linesep</span><br><span class="line"><span class="string">'\r\n'</span>            <span class="comment">#Windows使用'\r\n'，Linux使用'\n'而Mac使用'\r'。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.sep</span><br><span class="line"><span class="string">'\\'</span>              <span class="comment">#Windows</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><b>8、os.path.split()</b><br>函数返回一个路径的目录名和文件名<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(<span class="string">'C:\\Python25\\abc.txt'</span>)</span><br><span class="line">(<span class="string">'C:\\Python25'</span>, <span class="string">'abc.txt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><b>9、os.path.isfile()和os.path.isdir()函数分别检验给出的路径是一个文件还是目录。</b></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isdir(os.getcwd())</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">'a.txt'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p><b>10、os.path.exists()</b><br>用来检验给出的路径是否真实存在</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">'C:\\Python25\\abc.txt'</span>)</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">'C:\\Python25'</span>)</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><b>11、os.path.abspath(name)</b><br>获得绝对路径</p>
+<p><b>12、os.path.normpath(path)</b><br>规范path字符串形式</p>
+<p><b>13、os.path.getsize(name)</b><br>获得文件大小，如果name是目录返回0L</p>
+<p><b>14、os.path.splitext()</b><br>分离文件名与扩展名<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="string">'a.txt'</span>)</span><br><span class="line">(<span class="string">'a'</span>, <span class="string">'.txt'</span>)</span><br></pre></td></tr></table></figure></p>
+<p><b>15、os.path.join(path,name)</b><br>连接目录与文件名或目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">'c:\\Python'</span>,<span class="string">'a.txt'</span>)</span><br><span class="line"><span class="string">'c:\\Python\\a.txt'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">'c:\\Python'</span>,<span class="string">'f1'</span>)</span><br><span class="line"><span class="string">'c:\\Python\\f1'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>16、<b>os.path.basename(path)</b><br>返回文件名</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(<span class="string">'a.txt'</span>)</span><br><span class="line"><span class="string">'a.txt'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(<span class="string">'c:\\Python\\a.txt'</span>)</span><br><span class="line"><span class="string">'a.txt'</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p><b>17、os.path.dirname(path)</b><br>返回文件路径</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="string">'c:\\Python\\a.txt'</span>)</span><br><span class="line"><span class="string">'c:\\Python'</span></span><br></pre></td></tr></table></figure>
+<p><b>18、os.mkdir(path) </b><br>创建一级目录<br>例如要在D盘下创建hello的目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.mkdir(<span class="string">'d:\hello'</span>)</span><br></pre></td></tr></table></figure>
+<p><b>19、os.makedirs(path)  </b><br>创建多级目录<br>例如在D盘下创建books的目录，books目录下在创建book目录</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.makedirs(<span class="string">'d:\\books\\book'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="先学这么多吧，以后边遇到再边记录…"><a href="#先学这么多吧，以后边遇到再边记录…" class="headerlink" title="先学这么多吧，以后边遇到再边记录…"></a>先学这么多吧，以后边遇到再边记录…</h3>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
