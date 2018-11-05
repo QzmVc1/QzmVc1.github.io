@@ -61,7 +61,41 @@
 </ul>
 <h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a><b>节点</b></h5><p>在 Xpath 中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML 文档是被作为节点树来对待的。</p>
 <hr>
-<h3 id="二、Xpath语法"><a href="#二、Xpath语法" class="headerlink" title="二、Xpath语法"></a><b>二、Xpath语法</b></h3><p>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>|表达式|描述  |<br>|–|–|<br>| nodename     | 选取此节点的所有子节点。 |<br>| / | 从根节点选取。 |<br>|//|从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。|<br>| . |  选取当前节点。|<br>| .. |选取当前节点的父节点。  |<br>| @     |  选取属性。|</p>
+<h3 id="二、Xpath语法"><a href="#二、Xpath语法" class="headerlink" title="二、Xpath语法"></a><b>二、Xpath语法</b></h3><p>　　　　　　　　　　　　　　　　　　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>nodename</td>
+<td>选取此节点的所有子节点。</td>
+</tr>
+<tr>
+<td>/</td>
+<td>从根节点选取。</td>
+</tr>
+<tr>
+<td>//</td>
+<td>从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>选取当前节点。</td>
+</tr>
+<tr>
+<td>..</td>
+<td>选取当前节点的父节点。</td>
+</tr>
+<tr>
+<td>@</td>
+<td>选取属性。</td>
+</tr>
+</tbody>
+</table>
 <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a><b>例子</b></h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li><b>xml.xpath(“bookstore”) </b>表示选取 bookstore 元素的所有子节点</li>
@@ -72,7 +106,49 @@
 <li><b>xml.xpath(“//@lang”)</b> 选取名为 lang 的所有属性。</li>
 </ul>
 <hr>
-<h4 id="谓语"><a href="#谓语" class="headerlink" title="谓语"></a><b>谓语</b></h4><p>　　　　　　　　　　　　　　　　　　　　　　<br>|路径表达式    |  结果|<br>|–|–|<br>|/bookstore/book[1]  | 选取属于 bookstore 子元素的第一个 book 元素。 |<br>| /bookstore/book[last()] | 选取属于 bookstore 子元素的最后一个 book 元素。 |<br>| /bookstore/book[last()-1]|选取属于 bookstore 子元素的倒数第二个 book 元素。 |<br>|  /bookstore/book[position() &lt; 3]    |  选取最前面的两个属于 bookstore 元素的子元素的 book 元素。|<br>| //title[@lang] |选取所有拥有名为 lang 的属性的 title 元素。  |<br>|//title[@lang=’eng’]  |选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。  |<br>|/bookstore/book[price&gt;35.00]  |选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。  |<br>|  /bookstore/book[price&gt;35.00]/title|选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。 |</p>
+<h4 id="谓语"><a href="#谓语" class="headerlink" title="谓语"></a><b>谓语</b></h4><p>　　　　　　　　　　　　　　　　　　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>路径表达式</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/bookstore/book[1]</td>
+<td>选取属于 bookstore 子元素的第一个 book 元素。</td>
+</tr>
+<tr>
+<td>/bookstore/book[last()]</td>
+<td>选取属于 bookstore 子元素的最后一个 book 元素。</td>
+</tr>
+<tr>
+<td>/bookstore/book[last()-1]</td>
+<td>选取属于 bookstore 子元素的倒数第二个 book 元素。</td>
+</tr>
+<tr>
+<td>/bookstore/book[position() &lt; 3]</td>
+<td>选取最前面的两个属于 bookstore 元素的子元素的 book 元素。</td>
+</tr>
+<tr>
+<td>//title[@lang]</td>
+<td>选取所有拥有名为 lang 的属性的 title 元素。</td>
+</tr>
+<tr>
+<td>//title[@lang=’eng’]</td>
+<td>选取所有 title 元素，且这些元素拥有值为 eng 的 lang 属性。</td>
+</tr>
+<tr>
+<td>/bookstore/book[price&gt;35.00]</td>
+<td>选取 bookstore 元素的所有 book 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+<tr>
+<td>/bookstore/book[price&gt;35.00]/title</td>
+<td>选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
+</tr>
+</tbody>
+</table>
 <h4 id="选取未知节点"><a href="#选取未知节点" class="headerlink" title="选取未知节点"></a><b>选取未知节点</b></h4><p>　　　　　　　　　　　　　　　　　　　　　　　</p>
 <table>
 <thead>
@@ -127,12 +203,122 @@
 <li><b>/bookstore/book/title | //price</b> 选取属于 bookstore 元素的 book 元素的所有 title 元素，以及文档中所有的 price 元素。</li>
 </ul>
 <hr>
-<h3 id="三、轴"><a href="#三、轴" class="headerlink" title="三、轴"></a><b>三、轴</b></h3><p>轴可定义相对于当前节点的节点集。<br>　　　　　　　　　　　　　　　　　　　　　　　　　<br>| 轴名称| 结果 |<br>|–|–|<br>| ancestor |  选取当前节点的所有先辈（父、祖父等）。|<br>| ancestor-or-self | 选取当前节点的所有先辈（父、祖父等）以及当前节点本身。 |<br>|attribute|选取当前节点的所有属性。|<br>| child | 选取当前节点的所有子元素。 |<br>| descendant |选取当前节点的所有后代元素（子、孙等）。  |<br>|descendant-or-self|选取当前节点的所有后代元素（子、孙等）以及当前节点本身。|<br>| following |选取文档中当前节点的结束标签之后的所有节点。  |<br>| namespace     |选取当前节点的所有命名空间节点。  |<br>|parent|选取当前节点的父节点。|<br>|preceding  |选取文档中当前节点的开始标签之前的所有节点。  |<br>| preceding-sibling     |选取当前节点之前的所有同级节点。  |<br>|self  | 选取当前节点。 |</p>
+<h3 id="三、轴"><a href="#三、轴" class="headerlink" title="三、轴"></a><b>三、轴</b></h3><p>轴可定义相对于当前节点的节点集。
+　　　　　　　　　　　　　　　　　　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>轴名称</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ancestor</td>
+<td>选取当前节点的所有先辈（父、祖父等）。</td>
+</tr>
+<tr>
+<td>ancestor-or-self</td>
+<td>选取当前节点的所有先辈（父、祖父等）以及当前节点本身。</td>
+</tr>
+<tr>
+<td>attribute</td>
+<td>选取当前节点的所有属性。</td>
+</tr>
+<tr>
+<td>child</td>
+<td>选取当前节点的所有子元素。</td>
+</tr>
+<tr>
+<td>descendant</td>
+<td>选取当前节点的所有后代元素（子、孙等）。</td>
+</tr>
+<tr>
+<td>descendant-or-self</td>
+<td>选取当前节点的所有后代元素（子、孙等）以及当前节点本身。</td>
+</tr>
+<tr>
+<td>following</td>
+<td>选取文档中当前节点的结束标签之后的所有节点。</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td>选取当前节点的所有命名空间节点。</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>选取当前节点的父节点。</td>
+</tr>
+<tr>
+<td>preceding</td>
+<td>选取文档中当前节点的开始标签之前的所有节点。</td>
+</tr>
+<tr>
+<td>preceding-sibling</td>
+<td>选取当前节点之前的所有同级节点。</td>
+</tr>
+<tr>
+<td>self</td>
+<td>选取当前节点。</td>
+</tr>
+</tbody>
+</table>
 <p><b>步的语法： </b></p>
 <blockquote>
 <p>轴名称::节点测试[谓语]</p>
 </blockquote>
-<p>例子：<br>　　　　　　　　　　　　　　　　　　　　　　　<br>| 例子 |结果  |<br>|–|–|<br>|  child::book    |  选取所有属于当前节点的子元素的 book 节点。|<br>| attribute::lang | 选取当前节点的 lang 属性。 |<br>|child:: <em>|选取当前节点的所有子元素。|<br>| attribute:: </em>  |  选取当前节点的所有属性。|<br>| child::text() | 选取当前节点的所有文本子节点。 |<br>|child::node()|选取当前节点的所有子节点。|<br>|  descendant::book|  选取当前节点的所有 book 后代。|<br>| ancestor::book |选择当前节点的所有 book 先辈。  |<br>|ancestor-or-self::book    |选取当前节点的所有 book 先辈以及当前节点（如果此节点是 book 节点）|<br>|  child:: */child::price| 选取当前节点的所有 price 孙节点。 |</p>
+<p>例子：
+　　　　　　　　　　　　　　　　　　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>例子</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>child::book</td>
+<td>选取所有属于当前节点的子元素的 book 节点。</td>
+</tr>
+<tr>
+<td>attribute::lang</td>
+<td>选取当前节点的 lang 属性。</td>
+</tr>
+<tr>
+<td>child:: *</td>
+<td>选取当前节点的所有子元素。</td>
+</tr>
+<tr>
+<td>attribute:: *</td>
+<td>选取当前节点的所有属性。</td>
+</tr>
+<tr>
+<td>child::text()</td>
+<td>选取当前节点的所有文本子节点。</td>
+</tr>
+<tr>
+<td>child::node()</td>
+<td>选取当前节点的所有子节点。</td>
+</tr>
+<tr>
+<td>descendant::book</td>
+<td>选取当前节点的所有 book 后代。</td>
+</tr>
+<tr>
+<td>ancestor::book</td>
+<td>选择当前节点的所有 book 先辈。</td>
+</tr>
+<tr>
+<td>ancestor-or-self::book</td>
+<td>选取当前节点的所有 book 先辈以及当前节点（如果此节点是 book 节点）</td>
+</tr>
+<tr>
+<td>child:: */child::price</td>
+<td>选取当前节点的所有 price 孙节点。</td>
+</tr>
+</tbody>
+</table>
 <hr>
 <h3 id="四、一些函数"><a href="#四、一些函数" class="headerlink" title="四、一些函数"></a><b>四、一些函数</b></h3><p><b>1. starts-with函数</b><br>获取以xxx开头的元素<br>例子：xpath(‘//div[stars-with(@class,”test”)]’)</p>
 <p><b>2.contains函数</b><br>获取包含xxx的元素<br>例子：xpath(‘//div[contains(@id,”test”)]’)</p>
