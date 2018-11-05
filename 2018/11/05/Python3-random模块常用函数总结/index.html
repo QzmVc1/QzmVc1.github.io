@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QzmVc1 - Standing on Shoulders of Giants.</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="参考链接：https://blog.csdn.net/u013332124/article/details/80621638
+一、Xpath介绍Xpath 是一门在 XML 文档中查找信息的语言，X,"> 
+    <meta name="author" content="QzmVc1"> 
+    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Python3 random模块常用函数总结</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">Python3 random模块常用函数总结</h1>
+        <div class="stuff">
+            <span>十一月 05, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>参考链接：<a href="https://blog.csdn.net/xiaocaiju/article/details/6973175" target="_blank" rel="noopener">https://blog.csdn.net/xiaocaiju/article/details/6973175</a></p>
+<p><b>Python中的random模块用于生成随机数。下面介绍一下random模块中最常用的几个函数。</b></p>
+<h3 id="1-random-randint"><a href="#1-random-randint" class="headerlink" title="1.random.randint"></a><b>1.random.randint</b></h3><p>random.randint()的函数原型为：random.randint(a, b)，用于<b>生成一个指定范围内的整数</b>。其中参数a是下限，参数b是上限，生成的随机数n: a &lt;= n &lt;= b</p>
+<h3 id="2-random-randrange"><a href="#2-random-randrange" class="headerlink" title="2.random.randrange"></a><b>2.random.randrange</b></h3><p>　random.randrange的函数原型为：random.randrange([start], stop[, step])，<b>从指定范围内，按指定基数递增的集合中获取一个随机数</b>。如：random.randrange(10, 100, 2)，结果相当于从[10, 12, 14, 16, … 96, 98]序列中获取一个随机数。random.randrange(10, 100, 2)在结果上与 random.choice(range(10, 100, 2) )等效。</p>
+<h3 id="3-random-random"><a href="#3-random-random" class="headerlink" title="3.random.random"></a><b>3.random.random</b></h3><p>random.random()用于<b>生成一个0到1的随机浮点数</b>: 0 &lt;= n &lt; 1.0</p>
+<h3 id="4-random-uniform"><a href="#4-random-uniform" class="headerlink" title="4.random.uniform"></a><b>4.random.uniform</b></h3><p>random.uniform的函数原型为: random.uniform(a, b)，用于<b>生成一个指定范围内的随机浮点数</b>，两个参数其中一个是上限，一个是下限。如果a &lt; b，则生成的随机数n: a &lt;= n &lt;= b。如果 a &gt; b， 则 b &lt;= n &lt;= a。</p>
+<h3 id="5-random-choice"><a href="#5-random-choice" class="headerlink" title="5.random.choice"></a><b>5.random.choice</b></h3><p>random.choice<b>从序列中获取一个随机元素</b>。其函数原型为：random.choice(sequence)。参数sequence表示一个有序类型。这里要说明 一下：sequence在python不是一种特定的类型，而是泛指一系列的类型。list, tuple, 字符串都属于sequence。</p>
+<h3 id="6-random-shuffle"><a href="#6-random-shuffle" class="headerlink" title="6.random.shuffle"></a><b>6.random.shuffle</b></h3><p>random.shuffle的函数原型为：random.shuffle(x[, random])，<b>用于将一个列表中的元素打乱</b>。</p>
+<h3 id="7-random-sample"><a href="#7-random-sample" class="headerlink" title="7.random.sample"></a><b>7.random.sample</b></h3><p>random.sample的函数原型为：random.sample(sequence, k)，<b>从指定序列中随机获取指定长度的片断</b>, sample函数不会修改原有序列。</p>
+<blockquote>
+<p><b>上面这些方法是random模块中最常用的，在Python手册中，还介绍其他的方法。感兴趣的朋友可以通过查询Python手册了解更详细的信息。</b></p>
+</blockquote>
+<hr>
+<p><b>代码实现：</b></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成[1,10]的随机整数</span></span><br><span class="line">print(random.randint(<span class="number">1</span>,<span class="number">10</span>))　　　　　　<span class="comment">#[a,b]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#生成[1,100]步长为2的随机数</span></span><br><span class="line">print(random.randrange(<span class="number">1</span>,<span class="number">100</span>,<span class="number">2</span>))　　　　　<span class="comment">#[a,b,step]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#生成[0.0,1.0)的随机浮点数</span></span><br><span class="line">print(random.random())  　　　　　　　　 <span class="comment">#[0,1)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#生成[1.0,12.0]的随机浮点数</span></span><br><span class="line">print(random.uniform(<span class="number">1.0</span>,<span class="number">12.0</span>))  　　  <span class="comment">#[a,b]</span></span><br><span class="line"></span><br><span class="line">lst = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#从序列中随机选取一个元素</span></span><br><span class="line">print(random.choice(lst))</span><br><span class="line"></span><br><span class="line"><span class="comment">#重新打乱一个列表</span></span><br><span class="line">random.shuffle(lst)</span><br><span class="line">print(lst)</span><br><span class="line"></span><br><span class="line"><span class="comment">#从序列中随机选取5个元素</span></span><br><span class="line">print(random.sample(lst,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
+<p><b>运行结果：</b></p>
+<blockquote>
+<p>5<br>49<br>0.4109578465733287<br>7.539110018468436<br>9<br>[10, 6, 8, 2, 1, 9, 3, 4, 5, 7]<br>[6, 2, 3, 5, 1]</p>
+</blockquote>
+<hr>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
