@@ -27,7 +27,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">浅谈URL标准化</h3>
+    <h3 class="subtitle">新篇 精通Python爬虫框架Scrapy</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -44,17 +44,44 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">浅谈URL标准化</h1>
+        <h1 class="title">新篇 精通Python爬虫框架Scrapy</h1>
         <div class="stuff">
-            <span>十月 28, 2018</span>
+            <span>十一月 07, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）</p>
-<h4 id="有WWW和没有WWW的区别"><a href="#有WWW和没有WWW的区别" class="headerlink" title="有WWW和没有WWW的区别"></a><b>有WWW和没有WWW的区别</b></h4><p>　　首先，我们应该知道一个常识，二级域名，是主要的没有WWW的域名。搜索引擎是有区别的，<b>有WWW和没有WWW的URL是不同的两个URL</b>，当他们指向同一个网站，会让搜索引擎不知道应该选择哪一个作为主要的URL。所以，建议一些合格的主机使用301重定向URL标准化集。</p>
-<p>　　很多人发现有WWW和没有WWW包括不一样，通常不包括比较好，这是为什么？没有WWW站点我们几乎不碰他(优化)，因为我们不去优化它，不给他增加外部链接，甚至不添加内容链接，然后讨论一下影响。说实话没有WWW的一般不会参与关键词排名，所以你没有和他一起去，我们首选域优化通常是与网站WWW。</p>
-<p>　　为什么不带WWW通常包括所有比较好？因为没有WWW处于正常状态，因为他没有外部链接和内部链接的重量减少。我们都知道，随着WWW经常饱受外部链接，因为我们需要与WWW关键词排名，所以我们必须努力增加外部链接和内部链接，所以矛盾。</p>
+            <p><img src="http://47.93.163.221:8084/uploadimg/Material/978-7-115-47420-9/72jpg/47420_s300.jpg" alt=""></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>很早之前学习了《Python网络数据采集》这本爬虫入门书籍，书上基本用的是Python标准库urllib和第三方库BeautifulSoup，还有一些少量的requests库。过了这么长时间，对爬虫也不是很熟悉了。想了想以后可能会从事大数据方面的工作，本人对数据也是hin感兴趣。于是想腾出时间学习一下Scrapy框架，也趁此机会巩固一下我的爬虫能力。</p>
+<p>这本《精通Python爬虫框架Scrapy》基于Scrapy1.0和Python2.x版本，虽然我学的是Python3.x，但这本书应该不会影响阅读，之后的博客就会基于这本书发布一些我学习Scrapy的进度，理解等等，路还很长，一起加油吧！</p>
+<hr>
+<h3 id="什么是Scrapy？"><a href="#什么是Scrapy？" class="headerlink" title="什么是Scrapy？"></a><b>什么是Scrapy？</b></h3><p>   Scrapy 是用 纯Python 实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。用户只需要定制开发几个模块就可以轻松的实现一个爬虫，用来抓取网页内容以及各种图片，非常之方便。</p>
+<p>   Scrapy 使用了 Twisted 异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。</p>
+<h5 id="制作-Scrapy-爬虫-一共需要4步："><a href="#制作-Scrapy-爬虫-一共需要4步：" class="headerlink" title="制作 Scrapy 爬虫 一共需要4步："></a><b>制作 Scrapy 爬虫 一共需要4步：</b></h5><ul>
+<li>新建项目 （scrapy startproject xxx）：新建一个新的爬虫项目</li>
+<li>明确目标 （编写items.py）：明确你想要抓取的目标</li>
+<li>制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页</li>
+<li>存储内容 （pipelines.py）：设计管道存储爬取内容</li>
+</ul>
+<h5 id="Scrapy架构图"><a href="#Scrapy架构图" class="headerlink" title="Scrapy架构图:"></a><b>Scrapy架构图:</b></h5><p><img src="https://img-blog.csdn.net/20180704210932936?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3hsZW5namk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""></p>
+<ul>
+<li><b>Scrapy Engine(引擎):</b>  负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</li>
+<li><b>Scheduler(调度器): </b>它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</li>
+<li><b>Downloader(下载器):</b> 负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，</li>
+<li><b>Spider(爬虫):</b> 它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)，</li>
+<li><b>Item Pipeline(管道):</b>  它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.</li>
+<li><b>Downloader Middlewares(下载中间件): </b>你可以当作是一个可以自定义扩展下载功能的组件。</li>
+<li><b>Spider Middlewares(Spider中间件):  </b> 你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）<hr>
+<h3 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a><b>安装Scrapy</b></h3>Python3.6.4及以上已经支持Scrapy了，因此我们可以直接通过pip安装。<blockquote>
+<p>pip install scrapy</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="升级Scrapy"><a href="#升级Scrapy" class="headerlink" title="升级Scrapy"></a><b>升级Scrapy</b></h3><blockquote>
+<p>pip install –upgrade scrapy</p>
+</blockquote>
+<hr>
+<p><img src="http://n.sinaimg.cn/sinacn/w640h420/20171227/1baf-fypyuvc8024291.jpg" alt=""></p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
