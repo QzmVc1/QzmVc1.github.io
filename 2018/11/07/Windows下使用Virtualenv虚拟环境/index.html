@@ -27,7 +27,7 @@
     <div class="bar" style="width: 0;"></div>
     <a class="icon-home image-icon" href="javascript:;"></a>
     <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">浅谈URL标准化</h3>
+    <h3 class="subtitle">Windows下使用Virtualenv虚拟环境</h3>
     <div class="social">
         <!--<div class="like-icon">-->
             <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
@@ -44,18 +44,37 @@
     <div class="section">
         <div class="article">
     <div class="main">
-        <h1 class="title">浅谈URL标准化</h1>
+        <h1 class="title">Windows下使用Virtualenv虚拟环境</h1>
         <div class="stuff">
-            <span>十月 28, 2018</span>
+            <span>十一月 07, 2018</span>
             
 
         </div>
         <div class="content markdown">
-            <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）</p>
-<h4 id="有WWW和没有WWW的区别"><a href="#有WWW和没有WWW的区别" class="headerlink" title="有WWW和没有WWW的区别"></a><b>有WWW和没有WWW的区别</b></h4><p>　　首先，我们应该知道一个常识，二级域名，是主要的没有WWW的域名。搜索引擎是有区别的，<b>有WWW和没有WWW的URL是不同的两个URL</b>，当他们指向同一个网站，会让搜索引擎不知道应该选择哪一个作为主要的URL。所以，建议一些合格的主机使用301重定向URL标准化集。</p>
-<p>　　很多人发现有WWW和没有WWW包括不一样，通常不包括比较好，这是为什么？没有WWW站点我们几乎不碰他(优化)，因为我们不去优化它，不给他增加外部链接，甚至不添加内容链接，然后讨论一下影响。说实话没有WWW的一般不会参与关键词排名，所以你没有和他一起去，我们首选域优化通常是与网站WWW。</p>
-<p>　　为什么不带WWW通常包括所有比较好？因为没有WWW处于正常状态，因为他没有外部链接和内部链接的重量减少。我们都知道，随着WWW经常饱受外部链接，因为我们需要与WWW关键词排名，所以我们必须努力增加外部链接和内部链接，所以矛盾。</p>
-
+            <h4 id="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："><a href="#Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：" class="headerlink" title="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："></a><b>Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：</b></h4><ul>
+<li>解决库之间的版本依赖，比如同一系统上不同应用依赖同一个库的不同版本。</li>
+<li>解决权限限制，比如你没有root权限。</li>
+<li>尝试新的工具，而不用担心污染系统环境。</li>
+</ul>
+<hr>
+<h4 id="下面是一个在Windows下使用Virtualenv的范例和步骤："><a href="#下面是一个在Windows下使用Virtualenv的范例和步骤：" class="headerlink" title="下面是一个在Windows下使用Virtualenv的范例和步骤："></a><b>下面是一个在Windows下使用Virtualenv的范例和步骤：</b></h4><h5 id="1-Python3-安装Virtualenv"><a href="#1-Python3-安装Virtualenv" class="headerlink" title="1. Python3 安装Virtualenv"></a><b>1. Python3 安装Virtualenv</b></h5><blockquote>
+<p> <b>pip install virtualev</b></p>
+</blockquote>
+<h5 id="2-建立文件夹目录，作为Python的工作环境"><a href="#2-建立文件夹目录，作为Python的工作环境" class="headerlink" title="2. 建立文件夹目录，作为Python的工作环境"></a><b>2. 建立文件夹目录，作为Python的工作环境</b></h5><p>例如我在电脑上新建了一个名为<code>Python_Virtual</code>的目录。</p>
+<h5 id="3-创建虚拟环境"><a href="#3-创建虚拟环境" class="headerlink" title="3. 创建虚拟环境"></a><b>3. 创建虚拟环境</b></h5><p>在cmd控制台中cd到新建的文件夹<code>Python_Virtual</code>，输入命令<code>virtualenv venv</code>，虚拟环境的名字可以是任意的，这里是<code>venv</code>。<br><img src="https://s1.ax1x.com/2018/11/07/i7ETAO.png" alt=""><br>virtualenv venv 将会在当前的目录中创建一个文件夹，包含了Python可执行文件，以及 pip 库的一份拷贝，这样就能安装其它包了。若省略名字将会把文件均放在当前目录。</p>
+<p>　　在任何你运行命令的目录中，这会创建Python的拷贝，并将之放在叫做 venv 的文件中。</p>
+<p>　　你可以选择使用一个Python解释器：</p>
+<blockquote>
+<p><b>virtualenv  -p /usr/bin/python2.7 venv</b>　　　　# -p参数指定Python解释器程序路径<br>　<br>这将会使用 /usr/bin/python2.7 中的Python解释器。</p>
+</blockquote>
+<h5 id="4-到虚拟环境下工作"><a href="#4-到虚拟环境下工作" class="headerlink" title="4. 到虚拟环境下工作"></a><b>4. 到虚拟环境下工作</b></h5><p>(1) 切换到Scripts路径（激活、关闭虚拟环境的工具在这里）<br><img src="https://s1.ax1x.com/2018/11/07/i7EIHK.png" alt=""></p>
+<hr>
+<p><img src="https://s1.ax1x.com/2018/11/07/i7E7ND.png" alt=""></p>
+<p>(2) 执行activate，激活虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7ZgyR.png" alt=""></p>
+<p>(3) 在虚拟环境下执行python命令</p>
+<p>(4) 用pip为该虚拟环境安装特定版本的依赖库<br><img src="https://s1.ax1x.com/2018/11/07/i7E5B6.png" alt=""><br>(5) 执行deactivate退出虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7eSfg.png" alt=""></p>
+<hr>
+<h4 id="如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。"><a href="#如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。" class="headerlink" title=" 如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。"></a><b> 如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。</b></h4>
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
