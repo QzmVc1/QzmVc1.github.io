@@ -1,145 +1,223 @@
-
 <!DOCTYPE html>
-<html lang="zh-CN" class="loading">
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QzmVc1 - Standing on Shoulders of Giants.</title>
+  <meta charset="utf-8">
+  
+  <title>好玩的JS特效 | QzmVc1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="从别的博客上看到一个比较好玩的JS特效，保存了！12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929">
+<meta property="og:type" content="article">
+<meta property="og:title" content="好玩的JS特效">
+<meta property="og:url" content="http://yoursite.com/2018/10/25/好玩的JS特效/index.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="从别的博客上看到一个比较好玩的JS特效，保存了！12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-25T13:23:00.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="好玩的JS特效">
+<meta name="twitter:description" content="从别的博客上看到一个比较好玩的JS特效，保存了！12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
-    <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：
-解决库之间的版本依赖，,"> 
-    <meta name="author" content="QzmVc1"> 
-    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
-    <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
 </head>
 </html>
-<body class="loading">
-    <div id="loader"></div>
-    <div id="single">
-    <div id="top" style="display: block;">
-    <div class="bar" style="width: 0;"></div>
-    <a class="icon-home image-icon" href="javascript:;"></a>
-    <div title="播放/暂停" class="icon-play"></div>
-    <h3 class="subtitle">好玩的JS特效</h3>
-    <div class="social">
-        <!--<div class="like-icon">-->
-            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
-        <!--</div>-->
-        <div>
-            <div class="share">
-                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
-            </div>
-            <div id="qr"></div>
-        </div>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">QzmVc1</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">个人博客</a>
+        </h2>
+      
     </div>
-    <div class="scrollbar"></div>
-</div>
-    <div class="section">
-        <div class="article">
-    <div class="main">
-        <h1 class="title">好玩的JS特效</h1>
-        <div class="stuff">
-            <span>十月 25, 2018</span>
-            
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-好玩的JS特效" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/25/好玩的JS特效/" class="article-date">
+  <time datetime="2018-10-25T13:05:32.000Z" itemprop="datePublished">2018-10-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      好玩的JS特效
+    </h1>
+  
 
-        </div>
-        <div class="content markdown">
-            <h4 id="从别的博客上看到一个比较好玩的JS特效，保存了！"><a href="#从别的博客上看到一个比较好玩的JS特效，保存了！" class="headerlink" title="从别的博客上看到一个比较好玩的JS特效，保存了！"></a>从别的博客上看到一个比较好玩的JS特效，保存了！</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">!<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">o</span>(<span class="params">w, v, i</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> w.getAttribute(v) || i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">j</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.getElementsByTagName(i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">l</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i = j(<span class="string">"script"</span>),</span><br><span class="line">        w = i.length,</span><br><span class="line">        v = i[w - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            l: w,</span><br><span class="line">            z: o(v, <span class="string">"zIndex"</span>, <span class="number">-1</span>),</span><br><span class="line">            o: o(v, <span class="string">"opacity"</span>, <span class="number">0.5</span>),</span><br><span class="line">            c: o(v, <span class="string">"color"</span>, <span class="string">"0,0,0"</span>),</span><br><span class="line">            n: o(v, <span class="string">"count"</span>, <span class="number">99</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">k</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        r = u.width = <span class="built_in">window</span>.innerWidth || <span class="built_in">document</span>.documentElement.clientWidth || <span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">        n = u.height = <span class="built_in">window</span>.innerHeight || <span class="built_in">document</span>.documentElement.clientHeight || <span class="built_in">document</span>.body.clientHeight</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        e.clearRect(<span class="number">0</span>, <span class="number">0</span>, r, n);</span><br><span class="line">        <span class="keyword">var</span> w = [f].concat(t);</span><br><span class="line">        <span class="keyword">var</span> x, v, A, B, z, y;</span><br><span class="line">        t.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">            i.x += i.xa,</span><br><span class="line">            i.y += i.ya,</span><br><span class="line">            i.xa *= i.x &gt; r || i.x &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</span><br><span class="line">            i.ya *= i.y &gt; n || i.y &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</span><br><span class="line">            e.fillRect(i.x - <span class="number">0.5</span>, i.y - <span class="number">0.5</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (v = <span class="number">0</span>; v &lt; w.length; v++) &#123;</span><br><span class="line">                x = w[v];</span><br><span class="line">                <span class="keyword">if</span> (i !== x &amp;&amp; <span class="literal">null</span> !== x.x &amp;&amp; <span class="literal">null</span> !== x.y) &#123;</span><br><span class="line">                    B = i.x - x.x,</span><br><span class="line">                    z = i.y - x.y,</span><br><span class="line">                    y = B * B + z * z;</span><br><span class="line">                    y &lt; x.max &amp;&amp; (x === f &amp;&amp; y &gt;= x.max / <span class="number">2</span> &amp;&amp; (i.x -= <span class="number">0.03</span> * B, i.y -= <span class="number">0.03</span> * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A / <span class="number">2</span>, e.strokeStyle = <span class="string">"rgba("</span> + s.c + <span class="string">","</span> + (A + <span class="number">0.2</span>) + <span class="string">")"</span>, e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke())</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            w.splice(w.indexOf(i), <span class="number">1</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        m(b)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> u = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>),</span><br><span class="line">    s = l(),</span><br><span class="line">    c = <span class="string">"c_n"</span> + s.l,</span><br><span class="line">    e = u.getContext(<span class="string">"2d"</span>),</span><br><span class="line">    r,</span><br><span class="line">    n,</span><br><span class="line">    m = <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.oRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame ||</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">window</span>.setTimeout(i, <span class="number">1000</span> / <span class="number">45</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    a = <span class="built_in">Math</span>.random,</span><br><span class="line">    f = &#123;</span><br><span class="line">        x: <span class="literal">null</span>,</span><br><span class="line">        y: <span class="literal">null</span>,</span><br><span class="line">        max: <span class="number">20000</span></span><br><span class="line">    &#125;;</span><br><span class="line">    u.id = c;</span><br><span class="line">    u.style.cssText = <span class="string">"position:fixed;top:0;left:0;z-index:"</span> + s.z + <span class="string">";opacity:"</span> + s.o;</span><br><span class="line">    j(<span class="string">"body"</span>)[<span class="number">0</span>].appendChild(u);</span><br><span class="line">    k(),</span><br><span class="line">    <span class="built_in">window</span>.onresize = k;</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        i = i || <span class="built_in">window</span>.event,</span><br><span class="line">        f.x = i.clientX,</span><br><span class="line">        f.y = i.clientY</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">window</span>.onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.x = <span class="literal">null</span>,</span><br><span class="line">        f.y = <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> t = [], p = <span class="number">0</span>; s.n &gt; p; p++) &#123;</span><br><span class="line">        <span class="keyword">var</span> h = a() * r,</span><br><span class="line">        g = a() * n,</span><br><span class="line">        q = <span class="number">2</span> * a() - <span class="number">1</span>,</span><br><span class="line">        d = <span class="number">2</span> * a() - <span class="number">1</span>;</span><br><span class="line">        t.push(&#123;</span><br><span class="line">            x: h,</span><br><span class="line">            y: g,</span><br><span class="line">            xa: q,</span><br><span class="line">            ya: d,</span><br><span class="line">            max: <span class="number">6000</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        b()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="number">100</span>)</span><br><span class="line">&#125; ();</span><br></pre></td></tr></table></figure>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="从别的博客上看到一个比较好玩的JS特效，保存了！"><a href="#从别的博客上看到一个比较好玩的JS特效，保存了！" class="headerlink" title="从别的博客上看到一个比较好玩的JS特效，保存了！"></a>从别的博客上看到一个比较好玩的JS特效，保存了！</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">!<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">o</span>(<span class="params">w, v, i</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> w.getAttribute(v) || i</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">j</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.getElementsByTagName(i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">l</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i = j(<span class="string">"script"</span>),</span><br><span class="line">        w = i.length,</span><br><span class="line">        v = i[w - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            l: w,</span><br><span class="line">            z: o(v, <span class="string">"zIndex"</span>, <span class="number">-1</span>),</span><br><span class="line">            o: o(v, <span class="string">"opacity"</span>, <span class="number">0.5</span>),</span><br><span class="line">            c: o(v, <span class="string">"color"</span>, <span class="string">"0,0,0"</span>),</span><br><span class="line">            n: o(v, <span class="string">"count"</span>, <span class="number">99</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">k</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        r = u.width = <span class="built_in">window</span>.innerWidth || <span class="built_in">document</span>.documentElement.clientWidth || <span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">        n = u.height = <span class="built_in">window</span>.innerHeight || <span class="built_in">document</span>.documentElement.clientHeight || <span class="built_in">document</span>.body.clientHeight</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        e.clearRect(<span class="number">0</span>, <span class="number">0</span>, r, n);</span><br><span class="line">        <span class="keyword">var</span> w = [f].concat(t);</span><br><span class="line">        <span class="keyword">var</span> x, v, A, B, z, y;</span><br><span class="line">        t.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">            i.x += i.xa,</span><br><span class="line">            i.y += i.ya,</span><br><span class="line">            i.xa *= i.x &gt; r || i.x &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</span><br><span class="line">            i.ya *= i.y &gt; n || i.y &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</span><br><span class="line">            e.fillRect(i.x - <span class="number">0.5</span>, i.y - <span class="number">0.5</span>, <span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">for</span> (v = <span class="number">0</span>; v &lt; w.length; v++) &#123;</span><br><span class="line">                x = w[v];</span><br><span class="line">                <span class="keyword">if</span> (i !== x &amp;&amp; <span class="literal">null</span> !== x.x &amp;&amp; <span class="literal">null</span> !== x.y) &#123;</span><br><span class="line">                    B = i.x - x.x,</span><br><span class="line">                    z = i.y - x.y,</span><br><span class="line">                    y = B * B + z * z;</span><br><span class="line">                    y &lt; x.max &amp;&amp; (x === f &amp;&amp; y &gt;= x.max / <span class="number">2</span> &amp;&amp; (i.x -= <span class="number">0.03</span> * B, i.y -= <span class="number">0.03</span> * z), A = (x.max - y) / x.max, e.beginPath(), e.lineWidth = A / <span class="number">2</span>, e.strokeStyle = <span class="string">"rgba("</span> + s.c + <span class="string">","</span> + (A + <span class="number">0.2</span>) + <span class="string">")"</span>, e.moveTo(i.x, i.y), e.lineTo(x.x, x.y), e.stroke())</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            w.splice(w.indexOf(i), <span class="number">1</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        m(b)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> u = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>),</span><br><span class="line">    s = l(),</span><br><span class="line">    c = <span class="string">"c_n"</span> + s.l,</span><br><span class="line">    e = u.getContext(<span class="string">"2d"</span>),</span><br><span class="line">    r,</span><br><span class="line">    n,</span><br><span class="line">    m = <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.oRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame ||</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">window</span>.setTimeout(i, <span class="number">1000</span> / <span class="number">45</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    a = <span class="built_in">Math</span>.random,</span><br><span class="line">    f = &#123;</span><br><span class="line">        x: <span class="literal">null</span>,</span><br><span class="line">        y: <span class="literal">null</span>,</span><br><span class="line">        max: <span class="number">20000</span></span><br><span class="line">    &#125;;</span><br><span class="line">    u.id = c;</span><br><span class="line">    u.style.cssText = <span class="string">"position:fixed;top:0;left:0;z-index:"</span> + s.z + <span class="string">";opacity:"</span> + s.o;</span><br><span class="line">    j(<span class="string">"body"</span>)[<span class="number">0</span>].appendChild(u);</span><br><span class="line">    k(),</span><br><span class="line">    <span class="built_in">window</span>.onresize = k;</span><br><span class="line">    <span class="built_in">window</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        i = i || <span class="built_in">window</span>.event,</span><br><span class="line">        f.x = i.clientX,</span><br><span class="line">        f.y = i.clientY</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">window</span>.onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.x = <span class="literal">null</span>,</span><br><span class="line">        f.y = <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> t = [], p = <span class="number">0</span>; s.n &gt; p; p++) &#123;</span><br><span class="line">        <span class="keyword">var</span> h = a() * r,</span><br><span class="line">        g = a() * n,</span><br><span class="line">        q = <span class="number">2</span> * a() - <span class="number">1</span>,</span><br><span class="line">        d = <span class="number">2</span> * a() - <span class="number">1</span>;</span><br><span class="line">        t.push(&#123;</span><br><span class="line">            x: h,</span><br><span class="line">            y: g,</span><br><span class="line">            xa: q,</span><br><span class="line">            ya: d,</span><br><span class="line">            max: <span class="number">6000</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        b()</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="number">100</span>)</span><br><span class="line">&#125; ();</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>将代码放在html页面的body里面，不要放在head里面，不然不生效，页面上即可看到好玩的动态效果。</p>
 </blockquote>
 
-            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
-            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
-                <source type="audio/mpeg" src="">
-            </audio>
-            
-                <ul id="audio-list" style="display:none">
-                    
-                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
-                    
-                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
-                    
-                </ul>
-            
-        </div>
-        
-    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
-
-
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/25/好玩的JS特效/" data-id="cjoi6em0300043supvsubcb23" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
     
-</div>
+<nav id="article-nav">
+  
+    <a href="/2018/10/27/浅谈Python3-Json模块/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          浅谈Python3 Json模块
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/25/Hexo+Github 搭建自己的个人博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hexo+Github 搭建自己的个人博客</div>
+    </a>
+  
+</nav>
 
+  
+</article>
 
+</section>
+        
+          <aside id="sidebar">
+  
+    <!-- Featured Tags -->
+
+  
+    <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
+
+        
+
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
+
+            
+
+            
+
+            
+            
+            
+            
+        </ul>
     </div>
-</div>
+</section>
+
+  
+    
+  <h5>RECENT POSTS
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2018/11/07/Windows下使用Virtualenv虚拟环境/">Windows下使用Virtualenv虚拟环境</a>
+        </li>
+      
+        <li>
+          <a href="/2018/11/07/新篇-精通Python爬虫框架Scrapy/">新篇 精通Python爬虫框架Scrapy</a>
+        </li>
+      
+        <li>
+          <a href="/2018/11/07/Python3-numpy模块详解/">Python3 Numpy模块详解</a>
+        </li>
+      
+        <li>
+          <a href="/2018/11/05/Xpath用法总结/">Xpath用法总结</a>
+        </li>
+      
+        <li>
+          <a href="/2018/11/05/Python3-random模块常用函数总结/">Python3 Random模块常用函数总结</a>
+        </li>
+      
+    </ul>
+  </div>
+</h5>
+  
+    <!-- Friends Blog -->
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">9</span></li></ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 QzmVc1<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  </div>
 </body>
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
-<script src="/js/plugin.js"></script>
-<script src="/js/diaspora.js"></script>
-<link rel="stylesheet" href="/photoswipe/photoswipe.css">
-<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
-<script src="/photoswipe/photoswipe.min.js"></script>
-<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <!--  Controls are self-explanatory. Order can be changed. -->
-                <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 </html>
