@@ -1,223 +1,145 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
-  <title>浅谈URL标准化 | QzmVc1</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浅谈URL标准化">
-<meta property="og:url" content="http://yoursite.com/2018/10/28/浅谈URL标准化/index.html">
-<meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-28T04:47:06.303Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈URL标准化">
-<meta name="twitter:description" content="1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，">
-  
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
 
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QzmVc1 - Standing on Shoulders of Giants.</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：
+解决库之间的版本依赖，,"> 
+    <meta name="author" content="QzmVc1"> 
+    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
 </head>
 </html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">QzmVc1</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">个人博客</a>
-        </h2>
-      
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">浅谈URL标准化</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-浅谈URL标准化" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/10/28/浅谈URL标准化/" class="article-date">
-  <time datetime="2018-10-28T03:26:47.000Z" itemprop="datePublished">2018-10-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      浅谈URL标准化
-    </h1>
-  
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">浅谈URL标准化</h1>
+        <div class="stuff">
+            <span>十月 28, 2018</span>
+            
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）</p>
+        </div>
+        <div class="content markdown">
+            <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）</p>
 <h4 id="有WWW和没有WWW的区别"><a href="#有WWW和没有WWW的区别" class="headerlink" title="有WWW和没有WWW的区别"></a><b>有WWW和没有WWW的区别</b></h4><p>　　首先，我们应该知道一个常识，二级域名，是主要的没有WWW的域名。搜索引擎是有区别的，<b>有WWW和没有WWW的URL是不同的两个URL</b>，当他们指向同一个网站，会让搜索引擎不知道应该选择哪一个作为主要的URL。所以，建议一些合格的主机使用301重定向URL标准化集。</p>
 <p>　　很多人发现有WWW和没有WWW包括不一样，通常不包括比较好，这是为什么？没有WWW站点我们几乎不碰他(优化)，因为我们不去优化它，不给他增加外部链接，甚至不添加内容链接，然后讨论一下影响。说实话没有WWW的一般不会参与关键词排名，所以你没有和他一起去，我们首选域优化通常是与网站WWW。</p>
 <p>　　为什么不带WWW通常包括所有比较好？因为没有WWW处于正常状态，因为他没有外部链接和内部链接的重量减少。我们都知道，随着WWW经常饱受外部链接，因为我们需要与WWW关键词排名，所以我们必须努力增加外部链接和内部链接，所以矛盾。</p>
 
-      
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/10/28/浅谈URL标准化/" data-id="cjoi6em0j000a3supuz6dr08g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2018/10/28/Python3-OS模块常用命令总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Python3 OS模块常用命令总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/10/27/浅谈Python3-Json模块/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">浅谈Python3 Json模块</div>
-    </a>
-  
-</nav>
+</div>
 
-  
-</article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    <!-- Featured Tags -->
-
-  
-    <!-- Short About -->
-<section class="visible-md visible-lg">
-    <h5><a href="/about/">ABOUT ME</a></h5>
-    <div class="short-about">
-
-        
-
-        
-
-        <!-- SNS Link -->
-        <ul class="list-inline">
-            
-            
-            
-
-            
-
-            
-
-            
-            
-            
-            
-        </ul>
     </div>
-</section>
-
-  
-    
-  <h5>RECENT POSTS
-  <div class="widget">
-    <ul>
-      
-        <li>
-          <a href="/2018/11/07/Windows下使用Virtualenv虚拟环境/">Windows下使用Virtualenv虚拟环境</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/07/新篇-精通Python爬虫框架Scrapy/">新篇 精通Python爬虫框架Scrapy</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/07/Python3-numpy模块详解/">Python3 Numpy模块详解</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/05/Xpath用法总结/">Xpath用法总结</a>
-        </li>
-      
-        <li>
-          <a href="/2018/11/05/Python3-random模块常用函数总结/">Python3 Random模块常用函数总结</a>
-        </li>
-      
-    </ul>
-  </div>
-</h5>
-  
-    <!-- Friends Blog -->
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">9</span></li></ul>
-    </div>
-  </div>
-
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 QzmVc1<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-
-<script src="/js/script.js"></script>
-
-  </div>
+</div>
 </body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </html>
