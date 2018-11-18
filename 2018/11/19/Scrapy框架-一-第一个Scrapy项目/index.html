@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QzmVc1 - Standing on Shoulders of Giants.</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="前言这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~
+
+一、第一个Scrapy项目1.1 创建爬虫项目
+打开cmd窗口，cd到你想存放项目的文,"> 
+    <meta name="author" content="QzmVc1"> 
+    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">Scrapy框架(一) 第一个Scrapy项目</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">Scrapy框架(一) 第一个Scrapy项目</h1>
+        <div class="stuff">
+            <span>十一月 19, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~</p>
+<hr>
+<h3 id="一、第一个Scrapy项目"><a href="#一、第一个Scrapy项目" class="headerlink" title="一、第一个Scrapy项目"></a><b>一、第一个Scrapy项目</b></h3><p><b>1.1 创建爬虫项目</b></p>
+<p>打开cmd窗口，cd到你想存放项目的文件夹下，输入创建命令：</p>
+<blockquote>
+<p>scrapy startproject projectname</p>
+</blockquote>
+<p>其中projectname是爬虫项目名称</p>
+<p>进入爬虫项目后，我们可以看到如下的项目结构:</p>
+<blockquote>
+<p>│  scrapy.cfg<br>  │<br>  └─projectname<br>　　│  items.py<br>　　│  pipelines.py<br>　　│  settings.py<br>　　│  <strong>init</strong>.py<br>　　│<br>　　└─spiders<br>　　　　 <strong>init</strong>.py<br>　　　　 ···</p>
+</blockquote>
+<p><b>1.2 创建爬虫</b></p>
+<p>cd到刚才创建的项目下，输入创建爬虫命令：</p>
+<blockquote>
+<p>scrapy genspider basic web</p>
+</blockquote>
+<p>然后我们可以发现在projectname/spiders目录中增加了一个basic.py文件，这个命令所作的工作就是创建一个名为“basic” 的默认爬虫，并且该爬虫被限制为只能爬取web域名下的URL。</p>
+<h5 id="下面我通过创建一个名为"><a href="#下面我通过创建一个名为" class="headerlink" title="下面我通过创建一个名为"></a><b>下面我通过创建一个名为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">##### &lt;b&gt;爬虫的演示网址为我一位朋友的博客：https://jcoffeezph.top/&lt;/b&gt;</span><br><span class="line">******</span><br><span class="line">### &lt;b&gt;二、编写爬虫&lt;/b&gt;</span><br><span class="line">&gt; scrapy startproject Demo</span><br><span class="line">&gt; scrapy genspider demo web</span><br><span class="line"></span><br><span class="line">创建项目完成后我们打开items.py和demo.py文件，效果如下：</span><br><span class="line">![](https://s1.ax1x.com/2018/11/18/FSNqEQ.png)</span><br><span class="line">![](https://s1.ax1x.com/2018/11/18/FSNLNj.png)</span><br><span class="line">![](https://s1.ax1x.com/2018/11/18/FSNHHg.png)</span><br><span class="line"></span><br><span class="line">##### &lt;b&gt;之后我们就要大展身手着手开始编写爬虫啦~首先介绍一下items.py这个文件。&lt;/b&gt;</span><br><span class="line"></span><br><span class="line">#### &lt;b&gt;1.items.py&lt;/b&gt;</span><br><span class="line">使用items来包装需要爬取的内容。把内容都用items.py来进行管理，便于把抓取的内容传递进pipelines进行后期处理。同时，把内容都放进items.py以后，可以解耦合爬虫文件demo.py，责任更加明晰：爬虫负责去发请求，解析网址；items.py负责管理抓取到的内容。</span><br><span class="line"></span><br><span class="line">在项目目录下有items.py文件。这是存放items的地方，也就是存放抓取内容的地方。我们需要在items.py中告诉Scrapy我们要抓取的内容叫什么名字，也就是需要声明items。</span><br><span class="line"></span><br><span class="line">Item使用简单的class定义语法以及 Field 对象来声明。例如:</span><br><span class="line">![](https://s1.ax1x.com/2018/11/18/FSB6DP.png)</span><br><span class="line">&lt;b&gt;表示我们要抓取的内容是：title，time，author以及link。&lt;/b&gt;</span><br><span class="line"></span><br><span class="line">&lt;b&gt;Field对象指明了每个字段的元数据(metadata)&lt;/b&gt;，你可以为每个字段指明任何类型的元数据。 Field对象对接受的值没有任何限制。也正是因为这个原因，文档也无法提供所有可用的元数据的键(key)参考列表。 Field对象中保存的每个键可以由多个组件使用，并且只有这些组件知道这个键的存在。你可以根据自己的需求，定义使用其他的Field键。 &lt;b&gt;设置 Field 对象的主要目的就是在一个地方定义好所有的元数据。&lt;/b&gt; 一般来说，那些依赖某个字段的组件肯定使用了特定的键(key)。您必须查看组件相关的文档，查看其用了哪些元数据键(metadata key)。</span><br><span class="line"></span><br><span class="line">&lt;b&gt;需要注意的是，用来声明item的Field对象并没有被赋值为class的属性。 不过您可以通过Item.fields属性进行访问。&lt;/b&gt;</span><br><span class="line"></span><br><span class="line">#### &lt;b&gt;2.demo.py&lt;/b&gt;</span><br><span class="line">![](https://s1.ax1x.com/2018/11/18/FSNHHg.png)</span><br><span class="line">接下来我们进入*demo.py* 文件中。import语句能够让我们使用Scrapy框架中已有的类。下面是扩展自scrapy.Spider的DemoSpider类的定义。通过扩展的方式，尽管我们实际上没有写任何代码，但是该类已经继承了Scrapy框架中Spider类的相当一部分功能。这样，就可以只额外编写少量的代码行，而获得一个完整运行的爬虫了。最后是空函数parse()的定义，该函数包含两个参数self和response对象。通过self的引用，我们就可以使用爬虫中感兴趣的功能了。response对象是网页返回的请求对象。</span><br><span class="line"></span><br><span class="line">+ 首先，我们需要引入之前在item.py中编写的DemoItem类。如前所述，它在Demo目录的items.py文件中，也就是Demo.items模块中。我们使用如下命令引入该模块：</span><br><span class="line">&gt; from Demo.items import DemoItem</span><br><span class="line"></span><br><span class="line">+ 然后需要进行实例化，并返回一个对象。这非常简单，在parse()方法中，可以通过添加```item = DemoItem() ```语句创建一个新的item，然后可以按如下方式为其字段分配表达式：</span><br><span class="line">&gt; item[&apos;title&apos;] = response.xpath(&apos; &apos;).extract()</span><br><span class="line"></span><br><span class="line">&gt;有关xpath的具体用法可以参考我之前的一篇博客：http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/</span><br><span class="line"></span><br><span class="line">+ 最后return item返回item，代码如下所示：</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import scrapy</span><br><span class="line">from Demo.items import DemoItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class DemoSpider(scrapy.Spider):</span><br><span class="line">    name = &apos;demo&apos;</span><br><span class="line">    allowed_domains = [&apos;web&apos;]</span><br><span class="line">   </span><br><span class="line">    #起始爬取的URL列表，程序从这里开始</span><br><span class="line">    start_urls = [&apos;https://jcoffeezph.top/&apos;]</span><br><span class="line">	#parse()对每个URL进行解析</span><br><span class="line">    def parse(self, response):</span><br><span class="line">        item = DemoItem()</span><br><span class="line">        item[&apos;title&apos;] = response.xpath(&apos;//*[@class=&quot;article-title&quot;]/text()&apos;).extract()</span><br><span class="line">        item[&apos;author&apos;] = response.xpath(&apos;//*[@id=&quot;header&quot;]/hgroup/h1/a/text()&apos;).extract()</span><br><span class="line">        item[&apos;time&apos;] = response.xpath(&apos;//*[@itemprop=&quot;datePublished&quot;]/text()&apos;).extract()</span><br><span class="line">        item[&apos;link&apos;] = response.xpath(&apos;//*[@itemprop=&quot;name&quot;]/a/@href&apos;).extract()</span><br><span class="line">        return item</span><br></pre></td></tr></table></figure></b></h5><p>写完之后保存，我们在cmd下cd进入Demo爬虫项目下，输入爬取命令：</p>
+<blockquote>
+<p>scrapy crawl demo</p>
+</blockquote>
+<p>可以在控制台看到如下输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">47</span> [scrapy.core.engine] INFO: Spider opened</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">47</span> [scrapy.extensions.logstats] INFO: Crawled <span class="number">0</span> pages (at <span class="number">0</span> pages/min), scraped <span class="number">0</span> items (at <span class="number">0</span> items/min)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">47</span> [scrapy.extensions.telnet] DEBUG: Telnet console listening on <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6023</span></span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">49</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">404</span>) &lt;GET https://jcoffeezph.top/robots.txt&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">53</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">200</span>) &lt;GET https://jcoffeezph.top/&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">53</span> [scrapy.core.scraper] DEBUG: Scraped <span class="keyword">from</span> &lt;<span class="number">200</span> https://jcoffeezph.top/&gt;</span><br><span class="line">&#123;<span class="string">'author'</span>: [<span class="string">'ForMe'</span>],</span><br><span class="line"> <span class="string">'link'</span>: [<span class="string">'/2018/11/14/JSP访问mysql数据库/'</span>,</span><br><span class="line">          <span class="string">'/2018/11/07/散列表简析/'</span>,</span><br><span class="line">          <span class="string">'/2018/11/05/jsp基本语法及内置对象的简单介绍/'</span>,</span><br><span class="line">          <span class="string">'/2018/11/02/JDBC的简单使用/'</span>,</span><br><span class="line">          <span class="string">'/2018/11/01/MySQL的常用简单操作/'</span>,</span><br><span class="line">          <span class="string">'/2018/10/30/java-IO字符流与字节流简单使用示例/'</span>,</span><br><span class="line">          <span class="string">'/2018/10/29/java实现Set接口的HashSet、TreeSet用法简析/'</span>,</span><br><span class="line">          <span class="string">'/2018/10/29/java实现链表的简单操作/'</span>,</span><br><span class="line">          <span class="string">'/2018/10/29/java实现顺序表/'</span>,</span><br><span class="line">          <span class="string">'/2018/10/27/ArrayList和LinkedList用法简析/'</span>],</span><br><span class="line"> <span class="string">'time'</span>: [<span class="string">'2018-11-14'</span>,</span><br><span class="line">          <span class="string">'2018-11-07'</span>,</span><br><span class="line">          <span class="string">'2018-11-05'</span>,</span><br><span class="line">          <span class="string">'2018-11-02'</span>,</span><br><span class="line">          <span class="string">'2018-11-01'</span>,</span><br><span class="line">          <span class="string">'2018-10-30'</span>,</span><br><span class="line">          <span class="string">'2018-10-29'</span>,</span><br><span class="line">          <span class="string">'2018-10-29'</span>,</span><br><span class="line">          <span class="string">'2018-10-29'</span>,</span><br><span class="line">          <span class="string">'2018-10-27'</span>],</span><br><span class="line"> <span class="string">'title'</span>: [<span class="string">'JSP访问mysql数据库'</span>,</span><br><span class="line">           <span class="string">'散列表及HashMap简析'</span>,</span><br><span class="line">           <span class="string">'jsp基本语法及内置对象的简单介绍'</span>,</span><br><span class="line">           <span class="string">'JDBC的简单使用'</span>,</span><br><span class="line">           <span class="string">'MySQL的常用简单操作'</span>,</span><br><span class="line">           <span class="string">'java IO字符流与字节流简单使用示例'</span>,</span><br><span class="line">           <span class="string">'java实现Set接口的HashSet、TreeSet用法简析'</span>,</span><br><span class="line">           <span class="string">'java实现链表的简单操作'</span>,</span><br><span class="line">           <span class="string">'java实现顺序表'</span>,</span><br><span class="line">           <span class="string">'ArrayList和LinkedList用法简析'</span>]&#125;</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-18</span> <span class="number">23</span>:<span class="number">55</span>:<span class="number">53</span> [scrapy.core.engine] INFO: Closing spider (finished)</span><br></pre></td></tr></table></figure>
+<p>在爬取的同时我们也可以把数据保存到文件中，通过如下命令即可：</p>
+<blockquote>
+<p>scrapy crawl demo -o items.json</p>
+</blockquote>
+<hr>
+<h3 id="三、清理—item装载器与管理字段"><a href="#三、清理—item装载器与管理字段" class="headerlink" title="三、清理—item装载器与管理字段"></a><b>三、清理—item装载器与管理字段</b></h3><p>首先，我们使用一个强大的工具类——ItemLoader，以代替那些杂乱的extract()和xpath()操作。通过使用该类，我们的parse()方法会按如下进行代码变更：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> Demo.items <span class="keyword">import</span> DemoItem</span><br><span class="line"><span class="keyword">from</span> scrapy.loader <span class="keyword">import</span> ItemLoader</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'demo'</span></span><br><span class="line">    allowed_domains = [<span class="string">'web'</span>]</span><br><span class="line">    start_urls = [<span class="string">'https://jcoffeezph.top/'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        l = ItemLoader(item=DemoItem(),response=response)</span><br><span class="line">        l.add_xpath(<span class="string">'title'</span>,<span class="string">'//*[@class="article-title"]/text()'</span>)</span><br><span class="line">        l.add_xpath(<span class="string">'author'</span>, <span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>)</span><br><span class="line">        l.add_xpath(<span class="string">'time'</span>,<span class="string">'//*[@itemprop="datePublished"]/text()'</span>)</span><br><span class="line">        l.add_xpath(<span class="string">'link'</span>,<span class="string">'//*[@itemprop="name"]/a/@href'</span>)</span><br><span class="line">        <span class="keyword">return</span> l.load_item()</span><br></pre></td></tr></table></figure>
+<p>好多了，是不是？不过，这种写法并不只是视觉上更加舒适，它还非常明确地声明了我们意图去做的事情，而不会将其与实现细节混淆起来。这就使得代码具有更好的可维护性以及自描述性。</p>
+<p><b>ItemLoader提供了许多有趣的结合数据及对数据进行格式化和清洗的方式。</b>处理器是一个快速而又简单的函数。处理器的一个例子是Join()。假设你已经使用类似<code>//p</code>的xpath表达式选取了很多个段落，该处理器可以将这些段落结合成一个条目。另一个非常有意思的处理器是MapCompose(),通过使用该处理器</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>

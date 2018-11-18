@@ -11,8 +11,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：
-解决库之间的版本依赖，,"> 
+    <meta name="description" content="前言这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~
+
+一、第一个Scrapy项目1.1 创建爬虫项目
+打开cmd窗口，cd到你想存放项目的文,"> 
     <meta name="author" content="QzmVc1"> 
     <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -51,10 +53,19 @@
 
         </div>
         <div class="content markdown">
-            <p>参考链接：<a href="https://blog.csdn.net/u012162613/article/details/41915859?utm_source=blogxgwz0" target="_blank" rel="noopener">https://blog.csdn.net/u012162613/article/details/41915859?utm_source=blogxgwz0</a></p>
-<h3 id="1、CSV简介"><a href="#1、CSV简介" class="headerlink" title="1、CSV简介"></a><b>1、CSV简介</b></h3><p><b>CSV (Comma Separated Values)</b><br>即逗号分隔值（也称字符分隔值，因为分隔符可以不是逗号），是一种常用的文本格式，用以存储表格数据，包括数字或者字符。很多程序在处理数据时都会碰到CSV这种格式的文件，它的使用是比较广泛的。CSV虽然使用广泛，但却没有通用的标准，所以在处理CSV格式时常常会碰到麻烦，幸好Python内置了CSV模块。下面简单介绍CSV模块中最常用的一些函数。</p>
+            <h3 id="前言-CSV简介"><a href="#前言-CSV简介" class="headerlink" title="前言: CSV简介"></a><b>前言: CSV简介</b></h3><p><b>CSV (Comma Separated Values)</b></p>
+<p>CSV是英文Comma Separate Values（逗号分隔值）的缩写，顾名思义，文档的内容是由 “ , ” 分隔的一列列的数据构成的。CSV文档是一种编辑方便，可视化效果极佳的数据存储方式。而Python中有着非常强大的库可以处理这种文档，所以，如果你经常用Python处理数据的话，CSV文档当然是一种简单快捷的轻量级选择。下面我将以一个数据处理的例子入手，展现CSV文档的创建和编辑，以及Python是如何对CSV文档读写的。</p>
 <hr>
-<h3 id="2、CSV模块中的函数"><a href="#2、CSV模块中的函数" class="headerlink" title="2、CSV模块中的函数"></a><b>2、CSV模块中的函数</b></h3><p><b>2.1 读取CSV文件：</b></p>
+<h3 id="一、CSV文档的创建和编辑"><a href="#一、CSV文档的创建和编辑" class="headerlink" title="一、CSV文档的创建和编辑 "></a><b>一、CSV文档的创建和编辑 </b></h3><p><b>1. 良好的Excel交互</b> </p>
+<p>(1) Excel创建CSV<br>说到CSV文档，大家可能不熟悉，不过Excel想必没有人不知道，我们经常使用Excel负责数据的存储，编辑以及轻量级的计算。而CSV文档最大的优点就是能和Excel进行方便的交互，我们可以很方便地通过Excel创建、查看以及编辑CSV文档。</p>
+<p>在Excel中编辑完数据后，保存文件的时候，会出现一种文件格式，就是 .csv ，如图：<br><img src="http://www.codexiu.cn/static/blog/imagesw8/2016/08/26/full/cc083a2d132c9c2e2757634a2aaeb3d8de71faa0.jpg" alt=""></p>
+<p>然后现在点击保存，会发现“文件格式”的选项中有“逗号分隔值(.csv)”：</p>
+<p><img src="http://www.codexiu.cn/static/blog/imagesw8/2016/08/26/full/713ddcea10b12d1860bf589f094c259b22b39466.jpg" alt=""></p>
+<p>我们选择文件格式为.csv存储，这样，就通过Excel成功创建了一个CSV文档。</p>
+<p>(2) 文本访问和编辑CSV<br>如果现在我们将刚才创建好的CSV文档直接双击点开，他会默认由Excel打开，依旧和上边相同，用Excel可以很方便的编辑，修改数据，这里不再赘述。我要说的是CSV文档也可以以文本的形式展现出来，比如，我现在把刚才保存的CSV文档用Sublime打开，展示如下：<br><img src="http://www.codexiu.cn/static/blog/imagesw8/2016/08/26/full/297d0e4ff22a8521f6e2509ed766cf68b48dfab6.jpg" alt=""></p>
+<p>这我们就非常直观地明白为什么叫“逗号分隔值”了，数据之间是由 “,” 分隔开的，且格式非常规范，没有多余的空格，空行等。</p>
+<hr>
+<h3 id="二、Python读写CSV文档"><a href="#二、Python读写CSV文档" class="headerlink" title="二、Python读写CSV文档 "></a>二、<b>Python读写CSV文档 </b></h3><h4 id="1、CSV模块中的函数"><a href="#1、CSV模块中的函数" class="headerlink" title="1、CSV模块中的函数"></a><b>1、CSV模块中的函数</b></h4><p><b>1.1 读取CSV文件：</b></p>
 <ul>
 <li><b>reader(csvfile,  dialect=’excel’,  **fmtparams)</b><blockquote>
 <p>参数说明：<br>csvfile，必须是支持迭代(Iterator)的对象，可以是文件(file)对象或者列表(list)对象，如果是文件对象，打开时需要加”b”标志参数。<br>　　　　　　<br>dialect，编码风格，默认为excel的风格，也就是用逗号（,）分隔，dialect方式也支持自定义，通过调用register_dialect方法来注册。<br>　　　　<br>＞fmtparam，格式化参数，用来覆盖之前dialect对象指定的编码风格。</p>
@@ -67,7 +78,7 @@
 <p>例如程序输出结果：<br>[‘1’, ‘2’]<br>[‘3’, ‘a’]<br>[‘4’, ‘b’]</p>
 </blockquote>
 <hr>
-<p><b>2.2 存为CSV文件：</b></p>
+<p><b>1.2 存为CSV文件：</b></p>
 <ul>
 <li><b>writer(csvfile, dialect=’excel’, **fmtparams)</b></li>
 </ul>
@@ -75,8 +86,24 @@
 <blockquote>
 <p><b>‘w’表示写模式。</b><br>　　　　<br><b>首先open()函数打开当前路径下的名字为’xxx.csv’的文件，如果不存在这个文件，则创建它，返回myFile文件对象。如果文件’xxx.csv’事先存在，调用writer函数会先清空原文件中的文本，再执行writerow/writerows方法。</b><br>　　　　<br><b>csv.writer(myFile)返回writer对象myWriter。</b><br>　　　　　　<br><b>writerow()方法是一行一行写入，writerows方法是一次写入多行。</b></p>
 </blockquote>
+<p><b>1.3 以字典的形式读出：</b></p>
+<ul>
+<li><b>DictReader()</b></li>
+</ul>
+<p>假设CSV文件的内容如下图所示，DictReader会将第一行的内容（类标题）作为key值，第二行开始才是数据内容。即图中的CSV文件有2列7行数据，第一列的key值为id，第二列的key值为class： </p>
+<p><img src="https://img-blog.csdn.net/20180711190504142?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RvbWF0b21hcw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'name.csv'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    reader = csv.DictReader(fp)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> reader:</span><br><span class="line">        <span class="comment">#循环打印数据的id和class值，此循环执行7次</span></span><br><span class="line">        print(line[<span class="string">'id'</span>],line[<span class="string">'class'</span>])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>打印结果为：<br>0 5<br>1 4<br>2 13<br>…<br>6 15</p>
+</blockquote>
+<p><b>1.4 以字典的形式写入：</b></p>
+<ul>
+<li><b>DictWriter()</b></li>
+</ul>
+<p>DictReader可以用来把CSV文件以字典的形式读出，当然还有相对的DictWriter以字典的形式写入内容，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'name.csv'</span>,<span class="string">'w'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">	<span class="comment">#写入列标题，即DictWriter构造方法的fieldnames参数，生成writer对象</span></span><br><span class="line">    writer = csv.DictWriter(fp,fieldnames=[<span class="string">'id'</span>,<span class="string">'class'</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#但是如果此时直接写入内容，会导致没有数据名，所以，应先写数据名</span></span><br><span class="line">    <span class="comment">#csv提供了专门的函数 writeheader()来实现添加文件头（数据名），简化开发者的工作</span></span><br><span class="line">    writer.writeheader()</span><br><span class="line">   </span><br><span class="line">    <span class="comment">#写入数据</span></span><br><span class="line">    <span class="keyword">for</span> data <span class="keyword">in</span> datas:</span><br><span class="line">        writer.writerow(&#123;<span class="string">'id'</span>:data[<span class="number">0</span>],<span class="string">'class'</span>:data[<span class="number">1</span>]&#125;)</span><br></pre></td></tr></table></figure>
 <hr>
-<h5 id="除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect-下次碰到了再继续补充。"><a href="#除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect-下次碰到了再继续补充。" class="headerlink" title="除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect 下次碰到了再继续补充。"></a><b>除了writerow、writerows，writer对象还提供了其他一些方法：writeheader、dialect 下次碰到了再继续补充。</b></h5>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
