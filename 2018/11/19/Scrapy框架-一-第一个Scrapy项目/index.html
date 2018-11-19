@@ -11,10 +11,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="前言这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~
-
-一、第一个Scrapy项目1.1 创建爬虫项目
-打开cmd窗口，cd到你想存放项目的文,"> 
+    
     <meta name="author" content="QzmVc1"> 
     <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -54,6 +51,13 @@
         </div>
         <div class="content markdown">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~</p>
+<p><b>本篇博客框架如下：</b></p>
+<ul>
+<li>第一个Scrapy项目</li>
+<li>编写爬虫</li>
+<li>清理—item装载器与管理字段</li>
+<li>Scrapy Shell</li>
+</ul>
 <hr>
 <h3 id="一、第一个Scrapy项目"><a href="#一、第一个Scrapy项目" class="headerlink" title="一、第一个Scrapy项目"></a><b>一、第一个Scrapy项目</b></h3><p><b>1.1 创建爬虫项目</b></p>
 <p>打开cmd窗口，cd到你想存放项目的文件夹下，输入创建命令：</p>
@@ -139,7 +143,7 @@
 <li><p>如果不使用extract()，response.xpath()的返回值是网页内容预加载的Selector对象，为了获取真实值，可以使用extract()，也可以使用re()。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: response.xpath(<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: [&lt;Selector xpath=<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span> data=<span class="string">'ForMe'</span>&gt;]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>extract()名为提取，返回一个list列表，里面是一些要提取的内容。这里有个坑，在shell中输入extract()[0]访问第一个列表元素没有问题，但在pycharm中却报<code>index out of range</code>这个错，表示很奇怪，现在也不知道具体原因，pycharm中具体解决方法可以参考我的一篇博客：</p>
+<li><p>extract()名为提取，返回一个list列表，里面是一些要提取的内容。这里有个坑，在shell中输入extract()[0]访问第一个列表元素没有问题，但在pycharm中却报<code>index out of range</code>这个错，表示很奇怪，现在也不知道具体原因，pycharm中具体解决方法可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" target="_blank" rel="noopener">http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/</a></p>
 </li>
 </ol>
 <h5 id="以后做数据提取的时候，可以先在Scrapy-Shell中测试，测试通过后再应用到代码中。而Scrapy-Shell的主要作用也是用来测试xpath表达式。"><a href="#以后做数据提取的时候，可以先在Scrapy-Shell中测试，测试通过后再应用到代码中。而Scrapy-Shell的主要作用也是用来测试xpath表达式。" class="headerlink" title="以后做数据提取的时候，可以先在Scrapy Shell中测试，测试通过后再应用到代码中。而Scrapy Shell的主要作用也是用来测试xpath表达式。"></a><b>以后做数据提取的时候，可以先在Scrapy Shell中测试，测试通过后再应用到代码中。而Scrapy Shell的主要作用也是用来测试xpath表达式。</b></h5><p>当然Scrapy Shell作用不仅仅如此，但是不属于我们课程重点，不做详细介绍。</p>
