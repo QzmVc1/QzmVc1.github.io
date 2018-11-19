@@ -11,7 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="google" content="notranslate">
     <meta name="keywords" content="Fechin,"> 
-    
+    <meta name="description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。
+
+问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现Synta,"> 
     <meta name="author" content="QzmVc1"> 
     <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
     <link rel="icon" href="/img/favicon.png"> 
@@ -50,7 +52,54 @@
 
         </div>
         <div class="content markdown">
-            
+            <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
+<hr>
+<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <code>index out of range</code>错误信息，将extract()[0]换成extract_first()即可。</p>
+<p><b>问3：Scrapy爬取URL在cmd中显示url编码</b><br>答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。</p>
+<hr>
+<p>这里插着写一下windows控制台cmd乱码的解决方法（与本篇博客无关）</p>
+<p>有时在cmd中输出的中文乱码，解决办法如下：</p>
+<p>在cmd中输入 <b>CHCP 65001<br>CHCP是一个计算机指令，能够显示或设置活动代码页编号。</b>
+　　　　　　　　　　</p>
+<table>
+<thead>
+<tr>
+<th>代码页</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>65001</td>
+<td>UTF-8</td>
+</tr>
+<tr>
+<td>950</td>
+<td>繁体中文</td>
+</tr>
+<tr>
+<td>936</td>
+<td>中国 - 简体中文(GB2312)</td>
+</tr>
+<tr>
+<td>437</td>
+<td>MS-DOS 美国英语</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><b>问4：DEBUG: Filtered offsite request to…</b><br>答4：输出crawl命令后显示 <code>[scrapy.spidermiddlewares.offsite] DEBUG: Filtered offsite request to &#39;http://jcoffeezph.top&#39;</code>，原来是二次解析的域名被过滤掉了。解决办法yield scrapy.Request(url=detail_url, meta={‘item’: item}, callback=self.parse_info, <b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
+<p>这篇链接对于此问题的解释也很清楚：<a href="https://www.jianshu.com/p/c31e53fd45f6" target="_blank" rel="noopener">https://www.jianshu.com/p/c31e53fd45f6</a></p>
+<p><b>问5：Scrapy 爬取顺序每次都不一样</b><br>答5：异步处理请求，也就是说Scrapy发送请求之后，不会等待这个请求的响应（也就是不会阻塞），而是可以同时发送其他请求或者做别的事情。而我们知道服务器对于请求的响应是由很多方面的因素影响的，如网络速度、解析速度、资源抢占等等，其响应的顺序是难以预测的。</p>
+<p>Scrapy异步的根源，在于它依赖于Twisted框架。Twisted框架是一个Python的event-driven的框架，这里你可以理解为是异步I/O的。</p>
+<p><b>问6：数组的索引值是从0开始的，Xpath的元素值是从几开始的</b><br>答6：1</p>
+<p><b>问7：</b><br>答7：</p>
+
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
                 <source type="audio/mpeg" src="">
