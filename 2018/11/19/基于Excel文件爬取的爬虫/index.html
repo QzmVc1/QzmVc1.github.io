@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QzmVc1 - Standing on Shoulders of Giants.</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate">
+    <meta name="keywords" content="Fechin,"> 
+    <meta name="description" content="引言大多数情况下，每个源网站只会有一个爬虫；不过在某些情况下，你想要抓取的数据来自多个网站，此时唯一变化的东西就是所使用的XPath表达式。对于此类情况，如果为每个网站都设置一个爬虫则显得有些小题大,"> 
+    <meta name="author" content="QzmVc1"> 
+    <link rel="alternative" href="atom.xml" title="QzmVc1" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+</head>
+</html>
+<body class="loading">
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">基于Excel文件爬取的爬虫</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+    <div class="section">
+        <div class="article">
+    <div class="main">
+        <h1 class="title">基于Excel文件爬取的爬虫</h1>
+        <div class="stuff">
+            <span>十一月 19, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a><b>引言</b></h3><p>大多数情况下，每个源网站只会有一个爬虫；不过在某些情况下，你想要抓取的数据来自多个网站，此时唯一变化的东西就是所使用的XPath表达式。对于此类情况，如果为每个网站都设置一个爬虫则显得有些小题大做。那么可以只使用一个爬虫来爬取所有这些网站吗？答案是肯定的。</p>
+<hr>
+<h3 id="一、基于Excel文件爬取的爬虫"><a href="#一、基于Excel文件爬取的爬虫" class="headerlink" title="一、基于Excel文件爬取的爬虫"></a><b>一、基于Excel文件爬取的爬虫</b></h3><h4 id="1-1-CSV文件创建"><a href="#1-1-CSV文件创建" class="headerlink" title="1.1 CSV文件创建"></a><b>1.1 CSV文件创建</b></h4><p>现在，创建一个.csv文件，其中包含想要抽取的信息。可以使用一个电子表格程序，比如Microsoft Excel，来创建这个.csv文件。</p>
+<p>关于csv文件，可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener">用CSV模块读写CSV文件</a></p>
+<p>按下图填入相关信息，参考如下：<br><img src="https://s1.ax1x.com/2018/11/19/FSHZW9.png" alt=""></p>
+<p>然后将其命名为todo.csv，保存到爬虫根目录中。</p>
+<h4 id="1-2-Python3中的CSV模块"><a href="#1-2-Python3中的CSV模块" class="headerlink" title="1.2 Python3中的CSV模块"></a><b>1.2 Python3中的CSV模块</b></h4><p><a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener">用CSV模块读写CSV文件</a></p>
+<p>Python中有一个用于处理.csv文件的内置库。只需通过 <em>import csv</em> 导入模块，然后就可以使用如下这些直截了当的代码，以字典的形式读取文件中的所有行了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'name.csv'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    reader = csv.DictReader(fp)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> reader:</span><br><span class="line">        print(line[<span class="string">'id'</span>],line[<span class="string">'class'</span>])</span><br></pre></td></tr></table></figure>
+<p><b>文件中的第一行会被自动作为标题行处理</b>，并且会根据它们得出字典中键的名称。在接下来的每一行中，会得到一个包含行内数据的字典。我们可以使用for循环迭代每一行。</p>
+<h4 id="1-3-编辑爬虫"><a href="#1-3-编辑爬虫" class="headerlink" title="1.3 编辑爬虫"></a><b>1.3 编辑爬虫</b></h4><p>我们开始编辑爬虫。通过 <em>scrapy genspider fromcsv</em> 创建爬虫文件。我们将会用到.csv文件中的url，并且我们不希望受到域名的任何限制。因此，首先要做的事情就是移除start_urls以及allowed_domains，然后读取.csv文件。</p>
+<p>由于我们事先并不知道想要起始的url，而是从文件中读取得到的，因此需要实现一个start_requests()方法。对于每一行，创建Request，然后对其进行yield操作。此外，还会再request.meta中存储来自csv文件的字段名称和XPath表达式，一边在parse()函数中使用它们。然后，使用Item和ItemLoader填充Item字段。代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> scrapy.item <span class="keyword">import</span> Item,Field</span><br><span class="line"><span class="keyword">from</span> scrapy.loader <span class="keyword">import</span> ItemLoader</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FromcsvSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'fromcsv'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        path = <span class="string">'C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\CSV\\todo.csv'</span></span><br><span class="line">        <span class="keyword">with</span> open(path,<span class="string">'r'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">            reader = csv.DictReader(fp)</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> reader:</span><br><span class="line">                <span class="keyword">yield</span> Request(line.pop(<span class="string">'锘縰rl'</span>),meta=&#123;<span class="string">'fields'</span>:line&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        item = Item()</span><br><span class="line">        l = ItemLoader(item=item,response=response)</span><br><span class="line">        <span class="keyword">for</span> i,xpath <span class="keyword">in</span> response.meta[<span class="string">'fields'</span>].items():</span><br><span class="line">            <span class="keyword">if</span> xpath:</span><br><span class="line">                item.fields[i]=Field()</span><br><span class="line">                l.add_xpath(i,xpath)</span><br><span class="line">        <span class="keyword">return</span> l.load_item()</span><br></pre></td></tr></table></figure>
+<p>运行结果如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">44</span> [scrapy.core.engine] INFO: Spider opened</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">44</span> [scrapy.extensions.logstats] INFO: Crawled <span class="number">0</span> pages (at <span class="number">0</span> pages/min), scraped <span class="number">0</span> items (at <span class="number">0</span> items/min)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">44</span> [scrapy.extensions.telnet] DEBUG: Telnet console listening on <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">6023</span></span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">44</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">404</span>) &lt;GET https://jcoffeezph.top/robots.txt&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">45</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">200</span>) &lt;GET https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">14</span>/JSP%E8%AE%BF%E9%<span class="number">97</span>%AEmysql%E6%<span class="number">95</span>%B0%E6%<span class="number">8</span>D%AE%E5%BA%<span class="number">93</span>/&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">45</span> [scrapy.core.scraper] DEBUG: Scraped <span class="keyword">from</span> &lt;<span class="number">200</span> https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">14</span>/JSP%E8%AE%BF%E9%<span class="number">97</span>%AEmysql%E6%<span class="number">95</span>%B0%E6%<span class="number">8</span>D%AE%E5%BA%<span class="number">93</span>/&gt;</span><br><span class="line">&#123;<span class="string">'time'</span>: [<span class="string">'2018-11-14'</span>], <span class="string">'title'</span>: [<span class="string">'\n      JSP访问mysql数据库\n    '</span>]&#125;</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">200</span>) &lt;GET https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">05</span>/jsp%E5%<span class="number">9</span>F%BA%E6%<span class="number">9</span>C%AC%E8%AF%AD%E6%B3%<span class="number">95</span>%E5%<span class="number">8</span>F%<span class="number">8</span>A%E5%<span class="number">86</span>%<span class="number">85</span>%E7%BD%AE%E5%AF%B9%E8%B1%A1%E7%<span class="number">9</span>A%<span class="number">84</span>%E7%AE%<span class="number">80</span>%E5%<span class="number">8</span>D%<span class="number">95</span>%E4%BB%<span class="number">8</span>B%E7%BB%<span class="number">8</span>D/&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.scraper] DEBUG: Scraped <span class="keyword">from</span> &lt;<span class="number">200</span> https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">05</span>/jsp%E5%<span class="number">9</span>F%BA%E6%<span class="number">9</span>C%AC%E8%AF%AD%E6%B3%<span class="number">95</span>%E5%<span class="number">8</span>F%<span class="number">8</span>A%E5%<span class="number">86</span>%<span class="number">85</span>%E7%BD%AE%E5%AF%B9%E8%B1%A1%E7%<span class="number">9</span>A%<span class="number">84</span>%E7%AE%<span class="number">80</span>%E5%<span class="number">8</span>D%<span class="number">95</span>%E4%BB%<span class="number">8</span>B%E7%BB%<span class="number">8</span>D/&gt;</span><br><span class="line">&#123;<span class="string">'time'</span>: [<span class="string">'2018-11-05'</span>]&#125;</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.engine] DEBUG: Crawled (<span class="number">200</span>) &lt;GET https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">07</span>/%E6%<span class="number">95</span>%A3%E5%<span class="number">88</span>%<span class="number">97</span>%E8%A1%A8%E7%AE%<span class="number">80</span>%E6%<span class="number">9</span>E%<span class="number">90</span>/&gt; (referer: <span class="keyword">None</span>)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.scraper] DEBUG: Scraped <span class="keyword">from</span> &lt;<span class="number">200</span> https://jcoffeezph.top/<span class="number">2018</span>/<span class="number">11</span>/<span class="number">07</span>/%E6%<span class="number">95</span>%A3%E5%<span class="number">88</span>%<span class="number">97</span>%E8%A1%A8%E7%AE%<span class="number">80</span>%E6%<span class="number">9</span>E%<span class="number">90</span>/&gt;</span><br><span class="line">&#123;<span class="string">'time'</span>: [<span class="string">'2018-11-07'</span>]&#125;</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.engine] INFO: Closing spider (finished)</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.statscollectors] INFO: Dumping Scrapy stats:</span><br><span class="line">&#123;<span class="string">'downloader/request_bytes'</span>: <span class="number">1125</span>,</span><br><span class="line"> <span class="string">'downloader/request_count'</span>: <span class="number">4</span>,</span><br><span class="line"> <span class="string">'downloader/request_method_count/GET'</span>: <span class="number">4</span>,</span><br><span class="line"> <span class="string">'downloader/response_bytes'</span>: <span class="number">156880</span>,</span><br><span class="line"> <span class="string">'downloader/response_count'</span>: <span class="number">4</span>,</span><br><span class="line"> <span class="string">'downloader/response_status_count/200'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'downloader/response_status_count/404'</span>: <span class="number">1</span>,</span><br><span class="line"> <span class="string">'finish_reason'</span>: <span class="string">'finished'</span>,</span><br><span class="line"> <span class="string">'finish_time'</span>: datetime.datetime(<span class="number">2018</span>, <span class="number">11</span>, <span class="number">19</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">46</span>, <span class="number">842400</span>),</span><br><span class="line"> <span class="string">'item_scraped_count'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'log_count/DEBUG'</span>: <span class="number">8</span>,</span><br><span class="line"> <span class="string">'log_count/INFO'</span>: <span class="number">7</span>,</span><br><span class="line"> <span class="string">'response_received_count'</span>: <span class="number">4</span>,</span><br><span class="line"> <span class="string">'scheduler/dequeued'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'scheduler/dequeued/memory'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'scheduler/enqueued'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'scheduler/enqueued/memory'</span>: <span class="number">3</span>,</span><br><span class="line"> <span class="string">'start_time'</span>: datetime.datetime(<span class="number">2018</span>, <span class="number">11</span>, <span class="number">19</span>, <span class="number">4</span>, <span class="number">20</span>, <span class="number">44</span>, <span class="number">97251</span>)&#125;</span><br><span class="line"><span class="number">2018</span><span class="number">-11</span><span class="number">-19</span> <span class="number">12</span>:<span class="number">20</span>:<span class="number">46</span> [scrapy.core.engine] INFO: Spider closed (finished)</span><br></pre></td></tr></table></figure></p>
+<p><b>代码解释：</b></p>
+<p>在代码中，你可能已经注意到了几个事情，由于我们没有为该项目定义系统范围的Item，因此必须像如下代码这样手动为ItemLoader提供：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.item <span class="keyword">import</span> Item,Field</span><br><span class="line">item = Item()</span><br><span class="line">l = ItemLoader(item=item,response=response)</span><br></pre></td></tr></table></figure>
+<p>此外，我们还使用了Item的成员变量fields动态添加字段，这也是为什么我们没有导入CsvItem(items.py)而使用scrapy.item中的Item。为了能够动态添加新字段，并通过ItemLoader对其进行填充，需要实现的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处的 name 是一个字符串变量</span></span><br><span class="line">item.fields[name] = Field()</span><br><span class="line">l.add_xpath(name, xpath)</span><br></pre></td></tr></table></figure>
+<p><b>代码说明：</b></p>
+<ol>
+<li>reader是一个可迭代对象。</li>
+<li>line.pop(‘锘縰rl’) 乱码问题目前为止我还找不到方法，留坑…</li>
+<li>关于Request中的参数meta：meta是一个字典，<b>主要是用解析函数之间传递值</b>，常见的情况是：在parse1中给item某些字段提取了值，但是另外一些值需要在parse2中提取，这时候需要将parse1中的item传到parse2方法中处理，显然无法直接给parse2设置额外参数。 <b>Request对象接受一个meta参数，一个字典对象，同时response对象有一个meta属性可以获取到相应Request传过来的meta。</b></li>
+</ol>
+<hr>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title="0" data-url="http://link.hhtjim.com/163/5146554.mp3"></li>
+                    
+                        <li title="1" data-url="http://link.hhtjim.com/qq/001faIUs4M2zna.mp3"></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id="gitalk-container" class="comment link" data-ae="false" data-ci="" data-cs="" data-r="" data-o="" data-a="" data-d="false">查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
