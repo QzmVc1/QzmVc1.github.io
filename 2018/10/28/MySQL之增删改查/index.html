@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/10/29/ig8Zdg.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/10/29/ig8FQP.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/10/29/ig8VeS.png">
-<meta property="og:updated_time" content="2018-11-20T00:16:45.583Z">
+<meta property="og:updated_time" content="2018-11-21T13:42:54.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL之增删改查">
 <meta name="twitter:description" content="运行MySQL 如果没有开启Mysql服务需输入net start mysql;命令  1: cd 到mysql bin目录下： 2：链接到本地数据库： -h localhost表示链接到本地数据库，-u表示数据库用户名（默认为root），-p表示数据库密码（默认为root）">
@@ -223,6 +223,7 @@
 <blockquote>
 <p>drop database dbname；</p>
 </blockquote>
+<p><strong>5：创建表单：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE doubanmovie (</span><br><span class="line">    name VARCHAR(100) NOT NULL, # 电影名字</span><br><span class="line">    info VARCHAR(150), # 电影信息</span><br><span class="line">    rating VARCHAR(10), # 评分</span><br><span class="line">    num VARCHAR(10), # 评论人数</span><br><span class="line">    quote VARCHAR(100), # 经典语句</span><br><span class="line">    img_url VARCHAR(100), # 电影图片</span><br><span class="line">)default charset=utf8;</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h3 id="数据库操作增删改查："><a href="#数据库操作增删改查：" class="headerlink" title="数据库操作增删改查："></a><b>数据库操作增删改查：</b></h3><h4 id="1-增"><a href="#1-增" class="headerlink" title="1. 增"></a><b>1. 增</b></h4><p><img src="https://s1.ax1x.com/2018/10/29/ig8AL8.png" alt=""></p>
 <p><img src="https://s1.ax1x.com/2018/10/29/ig3zIH.png" alt=""></p>
@@ -281,7 +282,7 @@
 </blockquote>
 <hr>
 <h3 id="对查询结果进行排序"><a href="#对查询结果进行排序" class="headerlink" title="对查询结果进行排序"></a><b>对查询结果进行排序</b></h3><p>语法：SELECT 字段名1，字段名2，… FROM 表名 ORDER BY 字段名1 [ ASC | DESC ],字段名2 [ ASC|DESC ]…<br>　　　　　　　　　　　　　　　　　　　　<br><b>在该语法中指定的字段名是对查询结果进行排序的依据，ASC表示升序排列，DESC 表示降序排列，默认情况是升序排列。</b>
-　　　　　　　　　　　　　　　　　　　　　　　　　　        </p>
+　　　　　　　　　　　　　　　　　　　　　　　　　　</p>
 <blockquote>
 <p>举例1：查出student2表中的所有记录，并按照grade字段进行降序排序<br>命令：SELECT * FROM student2 ORDER BY grade DESC;</p>
 </blockquote>
@@ -464,15 +465,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,7 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -508,19 +509,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">

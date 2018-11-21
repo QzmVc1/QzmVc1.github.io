@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-20T00:56:47.691Z">
+<meta property="og:updated_time" content="2018-11-21T13:13:26.029Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy框架之细数到目前为止我遇到的坑">
 <meta name="twitter:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
@@ -201,7 +201,7 @@
         <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
 <hr>
 <p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
-<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <code>index out of range</code>错误信息，将extract()[0]换成extract_first()即可。<br><a id="more"></a><br><b>问3：Scrapy爬取URL在cmd中显示url编码</b><br>答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br><a id="more"></a><br><b>问3：Scrapy爬取URL在cmd中显示url编码</b><br>答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。</p>
 <hr>
 <p>这里插着写一下windows控制台cmd乱码的解决方法（与本篇博客无关）</p>
 <p>有时在cmd中输出的中文乱码，解决办法如下：</p>
@@ -238,12 +238,21 @@
 </tbody>
 </table>
 <hr>
-<p><b>问4：DEBUG: Filtered offsite request to…</b><br>答4：输出crawl命令后显示 <code>[scrapy.spidermiddlewares.offsite] DEBUG: Filtered offsite request to &#39;http://jcoffeezph.top&#39;</code>，原来是二次解析的域名被过滤掉了。解决办法yield scrapy.Request(url=detail_url, meta={‘item’: item}, callback=self.parse_info, <b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
+<p><b>问4：DEBUG: Filtered offsite request to…</b><br>答4：输出crawl命令后显示 <strong>[scrapy.spidermiddlewares.offsite] DEBUG: Filtered offsite request to ‘<a href="http://jcoffeezph.top&#39;" target="_blank" rel="noopener">http://jcoffeezph.top&#39;</a></strong>，原来是二次解析的域名被过滤掉了。解决办法yield scrapy.Request(url=detail_url, meta={‘item’: item}, callback=self.parse_info, <b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
 <p>这篇链接对于此问题的解释也很清楚：<a href="https://www.jianshu.com/p/c31e53fd45f6" target="_blank" rel="noopener">https://www.jianshu.com/p/c31e53fd45f6</a></p>
 <p><b>问5：Scrapy 爬取顺序每次都不一样</b><br>答5：异步处理请求，也就是说Scrapy发送请求之后，不会等待这个请求的响应（也就是不会阻塞），而是可以同时发送其他请求或者做别的事情。而我们知道服务器对于请求的响应是由很多方面的因素影响的，如网络速度、解析速度、资源抢占等等，其响应的顺序是难以预测的。</p>
 <p>Scrapy异步的根源，在于它依赖于Twisted框架。Twisted框架是一个Python的event-driven的框架，这里你可以理解为是异步I/O的。</p>
 <p><b>问6：数组的索引值是从0开始的，Xpath的元素值是从几开始的</b><br>答6：1</p>
-<p><b>问7：</b><br>答7：</p>
+<p><b>问7：<strong>json.dumps的参数ensure_ascii=False：</strong>  </b><br>答7：在使用json.dumps时要注意一个问题</p>
+<blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; <span class="keyword">import</span> json</span><br><span class="line">&gt; &gt;&gt;&gt; <span class="keyword">print</span> json.dumps(<span class="string">'中国'</span>)</span><br><span class="line">&gt;</span><br><span class="line">&gt; 输出：<span class="string">"\u4e2d\u56fd"</span></span><br><span class="line">&gt; 输出的会是</span><br><span class="line">&gt; <span class="string">'中国'</span> 中的ascii 字符码，而不是真正的中文。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>因为json.dumps 序列化时对中文默认使用的ascii编码.想输出真正的中文需要指定ensure_ascii=False;</p>
+<p><strong>问8：中文保存到json文件中产生乱码</strong><br>答8：通过str.encode转换为’UTF-8’编码，因为str.encode返回值是一个bytes对象，因此打开文件的方式要写成 ‘wb’ 。<br>也可以通过在settings.py中添加如下代码：</p>
+<blockquote>
+<p>FEED_EXPORT_ENCODING = ‘UTF-8’</p>
+</blockquote>
+<p><strong>问9：</strong><br>答9：</p>
 
       
 
@@ -435,15 +444,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,7 +464,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,19 +488,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">

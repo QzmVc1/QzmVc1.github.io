@@ -173,21 +173,21 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Scrapy框架-三-使用Pipeline处理数据" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-Scrapy框架-三-使用Pipeline处理数据(一)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据/">Scrapy框架(三) 使用Pipeline处理数据</a>
+      <a class="article-title" href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据(一)/">Scrapy框架(三) 使用Pipeline处理数据(一)</a>
     </h1>
   
 
 
 
         
-        <a href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据/" class="archive-article-date">
+        <a href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据(一)/" class="archive-article-date">
   	<time datetime="2018-11-21T05:16:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
 </a>
         
@@ -195,6 +195,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
+        <h3 id="一、Item-Pipeline简介"><a href="#一、Item-Pipeline简介" class="headerlink" title="一、Item Pipeline简介"></a>一、Item Pipeline简介</h3><p><strong>Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。</strong><br>当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。<br>每个初始Item管道的组件都是由一个简单的方法组成的Python类。<br>如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure></p>
+<p>但是我们没有具体定义，因此执行爬虫并不会输出结果。<br>他们获取了Item并执行他们的方法，同时他们还需要确定的是是否需要在Item管道中继续执行下一步或是直接丢弃掉不处理。</p>
+<hr>
+<h3 id="二、Item管道的通常执行过程"><a href="#二、Item管道的通常执行过程" class="headerlink" title="二、Item管道的通常执行过程"></a>二、Item管道的通常执行过程</h3><ul>
+<li>清理HTML数据  　</li>
+<li>验证解析到的数据（检查Item是否包含必要的字段）　　</li>
+<li>检查是否是重复数据（如果重复就删除）　　</li>
+<li>将解析到的数据存储到数据库中　　</li>
+</ul>
+<hr>
         
       
 
@@ -226,7 +236,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据(一)/">展开全文 >></a>
         </p>
       
 
@@ -366,7 +376,7 @@
         <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
 <hr>
 <p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
-<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <code>index out of range</code>错误信息，将extract()[0]换成extract_first()即可。<br>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br>
         
       
 
@@ -999,15 +1009,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1019,7 +1029,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,19 +1053,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
