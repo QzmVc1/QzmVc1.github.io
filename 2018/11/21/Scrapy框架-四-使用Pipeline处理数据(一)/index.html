@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Scrapy框架(三) 使用Pipeline处理数据(一) | QzmVc1</title>
+  <title>Scrapy框架(四) 使用Pipeline处理数据(一) | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一、Item Pipeline简介Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。每个初始Item管道的组件都是由一个简单的方法组成的Python类。如下所示：123class DemoPipeline(object):    def process_item(s">
 <meta name="keywords" content="Python,Scrapy,爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy框架(三) 使用Pipeline处理数据(一)">
-<meta property="og:url" content="http://yoursite.com/2018/11/21/Scrapy框架-三-使用Pipeline处理数据(一)/index.html">
+<meta property="og:title" content="Scrapy框架(四) 使用Pipeline处理数据(一)">
+<meta property="og:url" content="http://yoursite.com/2018/11/21/Scrapy框架-四-使用Pipeline处理数据(一)/index.html">
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="一、Item Pipeline简介Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。每个初始Item管道的组件都是由一个简单的方法组成的Python类。如下所示：123class DemoPipeline(object):    def process_item(s">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/21/FClz1f.png">
-<meta property="og:updated_time" content="2018-11-21T15:09:58.042Z">
+<meta property="og:updated_time" content="2018-11-22T02:43:28.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scrapy框架(三) 使用Pipeline处理数据(一)">
+<meta name="twitter:title" content="Scrapy框架(四) 使用Pipeline处理数据(一)">
 <meta name="twitter:description" content="一、Item Pipeline简介Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。每个初始Item管道的组件都是由一个简单的方法组成的Python类。如下所示：123class DemoPipeline(object):    def process_item(s">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/11/21/FClz1f.png">
   
@@ -178,21 +178,21 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Scrapy框架-三-使用Pipeline处理数据(一)" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Scrapy框架-四-使用Pipeline处理数据(一)" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Scrapy框架(三) 使用Pipeline处理数据(一)
+      Scrapy框架(四) 使用Pipeline处理数据(一)
     </h1>
   
 
 
 
         
-        <a href="/2018/11/21/Scrapy框架-三-使用Pipeline处理数据(一)/" class="archive-article-date">
+        <a href="/2018/11/21/Scrapy框架-四-使用Pipeline处理数据(一)/" class="archive-article-date">
   	<time datetime="2018-11-21T05:16:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
 </a>
         
@@ -239,6 +239,10 @@
 </blockquote>
 </blockquote>
 <h4 id="4-3-删除重复数据"><a href="#4-3-删除重复数据" class="headerlink" title="4.3 删除重复数据"></a>4.3 删除重复数据</h4><p>一个用于去重的过滤器，丢弃那些已经被处理过的item。假设item有一个唯一的id，但是我们spider返回的多个item中包含了相同的id,去重方法如下：这里初始化了一个集合，每次判断id是否在集合中已经存在，从而做到去重的功能。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DuplicatesPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.ids_seen = set()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> item[<span class="string">'id'</span>] <span class="keyword">in</span> self.ids_seen:</span><br><span class="line">            <span class="keyword">raise</span> DropItem(<span class="string">"Duplicate item found: %s"</span> % item)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.ids_seen.add(item[<span class="string">'id'</span>])</span><br><span class="line">            <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-4-将数据写入数据库"><a href="#4-4-将数据写入数据库" class="headerlink" title="4.4 将数据写入数据库"></a>4.4 将数据写入数据库</h4><p>见下一章</p>
+<hr>
+<h3 id="五、激活Item-Pipeline组件"><a href="#五、激活Item-Pipeline组件" class="headerlink" title="五、激活Item Pipeline组件"></a>五、激活Item Pipeline组件</h3><p>在settings.py文件中，往ITEM_PIPELINES中添加项目管道的类名，就可以激活项目管道组件，如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    <span class="string">'Demo.pipelines.DemoPipeline1'</span>: <span class="number">300</span>,</span><br><span class="line">    <span class="string">'Demo.pipelines.DemoPipeline2'</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>整数值通常设置在0-1000之间，数值越低代表优先级越高。</p>
 <hr>
 
       
@@ -280,9 +284,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/11/22/Scrapy框架-五-将数据存储到Mysql数据库/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Scrapy框架-五-将数据存储到Mysql数据库
+        
+      </div>
+    </a>
   
-    <a href="/2018/11/19/基于Excel文件爬取的爬虫/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">基于Excel文件爬取的爬虫</div>
+  
+    <a href="/2018/11/19/Scrapy框架-三-基于Excel文件爬取的爬虫/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Scrapy框架(三) 基于Excel文件爬取的爬虫</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -410,14 +423,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -426,7 +431,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -434,7 +447,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -450,11 +471,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -462,15 +479,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
