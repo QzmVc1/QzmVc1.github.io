@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Scrapy框架-五-将数据存储到Mysql数据库 | QzmVc1</title>
+  <title>Scrapy框架(五) 将数据存储到数据库 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一、前言这章作为我最感兴趣的一章，当然要好好大写特写一番了！ 因为本人对Mysql比较熟悉，Python也有Pymysql这个库可以和Mysql进行交互，所以这章主要就是介绍将数据存储到Mysql数据库的Pipeline。之前也听说过Scrapy和Mongodb数据库结合起来也很方便，有空的话以后学了再补上叭~ 注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！">
 <meta name="keywords" content="Python,Scrapy,爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy框架-五-将数据存储到Mysql数据库">
+<meta property="og:title" content="Scrapy框架(五) 将数据存储到数据库">
 <meta property="og:url" content="http://yoursite.com/2018/11/22/Scrapy框架-五-将数据存储到Mysql数据库/index.html">
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="一、前言这章作为我最感兴趣的一章，当然要好好大写特写一番了！ 因为本人对Mysql比较熟悉，Python也有Pymysql这个库可以和Mysql进行交互，所以这章主要就是介绍将数据存储到Mysql数据库的Pipeline。之前也听说过Scrapy和Mongodb数据库结合起来也很方便，有空的话以后学了再补上叭~ 注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/22/FPlJrF.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/22/FiPjp9.png">
-<meta property="og:updated_time" content="2018-11-22T15:22:15.272Z">
+<meta property="og:updated_time" content="2018-11-22T15:26:54.943Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scrapy框架-五-将数据存储到Mysql数据库">
+<meta name="twitter:title" content="Scrapy框架(五) 将数据存储到数据库">
 <meta name="twitter:description" content="一、前言这章作为我最感兴趣的一章，当然要好好大写特写一番了！ 因为本人对Mysql比较熟悉，Python也有Pymysql这个库可以和Mysql进行交互，所以这章主要就是介绍将数据存储到Mysql数据库的Pipeline。之前也听说过Scrapy和Mongodb数据库结合起来也很方便，有空的话以后学了再补上叭~ 注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/11/22/FPlJrF.png">
   
@@ -186,7 +186,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Scrapy框架-五-将数据存储到Mysql数据库
+      Scrapy框架(五) 将数据存储到数据库
     </h1>
   
 
@@ -449,7 +449,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,19 +457,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -481,7 +469,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +485,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
