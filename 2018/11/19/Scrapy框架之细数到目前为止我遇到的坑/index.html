@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-21T13:13:26.029Z">
+<meta property="og:updated_time" content="2018-11-27T08:46:45.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy框架之细数到目前为止我遇到的坑">
 <meta name="twitter:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
@@ -252,7 +252,9 @@
 <blockquote>
 <p>FEED_EXPORT_ENCODING = ‘UTF-8’</p>
 </blockquote>
-<p><strong>问9：</strong><br>答9：</p>
+<p><strong>问9：Scrapy爬取图片报错：raise ValueError(‘Missing scheme in request url: %s’ % self._url)</strong><br>答9：items.py定义的image_urls属性需要在spider.py中爬取时赋值为列表，以便在下载管道中进行迭代下载。</p>
+<p><strong>问10：Scrapy爬取图片报错：’NoneType’ object is not subscriptable</strong><br>答10：可能是管道下载获取图片URL时碰到了一些无法获取到的图片，例如本地图片等等…</p>
+<p><strong>问11：</strong><br>答11：</p>
 
       
 
@@ -444,15 +446,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,7 +458,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -469,10 +475,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -492,11 +494,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">

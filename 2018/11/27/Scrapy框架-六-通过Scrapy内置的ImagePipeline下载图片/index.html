@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>QzmVc1</title>
+  <title>Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QzmVc1">
-<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+  <meta name="description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片/index.html">
 <meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FE6geK.png">
+<meta property="og:updated_time" content="2018-11-27T08:46:48.249Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
+<meta name="twitter:description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -171,391 +178,74 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Python3-OS模块常用命令总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/Python3-OS模块常用命令总结/">Python3 OS模块常用命令总结</a>
+    <h1 class="article-title" itemprop="name">
+      Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片
     </h1>
   
 
 
 
         
-        <a href="/2018/10/28/Python3-OS模块常用命令总结/" class="archive-article-date">
-  	<time datetime="2018-10-28T03:27:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
+        <a href="/2018/11/27/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片/" class="archive-article-date">
+  	<time datetime="2018-11-27T07:47:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>参考链接：<a href="https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1" target="_blank" rel="noopener">https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1</a></p>
-<h3 id="一、OS模块概述"><a href="#一、OS模块概述" class="headerlink" title="一、OS模块概述"></a><b>一、OS模块概述</b></h3><p>Python3 OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的(一语中的）。<br>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/Python3-OS模块常用命令总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈URL标准化" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/28/浅谈URL标准化/">浅谈URL标准化</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/28/浅谈URL标准化/" class="archive-article-date">
-  	<time datetime="2018-10-28T03:26:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）<br>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/28/浅谈URL标准化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈Python3-Json模块" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/27/浅谈Python3-Json模块/">浅谈Python3 Json模块</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/27/浅谈Python3-Json模块/" class="archive-article-date">
-  	<time datetime="2018-10-27T03:43:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg" alt=""></p>
-<h3 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a><b>基础结构</b></h3><h5 id="JSON建构于两种结构："><a href="#JSON建构于两种结构：" class="headerlink" title="JSON建构于两种结构："></a><b>JSON建构于两种结构：</b></h5><p><b>1. “名称/值”对的集合（A collection of name/value pairs）</b><br> 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。</p>
-<p><b>2. 值的有序列表（An ordered list of values）</b>　<br>　　　在大部分语言中，它被理解为数组（array）。<br>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Json</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/27/浅谈Python3-Json模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-好玩的JS特效" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/25/好玩的JS特效/">好玩的JS特效</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/25/好玩的JS特效/" class="archive-article-date">
-  	<time datetime="2018-10-25T13:05:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="从别的博客上看到一个比较好玩的JS特效，保存了！"><a href="#从别的博客上看到一个比较好玩的JS特效，保存了！" class="headerlink" title="从别的博客上看到一个比较好玩的JS特效，保存了！"></a>从别的博客上看到一个比较好玩的JS特效，保存了！</h4>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/25/好玩的JS特效/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo+Github 搭建自己的个人博客" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/25/Hexo+Github 搭建自己的个人博客/">Hexo+Github 搭建自己的个人博客</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/25/Hexo+Github 搭建自己的个人博客/" class="archive-article-date">
-  	<time datetime="2018-10-25T01:10:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，<del>身心疲惫，欲哭无泪</del>，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有<del>细节</del>（坑）记录下来，为有同样好奇心的小伙伴给个参考。                </p>
-<p><img src="https://s1.ax1x.com/2018/10/25/iylB38.png" alt=""></p>
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/" target="_blank" rel="noopener">http://qzmvc1.top/</a></h4><hr>
+<a id="more"></a>
+<h3 id="一、爬取图片链接"><a href="#一、爬取图片链接" class="headerlink" title="一、爬取图片链接"></a>一、爬取图片链接</h3><p>首先要做的当然是新建爬虫项目和爬虫文件，通过图下命令即可：</p>
+<blockquote>
+<p>scrapy startproject ImageDownloads<br>cd ImageDownloads<br>scrapy genspider image</p>
+</blockquote>
+<p>下面我们开始着手工作！</p>
+<h4 id="1-1-items-py"><a href="#1-1-items-py" class="headerlink" title="1.1 items.py"></a>1.1 items.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImagedownloadsItem</span><span class="params">(scrapy.Item)</span>:</span></span><br><span class="line">  <span class="comment"># image_urls是存储图片链接的元数据</span></span><br><span class="line">    image_urls = scrapy.Field()</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-image-py"><a href="#1-2-image-py" class="headerlink" title="1.2 image.py"></a>1.2 image.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> ImageDownloads.items <span class="keyword">import</span> ImagedownloadsItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'image'</span></span><br><span class="line">    allowed_domains = [<span class="string">'web'</span>]</span><br><span class="line">    start_urls = [<span class="string">'http://qzmvc1.top/'</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        URL1 = response.xpath(<span class="string">'//a[@class="extend next"]//@href'</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL1:</span><br><span class="line">            <span class="keyword">yield</span> Request(urljoin(response.url,url),dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">        URL2 = response.xpath(<span class="string">'//a[@class="article-title"]/@href'</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL2:</span><br><span class="line">            <span class="keyword">yield</span> Request(urljoin(response.url,url),callback=self.parse_item,dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span><span class="params">(self,response)</span>:</span></span><br><span class="line">        item = ImagedownloadsItem()</span><br><span class="line">        image_urls = response.xpath(<span class="string">'//img/@src'</span>).extract()</span><br><span class="line">        item[<span class="string">'image_urls'</span>] = image_urls</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>水平爬取，垂直爬取一些基本的操作感到生疏的可以复习复习我以前的博客:<br><a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%80-%E7%AC%AC%E4%B8%80%E4%B8%AAScrapy%E9%A1%B9%E7%9B%AE/" target="_blank" rel="noopener">第一个Scrapy项目</a><br><a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8A%BD%E5%8F%96%E6%9B%B4%E5%A4%9A%E7%9A%84URL/" target="_blank" rel="noopener">抽取更多的URL</a></p>
+<p>parse_item()这个解析函数主要做的就是对于每一个待解析的页面(就是我们垂直爬取的内容页面)，通过Xpath表达式获取该页面内所有图片的<strong>一个URL列表</strong>，并把这个<strong>列表</strong>赋值给<em>items.py</em> 中我们定义的元数据。</p>
+<p>之所以需要给元数据赋值为列表，是因为<strong>管道里面需要用到列表进行迭代操作</strong>，如果不是列表爬取日志上会显示 <strong><em>raise ValueError(‘Missing scheme in request url: %s’ % self._url)</em></strong> 这个错误信息。</p>
+<p><strong>所以，<em>image.py</em> 主要是获取每张页面的图片链接，并返回每个Item。</strong></p>
+<p>####　1.3 pipelines.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scrapy.pipelines.images <span class="keyword">import</span> ImagesPipeline</span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> pymysql <span class="keyword">import</span> cursors</span><br><span class="line"><span class="keyword">from</span> twisted.enterprise <span class="keyword">import</span> adbapi</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImagedownloadsPipeline</span><span class="params">(ImagesPipeline)</span>:</span></span><br><span class="line">   <span class="comment"># 迭代获取图片URL链接并进行下载</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_media_requests</span><span class="params">(self,item,info)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> item[<span class="string">'image_urls'</span>]:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="string">'http'</span> <span class="keyword">not</span> <span class="keyword">in</span> url:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                   <span class="keyword">yield</span> Request(url)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(e)</span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    文件下载完成之后，返回一个列表 results</span></span><br><span class="line"><span class="string">    列表中是一个元组，第一个值是布尔值，请求成功或失败，第二个值是下载到的资源</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_completed</span><span class="params">(self,results,item,info)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> results[<span class="number">0</span>][<span class="number">0</span>]:</span><br><span class="line">            <span class="keyword">raise</span> DropItem(<span class="string">'Download failure!'</span>)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    lst = set()</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_settings</span><span class="params">(cls,settings)</span>:</span></span><br><span class="line">        adbparams = dict(</span><br><span class="line">            host = settings[<span class="string">'MYSQL_HOST'</span>],</span><br><span class="line">            user = settings[<span class="string">'MYSQL_USER'</span>],</span><br><span class="line">            password = settings[<span class="string">'MYSQL_PASSWORD'</span>],</span><br><span class="line">            db = settings[<span class="string">'MYSQL_DB'</span>],</span><br><span class="line">            cursorclass = cursors.DictCursor</span><br><span class="line">        )</span><br><span class="line">        dbpool = adbapi.ConnectionPool(<span class="string">'pymysql'</span>,**adbparams)</span><br><span class="line">        <span class="keyword">return</span> cls(dbpool)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,dbpool)</span>:</span></span><br><span class="line">        self.dbpool = dbpool</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self,item,spider)</span>:</span></span><br><span class="line">        query = self.dbpool.runInteraction(self.do_insert,item)</span><br><span class="line">        query.addErrback(self.handle_error)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span><span class="params">(self,failure)</span>:</span></span><br><span class="line">        print(<span class="string">'failure'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_insert</span><span class="params">(self,cursor,item)</span>:</span></span><br><span class="line">        sql = <span class="string">"insert into image(name,url) values(%s,%s);"</span></span><br><span class="line">        urls = item[<span class="string">'image_urls'</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> self.lst:</span><br><span class="line">                cursor.execute(sql, (random.randint(<span class="number">0</span>, <span class="number">10000</span>), unquote(i)))</span><br><span class="line">                self.lst.add(i)</span><br></pre></td></tr></table></figure></p>
+<p>我们在 <em>Pipelines.py</em> 中定义了两个管道。一个是用来下载图片的管道，还有一个就是将图片的地址存入到数据库的管道。如果对于存储数据到数据库不熟悉的同学可以看我的另一篇博客：</p>
+<p><a href="http://qzmvc1.top/2018/11/22/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%94-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%88%B0Mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_blank" rel="noopener">Scrapy框架(五) 将数据存储到数据库</a></p>
+<p>我们主要介绍一下 <strong>ImagedownloadsPipeline</strong> 这个管道。<br>我们在里面定义了两个函数，<strong>这两个函数的名字都是固定的。</strong> 一个是 <strong>get_media_requests()</strong> ，还有一个是 <strong>item_completed()。</strong></p>
+<h5 id="1-3-1-get-media-requests"><a href="#1-3-1-get-media-requests" class="headerlink" title="1.3.1 get_media_requests()"></a>1.3.1 get_media_requests()</h5><p>首先我们将图片下载到本地，需要借助Scrapy内置的ImagesPipeline这个管道。</p>
+<blockquote>
+<p>from scrapy.pipelines.images import ImagesPipeline</p>
+</blockquote>
+<p>我们在 <strong><em>get_media_requests（）</em></strong> 中循环迭代存储图片URL的列表，通过 <strong><em>Request()</em></strong> 进行访问并下载。为什么要引入异常操作呢？这是因为我们爬取的图片中包含了一些本地图片：</p>
+<p><img src="https://s1.ax1x.com/2018/11/27/FEyvKx.png" alt=""></p>
+<p>如果不引入异常操作的话会报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;NoneType&apos; object is not subscriptable</span><br></pre></td></tr></table></figure></p>
+<p>于是我们访问那些具有http请求头的URL并进行下载。</p>
+<h5 id="1-3-2-item-completed"><a href="#1-3-2-item-completed" class="headerlink" title="1.3.2 item_completed()"></a>1.3.2 item_completed()</h5><p>文件下载完成之后，返回一个列表 results。列表中是一个元组，第一个值是布尔值，请求成功或失败，第二个值是下载到的资源。代码很简单，非常好懂！</p>
+<h4 id="1-4-settings-py"><a href="#1-4-settings-py" class="headerlink" title="1.4 settings.py"></a>1.4 settings.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 管道</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">      <span class="string">'ImageDownloads.pipelines.ImagedownloadsPipeline'</span>: <span class="number">300</span>,</span><br><span class="line">      <span class="string">'ImageDownloads.pipelines.MysqlPipeline'</span>:<span class="number">100</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 数据库</span></span><br><span class="line">MYSQL_HOST = <span class="string">"localhost"</span></span><br><span class="line">MYSQL_USER = <span class="string">"root"</span></span><br><span class="line">MYSQL_PASSWORD = <span class="string">"root"</span></span><br><span class="line">MYSQL_DB = <span class="string">"pysqltest"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片存储路径</span></span><br><span class="line">IMAGES_STORE = <span class="string">'C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\ImageDownloads\Spider_Picture'</span></span><br></pre></td></tr></table></figure>
+<p>我们在 <em>settings.py</em> 中设置图片的存储路径 <strong>IMAGES_STORE</strong> ，这可以是绝对路径，也可以是相对路径。</p>
+<h4 id="1-5-运行"><a href="#1-5-运行" class="headerlink" title="1.5 运行"></a>1.5 运行</h4><blockquote>
+<p>scrapy crawl images</p>
+</blockquote>
+<p>结果如下：<br><img src="https://s1.ax1x.com/2018/11/27/FE6geK.png" alt=""></p>
+<p><strong>注1： 图片的名字是根据URL的SHA1 值进行生成的，如果想要让名字变得更规范，可以增加file_name()函数，没什么时间了这里就先不写了，emmm…</strong></p>
+<p><strong>注2： settings.py里面关于图片的下载除了下载路径其实还可以添加很多东西，像一些失效时间，缩略图的设置等等…有需求的可以看看文档。</strong></p>
 <hr>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a><b>准备</b></h3><p><b>搭建博客，前期需要四个工具：  </b>      </p>
-<ul>
-<li>Hexo: Hexo快速、简洁且高效的博客框架</li>
-<li>Git: 一款免费、开源的分布式版本控制系统</li>
-<li>Node.js: 建立在Chrome上的JavaScript运行引擎</li>
-<li>GitHub: 国内一款面向开发者的云端开发平台，提供代码托管，运行空间，质量控制，项目管理等功能
-        
+<h5 id="注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。"><a href="#注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。" class="headerlink" title="注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。"></a>注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。</h5><h3 id="本章完"><a href="#本章完" class="headerlink" title="本章完"></a>本章完</h3><hr>
+
       
 
       
-    </li></ul></div>
+    </div>
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">blog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/25/Hexo+Github 搭建自己的个人博客/">展开全文 >></a>
-        </p>
       
 
       
@@ -563,6 +253,18 @@
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/22/Scrapy框架-五-将数据存储到Mysql数据库/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Scrapy框架(五) 将数据存储到数据库</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -582,12 +284,14 @@
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+
   
 
 
@@ -610,8 +314,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
