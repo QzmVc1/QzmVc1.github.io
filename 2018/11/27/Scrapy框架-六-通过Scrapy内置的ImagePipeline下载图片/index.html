@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
+  <meta name="description" content="引言相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
 <meta property="og:url" content="http://yoursite.com/2018/11/27/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片/index.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
+<meta property="og:description" content="引言相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FE6geK.png">
-<meta property="og:updated_time" content="2018-11-27T12:59:40.957Z">
+<meta property="og:updated_time" content="2018-11-27T13:03:03.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
-<meta name="twitter:description" content="引言- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
+<meta name="twitter:description" content="引言相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http://qzmvc1.top/">
 <meta name="twitter:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
@@ -200,7 +200,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>- 相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/" target="_blank" rel="noopener">http://qzmvc1.top/</a></h4><a id="more"></a>
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/" target="_blank" rel="noopener">http://qzmvc1.top/</a></h4><a id="more"></a>
 <hr>
 <h3 id="一、爬取图片链接"><a href="#一、爬取图片链接" class="headerlink" title="一、爬取图片链接"></a>一、爬取图片链接</h3><p>首先要做的当然是新建爬虫项目和爬虫文件，通过图下命令即可：</p>
 <blockquote>
@@ -255,6 +255,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2018/11/28/Scrapy框架-七-利用Scrapy进行模拟登陆/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Scrapy框架(七) 利用Scrapy进行模拟登陆
+        
+      </div>
+    </a>
   
   
     <a href="/2018/11/22/Scrapy框架-五-将数据存储到Mysql数据库/" id="article-nav-older" class="article-nav-link-wrap">
@@ -386,19 +395,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -410,19 +411,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -434,7 +427,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -442,11 +451,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
