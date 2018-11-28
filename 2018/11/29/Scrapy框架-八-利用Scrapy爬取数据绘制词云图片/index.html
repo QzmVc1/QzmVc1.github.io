@@ -6,20 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Scrapy框架之细数到目前为止我遇到的坑 | QzmVc1</title>
+  <title>Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
-<meta name="keywords" content="Python,Scrapy,爬虫,杂谈">
+  <meta name="description" content="前言偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
+<meta name="keywords" content="Python,Scrapy,词云">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy框架之细数到目前为止我遇到的坑">
-<meta property="og:url" content="http://yoursite.com/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/index.html">
+<meta property="og:title" content="Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片">
+<meta property="og:url" content="http://yoursite.com/2018/11/29/Scrapy框架-八-利用Scrapy爬取数据绘制词云图片/index.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
+<meta property="og:description" content="前言偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-27T08:46:45.655Z">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlEkT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlZhF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZluc9.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlUcd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlajA.png">
+<meta property="og:updated_time" content="2018-11-28T18:38:07.366Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scrapy框架之细数到目前为止我遇到的坑">
-<meta name="twitter:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
+<meta name="twitter:title" content="Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片">
+<meta name="twitter:description" content="前言偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/29/FZlEkT.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -176,85 +182,59 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Scrapy框架之细数到目前为止我遇到的坑" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Scrapy框架-八-利用Scrapy爬取数据绘制词云图片" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Scrapy框架之细数到目前为止我遇到的坑
+      Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片
     </h1>
   
 
 
 
         
-        <a href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/" class="archive-article-date">
-  	<time datetime="2018-11-19T00:56:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+        <a href="/2018/11/29/Scrapy框架-八-利用Scrapy爬取数据绘制词云图片/" class="archive-article-date">
+  	<time datetime="2018-11-28T17:52:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，<del>我就是这么热爱学习！</del> 哈哈哈哈hahahah。<br>虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~<br><a id="more"></a></p>
 <hr>
-<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
-<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br><a id="more"></a><br><b>问3：Scrapy爬取URL在cmd中显示url编码</b><br>答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。</p>
-<hr>
-<p>这里插着写一下windows控制台cmd乱码的解决方法（与本篇博客无关）</p>
-<p>有时在cmd中输出的中文乱码，解决办法如下：</p>
-<p>在cmd中输入 <b>CHCP 65001<br>CHCP是一个计算机指令，能够显示或设置活动代码页编号。</b>
-　　　　　　　　　　</p>
-<table>
-<thead>
-<tr>
-<th>代码页</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>65001</td>
-<td>UTF-8</td>
-</tr>
-<tr>
-<td>950</td>
-<td>繁体中文</td>
-</tr>
-<tr>
-<td>936</td>
-<td>中国 - 简体中文(GB2312)</td>
-</tr>
-<tr>
-<td>437</td>
-<td>MS-DOS 美国英语</td>
-</tr>
-<tr>
-<td>…</td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<p><b>问4：DEBUG: Filtered offsite request to…</b><br>答4：输出crawl命令后显示 <strong>[scrapy.spidermiddlewares.offsite] DEBUG: Filtered offsite request to ‘<a href="http://jcoffeezph.top&#39;" target="_blank" rel="noopener">http://jcoffeezph.top&#39;</a></strong>，原来是二次解析的域名被过滤掉了。解决办法yield scrapy.Request(url=detail_url, meta={‘item’: item}, callback=self.parse_info, <b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
-<p>这篇链接对于此问题的解释也很清楚：<a href="https://www.jianshu.com/p/c31e53fd45f6" target="_blank" rel="noopener">https://www.jianshu.com/p/c31e53fd45f6</a></p>
-<p><b>问5：Scrapy 爬取顺序每次都不一样</b><br>答5：异步处理请求，也就是说Scrapy发送请求之后，不会等待这个请求的响应（也就是不会阻塞），而是可以同时发送其他请求或者做别的事情。而我们知道服务器对于请求的响应是由很多方面的因素影响的，如网络速度、解析速度、资源抢占等等，其响应的顺序是难以预测的。</p>
-<p>Scrapy异步的根源，在于它依赖于Twisted框架。Twisted框架是一个Python的event-driven的框架，这里你可以理解为是异步I/O的。</p>
-<p><b>问6：数组的索引值是从0开始的，Xpath的元素值是从几开始的</b><br>答6：1</p>
-<p><b>问7：<strong>json.dumps的参数ensure_ascii=False：</strong>  </b><br>答7：在使用json.dumps时要注意一个问题</p>
+<h3 id="一、利用Scrapy爬取数据"><a href="#一、利用Scrapy爬取数据" class="headerlink" title="一、利用Scrapy爬取数据"></a>一、利用Scrapy爬取数据</h3><p>应该是很熟练的一个操作了叭，可我还是掉进了很多坑，呜呜呜，wtcl。<br>像以前一样，新建Scrapy项目，然后创建我们的爬虫，直接上代码吧！</p>
+<p><strong><em>wordcloud.py</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordcloudSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'wordcloud'</span></span><br><span class="line">    allowed_domains = [<span class="string">'web'</span>]</span><br><span class="line">    start_urls = [<span class="string">'https://movie.douban.com/subject/26752088/discussion/'</span>]</span><br><span class="line">    bash_url = <span class="string">'https://movie.douban.com/subject/26752088/discussion/'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></span><br><span class="line">        URL = response.xpath(<span class="string">'//span[@class="next"]/a//@href'</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),dont_filter=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),callback=self.parse_item,dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span><span class="params">(self,response)</span>:</span></span><br><span class="line">        comments = response.xpath(<span class="string">'//a[@title]/text()'</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> comment <span class="keyword">in</span> comments:</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">'title'</span>: comment.strip()</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlEkT.png" alt=""></p>
+<p>这个代码的主要目的是爬取以上页面的title值做一份单词表。</p>
+<p>接下来我们执行命令将数据存入csv文件中:</p>
 <blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; &gt;&gt;&gt; <span class="keyword">import</span> json</span><br><span class="line">&gt; &gt;&gt;&gt; <span class="keyword">print</span> json.dumps(<span class="string">'中国'</span>)</span><br><span class="line">&gt;</span><br><span class="line">&gt; 输出：<span class="string">"\u4e2d\u56fd"</span></span><br><span class="line">&gt; 输出的会是</span><br><span class="line">&gt; <span class="string">'中国'</span> 中的ascii 字符码，而不是真正的中文。</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>scrapy crawl wordcloud -o save.csv -s CLOSESPIDER_ITEMCOUNT=10</p>
 </blockquote>
-<p>因为json.dumps 序列化时对中文默认使用的ascii编码.想输出真正的中文需要指定ensure_ascii=False;</p>
-<p><strong>问8：中文保存到json文件中产生乱码</strong><br>答8：通过str.encode转换为’UTF-8’编码，因为str.encode返回值是一个bytes对象，因此打开文件的方式要写成 ‘wb’ 。<br>也可以通过在settings.py中添加如下代码：</p>
+<p><strong><em>save.csv</em></strong></p>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlZhF.png" alt=""></p>
+<hr>
+<h3 id="二、开始绘图"><a href="#二、开始绘图" class="headerlink" title="二、开始绘图"></a>二、开始绘图</h3><p><img src="https://s1.ax1x.com/2018/11/29/FZluc9.png" alt=""></p>
+<p>我们首先将以上文件放入同一文件夹中：</p>
+<ul>
+<li>ciyun.py 脚本</li>
+<li>save.csv 刚刚爬取的数据文件</li>
+<li>ciyun01.png 词云的背景图</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlUcd.png" alt=""></p>
+<p>先上代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取脚本所在目录</span></span><br><span class="line">Path = os.path.dirname(__file__)</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取csv文件并用jieba分词库制作词表</span></span><br><span class="line">csv = open(os.path.join(Path,<span class="string">'save.csv'</span>),encoding=<span class="string">'utf-8'</span>).read()</span><br><span class="line">seg_list = jieba.cut(csv,cut_all=<span class="keyword">False</span>)</span><br><span class="line">seg_list = <span class="string">" "</span>.join(seg_list)</span><br><span class="line"></span><br><span class="line"><span class="comment">#用PIL.Image读取图片并通过numpy将之转化为数据矩阵</span></span><br><span class="line">picture = np.array(Image.open(os.path.join(Path,<span class="string">'ciyun01.png'</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成词云</span></span><br><span class="line">wc = WordCloud(font_path=<span class="string">'C:\QzmVc1\STZHONGS.TTF'</span>,background_color=<span class="string">"white"</span>,max_words=<span class="number">1000</span>,max_font_size=<span class="number">300</span>,mask=picture)</span><br><span class="line">wc.generate(seg_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过双插值算法将数据转化为图片</span></span><br><span class="line">plt.imshow(wc, interpolation=<span class="string">'bilinear'</span>)</span><br><span class="line"><span class="comment">#是否显示坐标尺</span></span><br><span class="line">plt.axis(<span class="string">"off"</span>)</span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">plt.show()</span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">wc.to_file(os.path.join(Path,<span class="string">'C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\WordCloud\WordCloud\ciyun_new01.png'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>关于以上代码做几点说明：</p>
 <blockquote>
-<p>FEED_EXPORT_ENCODING = ‘UTF-8’</p>
+<p>1.<code>os.path.dirname(__file__)</code> 是当前py文件所在的文件目录，不包含py文件</p>
+<p>2.打开csv文件设置的 <b>encoding=’utf-8’</b> 是为了将数据显示为中文 </p>
+<p>3.WordCloud中设置了字体、字号、单词个数、图片数据等参数，stzhongs.ttf是宋体，需要自行下载，不设置此参数的话词云中的单词全是小方框！</p>
+<p>4.interpolation=’bilinear’这个是双插值算法绘制图片</p>
 </blockquote>
-<p><strong>问9：Scrapy爬取图片报错：raise ValueError(‘Missing scheme in request url: %s’ % self._url)</strong><br>答9：items.py定义的image_urls属性需要在spider.py中爬取时赋值为列表，以便在下载管道中进行迭代下载。</p>
-<p><strong>问10：Scrapy爬取图片报错：’NoneType’ object is not subscriptable</strong><br>答10：可能是管道下载获取图片URL时碰到了一些无法获取到的图片，例如本地图片等等…</p>
-<p><strong>问11：</strong><br>答11：</p>
+<p>图片效果：<br><img src="https://s1.ax1x.com/2018/11/29/FZlajA.png" alt=""></p>
+<hr>
 
       
 
@@ -276,11 +256,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">词云</a>
         		</li>
       		
 		</ul>
@@ -299,18 +275,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/11/19/Scrapy框架-三-基于Excel文件爬取的爬虫/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Scrapy框架(三) 基于Excel文件爬取的爬虫
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/19/Scrapy框架-二-抽取更多的URL/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Scrapy框架(二) 抽取更多的URL</div>
+    <a href="/2018/11/28/Scrapy框架-七-利用Scrapy进行模拟登陆/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Scrapy框架(七) 利用Scrapy进行模拟登陆</div>
       <i class="icon-circle-right"></i>
     </a>
   
