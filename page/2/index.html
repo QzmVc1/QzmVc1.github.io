@@ -173,6 +173,196 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Scrapy框架之细数到目前为止我遇到的坑" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/">Scrapy框架之细数到目前为止我遇到的坑</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/" class="archive-article-date">
+  	<time datetime="2018-11-19T00:56:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
+<hr>
+<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Scrapy框架-二-抽取更多的URL" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/Scrapy框架-二-抽取更多的URL/">Scrapy框架(二) 抽取更多的URL</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/2018/11/19/Scrapy框架-二-抽取更多的URL/" class="archive-article-date">
+  	<time datetime="2018-11-19T00:55:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、爬取更多的URL"><a href="#一、爬取更多的URL" class="headerlink" title="一、爬取更多的URL"></a><b>一、爬取更多的URL</b></h3><p>到目前为止，我们使用的只是设置在爬虫的start_urls属性中的单一URL。而该属性实际为一个列表，我们可以硬编码写入更多的URL，如下所示：</p>
+<blockquote>
+<p>start_urls = [<br>　　　‘<a href="https://jcoffeezph.top/&#39;" target="_blank" rel="noopener">https://jcoffeezph.top/&#39;</a>,<br>　　　‘<a href="http://qzmvc1.top/&#39;" target="_blank" rel="noopener">http://qzmvc1.top/&#39;</a>,<br>　　　···<br>]</p>
+</blockquote>
+<p>这种写法可能不会让你太激动。不过我们还可以使用文件作为URL的源，写法如下所示:</p>
+<blockquote>
+<p>start_urls = [ i.strip() for i in open(‘xxx.txt’,’r’).readlines()]</p>
+</blockquote>
+<p>这种写法其实也不那么令人激动，但它确实管用。更经常发生的情况是感兴趣的网站中包含一些索引页以及内容页。<br><img src="https://s1.ax1x.com/2018/11/19/FSRO5q.png" alt=""></p>
+<p><img src="https://s1.ax1x.com/2018/11/19/FSRLan.png" alt=""><br>一个典型的索引页会包含许多到博客的链接，以及一个能够让你从一个索引页前往另一个索引页的分页系统。</p>
+<p>因此，一个典型的爬虫会向两个方向移动：</p>
+<ul>
+<li>横向——从一个索引页到另一个索引页；</li>
+<li>纵向——从一个索引页到内容页并抽取Item。</li>
+</ul>
+<p>我们将前者称为<b>水平爬取</b>，因为这种情况下是在同一层级下爬取页面；而将后者成为<b>垂直爬取</b>，因为该方式是从一个更高的层级到一个更低的层级。<br>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/19/Scrapy框架-二-抽取更多的URL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Scrapy框架-一-第一个Scrapy项目" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -707,190 +897,9 @@
 
 
   
-    <article id="post-Python3-requests模块详解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/31/Python3-requests模块详解/">Python3 Requests模块详解</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/31/Python3-requests模块详解/" class="archive-article-date">
-  	<time datetime="2018-10-31T11:35:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考链接 : <a href="https://www.cnblogs.com/ranxf/p/7808537.html" target="_blank" rel="noopener">https://www.cnblogs.com/ranxf/p/7808537.html</a></p>
-<hr>
-<h3 id="一、安装requests"><a href="#一、安装requests" class="headerlink" title="一、安装requests"></a><b>一、安装requests</b></h3><ul>
-<li><p>通过pip安装</p>
-<blockquote>
-<p> <b>pip install requests</b></p>
-</blockquote>
-</li>
-<li><p>或者下载代码后通过git安装</p>
-<blockquote>
-<p><b>$ git clone git://github.com/kennethreitz/requests.git<br>$ cd requests<br>$ python setup.py install</b></p>
-        
-      
-
-      
-    </blockquote></li></ul></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Requests</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/31/Python3-requests模块详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-PyMySQL实现与数据库的交互" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/29/PyMySQL实现与数据库的交互/">PyMySQL实现与数据库的交互</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/29/PyMySQL实现与数据库的交互/" class="archive-article-date">
-  	<time datetime="2018-10-29T08:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1、什么是PyMySQL"><a href="#1、什么是PyMySQL" class="headerlink" title="1、什么是PyMySQL"></a><b>1、什么是PyMySQL</b></h3><blockquote>
-<p>为了使Python连接上数据库，你需要一个驱动，这个驱动是用于与数据库交互的库。<br>　　　　　　　　　　　　　　　　　　　　　<br>PyMySQL ： 这是一个使Python连接到MySQL的库，它是一个纯Python库。</p>
-</blockquote>
-<p><b>环境要求：</b><br>PyMySQL支持的python版本：</p>
-<blockquote>
-<ul>
-<li>python2<br>python2.7</li>
-<li>python3<br>python version &gt;=3.4
-        
-      
-
-      
-    </li></ul></blockquote></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/29/PyMySQL实现与数据库的交互/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -987,19 +996,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1011,7 +1012,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1023,7 +1036,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1039,15 +1052,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
