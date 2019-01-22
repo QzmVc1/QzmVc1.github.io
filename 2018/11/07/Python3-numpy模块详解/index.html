@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://www.tutorialspoint.com//numpy/images/ndarray.jpg">
 <meta property="og:image" content="https://www.tutorialspoint.com//numpy/images/array.jpg">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541532616136&di=c82ab97df354a22c8aea283f7728caf4&imgtype=jpg&src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D1419051179%2C3849014730%26fm%3D214%26gp%3D0.jpg">
-<meta property="og:updated_time" content="2018-12-06T14:42:38.380Z">
+<meta property="og:updated_time" content="2019-01-21T07:33:22.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python3 Numpy模块详解">
 <meta name="twitter:description" content="参考链接：https://blog.csdn.net/a373595475/article/details/79580734 一、Numpy - 简介Numpy 是一个 Python 包。 它代表 “Numeric Python”。 它是一个由多维数组对象和用于处理数组的例程集合组成的库。 Numeric，即 NumPy 的前身，是由 Jim Hugunin 开发的。 也开发了另一个包 Numar">
@@ -772,7 +772,7 @@
 <li>axis：沿着它连接数组的轴，默认为 0</li>
 </ul>
 <p><b>示例</b></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'第一个数组：'</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(<span class="string">'\n'</span>)</span><br><span class="line">b = np.array([[<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>]])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'第二个数组：'</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment"># 两个数组的维度相同</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'沿轴 0 连接两个数组：'</span>)</span><br><span class="line">print(np.concatenate((a,b)))</span><br><span class="line"><span class="keyword">print</span> <span class="string">'\n'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'沿轴 1 连接两个数组：'</span></span><br><span class="line">print(np.concatenate((a,b),axis = <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.array([[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'第一个数组：'</span>)</span><br><span class="line">print(a)</span><br><span class="line">print(<span class="string">'\n'</span>)</span><br><span class="line">b = np.array([[<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>]])</span><br><span class="line"></span><br><span class="line">print(<span class="string">'第二个数组：'</span>)</span><br><span class="line">print(b)</span><br><span class="line">print(<span class="string">'\n'</span>)</span><br><span class="line"><span class="comment"># 两个数组的维度相同</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'沿轴 0 连接两个数组：'</span>)</span><br><span class="line">print(np.concatenate((a,b)))</span><br><span class="line">print(<span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'沿轴 1 连接两个数组：'</span>)</span><br><span class="line">print(np.concatenate((a,b),axis = <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">第一个数组：</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]]</span><br><span class="line"></span><br><span class="line">第二个数组：</span><br><span class="line">[[<span class="number">5</span> <span class="number">6</span>]</span><br><span class="line"> [<span class="number">7</span> <span class="number">8</span>]]</span><br><span class="line"></span><br><span class="line">沿轴 <span class="number">0</span> 连接两个数组：</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span>]</span><br><span class="line"> [<span class="number">5</span> <span class="number">6</span>]</span><br><span class="line"> [<span class="number">7</span> <span class="number">8</span>]]</span><br><span class="line"></span><br><span class="line">沿轴 <span class="number">1</span> 连接两个数组：</span><br><span class="line">[[<span class="number">1</span> <span class="number">2</span> <span class="number">5</span> <span class="number">6</span>]</span><br><span class="line"> [<span class="number">3</span> <span class="number">4</span> <span class="number">7</span> <span class="number">8</span>]]</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -1152,7 +1152,7 @@
 <p><b>示例</b><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.matlib</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(np.matlib.identity(<span class="number">5</span>,dtype = float))</span><br></pre></td></tr></table></figure></p>
 <p>输出结果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[ <span class="number">1.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>]</span><br><span class="line"> [ <span class="number">0.</span>  <span class="number">1.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>]</span><br><span class="line"> [ <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">1.</span>  <span class="number">0.</span>  <span class="number">0.</span>]</span><br><span class="line"> [ <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">1.</span>  <span class="number">0.</span>]</span><br><span class="line"> [ <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">0.</span>  <span class="number">1.</span>]]</span><br></pre></td></tr></table></figure>
-<h4 id="6-numpy-matlib-rand"><a href="#6-numpy-matlib-rand" class="headerlink" title="6. numpy.matlib.rand()"></a><b>6. numpy.matlib.rand()</b></h4><p>numpy.matlib.rand()`函数返回给定大小的填充随机值的矩阵。</p>
+<h4 id="6-numpy-matlib-rand"><a href="#6-numpy-matlib-rand" class="headerlink" title="6. numpy.matlib.rand()"></a><b>6. numpy.matlib.rand()</b></h4><p>numpy.matlib.rand()函数返回给定大小的填充随机值的矩阵。</p>
 <p><b>示例</b><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.matlib</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(np.matlib.rand(<span class="number">3</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure></p>
 <p>输出结果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[ <span class="number">0.82674464</span>  <span class="number">0.57206837</span>  <span class="number">0.15497519</span>]</span><br><span class="line"> [ <span class="number">0.33857374</span>  <span class="number">0.35742401</span>  <span class="number">0.90895076</span>]</span><br><span class="line"> [ <span class="number">0.03968467</span>  <span class="number">0.13962089</span>  <span class="number">0.39665201</span>]]</span><br></pre></td></tr></table></figure>
@@ -1250,6 +1250,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">数组 a：</span><br><span class="line">[[ <span class="number">1</span> <span class="number">1</span> <span class="number">1</span>]</span><br><span class="line"> [ <span class="number">0</span> <span class="number">2</span> <span class="number">5</span>]</span><br><span class="line"> [ <span class="number">2</span> <span class="number">5</span> <span class="number">-1</span>]]</span><br><span class="line"></span><br><span class="line">a 的逆：</span><br><span class="line">[[ <span class="number">1.28571429</span> <span class="number">-0.28571429</span> <span class="number">-0.14285714</span>]</span><br><span class="line"> [<span class="number">-0.47619048</span> <span class="number">0.14285714</span> <span class="number">0.23809524</span>]</span><br><span class="line"> [ <span class="number">0.19047619</span> <span class="number">0.14285714</span> <span class="number">-0.0952381</span> ]]</span><br><span class="line"></span><br><span class="line">矩阵 b：</span><br><span class="line">[[ <span class="number">6</span>]</span><br><span class="line"> [<span class="number">-4</span>]</span><br><span class="line"> [<span class="number">27</span>]]</span><br><span class="line"></span><br><span class="line">计算：A^(<span class="number">-1</span>)B：</span><br><span class="line">[[ <span class="number">5.</span>]</span><br><span class="line"> [ <span class="number">3.</span>]</span><br><span class="line"> [<span class="number">-2.</span>]]</span><br></pre></td></tr></table></figure>
 <p>结果也可以使用下列函数获取</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = np.dot(ainv,b)</span><br></pre></td></tr></table></figure>
+<h4 id="8-numpy-random-randint"><a href="#8-numpy-random-randint" class="headerlink" title="8. numpy.random.randint"></a><b>8. numpy.random.randint</b></h4><p>生成n行m列的数组，数组元素通过randint随机生成。<br>例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成四行三列的随机整数数组，元素范围为[0,10]</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.random.randint(<span class="number">0</span>,<span class="number">10</span>,(<span class="number">4</span>,<span class="number">3</span>))</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h3 id="之后有空会学习下Matplotlib，待更新…"><a href="#之后有空会学习下Matplotlib，待更新…" class="headerlink" title="之后有空会学习下Matplotlib，待更新…"></a><b>之后有空会学习下Matplotlib，待更新…</b></h3><p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1541532616136&amp;di=c82ab97df354a22c8aea283f7728caf4&amp;imgtype=jpg&amp;src=http%3A%2F%2Fimg4.imgtn.bdimg.com%2Fit%2Fu%3D1419051179%2C3849014730%26fm%3D214%26gp%3D0.jpg" alt=""></p>
 
@@ -1346,7 +1347,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 QzmVc1
+    		&copy; 2019 QzmVc1
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1435,23 +1436,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">PyQt5</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">GUI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1463,7 +1456,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1471,15 +1468,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1495,7 +1488,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1503,7 +1508,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1516,10 +1521,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">脚本</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
