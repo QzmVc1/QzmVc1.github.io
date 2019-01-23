@@ -6,26 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Scrapy框架(七) 利用Scrapy进行模拟登陆 | QzmVc1</title>
+  <title>进击数据挖掘十大算法(一):K-Means | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动">
-<meta name="keywords" content="Python,Scrapy,爬虫">
+  <meta name="description" content="聚类与分类的区别分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。 聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。 关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。 Github">
+<meta name="keywords" content="Python,算法,数据挖掘">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scrapy框架(七) 利用Scrapy进行模拟登陆">
-<meta property="og:url" content="http://yoursite.com/2018/11/28/Scrapy框架-七-利用Scrapy进行模拟登陆/index.html">
+<meta property="og:title" content="进击数据挖掘十大算法(一):K-Means">
+<meta property="og:url" content="http://yoursite.com/2019/01/23/进击数据挖掘十大算法-一-K-Means/index.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动">
+<meta property="og:description" content="聚类与分类的区别分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。 聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。 关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。 Github">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZiRC6.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZARCq.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZAcUs.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZnQgI.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZnlvt.png">
-<meta property="og:updated_time" content="2018-11-28T17:37:48.578Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEMDne.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEmurj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEnGTI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEn80A.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEu7rQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEuTKg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEuIxS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEu528.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEMEwj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEliZQ.png">
+<meta property="og:updated_time" content="2019-01-23T09:21:52.983Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scrapy框架(七) 利用Scrapy进行模拟登陆">
-<meta name="twitter:description" content="前言　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/28/FZiRC6.png">
+<meta name="twitter:title" content="进击数据挖掘十大算法(一):K-Means">
+<meta name="twitter:description" content="聚类与分类的区别分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。 聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。 关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。 Github">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/23/kEMDne.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -182,89 +187,105 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Scrapy框架-七-利用Scrapy进行模拟登陆" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-进击数据挖掘十大算法-一-K-Means" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Scrapy框架(七) 利用Scrapy进行模拟登陆
+      进击数据挖掘十大算法(一):K-Means
     </h1>
   
 
 
 
         
-        <a href="/2018/11/28/Scrapy框架-七-利用Scrapy进行模拟登陆/" class="archive-article-date">
-  	<time datetime="2018-11-28T14:22:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-28</time>
+        <a href="/2019/01/23/进击数据挖掘十大算法-一-K-Means/" class="archive-article-date">
+  	<time datetime="2019-01-23T08:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动输入验证，或者直接用云打码平台，这里我们介绍一个利用Scrapy进行模拟登录的用法。</p>
-<p><strong>本片博客是对豆瓣进行模拟登陆，包括验证码的简单处理，不涉及爬取信息。</strong><br><a id="more"></a></p>
+        <h3 id="聚类与分类的区别"><a href="#聚类与分类的区别" class="headerlink" title="聚类与分类的区别"></a>聚类与分类的区别</h3><p>分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。</p>
+<p>聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。</p>
+<p>关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。</p>
+<p>Github源码：<a href="https://github.com/QzmVc1/Data-Mining/tree/master/K-Means" target="_blank" rel="noopener">QzmVc1/Data-Mining/K-Means/</a></p>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://blog.csdn.net/huangfei711/article/details/78480078" target="_blank" rel="noopener">5 分钟带你弄懂 k-means 聚类</a></li>
+<li><a href="https://blog.csdn.net/taoyanqi8932/article/details/53727841" target="_blank" rel="noopener">深入理解K-Means聚类算法</a></li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEMDne.png" alt=""></p>
 <hr>
-<h3 id="一、分析豆瓣登陆"><a href="#一、分析豆瓣登陆" class="headerlink" title="一、分析豆瓣登陆"></a>一、分析豆瓣登陆</h3><ol>
-<li>分析豆瓣的登陆样式 <a href="https://accounts.douban.com/login?alias=&amp;redir=https%3A%2F%2Fwww.douban.com%2F&amp;source=index_nav&amp;error=1001" target="_blank" rel="noopener">豆瓣</a></li>
+<a id="more"></a>
+<h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="1-1-什么是聚类分析"><a href="#1-1-什么是聚类分析" class="headerlink" title="1.1 什么是聚类分析"></a>1.1 什么是聚类分析</h4><p>聚类分析是在数据中发现数据对象之间的关系，将数据进行分组，组内的相似性越大，组间的差别越大，则聚类效果越好。</p>
+<h4 id="1-2-不同的簇类型"><a href="#1-2-不同的簇类型" class="headerlink" title="1.2 不同的簇类型"></a>1.2 不同的簇类型</h4><p>聚类旨在发现有用的对象簇，在现实中我们用到很多的簇的类型，使用不同的簇类型划分数据的结果是不同的，如下的几种簇类型。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEmurj.png" alt=""></p>
+<h5 id="1-2-1-明显分离的"><a href="#1-2-1-明显分离的" class="headerlink" title="1.2.1 明显分离的"></a>1.2.1 明显分离的</h5><p>可以看到(a)中不同组中任意两点之间的距离都大于组内任意两点之间的距离，明显分离的簇不一定是球形的，可以具有任意的形状。</p>
+<h5 id="1-2-2-基于原型的"><a href="#1-2-2-基于原型的" class="headerlink" title="1.2.2 基于原型的"></a>1.2.2 基于原型的</h5><p>簇是对象的集合，其中每个对象到定义该簇的<strong>原型</strong>的距离比其他簇的原型距离更近，如(b)所示的原型即为中心点，在一个簇中的数据到其中心点比到另一个簇的中心点更近。这是一种常见的<strong>基于中心的簇</strong>，最常用的K-Means就是这样的一种簇类型。<br>这样的簇趋向于球形。</p>
+<h5 id="1-2-3-基于密度的"><a href="#1-2-3-基于密度的" class="headerlink" title="1.2.3 基于密度的"></a>1.2.3 基于密度的</h5><p>簇是对象的密度区域，(d)所示的是基于密度的簇，当簇不规则或相互盘绕，并且有早上和离群点事，常常使用基于密度的簇定义。</p>
+<hr>
+<h4 id="1-3-基本的聚类分析算法"><a href="#1-3-基本的聚类分析算法" class="headerlink" title="1.3 基本的聚类分析算法"></a>1.3 基本的聚类分析算法</h4><h5 id="1-3-1-K均值："><a href="#1-3-1-K均值：" class="headerlink" title="1.3.1 K均值："></a>1.3.1 K均值：</h5><p>基于原型的、划分的距离技术，它试图发现用户指定个数(K)的簇。</p>
+<h5 id="1-3-2-凝聚的层次距离："><a href="#1-3-2-凝聚的层次距离：" class="headerlink" title="1.3.2 凝聚的层次距离："></a>1.3.2 凝聚的层次距离：</h5><p>开始时，每个点都作为一个单点簇，然后，重复的合并两个最靠近的簇，直到尝试单个、包含所有点的簇。</p>
+<h5 id="1-3-3-DBSCAN"><a href="#1-3-3-DBSCAN" class="headerlink" title="1.3.3 DBSCAN:"></a>1.3.3 DBSCAN:</h5><p>一种基于密度的划分距离的算法，簇的个数有算法自动的确定，低密度中的点被视为噪声而忽略，因此其不产生完全聚类。</p>
+<hr>
+<h4 id="1-4-距离量度"><a href="#1-4-距离量度" class="headerlink" title="1.4 距离量度"></a>1.4 距离量度</h4><p>不同的距离量度会对距离的结果产生影响，常见的距离量度如下所示：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEnGTI.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEn80A.png" alt=""></p>
+<hr>
+<h3 id="二、K-Means聚类"><a href="#二、K-Means聚类" class="headerlink" title="二、K-Means聚类"></a>二、K-Means聚类</h3><h4 id="2-1-算法思想："><a href="#2-1-算法思想：" class="headerlink" title="2.1 算法思想："></a>2.1 算法思想：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">选择K个点作为初始质心</span><br><span class="line">repeat</span><br><span class="line">    将每个点指派到最近的质心，形成K个簇</span><br><span class="line">    重新计算每个簇的质心</span><br><span class="line">until 簇不发生变化或达到最大迭代次数</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-具体解释："><a href="#2-2-具体解释：" class="headerlink" title="2.2 具体解释："></a>2.2 具体解释：</h4><p>K-Means聚类算法的大致意思就是“物以类聚，人以群分”：</p>
+<blockquote>
+<ol>
+<li>首先输入 k 的值，即我们指定希望通过聚类得到 k 个分组；</li>
+<li>从数据集中随机选取 k 个数据点作为初始大佬（质心）；</li>
+<li>对集合中每一个小弟，计算与每一个大佬的距离，离哪个大佬距离近，就跟定哪个大佬。</li>
+<li>这时每一个大佬手下都聚集了一票小弟，这时候召开选举大会，每一群选出新的大佬（即通过算法选出新的质心）。</li>
+<li>如果新大佬和旧大佬之间的距离小于某一个设置的阈值（表示重新计算的质心的位置变化不大，趋于稳定，或者说收敛），可以认为我们进行的聚类已经达到期望的结果，算法终止。</li>
+<li>如果新大佬和旧大佬距离变化很大，需要迭代3~5步骤。</li>
 </ol>
-<p><img src="https://s1.ax1x.com/2018/11/28/FZiRC6.png" alt=""></p>
-<p>从上图可以看出：</p>
-<p>(1)表单的action地址为:</p>
-<blockquote>
-<p><a href="https://accounts.douban.com/login" target="_blank" rel="noopener">https://accounts.douban.com/login</a></p>
 </blockquote>
-<p>(2)验证码图片的地址为:</p>
-<blockquote>
-<p><a href="https://www.douban.com/misc/captcha?id=hBSbgCAQKftF1BGBeXNPI8uA:en&amp;size=s" target="_blank" rel="noopener">https://www.douban.com/misc/captcha?id=hBSbgCAQKftF1BGBeXNPI8uA:en&amp;size=s</a></p>
-</blockquote>
-<p>(3)captcha-id值:</p>
-<blockquote>
-<p>&lt;type=”hidden”name=”captcha-id”value=”hBSbgCAQKftF1BGBeXNPI8uA:en”&gt;</p>
-</blockquote>
-<ol start="2">
-<li>分析豆瓣登录页的form表单登录</li>
+<p>下面举个非常形象简单的例子：<br>有6个点，从图上看应该可以分成两堆，前三个点一堆，后三个点另一堆。现在我手工地把K-Means计算过程演示一下，同时检验是不是和预期一致：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEu7rQ.png" alt=""></p>
+<p><strong>1.设定 k 值为2</strong></p>
+<p><strong>2.选择初始大佬（就选 P1 和 P2）</strong></p>
+<p><strong>3.计算小弟与大佬的距离：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEuTKg.png" alt=""></p>
+<p>从上图可以看出，所有的小弟都离 P2 更近，所以次站队的结果是：</p>
+<p>A 组：P1<br>B 组：P2、P3、P4、P5、P6</p>
+<p><strong>4.召开选举大会：</strong></p>
+<p>A 组没什么可选的，大佬就是自己<br>B 组有5个人，需要重新选大佬，这里要注意<strong>选大佬的方法是每个人 X 坐标的平均值和 Y 坐标的平均值组成的新的点</strong>，为新大佬，也就是说这个大佬是“虚拟的”。因此，B 组选出新大哥的坐标为：P（（1+3+8+9+10）/5，（2+1+8+10+7）/5）=（6.2，5.6）。<br>综合两组，新大哥为 P1’（0，0），P2’（6.2，5.6），而P2-P6重新成为小弟。</p>
+<p><strong>5.再次计算小弟到大佬的距离：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEuIxS.png" alt=""></p>
+<p>这时可以看到P2、P3离P1更近，P4、P5、P6离P哥更近，所以第二次站队的结果是：<br>A 组：P1、P2、P3<br>B 组：P4、P5、P6</p>
+<p><strong>6.第二届选举大会：</strong><br>同样的方法选出新的虚拟大佬：P1’（1.33，1），P2’（9，8.33），P1-P6都成为小弟。</p>
+<p><strong>7.第三次计算小弟到大佬的距离：</strong><br><img src="https://s2.ax1x.com/2019/01/23/kEu528.png" alt=""><br>这时可以看到 P1、P2、P3 离 P哥1 更近，P4、P5、P6离 P哥2 更近，所以第二次站队的结果是：<br>A 组：P1、P2、P3<br>B 组：P4、P5、P6</p>
+<p>我们可以发现，这次站队的结果和上次没有任何变化了，说明<strong>已经收敛，聚类结束</strong>，聚类结果和我们最开始设想的结果完全一致。</p>
+<hr>
+<h3 id="三、K-Means算法Python实现"><a href="#三、K-Means算法Python实现" class="headerlink" title="三、K-Means算法Python实现"></a>三、K-Means算法Python实现</h3><p>Github源码：<a href="https://github.com/QzmVc1/Data-Mining/tree/master/K-Means" target="_blank" rel="noopener">QzmVc1/Data-Mining/K-Means/</a></p>
+<h4 id="3-1-Python代码"><a href="#3-1-Python代码" class="headerlink" title="3.1 Python代码"></a>3.1 Python代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">author: QzmVc1</span></span><br><span class="line"><span class="string">Time: 2019/1/23</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算欧几里得距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(x,y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.sum((x-y)**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机生成k个初始聚类中心</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataSet,k)</span>:</span></span><br><span class="line">    lst = []   <span class="comment"># 防止生成重复</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    m,n = dataSet.shape</span><br><span class="line">    centroids = np.zeros((k,n))  <span class="comment"># centroids 是保存k个质心的ndarray</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; k:</span><br><span class="line">        index = np.random.randint(<span class="number">0</span>,m)</span><br><span class="line">        <span class="keyword">if</span> index <span class="keyword">not</span> <span class="keyword">in</span> lst:</span><br><span class="line">            lst.append(index)</span><br><span class="line">            centroids[i,:] = dataSet[index,:]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> centroids</span><br><span class="line"></span><br><span class="line"><span class="comment"># K-Means算法具体实现</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">KMeans</span><span class="params">(dataSet,k)</span>:</span></span><br><span class="line">    m = dataSet.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 生成k个初始聚类中心</span></span><br><span class="line">    centroids = randCent(dataSet,k)</span><br><span class="line">    <span class="comment"># 第一列存样本属于哪一簇</span></span><br><span class="line">    <span class="comment"># 第二列存样本的到簇的中心点的误差</span></span><br><span class="line">    clusterAssment = np.zeros((m,<span class="number">2</span>))  <span class="comment"># clusterAssment数组将各点和质心关联起来</span></span><br><span class="line">    clusterChange = <span class="keyword">True</span>  <span class="comment"># 循环条件</span></span><br><span class="line">    <span class="keyword">while</span> clusterChange:</span><br><span class="line">        clusterChange = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):   <span class="comment"># 遍历每一个点</span></span><br><span class="line">            minIndex = <span class="number">-1</span></span><br><span class="line">            minDist = <span class="number">10000</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k):  <span class="comment"># 计算该点归属于哪一个质心</span></span><br><span class="line">                dist = distEclud(centroids[j, :], dataSet[i, :])</span><br><span class="line">                <span class="keyword">if</span> dist &lt; minDist:</span><br><span class="line">                    minIndex = j</span><br><span class="line">                    minDist = dist</span><br><span class="line">            <span class="comment"># 如果存在一个点没有收敛，则继续循环</span></span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChange = <span class="keyword">True</span></span><br><span class="line">                clusterAssment[i,:] = minIndex,minDist**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算新的k个质心</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(k):</span><br><span class="line">            selectrow = dataSet[np.nonzero(clusterAssment[:,<span class="number">0</span>]==j)[<span class="number">0</span>]]  <span class="comment"># 获取簇类所有的点</span></span><br><span class="line">            centroids[j,:] = np.mean(selectrow,axis=<span class="number">0</span>)  <span class="comment"># 对矩阵的行求均值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> centroids,clusterAssment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画聚类图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showCluster</span><span class="params">(dataSet,k,centroids,clusterAssment)</span>:</span></span><br><span class="line">    m,n = dataSet.shape</span><br><span class="line">    marker = [<span class="string">'or'</span>, <span class="string">'ob'</span>, <span class="string">'og'</span>, <span class="string">'ok'</span>, <span class="string">'Dr'</span>, <span class="string">'Db'</span>, <span class="string">'Dg'</span>, <span class="string">'Dk'</span>, <span class="string">'&lt;r'</span>, <span class="string">'pr'</span>]</span><br><span class="line">    <span class="keyword">if</span> n != <span class="number">2</span>:</span><br><span class="line">        print(<span class="string">"数据不是二维的！"</span>)</span><br><span class="line">    <span class="keyword">elif</span> k &gt; len(marker):</span><br><span class="line">        print(<span class="string">"聚类结果超出限制！"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 绘制所有样本</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            plt.plot(dataSet[i,<span class="number">0</span>],dataSet[i,<span class="number">1</span>],marker[int(clusterAssment[i,<span class="number">0</span>])])</span><br><span class="line">        <span class="comment"># 绘制质心</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">            plt.plot(centroids[i,<span class="number">0</span>],centroids[i,<span class="number">1</span>],marker[i+k])</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">dataSet = np.loadtxt(<span class="string">'K-Means_Data.txt'</span>)</span><br><span class="line"><span class="comment"># 聚类个数</span></span><br><span class="line">k = <span class="number">4</span></span><br><span class="line">centroids,clusterAssment = KMeans(dataSet,k)</span><br><span class="line">showCluster(dataSet,k,centroids,clusterAssment)</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-数据集"><a href="#3-2-数据集" class="headerlink" title="3.2 数据集"></a>3.2 数据集</h4><p>共80组数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">1.658985	4.285136</span><br><span class="line">-3.453687	3.424321</span><br><span class="line">4.838138	-1.151539</span><br><span class="line">-5.379713	-3.362104</span><br><span class="line">0.972564	2.924086</span><br><span class="line">-3.567919	1.531611</span><br><span class="line">0.450614	-3.302219</span><br><span class="line">-3.487105	-1.724432</span><br><span class="line">2.668759	1.594842</span><br><span class="line">-3.156485	3.191137</span><br><span class="line">3.165506	-3.999838</span><br><span class="line">-2.786837	-3.099354</span><br><span class="line">4.208187	2.984927</span><br><span class="line">-2.123337	2.943366</span><br><span class="line">0.704199	-0.479481</span><br><span class="line">-0.392370	-3.963704</span><br><span class="line">2.831667	1.574018</span><br><span class="line">-0.790153	3.343144</span><br><span class="line">2.943496	-3.357075</span><br><span class="line">-3.195883	-2.283926</span><br><span class="line">2.336445	2.875106</span><br><span class="line">-1.786345	2.554248</span><br><span class="line">2.190101	-1.906020</span><br><span class="line">-3.403367	-2.778288</span><br><span class="line">1.778124	3.880832</span><br><span class="line">-1.688346	2.230267</span><br><span class="line">2.592976	-2.054368</span><br><span class="line">-4.007257	-3.207066</span><br><span class="line">2.257734	3.387564</span><br><span class="line">-2.679011	0.785119</span><br><span class="line">0.939512	-4.023563</span><br><span class="line">-3.674424	-2.261084</span><br><span class="line">2.046259	2.735279</span><br><span class="line">-3.189470	1.780269</span><br><span class="line">4.372646	-0.822248</span><br><span class="line">-2.579316	-3.497576</span><br><span class="line">1.889034	5.190400</span><br><span class="line">-0.798747	2.185588</span><br><span class="line">2.836520	-2.658556</span><br><span class="line">-3.837877	-3.253815</span><br><span class="line">2.096701	3.886007</span><br><span class="line">-2.709034	2.923887</span><br><span class="line">3.367037	-3.184789</span><br><span class="line">-2.121479	-4.232586</span><br><span class="line">2.329546	3.179764</span><br><span class="line">-3.284816	3.273099</span><br><span class="line">3.091414	-3.815232</span><br><span class="line">-3.762093	-2.432191</span><br><span class="line">3.542056	2.778832</span><br><span class="line">-1.736822	4.241041</span><br><span class="line">2.127073	-2.983680</span><br><span class="line">-4.323818	-3.938116</span><br><span class="line">3.792121	5.135768</span><br><span class="line">-4.786473	3.358547</span><br><span class="line">2.624081	-3.260715</span><br><span class="line">-4.009299	-2.978115</span><br><span class="line">2.493525	1.963710</span><br><span class="line">-2.513661	2.642162</span><br><span class="line">1.864375	-3.176309</span><br><span class="line">-3.171184	-3.572452</span><br><span class="line">2.894220	2.489128</span><br><span class="line">-2.562539	2.884438</span><br><span class="line">3.491078	-3.947487</span><br><span class="line">-2.565729	-2.012114</span><br><span class="line">3.332948	3.983102</span><br><span class="line">-1.616805	3.573188</span><br><span class="line">2.280615	-2.559444</span><br><span class="line">-2.651229	-3.103198</span><br><span class="line">2.321395	3.154987</span><br><span class="line">-1.685703	2.939697</span><br><span class="line">3.031012	-3.620252</span><br><span class="line">-4.599622	-2.185829</span><br><span class="line">4.196223	1.126677</span><br><span class="line">-2.133863	3.093686</span><br><span class="line">4.668892	-2.562705</span><br><span class="line">-2.793241	-2.149706</span><br><span class="line">2.884105	3.043438</span><br><span class="line">-2.967647	2.848696</span><br><span class="line">4.479332	-1.764772</span><br><span class="line">-4.905566	-2.911070</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-3-运行结果"><a href="#3-3-运行结果" class="headerlink" title="3.3 运行结果"></a>3.3 运行结果</h4><p><img src="https://s2.ax1x.com/2019/01/23/kEMEwj.png" alt=""></p>
+<hr>
+<h3 id="四、K-Means优点与缺点"><a href="#四、K-Means优点与缺点" class="headerlink" title="四、K-Means优点与缺点"></a>四、K-Means优点与缺点</h3><blockquote>
+<p>优点： 易于实现</p>
+<p>缺点:</p>
+<ol>
+<li><strong>K值需要预先给定，属于预先知识，很多情况下K值的估计是非常困难的</strong>，对于像计算全部微信用户的交往圈这样的场景就完全的没办法用K-Means进行。对于可以确定K值不会太大但不明确的K值的场景，可以进行迭代运算，然后找出Cost Function最小时所对应的K值，这个值往往能较好的描述有多少个簇类。</li>
+<li><strong>K-Means算法对初始选取的聚类中心点是敏感的，不同的随机种子点得到的聚类结果完全不同。</strong></li>
+<li><strong>K-Means算法并不是能处理所有的数据类型</strong>。它不能处理非球形簇、不同尺寸和不同密度的簇。</li>
+<li><strong>对离群点的数据进行聚类时，K均值也有问题</strong>，这种情况下，离群点检测和删除有很大的帮助。</li>
 </ol>
-<p>通过登录页我们输入错误的密码登录一次，因为只有输入错误的密码，才可以看到Network里面提交了什么样式的表单。</p>
-<p><img src="https://s1.ax1x.com/2018/11/28/FZARCq.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2018/11/28/FZAcUs.png" alt=""><br>因此我们需要通过Scrapy提取以下来填充表单：<br>captcha-id：图片验证码id<br>captcha-solution：图片验证码，我们通过查看图片手动输入验证码</p>
-<p>其他如form_email等固定信息我们可以提前填入表单。</p>
-<hr>
-<h3 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h3><p><strong>2.1 在开始着手写代码之前，我们先了解一些关于POST请求所需要的函数：</strong></p>
-<p><strong>模拟浏览器登录</strong></p>
-<blockquote>
-<p><b>start_requests()：</b> 可以返回一个请求给爬虫的起始网站，这个返回的请求相当于start_urls，start_requests()返回的请求会替代start_urls里的请求。之所以利用该方法重写起始请求，是因为我们可以自定义一些解析函数；而start_urls和parse()默认解析函数是绑定在一起的。</p>
 </blockquote>
-<blockquote>
-<p><b>Request()：</b> get请求，可以设置url、cookie、回调函数等。</p>
-</blockquote>
-<blockquote>
-<p><b>FormRequest.from_response(): </b>表单post提交。第一个参数是上一次响应cookie的response对象，其他参数有cookie、url、表单内容等。</p>
-</blockquote>
-<blockquote>
-<p>yield Request()可以将一个新的请求返回给爬虫执行</p>
-</blockquote>
-<blockquote>
-<p>在发送请求时cookie的操作:<br><b>meta={‘cookiejar’:1}</b>表示开启cookie记录，首次请求时写在Request()里</p>
-<p><b>meta={‘cookiejar’:response.meta[‘cookiejar’]}</b>表示使用上一次response的cookie，写在FormRequest.from_response()里</p>
-<p><b>meta={‘cookiejar’:True}</b>表示使用授权后的cookie访问需要登录查看的页面</p>
-</blockquote>
-<p><strong>2.2 爬虫代码实现</strong></p>
-<p><strong><em>login.py</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlretrieve</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginSpider</span><span class="params">(scrapy.Spider)</span>:</span></span><br><span class="line">    name = <span class="string">'login'</span></span><br><span class="line">    allowed_domains = [<span class="string">'web'</span>]</span><br><span class="line">    <span class="comment"># start_urls = ['http://web/'] 我们重写start_requests</span></span><br><span class="line">    <span class="comment"># 设置防盗链，防止反爬</span></span><br><span class="line">    headers = &#123;<span class="string">"User-Agent"</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36'</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#请求登陆页面,用meta开启cookie记录</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> [scrapy.FormRequest(<span class="string">"https://accounts.douban.com/login"</span>,headers=self.headers,meta=&#123;<span class="string">'cookiejar'</span>:<span class="number">1</span>&#125;,callback=self.parse_before_login,dont_filter=<span class="keyword">True</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="comment">#登陆表单填充，查看验证码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_before_login</span><span class="params">(self,response)</span>:</span></span><br><span class="line">        print(<span class="string">"登陆前表单填充：......"</span>)</span><br><span class="line">        <span class="comment"># 获取验证码的 id 和 url</span></span><br><span class="line">        captcha_id = response.xpath(<span class="string">'//input[@name="captcha-id"]/@value'</span>).extract_first()</span><br><span class="line">        captcha_src_url = response.xpath(<span class="string">'//img[@id="captcha_image"]/@src'</span>).extract_first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> captcha_src_url <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            print(<span class="string">'登陆时无需验证码...'</span>)</span><br><span class="line">            formdata = &#123;</span><br><span class="line">                <span class="string">"source"</span> : <span class="string">"index_nav"</span>,</span><br><span class="line">                <span class="string">"form_email"</span> : <span class="string">"1026740678@qq.com"</span>,</span><br><span class="line">                <span class="string">"form_password"</span> : <span class="string">"xxxxxx"</span>,</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">'登陆时需要验证码...'</span>)</span><br><span class="line">            <span class="comment">#通过urllib将图片下载到本地，用Pillow打开并手动输入验证码</span></span><br><span class="line">            <span class="comment">#本地存储路径</span></span><br><span class="line">            save_path = <span class="string">'C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\SimulatedLanding\SimulatedLanding\captcha.jpeg'</span></span><br><span class="line">            <span class="comment">#下载</span></span><br><span class="line">            urlretrieve(captcha_src_url,save_path)</span><br><span class="line">            <span class="comment">#用Pillow打开图片</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                im = Image.open(save_path)</span><br><span class="line">                im.show()</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                print(e)</span><br><span class="line"></span><br><span class="line">            captcha_solution = input(<span class="string">"请输入验证码："</span>)</span><br><span class="line">            formdata = &#123;</span><br><span class="line">                <span class="string">"source"</span>: <span class="string">"index_nav"</span>,</span><br><span class="line">                <span class="string">"redir"</span>: <span class="string">"https: // www.douban.com /"</span>,</span><br><span class="line">                <span class="string">"form_email"</span>: <span class="string">"1026740678@qq.com"</span>,</span><br><span class="line">                <span class="string">"form_password"</span>: <span class="string">"xxxxxx"</span>,</span><br><span class="line">                <span class="string">"captcha-solution"</span>: captcha_solution,</span><br><span class="line">                <span class="string">"captcha-id"</span>: captcha_id,</span><br><span class="line">                <span class="string">"login"</span>: <span class="string">"登录"</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        print(<span class="string">"正在登陆..."</span>)</span><br><span class="line">        <span class="comment"># 提交表单进行登陆</span></span><br><span class="line">        <span class="keyword">return</span> scrapy.FormRequest.from_response(response,headers=self.headers,meta=&#123;<span class="string">'cookiejar'</span>:response.meta[<span class="string">'cookiejar'</span>]&#125;,formdata=formdata,callback=self.parse_after_login,dont_filter=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_after_login</span><span class="params">(self,response)</span>:</span></span><br><span class="line">        <span class="comment">#验证是否登录成功</span></span><br><span class="line">        account = response.xpath(<span class="string">'//a[@class="bn-more"]/span/text()'</span>).extract_first()</span><br><span class="line">        <span class="keyword">if</span> account <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            print(<span class="string">"登陆失败..."</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">"登陆成功! 账户为%s "</span> % (account))</span><br></pre></td></tr></table></figure></p>
-<p>输入以下命令开始模拟登陆：</p>
-<blockquote>
-<p>scrapy crawl login</p>
-</blockquote>
-<p>运行结果：</p>
-<p><img src="https://s1.ax1x.com/2018/11/28/FZnQgI.png" alt=""></p>
-<p>运行到验证码获取图片时它会自己蹦出来:</p>
-<p><img src="https://s1.ax1x.com/2018/11/28/FZnlvt.png" alt=""></p>
-<p>登陆成功！是不是很激动呢！</p>
-<hr>
-<h3 id="三、问题处理"><a href="#三、问题处理" class="headerlink" title="三、问题处理"></a>三、问题处理</h3><p><strong>每次进行请求时别忘了将dont_filter设置为True！我又掉了一次坑。</strong></p>
-<h4 id="本章完"><a href="#本章完" class="headerlink" title="本章完"></a>本章完</h4><hr>
+<h4 id="拙劣的初始质心"><a href="#拙劣的初始质心" class="headerlink" title="拙劣的初始质心"></a>拙劣的初始质心</h4><p>当初始质心是随机的进行初始化的时候，K均值的每次运行将会产生不同的SSE,而且随机的选择初始质心结果可能很糟糕，<strong>可能只能得到局部的最优解，而无法得到全局的最优解</strong>。如下图所示：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEliZQ.png" alt=""></p>
+<p>可以看到程序迭代了4次终止，其得到了局部的最优解，显然我们可以看到其不是全局最优的，我们仍然可以找到一个更小的SSE的聚类。</p>
+<h4 id="随机初始化的局限"><a href="#随机初始化的局限" class="headerlink" title="随机初始化的局限"></a>随机初始化的局限</h4><p>你可能会想到：多次运行，每次使用一组不同的随机初始质心，然后选择一个具有最小的SSE的簇集。该策略非常的简单，但是效果可能不是很好，这取决于数据集合寻找的簇的个数。</p>
+<h4 id="K-Means优化算法"><a href="#K-Means优化算法" class="headerlink" title="K-Means优化算法"></a>K-Means优化算法</h4><p>为了克服K-Means算法收敛于局部最小值的问题，提出了一种二分K-均值(bisecting K-means)算法。</p>
+<h5 id="待补充…"><a href="#待补充…" class="headerlink" title="待补充…"></a>待补充…</h5><hr>
 
       
 
@@ -282,11 +303,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
         		</li>
       		
 		</ul>
@@ -305,18 +326,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/11/29/Scrapy框架-八-利用Scrapy爬取数据绘制词云图片/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/27/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片</div>
+    <a href="/2019/01/22/浅析Python3绘图库matplotlib的使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅析Python3绘图库matplotlib的使用</div>
       <i class="icon-circle-right"></i>
     </a>
   
