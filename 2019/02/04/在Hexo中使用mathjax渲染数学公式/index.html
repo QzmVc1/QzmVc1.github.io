@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | QzmVc1</title>
+  <title>在Hexo中使用mathjax渲染数学公式 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QzmVc1">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="在 hexo 中，你会发现我们不能用 Latex 语法来书写数学公式，这对于书写学术博客来说是很大的不便，因为我们会经常碰到很多的数学公式推导，但是我们可以通过安装第三方库来解决这一问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Hexo中使用mathjax渲染数学公式">
+<meta property="og:url" content="http://yoursite.com/2019/02/04/在Hexo中使用mathjax渲染数学公式/index.html">
 <meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="在 hexo 中，你会发现我们不能用 Latex 语法来书写数学公式，这对于书写学术博客来说是很大的不便，因为我们会经常碰到很多的数学公式推导，但是我们可以通过安装第三方库来解决这一问题。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-04T09:57:04.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="在Hexo中使用mathjax渲染数学公式">
+<meta name="twitter:description" content="在 hexo 中，你会发现我们不能用 Latex 语法来书写数学公式，这对于书写学术博客来说是很大的不便，因为我们会经常碰到很多的数学公式推导，但是我们可以通过安装第三方库来解决这一问题。">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -171,493 +175,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-在Hexo中使用mathjax渲染数学公式" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在Hexo中使用mathjax渲染数学公式
+    </h1>
+  
+
+
+
+        
+        <a href="/2019/02/04/在Hexo中使用mathjax渲染数学公式/" class="archive-article-date">
+  	<time datetime="2019-02-04T08:00:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在 <strong>hexo</strong> 中，你会发现我们不能用 <strong>Latex</strong> 语法来书写数学公式，这对于书写学术博客来说是很大的不便，因为我们会经常碰到很多的数学公式推导，但是我们可以通过安装第三方库来解决这一问题。<br><a id="more"></a></p>
+<h3 id="第一步：-使用Kramed代替-Marked"><a href="#第一步：-使用Kramed代替-Marked" class="headerlink" title="第一步： 使用Kramed代替 Marked"></a>第一步： 使用Kramed代替 Marked</h3><p><strong>hexo</strong> 默认的渲染引擎是 <strong>marked</strong> ，但是 <strong>marked</strong> 不支持 <strong>mathjax</strong> 。 <strong>kramed</strong> 是在 <strong>marked</strong> 的基础上进行修改。我们在工程目录下执行以下命令来安装 <strong>kramed</strong> .</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
+<p>然后，更改/node_modules/hexo-renderer-kramed/lib/renderer.js，更改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    // Fit kramed&apos;s rule: $$ + \1 + $$</span><br><span class="line">    return text.replace(/`\$(.*?)\$`/g, &apos;$$$$$1$$$$&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Change inline math rule</span><br><span class="line">function formatText(text) &#123;</span><br><span class="line">    return text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="第二步-停止使用-hexo-math"><a href="#第二步-停止使用-hexo-math" class="headerlink" title="第二步: 停止使用 hexo-math"></a>第二步: 停止使用 hexo-math</h3><p>首先，如果你已经安装 <strong>hexo-math</strong> , 请卸载它：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-math --save</span><br></pre></td></tr></table></figure></p>
+<p>然后安装 <strong>hexo-renderer-mathjax</strong> 包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-mathjax --save</span><br></pre></td></tr></table></figure></p>
+<h3 id="第三步-更新-Mathjax-的-CDN-链接"><a href="#第三步-更新-Mathjax-的-CDN-链接" class="headerlink" title="第三步: 更新 Mathjax 的 CDN 链接"></a>第三步: 更新 Mathjax 的 CDN 链接</h3><p>首先，打开 /node_modules/hexo-renderer-mathjax/mathjax.html</p>
+<p>然后，把 <strong>&lt;script&gt;</strong> 更改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="第四步-更改默认转义规则"><a href="#第四步-更改默认转义规则" class="headerlink" title="第四步: 更改默认转义规则"></a>第四步: 更改默认转义规则</h3><p>因为 <strong>hexo</strong> 默认的转义规则会将一些字符进行转义，比如 <strong>_</strong> 转为  <strong>&lt;em&gt;</strong> , 所以我们需要对默认的规则进行修改.<br>修改 node_modules\kramed\lib\rules\inline.js 中的第11行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br><span class="line">escape: /^\\([`*\[\]()#$+\-.!_&gt;])/,</span><br></pre></td></tr></table></figure></p>
+<p>以及第20行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure></p>
+<h3 id="第五步-开启mathjax"><a href="#第五步-开启mathjax" class="headerlink" title="第五步: 开启mathjax"></a>第五步: 开启mathjax</h3><p>在主题 <strong>_config.yml</strong> 中开启 <strong>Mathjax</strong> ， 找到 <strong>mathjax</strong> 字段添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure></p>
+<p>这一步可选，在博客中开启 Mathjax， 添加以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Testing Mathjax with Hexo</span><br><span class="line">category: Uncategorized</span><br><span class="line">date: 2017/05/03</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<h5 id="通过以上步骤，我们就可以在-hexo-中使用-Mathjax-来书写数学公式。"><a href="#通过以上步骤，我们就可以在-hexo-中使用-Mathjax-来书写数学公式。" class="headerlink" title="通过以上步骤，我们就可以在 hexo 中使用 Mathjax 来书写数学公式。"></a>通过以上步骤，我们就可以在 <strong>hexo</strong> 中使用 <strong>Mathjax</strong> 来书写数学公式。</h5><hr>
+<p>参考链接：<a href="https://blog.csdn.net/u014630987/article/details/78670258" target="_blank" rel="noopener">如何在 hexo 中支持 Mathjax？</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/07/Windows下使用Virtualenv虚拟环境/" class="archive-article-date">
-  	<time datetime="2018-11-07T14:07:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/07/Windows下使用Virtualenv虚拟环境/">Windows下使用Virtualenv虚拟环境</a>
-    </h1>
-  
+      
 
+      
 
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Virtualenv</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/07/新篇-精通Python爬虫框架Scrapy/" class="archive-article-date">
-  	<time datetime="2018-11-07T04:22:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/02/04/在Markdown中输入数学公式-MathJax/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          在Markdown中输入数学公式(MathJax)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/04/Python-Data-Analysis-Library-Pandas/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python Data Analysis Library -- Pandas</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/07/新篇-精通Python爬虫框架Scrapy/">新篇 精通Python爬虫框架Scrapy</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/07/Python3-numpy模块详解/" class="archive-article-date">
-  	<time datetime="2018-11-06T16:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/07/Python3-numpy模块详解/">Python3 Numpy模块详解</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Numpy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/05/Xpath用法总结/" class="archive-article-date">
-  	<time datetime="2018-11-05T13:53:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/05/Xpath用法总结/">Xpath用法总结</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">XPath</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/05/Python3-random模块常用函数总结/" class="archive-article-date">
-  	<time datetime="2018-11-05T13:50:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/05/Python3-random模块常用函数总结/">Python3 Random模块常用函数总结</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Random</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/31/Python3-requests模块详解/" class="archive-article-date">
-  	<time datetime="2018-10-31T11:35:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/31/Python3-requests模块详解/">Python3 Requests模块详解</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Requests</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/29/PyMySQL实现与数据库的交互/" class="archive-article-date">
-  	<time datetime="2018-10-29T08:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/29/PyMySQL实现与数据库的交互/">PyMySQL实现与数据库的交互</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/28/MySQL之增删改查/" class="archive-article-date">
-  	<time datetime="2018-10-28T15:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/28/MySQL之增删改查/">MySQL之增删改查</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/28/Python3-用CSV模块读写CSV文件/" class="archive-article-date">
-  	<time datetime="2018-10-28T15:34:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/28/Python3-用CSV模块读写CSV文件/">Python3 用CSV模块读写CSV文件</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSV</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文件IO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/28/Python3-OS模块常用命令总结/" class="archive-article-date">
-  	<time datetime="2018-10-28T03:27:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/28/Python3-OS模块常用命令总结/">Python3 OS模块常用命令总结</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -681,8 +300,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
