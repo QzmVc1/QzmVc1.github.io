@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/06/kYLqQf.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/06/kYjasf.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/06/kYjyJs.png">
-<meta property="og:updated_time" content="2019-02-06T12:47:32.080Z">
+<meta property="og:updated_time" content="2019-02-06T12:50:59.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进击数据挖掘十大算法(三):朴素贝叶斯">
 <meta name="twitter:description" content="一、概述贝叶斯分类算法是统计学的一种概率分类方法，朴素贝叶斯分类是贝叶斯分类中最简单的一种。其分类原理就是利用贝叶斯公式根据某特征的先验概率计算出其后验概率，然后选择具有最大后验概率的类作为该特征所属的类。之所以称之为 ”朴素” ，是因为贝叶斯分类只做最原始、最简单的假设：所有的特征之间是统计独立的。 假设某样本X有 $\alpha_1,\alpha_2,\ldots,\alpha_n$ 个属性,">
@@ -227,8 +227,7 @@
 <p>根据贝叶斯公式可知：</p>
 <script type="math/tex; mode=display">P(嫁|帅　性格不好　不上进)=P(嫁)\frac{P(帅|嫁)P(性格不好|嫁)P(不上进|嫁)}{P(帅　性格不好　不上进)}</script><script type="math/tex; mode=display">P(不嫁|帅　性格不好　不上进)=P(不嫁)\frac{P(帅|不嫁)P(性格不好|不嫁)P(不上进|不嫁)}{P(帅　性格不好　不上进)}</script><p>分母的计算用到的是全概率公式:</p>
 <script type="math/tex; mode=display">P(B) = \sum_{i=1}^{n}P(A_i)P(B|A_i)</script><p>所以</p>
-<script type="math/tex; mode=display">P(帅　性格不好　不上进)=P(嫁)P(帅|嫁)P(性格不好|嫁)P(不上进|嫁)</script><script type="math/tex; mode=display">+P(不嫁)P(帅|不嫁)P(性格不好|不嫁)P(不上进|不嫁)</script><p>&lt;/br&gt;</p>
-<p>由上表可以得出：</p>
+<script type="math/tex; mode=display">P(帅　性格不好　不上进)=P(嫁)P(帅|嫁)P(性格不好|嫁)P(不上进|嫁)</script><script type="math/tex; mode=display">+P(不嫁)P(帅|不嫁)P(性格不好|不嫁)P(不上进|不嫁)</script><p>由上表可以得出：</p>
 <p>P(嫁)= 5/10 = 1/2</p>
 <p>P(不嫁)= 5/10 = 1/2</p>
 <p>P(帅|嫁) <em> P(性格不好|嫁) </em> P(不上进|嫁)= 4/5 <em> 1/5 </em> 1/5</p>
@@ -325,6 +324,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/02/17/进击数据挖掘十大算法-四-C4-5决策树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          进击数据挖掘十大算法(四):C4.5决策树
+        
+      </div>
+    </a>
   
   
     <a href="/2019/02/04/在Markdown中输入数学公式-MathJax/" id="article-nav-older" class="article-nav-link-wrap">
@@ -477,10 +485,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -493,11 +497,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Module</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +513,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Module</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,19 +549,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">词云</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,18 +577,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
@@ -577,11 +585,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
