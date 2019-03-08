@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLwAfI.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLys9H.png">
-<meta property="og:updated_time" content="2019-03-04T04:57:05.935Z">
+<meta property="og:updated_time" content="2019-03-04T05:23:24.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python3-Selenium开启自动化测试">
 <meta name="twitter:description" content="一、Selenium简介Selenium是一款适用于Web应用程序的便携式软件测试框架。 Selenium为编写测试提供了一个回放工具，无需学习测试脚本语言。它还提供了一种测试领域特定的语言，用于编写包括C＃，Groovy，Java，Perl，PHP，Python，Ruby和Scala等多种流行编程语言的测试。 Selenium官网地址 环境配置： 系统：windows10浏览器：Chrome 7">
@@ -248,7 +248,7 @@
 </ul>
 <p>无论哪种方式，动作都按照它们被调用的顺序执行，一个在另一个之后执行。</p>
 <p>这里还是以代码展示部分功能吧：</p>
-<h6 id="方法一：可以写一长串"><a href="#方法一：可以写一长串" class="headerlink" title="方法一：可以写一长串"></a>方法一：可以写一长串</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">menu = driver.find_element_by_css_selector(<span class="string">".nav"</span>)</span><br><span class="line">hidden_submenu = driver.find_element_by_css_selector(<span class="string">".nav #submenu1"</span>)</span><br><span class="line">ActionChains(driver).move_to_element(menu).click(hidden_submenu).perform()</span><br></pre></td></tr></table></figure>
+<h6 id="方法一：可以写一长串"><a href="#方法一：可以写一长串" class="headerlink" title="方法一：可以写一长串"></a>方法一：可以写一长串</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.common.action_chains <span class="keyword">import</span> ActionChains</span><br><span class="line"></span><br><span class="line">menu = driver.find_element_by_css_selector(<span class="string">".nav"</span>)</span><br><span class="line">hidden_submenu = driver.find_element_by_css_selector(<span class="string">".nav #submenu1"</span>)</span><br><span class="line">ActionChains(driver).move_to_element(menu).click(hidden_submenu).perform()</span><br></pre></td></tr></table></figure>
 <h6 id="方法二：可以分几步写"><a href="#方法二：可以分几步写" class="headerlink" title="方法二：可以分几步写"></a>方法二：可以分几步写</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu = driver.find_element_by_css_selector(<span class="string">".nav"</span>)</span><br><span class="line">hidden_submenu = driver.find_element_by_css_selector(<span class="string">".nav #submenu1"</span>)</span><br><span class="line">actions = ActionChains(driver)</span><br><span class="line">actions.move_to_element(menu)</span><br><span class="line">actions.click(hidden_submenu)</span><br><span class="line">actions.perform()</span><br></pre></td></tr></table></figure>
 <p>其他操作如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">click(on_element=<span class="keyword">None</span>) ——单击鼠标左键</span><br><span class="line"></span><br><span class="line">click_and_hold(on_element=<span class="keyword">None</span>) ——点击鼠标左键，不松开</span><br><span class="line"></span><br><span class="line">context_click(on_element=<span class="keyword">None</span>) ——点击鼠标右键</span><br><span class="line"></span><br><span class="line">double_click(on_element=<span class="keyword">None</span>) ——双击鼠标左键</span><br><span class="line"></span><br><span class="line">drag_and_drop(source, target) ——拖拽到某个元素然后松开</span><br><span class="line"></span><br><span class="line">drag_and_drop_by_offset(source, xoffset, yoffset) ——拖拽到某个坐标然后松开</span><br><span class="line"></span><br><span class="line">key_down(value, element=<span class="keyword">None</span>) ——按下某个键盘上的键</span><br><span class="line"></span><br><span class="line">key_up(value, element=<span class="keyword">None</span>) ——松开某个键</span><br><span class="line"></span><br><span class="line">move_by_offset(xoffset, yoffset) ——鼠标从当前位置移动到某个坐标</span><br><span class="line"></span><br><span class="line">move_to_element(to_element) ——鼠标移动到某个元素</span><br><span class="line"></span><br><span class="line">move_to_element_with_offset(to_element, xoffset, yoffset) ——移动到距某个元素（左上角坐标）多少距离的位置</span><br><span class="line"></span><br><span class="line">perform() ——执行链中的所有动作</span><br><span class="line"></span><br><span class="line">release(on_element=<span class="keyword">None</span>) ——在某个元素位置松开鼠标左键</span><br><span class="line"></span><br><span class="line">send_keys(*keys_to_send) ——发送某个键到当前焦点的元素</span><br><span class="line"></span><br><span class="line">send_keys_to_element(element, *keys_to_send) ——发送某个键到指定元素</span><br></pre></td></tr></table></figure></p>
 <hr>
@@ -289,7 +289,7 @@
 <h4 id="8-2-隐式等待"><a href="#8-2-隐式等待" class="headerlink" title="8.2 隐式等待"></a>8.2 隐式等待</h4><p>隐式等待，就是在创建driver时，为浏览器对象创建一个等待时间，这个方法是得不到某个元素就等待一段时间，直到拿到某个元素位置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.implicity_wait(<span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
 <p>implicity_wait()默认参数的单位为妙，本例中设置等待时长为10秒，首先这10秒并非一个固定的等待时间，它并不影响脚本的执行速度。其次，它并不针对页面上的某一元素进行等待。当脚本执行到某个元素定位是，如果元素可以定位，则继续执行，如果元素定位不到，则它将以轮询的方式不断地判断元素是否被定位到。假设在第六秒定位到了元素则继续执行，若直到超出设置的时长10秒还没有定位到元素，则抛出异常。</p>
 <hr>
-<h3 id="九、iframe切换"><a href="#九、iframe切换" class="headerlink" title="九、iframe切换"></a>九、iframe切换</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_frame(<span class="string">''</span>)                  <span class="comment"># 选择iframe</span></span><br><span class="line">driver.switch_to_default_content()        <span class="comment"># 回到主页面</span></span><br></pre></td></tr></table></figure>
+<h3 id="九、iframe切换"><a href="#九、iframe切换" class="headerlink" title="九、iframe切换"></a>九、iframe切换</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to.frame(<span class="string">''</span>)                  <span class="comment"># 选择iframe</span></span><br><span class="line">driver.switch_to.default_content()        <span class="comment"># 回到主页面</span></span><br></pre></td></tr></table></figure>
 <p>说明：<strong>switch_to_frame接受的参数是iframe的id或者name属性</strong>，如果没有，则可以通过find_element_by_tag_name(‘iframe’)找到iframe，然后作为参数定位。</p>
 <hr>
 <p>参考链接：<a href="https://www.cnblogs.com/lvzb86/" target="_blank" rel="noopener">https://www.cnblogs.com/lvzb86/</a></p>
@@ -505,15 +505,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,7 +537,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,11 +545,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,11 +561,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,15 +581,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,15 +597,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Json</a>
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
