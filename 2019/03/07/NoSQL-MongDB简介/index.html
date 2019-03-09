@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzq5bn.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzqWvQ.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzObX4.png">
-<meta property="og:updated_time" content="2019-03-08T12:29:20.962Z">
+<meta property="og:updated_time" content="2019-03-09T02:29:09.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NoSQL-MongDB简介">
 <meta name="twitter:description" content="一、关系型数据库和非关系型数据库1.1 关系型数据库RDBMS(Relational DataBase Management System) 关系数据库，是建立在关系模型基础上的数据库，借助于集合代数等数学概念和方法来处理数据库中的数据。  关系模型就是指二维表格模型,因而一个关系型数据库就是由二维表及其之间的联系组成的一个数据组织。  当前主流的关系型数据库有Oracle、MySQL、Micr">
@@ -369,8 +369,8 @@
 <p><strong>---示例：</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将名为aaa的第一条数据中的gender属性改为Male</span></span><br><span class="line"><span class="comment">// $set 表示 更改/设置属性</span></span><br><span class="line"><span class="comment">// upsert 表示若没有查询到该数据，则向数据库中插入&#123;name:"aaa",gender:"Male"&#125;的一条数据</span></span><br><span class="line">db.collection.update(</span><br><span class="line">  &#123;<span class="attr">name</span>:<span class="string">"aaa"</span>&#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $set:&#123;<span class="attr">gender</span>:<span class="string">"Male"</span>&#125;，</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    upsert:<span class="literal">true</span>,</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// $unset 表示 删除属性，属性后面可以接任何值，一般为 1</span></span><br><span class="line">db.collection.update(&#123;<span class="attr">name</span>:<span class="string">"aaa"</span>&#125;,&#123;<span class="attr">$unset</span>:&#123;<span class="attr">gender</span>:<span class="number">1</span>&#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更改所有gender为Male的数据的age属性，将age全部加2</span></span><br><span class="line"><span class="comment">// $inc 表示 自增</span></span><br><span class="line">db.collection.update(</span><br><span class="line">  &#123;</span><br><span class="line">    gender:<span class="string">"Male"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $inc:&#123;<span class="attr">age</span>:<span class="number">2</span>&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    multi:<span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
 <h6 id="3-3-2-db-collection-updateOne"><a href="#3-3-2-db-collection-updateOne" class="headerlink" title="3.3.2 db.collection.updateOne()"></a>3.3.2 db.collection.updateOne()</h6><p>语义为更改第一个查询到的数据，语法同update()</p>
 <h6 id="3-3-3-db-collection-updateMany"><a href="#3-3-3-db-collection-updateMany" class="headerlink" title="3.3.3 db.collection.updateMany()"></a>3.3.3 db.collection.updateMany()</h6><p>语义为更改查询到的所有符合条件的数据，语法同update()</p>
-<h4 id="3-4-Delete-Operations"><a href="#3-4-Delete-Operations" class="headerlink" title="3.4 Delete Operations"></a>3.4 Delete Operations</h4><h6 id="3-4-1-db-collection-deleteOne"><a href="#3-4-1-db-collection-deleteOne" class="headerlink" title="3.4.1 db.collection.deleteOne(\)"></a>3.4.1 db.collection.deleteOne(\<filter\>)</filter\></h6><ul>
-<li>删除符合条件的第一条数据<h6 id="3-4-2-db-collection-deleteMany"><a href="#3-4-2-db-collection-deleteMany" class="headerlink" title="3.4.2 db.collection.deleteMany(\)"></a>3.4.2 db.collection.deleteMany(\<filter\>)</filter\></h6></li>
+<h4 id="3-4-Delete-Operations"><a href="#3-4-Delete-Operations" class="headerlink" title="3.4 Delete Operations"></a>3.4 Delete Operations</h4><h6 id="3-4-1-db-collection-deleteOne-filter"><a href="#3-4-1-db-collection-deleteOne-filter" class="headerlink" title="3.4.1 db.collection.deleteOne({filter})"></a>3.4.1 db.collection.deleteOne({filter})</h6><ul>
+<li>删除符合条件的第一条数据<h6 id="3-4-2-db-collection-deleteMany-filter"><a href="#3-4-2-db-collection-deleteMany-filter" class="headerlink" title="3.4.2 db.collection.deleteMany({filter})"></a>3.4.2 db.collection.deleteMany({filter})</h6></li>
 <li>删除符合条件的所有数据<h6 id="3-4-3-db-collection-remove"><a href="#3-4-3-db-collection-remove" class="headerlink" title="3.4.3 db.collection.remove()"></a>3.4.3 db.collection.remove()</h6><strong>---示例：</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除所有数据，&#123;&#125;是必须的</span></span><br><span class="line">db.collection.remove(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除所有name为aaa的数据</span></span><br><span class="line">db.collection.remove(</span><br><span class="line">  &#123;<span class="attr">name</span>:<span class="string">"aaa"</span>&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除name为aaa的第一条数据</span></span><br><span class="line">db.collection.remove(</span><br><span class="line">  &#123;</span><br><span class="line">    name:<span class="string">"aaa"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    justOne:<span class="literal">true</span>,</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -573,14 +573,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -589,11 +581,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Module</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,6 +594,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">GUI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Module</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,22 +617,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
@@ -641,7 +625,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,15 +673,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
