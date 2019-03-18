@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>常见反爬虫机制与应对方法 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。 一、设置下载等待时间/下载频率大多数情况下，我们遇到的是访问频率限制。如果你访问太快了，网站就会认为你不是一个">
+  <meta name="description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。">
 <meta name="keywords" content="Python,爬虫">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见反爬虫机制与应对方法">
 <meta property="og:url" content="http://yoursite.com/2019/03/18/常见反爬虫机制与应对方法/index.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。 一、设置下载等待时间/下载频率大多数情况下，我们遇到的是访问频率限制。如果你访问太快了，网站就会认为你不是一个">
+<meta property="og:description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-18T09:39:09.813Z">
+<meta property="og:updated_time" content="2019-03-18T09:44:06.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见反爬虫机制与应对方法">
-<meta name="twitter:description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。 一、设置下载等待时间/下载频率大多数情况下，我们遇到的是访问频率限制。如果你访问太快了，网站就会认为你不是一个">
+<meta name="twitter:description" content="前言爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -198,7 +198,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>爬虫的目的就是大规模地、长时间地获取数据，跟我们正常浏览器获取数据相比，虽然机理相差不大，但总是一个IP去爬网站，大规模集中对服务器访问，时间一长就有可能被拒绝。当下，各网站的反爬机制也变得无处不在。只要是个网站，基本都有针对爬虫的手段。然而攻永远比防要容易，所谓道高一尺，魔高一丈。<br><a id="more"></a></p>
 <h3 id="一、设置下载等待时间-下载频率"><a href="#一、设置下载等待时间-下载频率" class="headerlink" title="一、设置下载等待时间/下载频率"></a>一、设置下载等待时间/下载频率</h3><p>大多数情况下，我们遇到的是访问频率限制。如果你访问太快了，网站就会认为你不是一个人。这种情况下需要设定好频率的阈值，否则有可能误伤。</p>
 <p>遇到这种网页，最直接的办法是限制访问时间。例如每隔5秒钟访问一次页面。但是如果遇到聪明一点的网站，它检测到你的访问时间，这个人访问了几十个页面，但是每次访问都刚好5秒钟，人怎么可能做到这么准确的时间间隔？肯定是爬虫，被封也是理所当然的！所以访问时间间隔你可以设定为一个随机值，例如0到10之间的随机秒数。</p>
 <ul>
@@ -462,19 +462,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Random</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -518,10 +518,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">selenium</a>
               </li>
              
@@ -530,11 +526,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
