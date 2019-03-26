@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/2 | QzmVc1</title>
+  <title>Working with MongoDB and Pymongo | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QzmVc1">
-<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
+  <meta name="description" content="MongoDB的学习详见 官方文档 或者 我的博客  运行环境：  Pymongo 3.7.2准备工作123456789101112import pymongo# 创建客户端对象，连接数据库client = pymongo.MongoClient(&apos;localhost&apos;,27017)# 链接数据库db = client.dbnamedb = client[&apos;dbname&apos;]# 获取数据库中的集合">
+<meta name="keywords" content="Python,Module,Pymongo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Working with MongoDB and Pymongo">
+<meta property="og:url" content="http://yoursite.com/2019/03/26/Working-with-MongoDB-and-Pymongo/index.html">
 <meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="MongoDB的学习详见 官方文档 或者 我的博客  运行环境：  Pymongo 3.7.2准备工作123456789101112import pymongo# 创建客户端对象，连接数据库client = pymongo.MongoClient(&apos;localhost&apos;,27017)# 链接数据库db = client.dbnamedb = client[&apos;dbname&apos;]# 获取数据库中的集合">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-26T04:20:38.090Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="Working with MongoDB and Pymongo">
+<meta name="twitter:description" content="MongoDB的学习详见 官方文档 或者 我的博客  运行环境：  Pymongo 3.7.2准备工作123456789101112import pymongo# 创建客户端对象，连接数据库client = pymongo.MongoClient(&apos;localhost&apos;,27017)# 链接数据库db = client.dbnamedb = client[&apos;dbname&apos;]# 获取数据库中的集合">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -171,323 +176,123 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Working-with-MongoDB-and-Pymongo" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Working with MongoDB and Pymongo
+    </h1>
+  
+
+
+
+        
+        <a href="/2019/03/26/Working-with-MongoDB-and-Pymongo/" class="archive-article-date">
+  	<time datetime="2019-03-26T00:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-26</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>MongoDB的学习详见 <a href="https://docs.mongodb.com/manual/crud/" target="_blank" rel="noopener">官方文档</a> 或者 <a href="http://qzmvc1.top/2019/03/07/NoSQL-MongDB%E7%AE%80%E4%BB%8B/" target="_blank" rel="noopener">我的博客</a></p>
+</blockquote>
+<p>运行环境：</p>
+<ul>
+<li>Pymongo 3.7.2<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymongo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建客户端对象，连接数据库</span></span><br><span class="line">client = pymongo.MongoClient(<span class="string">'localhost'</span>,<span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接数据库</span></span><br><span class="line">db = client.dbname</span><br><span class="line">db = client[<span class="string">'dbname'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取数据库中的集合</span></span><br><span class="line">collection = db.collectionname</span><br><span class="line">collection = db[<span class="string">'collectionname'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<a id="more"></a>
+<h3 id="一、添加记录Create"><a href="#一、添加记录Create" class="headerlink" title="一、添加记录Create"></a>一、添加记录Create</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法同 MongoDB</span></span><br><span class="line"><span class="comment"># insert_one()</span></span><br><span class="line"><span class="comment"># insert_many()</span></span><br><span class="line"><span class="comment"># insert()  官方已不推荐使用，但可以用</span></span><br><span class="line"></span><br><span class="line">student1 = &#123;</span><br><span class="line"> <span class="string">'id'</span>: <span class="string">'20170101'</span>,</span><br><span class="line"> <span class="string">'name'</span>: <span class="string">'Jordan'</span>,</span><br><span class="line"> <span class="string">'age'</span>: <span class="number">20</span>,</span><br><span class="line"> <span class="string">'gender'</span>: <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line">student2 = &#123;</span><br><span class="line"> <span class="string">'id'</span>: <span class="string">'20170202'</span>,</span><br><span class="line"> <span class="string">'name'</span>: <span class="string">'Mike'</span>,</span><br><span class="line"> <span class="string">'age'</span>: <span class="number">21</span>,</span><br><span class="line"> <span class="string">'gender'</span>: <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result = collection.insert_one(student1)</span><br><span class="line">print(result)</span><br><span class="line"><span class="comment"># &lt;pymongo.results.InsertOneResult object at 0x10d68b558&gt;</span></span><br><span class="line">print(result.inserted_id)</span><br><span class="line"><span class="comment"># 5932ab0f15c2606f0c1cf6c5</span></span><br><span class="line"></span><br><span class="line">result = collection.insert_many([student1, student2])</span><br><span class="line">print(result)</span><br><span class="line"><span class="comment"># &lt;pymongo.results.InsertManyResult object at 0x101dea558&gt;</span></span><br><span class="line">print(result.inserted_ids)</span><br><span class="line"><span class="comment">#[ObjectId('5932abf415c2607083d3b2ac'),ObjectId('5932abf415c2607083d3b2ad')]</span></span><br></pre></td></tr></table></figure>
+<h3 id="二、查找记录Find"><a href="#二、查找记录Find" class="headerlink" title="二、查找记录Find"></a>二、查找记录Find</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法同 MongoDB</span></span><br><span class="line"><span class="comment"># find_one()</span></span><br><span class="line"><span class="comment"># find()</span></span><br><span class="line"></span><br><span class="line">result = collection.find_one(&#123;<span class="string">'name'</span>: <span class="string">'Mike'</span>&#125;)</span><br><span class="line">print(type(result))</span><br><span class="line"><span class="comment">#&lt;class 'dict'&gt;</span></span><br><span class="line">print(result)</span><br><span class="line"><span class="comment">#&#123;'_id': ObjectId('5932a80115c2606a59e8a049'), 'id': '20170202', 'name': 'Mike', 'age': 21, 'gender': 'male'&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">results = collection.find(&#123;<span class="string">'age'</span>: <span class="number">20</span>&#125;)</span><br><span class="line">print(results)</span><br><span class="line"><span class="comment"># &lt;pymongo.cursor.Cursor object at 0x1032d5128&gt;</span></span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">  print(result)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">&#123;'_id': ObjectId('593278c115c2602667ec6bae'), 'id': '20170101', 'name': 'Jordan', 'age': 20, 'gender': 'male'&#125;</span></span><br><span class="line"><span class="string">&#123;'_id': ObjectId('593278c815c2602678bb2b8d'), 'id': '20170102', 'name': 'Kevin', 'age': 20, 'gender': 'male'&#125;</span></span><br><span class="line"><span class="string">&#123;'_id': ObjectId('593278d815c260269d7645a8'), 'id': '20170103', 'name': 'Harden', 'age': 20, 'gender': 'male'&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 返回结果是Cursor类型，相当于一个生成器，我们需要遍历取到所有的结果，每一个结果都是字典类型。</span></span><br></pre></td></tr></table></figure>
+<h4 id="还有一些其他函数如下"><a href="#还有一些其他函数如下" class="headerlink" title="还有一些其他函数如下"></a>还有一些其他函数如下</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计数</span></span><br><span class="line">count = collection.find().count()</span><br><span class="line"><span class="comment"># 排序</span></span><br><span class="line">results = collection.find().sort(<span class="string">'name'</span>,pymongo.ASCENDING)</span><br><span class="line"><span class="comment"># 偏移</span></span><br><span class="line">results = collection.find().sort(<span class="string">'name'</span>,pymongo.ASCENDING).skip(<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 限制个数</span></span><br><span class="line">results = collection.find().sort(<span class="string">'name'</span>,pymongo.ASCENDING).skip(<span class="number">2</span>).limit(<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="三、更新记录Update"><a href="#三、更新记录Update" class="headerlink" title="三、更新记录Update"></a>三、更新记录Update</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法同 MongoDB</span></span><br><span class="line"><span class="comment"># update_one()</span></span><br><span class="line"><span class="comment"># update_many()</span></span><br><span class="line"><span class="comment"># update()  官方已不推荐使用，但可以用</span></span><br><span class="line"></span><br><span class="line">condition = &#123;<span class="string">'age'</span>: &#123;<span class="string">'$gt'</span>: <span class="number">20</span>&#125;&#125;</span><br><span class="line">result = collection.update_many(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'age'</span>: <span class="number">1</span>&#125;&#125;)</span><br><span class="line">print(result)</span><br><span class="line"><span class="comment"># &lt;pymongo.results.UpdateResult object at 0x10c6384c8&gt;</span></span><br><span class="line">print(result.matched_count, result.modified_count)</span><br><span class="line"><span class="comment"># 3 3</span></span><br></pre></td></tr></table></figure>
+<h3 id="四、删除记录Remove"><a href="#四、删除记录Remove" class="headerlink" title="四、删除记录Remove"></a>四、删除记录Remove</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法同 MongoDB</span></span><br><span class="line"><span class="comment"># delete_one()</span></span><br><span class="line"><span class="comment"># delete_many()</span></span><br><span class="line"><span class="comment"># remove()</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h4><ul>
+<li><a href="https://www.jb51.net/article/119823.htm" target="_blank" rel="noopener">https://www.jb51.net/article/119823.htm</a></li>
+<li><a href="http://api.mongodb.com/python/current/api/pymongo/collection.html" target="_blank" rel="noopener">http://api.mongodb.com/python/current/api/pymongo/collection.html</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/21/Numpy_Scipy_Pandas函数用法及问题汇总-长期更新/" class="archive-article-date">
-  	<time datetime="2019-02-21T13:47:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/21/Numpy_Scipy_Pandas函数用法及问题汇总-长期更新/">Numpy、Scipy、Pandas函数用法及问题汇总(长期更新)</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/17/进击数据挖掘十大算法-四-C4-5决策树/" class="archive-article-date">
-  	<time datetime="2019-02-17T10:14:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/17/进击数据挖掘十大算法-四-C4-5决策树/">进击数据挖掘十大算法(四):C4.5决策树</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/06/进击数据挖掘十大算法-三-朴素贝叶斯/" class="archive-article-date">
-  	<time datetime="2019-02-06T10:13:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/06/进击数据挖掘十大算法-三-朴素贝叶斯/">进击数据挖掘十大算法(三):朴素贝叶斯</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/04/在Markdown中输入数学公式-MathJax/" class="archive-article-date">
-  	<time datetime="2019-02-04T08:15:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/04/在Markdown中输入数学公式-MathJax/">在Markdown中输入数学公式(MathJax)</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/04/在Hexo中使用mathjax渲染数学公式/" class="archive-article-date">
-  	<time datetime="2019-02-04T08:00:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/04/在Hexo中使用mathjax渲染数学公式/">在Hexo中使用mathjax渲染数学公式</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/04/Python-Data-Analysis-Library-Pandas/" class="archive-article-date">
-  	<time datetime="2019-02-04T04:33:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/04/Python-Data-Analysis-Library-Pandas/">Python Data Analysis Library -- Pandas</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/01/进击数据挖掘十大算法-二-：KNN/" class="archive-article-date">
-  	<time datetime="2019-02-01T04:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/01/进击数据挖掘十大算法-二-：KNN/">进击数据挖掘十大算法(二):KNN</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Pymongo</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/03/18/常见反爬虫机制与应对方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常见反爬虫机制与应对方法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -510,8 +315,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
