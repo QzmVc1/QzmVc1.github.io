@@ -6,26 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>优化算法(一)：模拟退火算法 | QzmVc1</title>
+  <title>Scrapy框架(九):使用scrapyd部署爬虫 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：　　　　　　　　　　　　　　　　　min  f(x).如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到">
-<meta name="keywords" content="算法">
+  <meta name="description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta name="keywords" content="Python,Scrapy,爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="优化算法(一)：模拟退火算法">
-<meta property="og:url" content="http://yoursite.com/2018/12/17/优化算法-一-：模拟退火算法/index.html">
+<meta property="og:title" content="Scrapy框架(九):使用scrapyd部署爬虫">
+<meta property="og:url" content="http://yoursite.com/2019/03/31/Scrapy框架-九-使用scrapyd部署爬虫/index.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：　　　　　　　　　　　　　　　　　min  f(x).如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到">
+<meta property="og:description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F04aZV.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F046MR.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F04Xo8.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F05Fe0.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F05AoT.png">
-<meta property="og:updated_time" content="2018-12-17T14:37:54.290Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArKCex.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArNb0e.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArUkkj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArURu8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArUgjf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/AraVVe.png">
+<meta property="og:updated_time" content="2019-03-31T12:57:13.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="优化算法(一)：模拟退火算法">
-<meta name="twitter:description" content="前言在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：　　　　　　　　　　　　　　　　　min  f(x).如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到">
-<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/17/F04aZV.png">
+<meta name="twitter:title" content="Scrapy框架(九):使用scrapyd部署爬虫">
+<meta name="twitter:description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/31/ArKCex.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -182,54 +183,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-优化算法-一-：模拟退火算法" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-Scrapy框架-九-使用scrapyd部署爬虫" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      优化算法(一)：模拟退火算法
+      Scrapy框架(九):使用scrapyd部署爬虫
     </h1>
   
 
 
 
         
-        <a href="/2018/12/17/优化算法-一-：模拟退火算法/" class="archive-article-date">
-  	<time datetime="2018-12-17T12:18:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-17</time>
+        <a href="/2019/03/31/Scrapy框架-九-使用scrapyd部署爬虫/" class="archive-article-date">
+  	<time datetime="2019-03-31T07:16:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：<br>　　　　　　　　　　　　　　　　　<strong>min  f(x).</strong><br>如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到问题解，可解是否是最优的还有待考量，很多时候若初始值选择的不好，非常容易陷入局部最优值。<br><img src="https://s1.ax1x.com/2018/12/17/F04aZV.png" alt=""></p>
-<p>随着日常业务场景的复杂化，第三种问题经常遇见。如何有效地避免局部最优的困扰？模拟退火算法应运而生。其实模拟退火也算是启发式算法的一种，具体学习的是冶金学中金属加热-冷却的过程。由S.Kirkpatrick, C.D.Gelatt和M.P.Vecchi在1983年所发明的，V.Čern在1985年也独立发明此演算法。</p>
-<p>不过模拟退火算法到底是如何模拟金属退火的原理？主要是将热力学的理论套用到统计学上，将搜寻空间内每一点想像成空气内的分子；分子的能量，就是它本身的动能；而搜寻空间内的每一点，也像空气分子一样带有“能量”，以表示该点对命题的合适程度。演算法先以搜寻空间内一个任意点作起始：每一步先选择一个“邻居”，然后再计算从现有位置到达“邻居”的概率。若概率大于给定的阈值，则跳转到“邻居”；若概率较小，则停留在原位置不动。<br><a id="more"></a></p>
+        <h3 id="一、Scrapyd简介"><a href="#一、Scrapyd简介" class="headerlink" title="一、Scrapyd简介"></a>一、Scrapyd简介</h3><p>Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。<br>Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。<br>在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。</p>
 <hr>
-<h3 id="一、模拟退火算法基本思想"><a href="#一、模拟退火算法基本思想" class="headerlink" title="一、模拟退火算法基本思想"></a>一、模拟退火算法基本思想</h3><p>爬山法是一种贪婪的方法，对于一个优化问题，其大致图像如下图所示：</p>
-<p><img src="https://s1.ax1x.com/2018/12/17/F046MR.png" alt=""></p>
-<p>其目标是要找到函数的最大值，若初始化时，初始点的位置在C处，则会寻找到附近的局部最大值A点处，由于A点出是一个局部最大值点，故对于爬山法来讲，该算法无法跳出局部最大值点。若初始点选择在D处，根据爬山法，则会找到全部最大值点B。这一点也说明了这样基于贪婪的爬山法是否能够取得全局最优解与初始值的选取由很大的关系。</p>
-<p>模拟退火算法(Simulated Annealing, SA)的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。</p>
-<p>模拟退火算法从某一较高的温度出发，这个温度称为初始温度，伴随着温度参数的不断下降，算法中的解趋于稳定，但是，可能这样的稳定解是一个局部最优解，此时，模拟退火算法中会以一定的概率跳出这样的局部最优解，以寻找目标函数的全局最优解。如上图中所示，若此时寻找到了A点处的解，模拟退火算法会以一定的概率跳出这个解，如跳到了D点重新寻找，这样在一定程度上增加了寻找到全局最优解的可能性。</p>
-<p><img src="https://s1.ax1x.com/2018/12/17/F04Xo8.png" alt=""></p>
+<a id="more"></a>
+<h3 id="二、Scrapyd安装"><a href="#二、Scrapyd安装" class="headerlink" title="二、Scrapyd安装"></a>二、Scrapyd安装</h3><blockquote>
+<p>安装命令: pip install scrapyd</p>
+</blockquote>
+<p><strong>等待下载完成，下载完成后，启动scrapyd,命令即：scrapyd，启动后，有一句会显示你的端口号，如图所示:</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArKCex.png" alt=""></p>
+<p><strong>然后在网页中输入你的本地ip加上端口号，即：127.0.0.1:6800。访问这个网页出现下面的页面即scrapyd的页面：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArNb0e.png" alt=""></p>
+<p><strong>上一步中如果连接启动成功后先关闭服务，在一个地方创建一个文件夹，文件夹名字自定义，但是要见名知意。然后进入文件夹，按住shift键不松手，并右击该文件夹随意空白处，然后点击“在此处打开命令窗口”，即进入的是cmd，然后在cmd里重新启动scrapyd,即输入scrapyd。执行后文件里会多出一个空的文件夹dbs，这个文件夹是用来存放爬虫文件数据的。</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUkkj.png" alt=""></p>
+<p><strong>接下来我们需要把我们的项目打包上传到scrapyd服务里，那么我们要下载一个包：scrapyd-client。</strong></p>
 <hr>
-<h3 id="二、模拟退火算法过程"><a href="#二、模拟退火算法过程" class="headerlink" title="二、模拟退火算法过程"></a>二、模拟退火算法过程</h3><p>(1)随机挑选一个单元k，并给它一个随机的位移，求出系统因此而产生的能量变化ΔEk。</p>
-<p>(2)若ΔEk⩽0，该位移可采纳，而变化后的系统状态可作为下次变化的起点；<br>若ΔEk&gt;0，位移后的状态可采纳的概率为</p>
-<p><img src="https://s1.ax1x.com/2018/12/17/F05Fe0.png" alt=""></p>
-<p>式中T为温度，然后从(0,1)区间均匀分布的随机数中挑选一个数R，若R &lt; Pk ，则将变化后的状态作为下次的起点；否则，将变化前的状态作为下次的起点。</p>
-<p>(3)转第(1)步继续执行，知道达到平衡状态为止。</p>
-<p><img src="https://s1.ax1x.com/2018/12/17/F05AoT.png" alt=""></p>
+<h3 id="三、Scrapyd-client"><a href="#三、Scrapyd-client" class="headerlink" title="三、Scrapyd-client"></a>三、Scrapyd-client</h3><p>将Scrapy项目部署到远程服务器，首先第一步要做的就是把项目打包成<code>egg</code>文件，然后上传到目标服务器，这个操作使用<code>setup-tools</code>也是可以完成的，但比较麻烦。</p>
+<p>所以我们可以使用一个第三方库<code>Scrapyd-Client</code>来帮我们一步完成这些操作。</p>
+<p><code>scrapyd-client</code>的功能主要有两个：</p>
+<ul>
+<li><p>将项目打包成<code>egg</code>文件</p>
+</li>
+<li><p>将egg文件通过Scrapyd的<code>addversion.json</code>接口上传到目标服务器。</p>
+</li>
+</ul>
+<h4 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h4><blockquote>
+<p>pip install scrapyd-client</p>
+</blockquote>
+<p>下载完毕后，你的Python环境中的<code>Scripts</code>文件里会出现一个<code>scrapyd-deploy</code>，这个文件是启动文件，但是在windows下不能运行，只能在linux运行，所以我们要自己编写一个bat执行文件。</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArURu8.png" alt=""></p>
+<p>创建名字为<code>scrapy.bat</code> 和 <code>scrapyd-deploy.bat</code>的文件，里面写入下面的配置:</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUgjf.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.scrapy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapy %*</span><br><span class="line"></span><br><span class="line">-------------------</span><br><span class="line"></span><br><span class="line">2.scrapyd-deploy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapyd-deploy %*</span><br></pre></td></tr></table></figure>
+<p><strong>第一个是python.exe路径，第二个是Scripts中对应文件的路径。</strong></p>
+<p>然后我们来测试一下<code>scrapyd-deploy</code>是否可以使用:</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/AraVVe.png" alt=""></p>
+<h4 id="3-2-部署"><a href="#3-2-部署" class="headerlink" title="3.2 部署"></a>3.2 部署</h4><p>在安装<code>scrapyd-client</code>完毕之后，主要可以使用<code>scrapyd-deploy</code>命令完成项目的部署，以下是具体使用方式：</p>
+<p>要部署你的项目，首先先通过cd命令进入你项目的根目录，然后输入以下命令：</p>
+<blockquote>
+<p>scrapyd-deploy \<target> -p \<project\></project\></target></p>
+</blockquote>
+<p>这个命令会将你的项目打包成一个<code>egg</code>文件，然后上传到你指定的<code>target</code>，如果你的项目中有一个<code>setup.py</code>文件，那么其将会被使用，如果没有那么将会自动创建一个。如果这行代码运行成功的话，那么将会返回以下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deploying myproject-1287453519 to http://localhost:6800/addversion.json</span><br><span class="line">Server response (200):</span><br><span class="line">&#123;&quot;status&quot;: &quot;ok&quot;, &quot;spiders&quot;: [&quot;spider1&quot;, &quot;spider2&quot;]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-3-版本"><a href="#3-3-版本" class="headerlink" title="3.3 版本"></a>3.3 版本</h4><p>在使用以上命令部署<code>Scrapy</code>项目时，项目的版本号默认会设置为当前的时间戳，我们也可以使用<code>—version</code>参数来指定版本号。</p>
+<blockquote>
+<p>scrapyd-deploy <target> -p <project> —version <version></version></project></target></p>
+</blockquote>
+<p>需要注意的是，版本号只能为纯数字。在默认的情况下，<code>scrapyd</code>会使用版本号最大的版本。</p>
 <hr>
-<h3 id="三、模拟退火算法的优缺点"><a href="#三、模拟退火算法的优缺点" class="headerlink" title="三、模拟退火算法的优缺点"></a>三、模拟退火算法的优缺点</h3><p>模拟退火算法的应用很广泛，可以高效地求解NP完全问题，如货郎担问题(Travelling Salesman Problem，简记为TSP)、最大截问题(Max Cut Problem)、0-1背包问题(Zero One Knapsack Problem)、图着色问题(Graph Colouring Problem)等等，但其参数难以控制，不能保证一次就收敛到最优值，一般需要多次尝试才能获得（大部分情况下还是会陷入局部最优值）。观察模拟退火算法的过程，发现其主要存在如下三个参数问题：</p>
-<p><strong>(1) 温度T的初始值设置问题</strong><br>　　温度T的初始值设置是影响模拟退火算法全局搜索性能的重要因素之一、初始温度高，则搜索到全局最优解的可能性大，但因此要花费大量的计算时间；反之，则可节约计算时间，但全局搜索性能可能受到影响。</p>
-<p>　　<strong>(2) 退火速度问题，即每个T值的迭代次数</strong><br>　　模拟退火算法的全局搜索性能也与退火速度密切相关。一般来说，同一温度下的“充分”搜索是相当必要的，但这也需要计算时间。循环次数增加必定带来计算开销的增大。</p>
-<p>　　<strong>(3) 温度管理问题</strong><br>　　温度管理问题也是模拟退火算法难以处理的问题之一。实际应用中，由于必须考虑计算复杂度的切实可行性等问题，常采用如下所示的降温方式：<br>　　　　　　　　　　　　　　　　<strong>T=α×T.α∈(0,1).</strong><br>注：为了保证较大的搜索空间，α一般取接近于1的值，如0.95、0.9。</p>
+<h3 id="四、配置文件"><a href="#四、配置文件" class="headerlink" title="四、配置文件"></a>四、配置文件</h3><p>Scrapyd将会在以下地址搜索配置文件，在解析的过程中更高的配置文件拥有更高的优先级：</p>
+<ul>
+<li><p><code>/etc/scrapyd/scrapyd.conf</code> (Unix)</p>
+</li>
+<li><p><code>c:/scrapyd/scrapyd.conf</code> (Windows)</p>
+</li>
+<li><p><code>/etc/scrapyd/conf.d/*</code> (in alphabetical order, Unix)</p>
+</li>
+<li><p><code>scrapyd.conf</code></p>
+</li>
+<li><p><code>~/.scrapyd.conf</code> (users home directory)</p>
+</li>
+</ul>
+<p>配置文件中支持配置以下选项：</p>
+<ul>
+<li><p><code>http_port</code><br>Scrapyd的API监听的端口，默认为6800。</p>
+</li>
+<li><p><code>bind_address</code><br>网页和Json服务监听的IP地址，默认为127.0.0.1。</p>
+</li>
+<li><p><code>max_proc</code><br>同时启动的最大Scrapy进程数，如果没有设置或者设置为0，那么将会使用当前cpu可用的核数乘以max_proc_per_cpu的值。默认为0。</p>
+</li>
+<li><p><code>max_proc_per_cpu</code><br>每个cpu能同时启动的最大Scrapy进程数。默认为4。</p>
+</li>
+<li><p><code>debug</code><br>是否开启debug模式，默认为off。开启之后，如果在调用Scrapy的Json API的时候出错，则会返回详细的traceback信息。</p>
+</li>
+<li><p><code>eggs_dir</code><br>项目的eggs文件存储的目录。</p>
+</li>
+<li><p><code>dbs_dir</code><br>项目存储数据库的目录，也包括爬虫队列。</p>
+</li>
+<li><p><code>logs_dir</code><br>存储Scrapy日志的目录。</p>
+</li>
+<li><p><code>items_dir</code><br>存储items的目录，一般来说不需要设置这个选项，因为抓取下来的数据都会存到数据库中。如果设置这个选项，那么将会覆盖Scrapy的FEED_URL设置，将抓取下来的items保存到指定目录。</p>
+</li>
+<li><p><code>jobs_to_keep</code><br>每个spider保留多少个完成的job，默认为5。这更多指的是item和log。</p>
+</li>
+<li><p><code>finished_to_keep</code><br>启动器中保留的已完成进程的数量，默认为100。</p>
+</li>
+<li><p><code>poll_interval</code><br>轮询队列的间隔，以秒为单位，默认值为5，可以为浮点数。</p>
+</li>
+<li><p><code>runner</code><br>用来启动子进程的启动器，可以自定义启动的模块。</p>
+</li>
+<li><p><code>node_name</code><br>每个节点的节点名称，默认为${socket.gethostname()}。</p>
+</li>
+</ul>
+<p><strong>以下是一个默认的配置文件的例子：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[scrapyd]</span><br><span class="line">eggs_dir    = eggs</span><br><span class="line">logs_dir    = logs</span><br><span class="line">items_dir   =</span><br><span class="line">jobs_to_keep = <span class="number">5</span></span><br><span class="line">dbs_dir     = dbs</span><br><span class="line">max_proc    = <span class="number">0</span></span><br><span class="line">max_proc_per_cpu = <span class="number">4</span></span><br><span class="line">finished_to_keep = <span class="number">100</span></span><br><span class="line">poll_interval = <span class="number">5.0</span></span><br><span class="line">bind_address = <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">http_port   = <span class="number">6800</span></span><br><span class="line">debug       = off</span><br><span class="line">runner      = scrapyd.runner</span><br><span class="line">application = scrapyd.app.application</span><br><span class="line">launcher    = scrapyd.launcher.Launcher</span><br><span class="line">webroot     = scrapyd.website.Root</span><br><span class="line"></span><br><span class="line">[services]</span><br><span class="line">schedule.json     = scrapyd.webservice.Schedule</span><br><span class="line">cancel.json       = scrapyd.webservice.Cancel</span><br><span class="line">addversion.json   = scrapyd.webservice.AddVersion</span><br><span class="line">listprojects.json = scrapyd.webservice.ListProjects</span><br><span class="line">listversions.json = scrapyd.webservice.ListVersions</span><br><span class="line">listspiders.json  = scrapyd.webservice.ListSpiders</span><br><span class="line">delproject.json   = scrapyd.webservice.DeleteProject</span><br><span class="line">delversion.json   = scrapyd.webservice.DeleteVersion</span><br><span class="line">listjobs.json     = scrapyd.webservice.ListJobs</span><br><span class="line">daemonstatus.json = scrapyd.webservice.DaemonStatus</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h3 id="四、模拟退火算法Python实战"><a href="#四、模拟退火算法Python实战" class="headerlink" title="四、模拟退火算法Python实战"></a>四、模拟退火算法Python实战</h3><p>经过上面理论知识的熏陶，相信大家已经对模拟退火算法有了较深入的理解，接下来通过实战再强化一下大家的认识，此处利用模拟退火算法求解如下优化问题：<br>　　　　　　　　<strong>min f(x)=(x−2)∗(x+3)∗(x+8)∗(x−9)</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inputfun</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (x<span class="number">-2</span>)*(x+<span class="number">3</span>)*(x+<span class="number">8</span>)*(x<span class="number">-9</span>)</span><br><span class="line"></span><br><span class="line">initT = <span class="number">1000</span> <span class="comment">#初始温度</span></span><br><span class="line">minT = <span class="number">1</span> <span class="comment">#温度下限</span></span><br><span class="line">iterL = <span class="number">1000</span> <span class="comment">#每个T值的迭代次数</span></span><br><span class="line">delta = <span class="number">0.95</span> <span class="comment">#温度衰减系数</span></span><br><span class="line">k = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">initx = <span class="number">10</span>*(<span class="number">2</span>*np.random.rand()<span class="number">-1</span>)</span><br><span class="line">nowt = initT</span><br><span class="line">print(<span class="string">"初始解："</span>,initx)</span><br><span class="line"></span><br><span class="line">xx = np.linspace(<span class="number">-10</span>,<span class="number">10</span>,<span class="number">300</span>)</span><br><span class="line">yy = inputfun(xx)</span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(xx,yy)</span><br><span class="line">plt.plot(initx,inputfun(initx),<span class="string">'o'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#模拟退火算法寻找最小值过程</span></span><br><span class="line"><span class="keyword">while</span> nowt&gt;minT:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> np.arange(<span class="number">1</span>,iterL,<span class="number">1</span>):</span><br><span class="line">        funVal = inputfun(initx)</span><br><span class="line">        xnew = initx+(<span class="number">2</span>*np.random.rand()<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">if</span> xnew&gt;=<span class="number">-10</span> <span class="keyword">and</span> xnew&lt;=<span class="number">10</span>:</span><br><span class="line">            funnew = inputfun(xnew)</span><br><span class="line">            res = funnew-funVal</span><br><span class="line">            <span class="keyword">if</span> res&lt;<span class="number">0</span>:</span><br><span class="line">                initx = xnew</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p = np.exp(-(res)/(k*nowt))</span><br><span class="line">                <span class="keyword">if</span> np.random.rand()&lt;p:</span><br><span class="line">                    initx = xnew</span><br><span class="line">    nowt = nowt * delta</span><br><span class="line"></span><br><span class="line">print(<span class="string">"最优解："</span>,initx)</span><br><span class="line">print(<span class="string">"最优值："</span>,inputfun(initx))</span><br><span class="line">plt.plot(initx,inputfun(initx),<span class="string">'*r'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<h3 id="五、API"><a href="#五、API" class="headerlink" title="五、API"></a>五、API</h3><p>在开启了<code>scrapyd</code>服务之后，就可以通过<code>Scrapyd</code>提供的<code>API</code>接口来操作你的<code>Scrapy</code>项目了。</p>
+<h4 id="5-1-daemonstatus-json"><a href="#5-1-daemonstatus-json" class="headerlink" title="5.1 daemonstatus.json"></a>5.1 daemonstatus.json</h4><p>用来检查服务器的负载状态。支持的请求方法：<code>GET</code>。</p>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/daemonstatus.json</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"running"</span>: <span class="string">"0"</span>, <span class="string">"pending"</span>: <span class="string">"0"</span>, <span class="string">"finished"</span>: <span class="string">"0"</span>, <span class="string">"node_name"</span>: <span class="string">"node-name"</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-2-addversion-json"><a href="#5-2-addversion-json" class="headerlink" title="5.2 addversion.json"></a>5.2 addversion.json</h4><p>给项目增加一个版本，如果项目不存在的话那么就创建一个项目。这个接口主要被用来上传项目或者更新项目版本。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>version</code> (string, required) - 项目的版本</p>
+</li>
+<li><p><code>egg</code> (file, required) - 一个包含项目代码的egg文件</p>
+</li>
+</ul>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/addversion.json -F project=myproject -F version=r23 -F egg=@myproject.egg</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"spiders"</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-3-schedule-json"><a href="#5-3-schedule-json" class="headerlink" title="5.3 schedule.json"></a>5.3 schedule.json</h4><p>调度运行一个爬虫（也成为job），并返回一个<code>jobid</code>。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>spider</code> (string, required) - 爬虫的名称</p>
+</li>
+<li><p><code>setting</code> (string, optional) - 爬虫运行时要用到的Scrapy设置</p>
+</li>
+<li><p><code>jobid</code> (string, optional) - 用来作为标识的jobid，会覆盖掉默认生成的UUID</p>
+</li>
+<li><p><code>_version</code> (string, optional) - 使用的项目版本<br>任何其他的参数将会传递作为爬虫的参数</p>
+</li>
+</ul>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"jobid"</span>: <span class="string">"6487ec79947edab326d6db28a2d86511e8247444"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以下是传递spider参数和setting参数的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider -d setting=DOWNLOAD_DELAY=<span class="number">2</span> -d arg1=val1</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-4-cancel-json"><a href="#5-4-cancel-json" class="headerlink" title="5.4 cancel.json"></a>5.4 cancel.json</h4><p>取消一个<code>job</code>的运行，如果这个<code>job</code>处于等待的状态，那么将会被移除，如果这个<code>job</code>正在运行，那么它将会被终止。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>job</code> (string, required) - job的id</p>
+</li>
+</ul>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/cancel.json -d project=myproject -d job=<span class="number">6487</span>ec79947edab326d6db28a2d86511e8247444</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"prevstate"</span>: <span class="string">"running"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-5-listprojects-json"><a href="#5-5-listprojects-json" class="headerlink" title="5.5 listprojects.json"></a>5.5 listprojects.json</h4><p>获取上传到服务器的项目列表。支持请求方法：<code>GET</code>，无参数。</p>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listprojects.json</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"projects"</span>: [<span class="string">"myproject"</span>, <span class="string">"otherproject"</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-6-listversions-json"><a href="#5-6-listversions-json" class="headerlink" title="5.6 listversions.json"></a>5.6 listversions.json</h4><p>获取某个或某些项目的版本列表。返回的版本将会按顺序排列，最后的那个版本是当前正在使用的版本。支持请求参数：<code>GET</code>。</p>
+<p>参数：<br><code>project</code> (string, required) - 项目名称</p>
+<p>request例子：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:6800/listversions.json?project=myproject</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"versions"</span>: [<span class="string">"r99"</span>, <span class="string">"r156"</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-7-listspiders-json"><a href="#5-7-listspiders-json" class="headerlink" title="5.7 listspiders.json"></a>5.7 listspiders.json</h4><p>默认获取某个项目最新版本中的<code>spider</code>列表。支持的请求方法：<code>GET</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>_version</code> (string, optional) - 检查的项目版本</p>
+</li>
+</ul>
+<p>request例子：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:6800/listspiders.json?project=myproject</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>, <span class="string">"spiders"</span>: [<span class="string">"spider1"</span>, <span class="string">"spider2"</span>, <span class="string">"spider3"</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-8-listjobs-json"><a href="#5-8-listjobs-json" class="headerlink" title="5.8 listjobs.json"></a>5.8 listjobs.json</h4><p>获取某个项目正在等待、运行或者运行完毕的job列表。支持的请求类型：<code>GET</code>。</p>
+<p>参数：</p>
+<ul>
+<li><code>project</code> (string, required) - 项目名称</li>
+</ul>
+<p>request例子：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:6800/listjobs.json?project=myproject</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>,</span><br><span class="line"> <span class="string">"pending"</span>: [&#123;<span class="string">"id"</span>: <span class="string">"78391cc0fcaf11e1b0090800272a6d06"</span>, <span class="string">"spider"</span>: <span class="string">"spider1"</span>&#125;],</span><br><span class="line"> <span class="string">"running"</span>: [&#123;<span class="string">"id"</span>: <span class="string">"422e608f9f28cef127b3d5ef93fe9399"</span>, <span class="string">"spider"</span>: <span class="string">"spider2"</span>, <span class="string">"start_time"</span>: <span class="string">"2012-09-12 10:14:03.594664"</span>&#125;],</span><br><span class="line"> <span class="string">"finished"</span>: [&#123;<span class="string">"id"</span>: <span class="string">"2f16646cfcaf11e1b0090800272a6d06"</span>, <span class="string">"spider"</span>: <span class="string">"spider3"</span>, <span class="string">"start_time"</span>: <span class="string">"2012-09-12 10:14:03.594664"</span>, <span class="string">"end_time"</span>: <span class="string">"2012-09-12 10:24:03.594664"</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-9-delversion-json"><a href="#5-9-delversion-json" class="headerlink" title="5.9 delversion.json"></a>5.9 delversion.json</h4><p>删除某个项目的某个版本，如果这个项目不再有能用的版本，那么项目也会被删除。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目名称</p>
+</li>
+<li><p><code>version</code> (string, required) - 要删除的项目版本</p>
+</li>
+</ul>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delversion.json -d project=myproject -d version=r99</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-10-delproject-json"><a href="#5-10-delproject-json" class="headerlink" title="5.10 delproject.json"></a>5.10 delproject.json</h4><p>删除指定项目。支持请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><code>project</code> (string, required) - 项目名称</li>
+</ul>
+<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delproject.json -d project=myproject</span><br></pre></td></tr></table></figure></p>
+<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"status"</span>: <span class="string">"ok"</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
-<p>参考链接：<br><a href="https://blog.csdn.net/AI_BigData_wh/article/details/77943787" target="_blank" rel="noopener">https://blog.csdn.net/AI_BigData_wh/article/details/77943787</a><br><a href="https://blog.csdn.net/google19890102/article/details/45395257" target="_blank" rel="noopener">https://blog.csdn.net/google19890102/article/details/45395257</a><br><a href="https://www.cnblogs.com/heaad/archive/2010/12/20/1911614.html" target="_blank" rel="noopener">https://www.cnblogs.com/heaad/archive/2010/12/20/1911614.html</a></p>
+<p>参考链接:</p>
+<ul>
+<li><p><a href="https://www.jianshu.com/p/2a189127901a" target="_blank" rel="noopener">https://www.jianshu.com/p/2a189127901a</a></p>
+</li>
+<li><p><a href="https://scrapyd.readthedocs.io/en/latest/api.html" target="_blank" rel="noopener">https://scrapyd.readthedocs.io/en/latest/api.html</a></p>
+</li>
+</ul>
 
       
 
@@ -243,7 +402,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
         		</li>
       		
 		</ul>
@@ -262,18 +429,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/22/浅析Python3绘图库matplotlib的使用/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          浅析Python3绘图库matplotlib的使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/12/05/PyQt5学习日记-二-信号与槽/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">PyQt5学习日记(二):信号与槽</div>
+    <a href="/2019/03/26/Working-with-MongoDB-and-Pymongo/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Working with MongoDB and Pymongo</div>
       <i class="icon-circle-right"></i>
     </a>
   
