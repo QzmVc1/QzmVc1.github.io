@@ -173,6 +173,97 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Scrapy框架之细数到目前为止我遇到的坑" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/">Scrapy框架之细数到目前为止我遇到的坑</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/" class="archive-article-date">
+  	<time datetime="2018-11-19T00:56:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
+<hr>
+<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/19/Scrapy框架之细数到目前为止我遇到的坑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Scrapy框架-二-抽取更多的URL" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -806,103 +897,9 @@
 
 
   
-    <article id="post-Python3-requests模块详解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/31/Python3-requests模块详解/">Python3 Requests模块详解</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/2018/10/31/Python3-requests模块详解/" class="archive-article-date">
-  	<time datetime="2018-10-31T11:35:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考链接 : <a href="https://www.cnblogs.com/ranxf/p/7808537.html" target="_blank" rel="noopener">https://www.cnblogs.com/ranxf/p/7808537.html</a></p>
-<hr>
-<h3 id="一、安装requests"><a href="#一、安装requests" class="headerlink" title="一、安装requests"></a><b>一、安装requests</b></h3><ul>
-<li><p>通过pip安装</p>
-<blockquote>
-<p> <b>pip install requests</b></p>
-</blockquote>
-</li>
-<li><p>或者下载代码后通过git安装</p>
-<blockquote>
-<p><b>$ git clone git://github.com/kennethreitz/requests.git<br>$ cd requests<br>$ python setup.py install</b></p>
-        
-      
-
-      
-    </blockquote></li></ul></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Requests</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/31/Python3-requests模块详解/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -1056,7 +1053,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1064,7 +1061,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1113,6 +1110,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
               </li>
              
               <li class="article-tag-list-item">
