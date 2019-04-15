@@ -6,15 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Python | QzmVc1</title>
+  <title>Python人脸识别模块face_recognition之环境配置 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QzmVc1">
-<meta property="og:url" content="http://yoursite.com/tags/Python/page/2/index.html">
+  <meta name="description" content="前言一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个基于CNN的face_recognition库，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，安装失败的原因主要是各环境版本的匹配问题。遂开此博客，记录环境安装流程。  Python3.7 + Cmake 3.14.0 + bo">
+<meta name="keywords" content="Python,杂谈,Modules">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python人脸识别模块face_recognition之环境配置">
+<meta property="og:url" content="http://yoursite.com/2019/04/15/Python人脸识别模块face-recognition之环境配置/index.html">
 <meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个基于CNN的face_recognition库，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，安装失败的原因主要是各环境版本的匹配问题。遂开此博客，记录环境安装流程。  Python3.7 + Cmake 3.14.0 + bo">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjepM8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjZOIA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aje9sS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjeCqg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjeXmF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjmSYR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjmVTH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Ajm6AJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Ajmfc6.png">
+<meta property="og:updated_time" content="2019-04-15T05:00:42.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="Python人脸识别模块face_recognition之环境配置">
+<meta name="twitter:description" content="前言一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个基于CNN的face_recognition库，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，安装失败的原因主要是各环境版本的匹配问题。遂开此博客，记录环境安装流程。  Python3.7 + Cmake 3.14.0 + bo">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/15/AjepM8.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -171,38 +186,91 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Python人脸识别模块face-recognition之环境配置" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python人脸识别模块face_recognition之环境配置
+    </h1>
+  
+
+
+
+        
+        <a href="/2019/04/15/Python人脸识别模块face-recognition之环境配置/" class="archive-article-date">
+  	<time datetime="2019-04-15T04:12:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-15</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个<strong>基于CNN的face_recognition库</strong>，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，<strong>安装失败的原因主要是各环境版本的匹配问题</strong>。遂开此博客，记录环境安装流程。</p>
+<blockquote>
+<p><strong>Python3.7 + Cmake 3.14.0 + boost 1.68 + dlib 19.14 + face_recognition</strong></p>
+</blockquote>
+<a id="more"></a>
+<hr>
+<h3 id="一、安装Visual-Studio-2017"><a href="#一、安装Visual-Studio-2017" class="headerlink" title="一、安装Visual Studio 2017"></a>一、安装Visual Studio 2017</h3><p>我们需要用到VS2017中的cl.exe, 好像是这么个东西。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjepM8.png" alt=""></p>
+<h4 id="1-1-安装VS2017"><a href="#1-1-安装VS2017" class="headerlink" title="1.1 安装VS2017"></a>1.1 安装VS2017</h4><blockquote>
+<p>VS2017下载地址：<a href="https://visualstudio.microsoft.com/zh-hans/downloads/" target="_blank" rel="noopener">https://visualstudio.microsoft.com/zh-hans/downloads/</a></p>
+</blockquote>
+<p>安装时需要选上<code>使用C++的桌面开发</code>、<code>Python开发</code>，最后别忘了设置安装位置。等待一段时间即可。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjZOIA.png" alt=""></p>
+<h4 id="1-2-配置cl环境变量"><a href="#1-2-配置cl环境变量" class="headerlink" title="1.2 配置cl环境变量"></a>1.2 配置cl环境变量</h4><p>VS2017安装好C++开发环境后，要将<code>cl.exe</code>的路径加入到环境变量，见到如下截图说明cl配置正常了:</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aje9sS.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjeCqg.png" alt=""></p>
+<hr>
+<h3 id="二、Python3-7安装"><a href="#二、Python3-7安装" class="headerlink" title="二、Python3.7安装"></a>二、Python3.7安装</h3><blockquote>
+<p>Python官网：<a href="https://www.python.org/downloads/" target="_blank" rel="noopener">https://www.python.org/downloads/</a></p>
+</blockquote>
+<p>安装流程略</p>
+<hr>
+<h3 id="三、安装Cmake-3-14-0"><a href="#三、安装Cmake-3-14-0" class="headerlink" title="三、安装Cmake 3.14.0"></a>三、安装Cmake 3.14.0</h3><p>这里不用pip。我写这篇博客的时候pip最高只能安装3.13.3的版本。所以我们选择在官网下载。</p>
+<blockquote>
+<p>Cmake官网：<a href="https://cmake.org/files/v3.14/" target="_blank" rel="noopener">https://cmake.org/files/v3.14/</a></p>
+</blockquote>
+<p>下载对应系统下的 <code>.msi</code> 或者 <code>.zip</code> 文件。这里拿Windows举例,32位电脑选择上面的，64位电脑选择下面的。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjeXmF.png" alt=""></p>
+<p>下载完成之后将Cmake的bin目录添加到环境变量：</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjmSYR.png" alt=""></p>
+<hr>
+<h3 id="四、安装boost1-68-0"><a href="#四、安装boost1-68-0" class="headerlink" title="四、安装boost1.68.0"></a>四、安装boost1.68.0</h3><blockquote>
+<p>boost官网：<a href="https://www.boost.org/" target="_blank" rel="noopener">https://www.boost.org/</a></p>
+</blockquote>
+<h6 id="4-1-将下载的boost解压，然后运行-bootstrap-bat-执行文件，会生成b2-exe、bjam-exe以及project-config-jam。（推荐在命令行cd到当前目录执行bootstrap-bat）"><a href="#4-1-将下载的boost解压，然后运行-bootstrap-bat-执行文件，会生成b2-exe、bjam-exe以及project-config-jam。（推荐在命令行cd到当前目录执行bootstrap-bat）" class="headerlink" title="4.1 将下载的boost解压，然后运行 bootstrap.bat 执行文件，会生成b2.exe、bjam.exe以及project-config.jam。（推荐在命令行cd到当前目录执行bootstrap.bat）"></a>4.1 将下载的boost解压，然后运行 <code>bootstrap.bat</code> 执行文件，会生成<code>b2.exe</code>、<code>bjam.exe</code>以及<code>project-config.jam</code>。（推荐在命令行cd到当前目录执行bootstrap.bat）</h6><p><img src="https://s2.ax1x.com/2019/04/15/AjmVTH.png" alt=""></p>
+<p><strong>注意：如果在cmd中提示Failed，尝试切换到vs2017中的终端下进行操作，路径为 <code>ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017\Visual Studio Tools\VC</code></strong></p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Ajm6AJ.png" alt=""></p>
+<h6 id="4-2-在当前目录命令行中执行命令-b2-install-这个过程有点长，大概两个多小时左右，耐心等就好了。"><a href="#4-2-在当前目录命令行中执行命令-b2-install-这个过程有点长，大概两个多小时左右，耐心等就好了。" class="headerlink" title="4.2 在当前目录命令行中执行命令 b2 install ,这个过程有点长，大概两个多小时左右，耐心等就好了。"></a>4.2 在当前目录命令行中执行命令 <code>b2 install</code> ,这个过程有点长，大概两个多小时左右，耐心等就好了。</h6><h6 id="4-3-在当前目录命令行中执行命令-b2-a-—with-python-address-model-64-toolset-msvc-runtime-link-static。"><a href="#4-3-在当前目录命令行中执行命令-b2-a-—with-python-address-model-64-toolset-msvc-runtime-link-static。" class="headerlink" title="4.3 在当前目录命令行中执行命令 b2 -a —with-python address-model=64 toolset=msvc runtime-link=static。"></a>4.3 在当前目录命令行中执行命令 <code>b2 -a —with-python address-model=64 toolset=msvc runtime-link=static</code>。</h6><h6 id="4-4-将安装已完成后的boost路径添加到环境变量："><a href="#4-4-将安装已完成后的boost路径添加到环境变量：" class="headerlink" title="4.4 将安装已完成后的boost路径添加到环境变量："></a>4.4 将安装已完成后的boost路径添加到环境变量：</h6><p><img src="https://s2.ax1x.com/2019/04/15/Ajmfc6.png" alt=""></p>
+<p><strong>到这里前置环境已经全部安装完成了，只差最后一步！！！</strong></p>
+<hr>
+<h3 id="五、安装dlib-19-14-0"><a href="#五、安装dlib-19-14-0" class="headerlink" title="五、安装dlib 19.14.0"></a>五、安装dlib 19.14.0</h3><p>这里推荐使用pip安装.</p>
+<blockquote>
+<p>pip install dlib==19.14</p>
+</blockquote>
+<p>耐心等待就好！！</p>
+<hr>
+<h3 id="六、安装face-recognition"><a href="#六、安装face-recognition" class="headerlink" title="六、安装face_recognition"></a>六、安装face_recognition</h3><blockquote>
+<p>pip install face_recognition</p>
+</blockquote>
+<p>这边在推荐几个有关的库，一个计算机视觉库，一个深度学习框架：</p>
+<blockquote>
+<p>pip install opencv-python</p>
+<p>pip install tensorflow</p>
+<hr>
+<h4 id="完结，撒花-！！"><a href="#完结，撒花-！！" class="headerlink" title="完结，撒花~~！！"></a>完结，撒花~~！！</h4></blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/17/进击数据挖掘十大算法-四-C4-5决策树/" class="archive-article-date">
-  	<time datetime="2019-02-17T10:14:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/17/进击数据挖掘十大算法-四-C4-5决策树/">进击数据挖掘十大算法(四):C4.5决策树</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -212,466 +280,64 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Modules</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/06/进击数据挖掘十大算法-三-朴素贝叶斯/" class="archive-article-date">
-  	<time datetime="2019-02-06T10:13:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/06/进击数据挖掘十大算法-三-朴素贝叶斯/">进击数据挖掘十大算法(三):朴素贝叶斯</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/04/Python-Data-Analysis-Library-Pandas/" class="archive-article-date">
-  	<time datetime="2019-02-04T04:33:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/04/Python-Data-Analysis-Library-Pandas/">Python Data Analysis Library -- Pandas</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Pandas</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/01/进击数据挖掘十大算法-二-：KNN/" class="archive-article-date">
-  	<time datetime="2019-02-01T04:49:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/01/进击数据挖掘十大算法-二-：KNN/">进击数据挖掘十大算法(二):KNN</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/23/进击数据挖掘十大算法-一-K-Means/" class="archive-article-date">
-  	<time datetime="2019-01-23T08:17:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/23/进击数据挖掘十大算法-一-K-Means/">进击数据挖掘十大算法(一):K-Means</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据挖掘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/22/浅析Python3绘图库matplotlib的使用/" class="archive-article-date">
-  	<time datetime="2019-01-22T12:58:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/22/浅析Python3绘图库matplotlib的使用/">浅析Python3绘图库matplotlib的使用</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Matplotlib</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/05/PyQt5学习日记-二-信号与槽/" class="archive-article-date">
-  	<time datetime="2018-12-05T14:28:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/05/PyQt5学习日记-二-信号与槽/">PyQt5学习日记(二):信号与槽</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PyQt5</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">GUI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/05/PyQt5学习日记-一-第一个GUI程序/" class="archive-article-date">
-  	<time datetime="2018-12-05T14:07:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/31/Scrapy框架-九-使用scrapyd部署爬虫/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Scrapy框架(九):使用scrapyd部署爬虫</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/05/PyQt5学习日记-一-第一个GUI程序/">PyQt5学习日记(一):第一个GUI程序</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PyQt5</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">GUI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/02/Python装饰器的通俗理解/" class="archive-article-date">
-  	<time datetime="2018-12-02T07:54:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/02/Python装饰器的通俗理解/">Python装饰器的通俗理解</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">装饰器</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/02/利用selenium自动填写南邮正方的教学质量评价/" class="archive-article-date">
-  	<time datetime="2018-12-02T06:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/02/利用selenium自动填写南邮正方的教学质量评价/">利用selenium自动填写南邮正方的教学质量评价</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">selenium</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/Python/">&laquo; Prev</a><a class="page-number" href="/tags/Python/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/Python/page/3/">3</a><a class="page-number" href="/tags/Python/page/4/">4</a><a class="extend next" rel="next" href="/tags/Python/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -695,9 +361,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
