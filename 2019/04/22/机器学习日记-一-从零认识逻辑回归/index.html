@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/12 | QzmVc1</title>
+  <title>机器学习日记(一):从零认识逻辑回归 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="QzmVc1">
-<meta property="og:url" content="http://yoursite.com/archives/2018/12/index.html">
+  <meta name="description" content="引言分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。 逻辑回归(Logistic Regression,简称LR)，虽然它的名字中">
+<meta name="keywords" content="算法,机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习日记(一):从零认识逻辑回归">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/机器学习日记-一-从零认识逻辑回归/index.html">
 <meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。 逻辑回归(Logistic Regression,简称LR)，虽然它的名字中">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/22/EkLNb4.png">
+<meta property="og:updated_time" content="2019-04-22T14:55:36.776Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="机器学习日记(一):从零认识逻辑回归">
+<meta name="twitter:description" content="引言分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。 逻辑回归(Logistic Regression,简称LR)，虽然它的名字中">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
   
@@ -171,38 +179,92 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-机器学习日记-一-从零认识逻辑回归" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/17/优化算法-一-：模拟退火算法/" class="archive-article-date">
-  	<time datetime="2018-12-17T12:18:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/17/优化算法-一-：模拟退火算法/">优化算法(一)：模拟退火算法</a>
+    <h1 class="article-title" itemprop="name">
+      机器学习日记(一):从零认识逻辑回归
     </h1>
   
 
 
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/04/22/机器学习日记-一-从零认识逻辑回归/" class="archive-article-date">
+  	<time datetime="2019-04-22T07:34:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。<strong>本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。</strong></p>
+<p><strong>逻辑回归(Logistic Regression,简称LR)，虽然它的名字中带有“回归”两个字，但是它最擅长处理的却是分类问题。</strong> LR分类器适用于各项广义上的分类任务，例如：评论信息的正负情感分析（二分类）、用户点击率（二分类）、用户违约信息预测（二分类）、垃圾邮件检测（二分类）、疾病预测（二分类）、用户等级分类（多分类）等场景。我们这里主要讨论的是二分类问题，<strong>解决了二分类自然就解决了多分类，因为N分类问题可以转化成N个二分类问题。</strong></p>
+<a id="more"></a>
+<hr>
+<h3 id="一、线性回归（Linear-Regression）"><a href="#一、线性回归（Linear-Regression）" class="headerlink" title="一、线性回归（Linear Regression）"></a>一、线性回归（Linear Regression）</h3><p>线性回归的表达式：</p>
+<script type="math/tex; mode=display">f(\bf{x})=\pmb{\omega^{T}x}+b</script><p>线性回归对于给定的输入 $x$，输出的是一个数值 $y$，因此它是一个解决回归问题的模型。</p>
+<p>为了消除掉后面的常数项b，我们可以令 $x^{‘}=[1\ \ x]^{T}$，同时 $\omega^{‘}=[b\ \ w]^T$ ，直线方程可以化简成为：</p>
+<script type="math/tex; mode=display">f(\bf{x^{'}})=\pmb{\omega^{'}x^{'}}</script><p>在接下来的文章中为了方便，我们所使用的 $\omega,x$ 其实指代的是 $\omega^{‘},x^{‘}$。</p>
+<h3 id="二、如何用连续的数值去预测离散的标签值"><a href="#二、如何用连续的数值去预测离散的标签值" class="headerlink" title="二、如何用连续的数值去预测离散的标签值"></a>二、如何用连续的数值去预测离散的标签值</h3><p>线性回归的输出是一个数值，而不是一个标签，显然不能直接解决二分类问题。那我如何改进我们的回归模型来预测标签呢？</p>
+<p>一个最直观的办法就是设定一个阈值，比如0。如果我们预测的数值 y&gt;0 ，那么属于标签A，反之属于标签B，采用这种方法的模型又叫做<strong>感知机（Perceptron）</strong>。</p>
+<p>另一种方法，我们不去直接预测标签，而是去预测标签为A概率，我们知道概率是一个[0,1]区间的连续数值，那我们的输出的数值就是标签为A的概率。一般的如果标签为A的概率大于0.5，我们就认为它是A类，否则就是B类。这就是我们的这次的主角<strong>逻辑回归模型 (Logistics Regression)</strong>。</p>
+<h3 id="三、逻辑回归（logistics-regression）"><a href="#三、逻辑回归（logistics-regression）" class="headerlink" title="三、逻辑回归（logistics regression）"></a>三、逻辑回归（logistics regression）</h3><p>通过以上分析，我们明确了预测目标是标签为A的概率。</p>
+<p>我们知道，概率是属于[0,1]区间。但是线性模型 $f(x) = \omega^Tx$ 值域是 $(-\infty,\infty)$。</p>
+<p>我们不能直接基于线性模型建模。我们需要找到一个模型的值域刚好在[0,1]区间，同时要足够好用。</p>
+<p>于是，选择了我们的<strong>sigmoid函数</strong>：</p>
+<script type="math/tex; mode=display">\sigma(x)=\frac{1}{1+e^{-x}}</script><p>函数图像为：</p>
+<center><img src="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg"></center>
+
+<p>但是我们不能直接拿sigmoid函数就用，毕竟它连要训练的参数 $\omega$ 都没有。</p>
+<p>因此我们结合sigmoid函数，线性回归函数，把线性回归模型的输出作为sigmoid函数的输入。于是最后就变成了逻辑回归模型：</p>
+<script type="math/tex; mode=display">y=\sigma(f(x))=\sigma(\omega^Tx)=\frac{1}{1+e^{-\pmb{\omega^Tx}}}</script><p>假设我们已经训练好了一组权值 $\omega^T$。只要把我们需要预测的 $x$ 代入到上面的方程，输出的y值就是这个标签为A的概率，我们就能够判断输入数据是属于哪个类别。</p>
+<p>接下来就来详细介绍，如何利用一组采集到的真实样本，训练出参数 $\pmb{\omega}$ 的值。</p>
+<h3 id="四、逻辑回归的损失函数（Loss-Function）"><a href="#四、逻辑回归的损失函数（Loss-Function）" class="headerlink" title="四、逻辑回归的损失函数（Loss Function）"></a>四、逻辑回归的损失函数（Loss Function）</h3><p>一个人工训练出来的模型是无法达到100%准确率的。因此我们需要一个东西来衡量模型训练的好坏。<strong>损失函数就是用来衡量模型的输出与真实输出的差别。</strong></p>
+<p>下面就是逻辑回归的损失函数推导过程。</p>
+<p>假设只有两个标签1和0，$y_n\in\{0,1\}$。我们把采集到的任何一组样本看做一个事件的话，那么这个事件发生的概率假设为p。我们的模型y的值等于标签为1的概率也就是p，即：</p>
+<script type="math/tex; mode=display">P_{y=1}=\frac{1}{1+e^{-\omega^Tx}}=p</script><p>因为标签不是1就是0，因此标签为0的概率就是:</p>
+<script type="math/tex; mode=display">P_{y=0}=1-p</script><p>我们把单个样本看做一个事件，那么这个事件发生的概率就是：</p>
+<script type="math/tex; mode=display">P(y\ |\ x)=\begin{cases}p,&y=1 \cr 1-p,&y=0\end{cases}</script><p>这个函数不方便计算，它等价于:</p>
+<script type="math/tex; mode=display">P(y_i\ |\ x_i)=p^{y_i}(1-p)^{1-y_i}</script><p>解释下这个函数的含义，我们采集到了一个样本 $(x_i,y_i)$ 。对这个样本，它的标签是 $y_i$ 的概率是 $p^{y_i}(1-p)^{1-{y_i}}$ 。（当y=1，结果是p；当y=0，结果是1-p）。</p>
+<p>如果我们采集到了一组数据一共N个， $(x_1,y_1),(x_2,y_2),(x_3,y_3) \ldots (x_N,y_N)$ ，这个合成在一起的合事件发生的总概率怎么求呢？其实就是将每一个样本发生的概率相乘就可以了，即采集到这组样本的概率：</p>
+<script type="math/tex; mode=display">P_总=P(y_1|x_1)P(y_2|x_2)\cdots P(y_n|x_n)=\prod_{n=1}^{N}p^{y_n}(1-p)^{(1-y_n)}</script><p><strong>注意 $P_总$ 是一个函数，并且未知的量只有 $\omega$（在p里面）。</strong></p>
+<p>由于连乘很复杂，我们通过两边取对数来把连乘变成连加的形式，即：</p>
+<script type="math/tex; mode=display">F(\omega)=ln(P_总)=ln(\prod_{n=1}^{N}p^{y_n}(1-p)^{(1-y_n)})</script><script type="math/tex; mode=display">\quad\quad\quad\quad\quad\quad\quad=\sum_{n=1}^Nln(p^{y_n}(1-p)^{(1-y_n)})</script><script type="math/tex; mode=display">\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=\sum_{n=1}^N(y_nln(p)+(1-y_n)ln(1-p))</script><p>其中，$p=\frac{1}{1+e^{-\omega^Tx}}$</p>
+<p>这个函数 $F(\omega)$ 就叫做它的<strong>损失函数</strong>。损失函数可以理解成衡量我们当前的模型的输出结果，跟实际的输出结果之间的差距的一种函数。这里的损失函数的值等于事件发生的总概率，我们希望它越大越好。但是跟损失的含义有点儿违背，因此也可以在前面取个负号，<strong>表达式</strong>如下所示：</p>
+<script type="math/tex; mode=display">F(\omega)=-\sum_{n=1}^N(y_nln(p)+(1-y_n)ln(1-p))</script><h3 id="五、极大似然估计MLE-Maximum-Likelihood-Estimation"><a href="#五、极大似然估计MLE-Maximum-Likelihood-Estimation" class="headerlink" title="五、极大似然估计MLE(Maximum Likelihood Estimation)"></a>五、极大似然估计MLE(Maximum Likelihood Estimation)</h3><p>我们在真实世界中并不能直接看到概率是多少，我们只能观测到事件是否发生。也就是说，我们只能知道一个样本它实际的标签是1还是0。那么我们如何估计参数 $\omega$ 跟 $b$ 的值呢？</p>
+<p><strong>极大似然估计MLE</strong>(Maximum Likelihood Estimation)，就是一种估计参数 $\omega$ 的方法。在这里如何使用MLE来估计 $\omega$ 呢？</p>
+<p>我们知道损失函数 $F(\omega)$ 是正比于总概率 $P_总$ 的，而 $F(\omega)$ 又只有一个变量 $\omega$ 。也就是说，通过改变  $\omega$ 的值，就能得到不同的总概率值 $P_总$ 。那么当我们选取的某个 $\omega^<em>$ 刚好使得总概率 $P_总$ 取得最大值的时候。我们就认为这个 $\omega^</em>$ 就是我们要求得的 $\omega$ 的值，这就是极大似然估计的思想。</p>
+<p><strong>现在我们的问题变成了，找到一个 $\omega^*$ ，使得我们的总事件发生的概率，即损失函数 $F(\omega)$ 取得最大值</strong>，这句话用数学语言表达就是：</p>
+<script type="math/tex; mode=display">\omega^*=arg\mathop{max}\limits_{\omega}F(\omega)=-arg\mathop{min}\limits_{\omega}F(\omega)</script><h3 id="六、梯度下降法"><a href="#六、梯度下降法" class="headerlink" title="六、梯度下降法"></a>六、梯度下降法</h3><p>由于极大似然函数无法直接求解，所以在机器学习算法中，在最小化损失函数时，可以通过<strong>梯度下降法</strong>来一步步的迭代求解，得到最小化的损失函数和模型参数值。</p>
+<h4 id="6-1-梯度"><a href="#6-1-梯度" class="headerlink" title="6.1 梯度"></a>6.1 梯度</h4><p><strong>在微积分里面，对多元函数的参数求 $\delta$ 偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。</strong> 比如函数 $f(x,y)$ , 分别对 $x,y$ 求偏导数，求得的梯度向量就是 $(\delta f/\delta x,\delta f/\delta y)^T$，简称 $grad f(x,y)$ 或者 $\nabla f(x,y)$。对于在点 $x_0,y_0$ 的具体梯度向量就是 $(\delta f/\delta x_0,\delta f/\delta y_0)^T$ 或者 $\nabla f(x_0,y_0)$。</p>
+<p>那么这个梯度向量求出来有什么意义呢？<strong>从几何意义上讲，就是函数变化增加最快的地方</strong>。具体来说，对于函数 $f(x,y)$ 在点  $x_0,y_0$  沿着梯度方向的向量就是 $f(x,y)$ 增加最快的地方。或者说沿着梯度向量的方向，更加容易找到函数的最大值；反过来说，沿着梯度向量相反的方向，也就是 $-(\delta f/\delta x_0,\delta f/\delta y_0)^T$ 的方向，梯度减少的最快，也就更容易找到函数的最小值。</p>
+<h4 id="6-2-梯度下降的直观解释"><a href="#6-2-梯度下降的直观解释" class="headerlink" title="6.2 梯度下降的直观解释"></a>6.2 梯度下降的直观解释</h4><p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。</p>
+<p>从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。</p>
+<p><img src="https://s2.ax1x.com/2019/04/22/EkLNb4.png" alt=""></p>
+<h4 id="6-3-梯度下降法描述"><a href="#6-3-梯度下降法描述" class="headerlink" title="6.3 梯度下降法描述"></a>6.3 梯度下降法描述</h4><h5 id="6-3-1-先决条件"><a href="#6-3-1-先决条件" class="headerlink" title="6.3.1 先决条件"></a>6.3.1 先决条件</h5><p>确认优化模型的假设函数和损失函数。</p>
+<h5 id="6-3-2-算法相关参数初始化"><a href="#6-3-2-算法相关参数初始化" class="headerlink" title="6.3.2 算法相关参数初始化"></a>6.3.2 算法相关参数初始化</h5><p>主要是初始化 $\omega_0,\omega_1\cdots,\omega_n$，算法终止距离 $\varepsilon$ 和步长 $\alpha$。在没有任何先验知识的时候，我们比较倾向于将所有的 $\omega_i$ 初始化为0，将步长初始化为1，在调优的时候再进行优化。</p>
+<h5 id="6-3-3-算法过程"><a href="#6-3-3-算法过程" class="headerlink" title="6.3.3 算法过程"></a>6.3.3 算法过程</h5><p>(1) 确定当前位置的损失函数的梯度，对于 $\omega_i$ ,其梯度表达式如下：</p>
+<script type="math/tex; mode=display">\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)</script><p>(2) 用步长乘以损失函数的梯度，得到当前位置下降的距离，即 $\alpha\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)$,对应于前面登山过程中的某一步。<br>(3) 确定是否所有的 $\omega_i$ 梯度下降的距离都小于 $\varepsilon$，如果小于 $\varepsilon$ 则算法终止，当前所有的 $\omega_i$ 即为最终结果，否则进入步骤4。<br>(4) 更新所有的 $\omega_i$，对于 $\omega_i$，其更新表达式如下，更新完毕后继续转入步骤1。</p>
+<script type="math/tex; mode=display">\omega_i=\omega_i-\alpha\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)</script><h3 id="七、求-F-omega-的梯度-nabla-F-omega"><a href="#七、求-F-omega-的梯度-nabla-F-omega" class="headerlink" title="七、求 $F(\omega)$ 的梯度 $\nabla F(\omega)$"></a>七、求 $F(\omega)$ 的梯度 $\nabla F(\omega)$</h3><p>先回顾一下p的公式：</p>
+<script type="math/tex; mode=display">p=\frac{1}{1+e^{-\omega^Tx}}</script><p>再回顾一下 $F(\omega)$ 的公式：</p>
+<script type="math/tex; mode=display">F(\omega)=-\sum_{n=1}^N(y_nln(p)+(1-y_n)ln(1-p))</script><p>$p$ 是一个关于变量 $\omega$ 的函数，我们对 $p$ 求导，通过链式求导法则，慢慢展开可以得：</p>
+<script type="math/tex; mode=display">p^{'}=(\frac{1}{1+e^{-\omega^Tx}})^{'}</script><script type="math/tex; mode=display">\qquad\qquad\quad\quad\qquad =-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot(1+e^{-\omega^Tx})^{'}</script><script type="math/tex; mode=display">\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot e^{-\omega^Tx}\cdot (-\omega^Tx)^{'}</script><script type="math/tex; mode=display">\quad\quad\quad\quad\quad\quad\quad\quad=-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot e^{-\omega^Tx}\cdot (-x)</script><script type="math/tex; mode=display">\quad\quad\quad\quad\quad\quad=\frac{1}{1+e^{-\omega^Tx}}\cdot \frac{e^{-\omega^Tx}}{1+e^{-\omega^Tx}}\cdot x</script><script type="math/tex; mode=display">=p(1-p)x</script><p>上面都是我们做的准备工作，总之我们得记住：</p>
+<script type="math/tex; mode=display">p^{'}=p(1-p)x</script><script type="math/tex; mode=display">(1-p)^{'}=-p(1-p)x</script><p>下面我们正式开始对 $F(\omega)$ 求导，求导的时候请始终记住，我们的变量只有 $\omega$，其他的什么 $y_n,x_n$ 都是已知的，可以看做常数。</p>
+<script type="math/tex; mode=display">\nabla F(\omega)=\nabla(\sum_{n=1}^N(y_nln(p)+(1-y_n)ln(1-p)))</script><script type="math/tex; mode=display">\quad\quad=\sum_{n=1}^N(y_nln^{'}(p)+(1-y_n)ln^{'}(1-p))</script><script type="math/tex; mode=display">\quad\quad\quad\quad=\sum_{n=1}^N((y_n\frac{1}{p}p^{'})+(1-y_n)\frac{1}{1-p}(1-p)^{'})</script><script type="math/tex; mode=display">\quad=\sum_{n=1}^N(y_n(1-p)x_n-(1-y_n)px_n)</script><p>$\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=\sum_{n=1}^N(y_n-p)x_n$</p>
+<p>终于，我们求出了梯度 $\nabla F(\omega)$ 的表达式了，现在我们再来看看它长什么样子：</p>
+<script type="math/tex; mode=display">\nabla F(\omega)=\sum_{n=1}^N(y_n-p)x_n</script><p>它是如此简洁优雅，这就是我们选取sigmoid函数的原因之一。当然我们也能够把 $p$ 再展开，即：</p>
+<script type="math/tex; mode=display">\nabla F(\omega)=\sum_{n=1}^N(y_n-\frac{1}{1+e^{-\omega^Tx_n}})x_n</script>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -210,211 +272,63 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/05/PyQt5学习日记-二-信号与槽/" class="archive-article-date">
-  	<time datetime="2018-12-05T14:28:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/05/PyQt5学习日记-二-信号与槽/">PyQt5学习日记(二):信号与槽</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PyQt5</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">GUI</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/05/PyQt5学习日记-一-第一个GUI程序/" class="archive-article-date">
-  	<time datetime="2018-12-05T14:07:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/16/神经网络常见激活函数简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">神经网络常见激活函数简介</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/05/PyQt5学习日记-一-第一个GUI程序/">PyQt5学习日记(一):第一个GUI程序</a>
-    </h1>
-  
+        
+        
+    </div>
+</aside>
 
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">PyQt5</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">GUI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/02/Python装饰器的通俗理解/" class="archive-article-date">
-  	<time datetime="2018-12-02T07:54:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/02/Python装饰器的通俗理解/">Python装饰器的通俗理解</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">装饰器</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/02/利用selenium自动填写南邮正方的教学质量评价/" class="archive-article-date">
-  	<time datetime="2018-12-02T06:58:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/02/利用selenium自动填写南邮正方的教学质量评价/">利用selenium自动填写南邮正方的教学质量评价</a>
-    </h1>
-  
-
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">selenium</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">脚本</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -437,8 +351,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
