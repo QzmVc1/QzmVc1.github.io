@@ -204,10 +204,10 @@
 <hr>
 <a id="more"></a>
 <h3 id="一、基于Excel文件爬取的爬虫"><a href="#一、基于Excel文件爬取的爬虫" class="headerlink" title="一、基于Excel文件爬取的爬虫"></a><b>一、基于Excel文件爬取的爬虫</b></h3><h4 id="1-1-CSV文件创建"><a href="#1-1-CSV文件创建" class="headerlink" title="1.1 CSV文件创建"></a><b>1.1 CSV文件创建</b></h4><p>现在，创建一个.csv文件，其中包含想要抽取的信息。可以使用一个电子表格程序，比如Microsoft Excel，来创建这个.csv文件。</p>
-<p>关于csv文件，可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener">用CSV模块读写CSV文件</a></p>
+<p>关于csv文件，可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/">用CSV模块读写CSV文件</a></p>
 <p>按下图填入相关信息，参考如下：<br><img src="https://s1.ax1x.com/2018/11/19/FSHZW9.png" alt=""></p>
 <p>然后将其命名为todo.csv，保存到爬虫根目录中。</p>
-<h4 id="1-2-Python3中的CSV模块"><a href="#1-2-Python3中的CSV模块" class="headerlink" title="1.2 Python3中的CSV模块"></a><b>1.2 Python3中的CSV模块</b></h4><p><a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/" target="_blank" rel="noopener">用CSV模块读写CSV文件</a></p>
+<h4 id="1-2-Python3中的CSV模块"><a href="#1-2-Python3中的CSV模块" class="headerlink" title="1.2 Python3中的CSV模块"></a><b>1.2 Python3中的CSV模块</b></h4><p><a href="http://qzmvc1.top/2018/10/28/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6/">用CSV模块读写CSV文件</a></p>
 <p>Python中有一个用于处理.csv文件的内置库。只需通过 <em>import csv</em> 导入模块，然后就可以使用如下这些直截了当的代码，以字典的形式读取文件中的所有行了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'name.csv'</span>,<span class="string">'r'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    reader = csv.DictReader(fp)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> reader:</span><br><span class="line">        print(line[<span class="string">'id'</span>],line[<span class="string">'class'</span>])</span><br></pre></td></tr></table></figure>
 <p><b>文件中的第一行会被自动作为标题行处理</b>，并且会根据它们得出字典中键的名称。在接下来的每一行中，会得到一个包含行内数据的字典。我们可以使用for循环迭代每一行。</p>
@@ -515,15 +515,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -532,10 +536,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -256,7 +256,7 @@
 </li>
 </ul>
 <blockquote>
-<p>有关xpath的具体用法可以参考我之前的一篇博客：<a href="http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">Xpath用法总结</a></p>
+<p>有关xpath的具体用法可以参考我之前的一篇博客：<a href="http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/">Xpath用法总结</a></p>
 </blockquote>
 <ul>
 <li>最后return item返回item，代码如下所示：</li>
@@ -308,11 +308,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: response.xpath(<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>).extract()</span><br><span class="line">Out[<span class="number">4</span>]: [<span class="string">'ForMe'</span>]</span><br></pre></td></tr></table></figure>
 <p><b>下面对4.3.1做几点解释：</b></p>
 <ol>
-<li>xpath表达式语法不做过多的说明，具体可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener">Xpath用法总结</a></li>
+<li>xpath表达式语法不做过多的说明，具体可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/">Xpath用法总结</a></li>
 <li><p>如果不使用extract()，response.xpath()的返回值是网页内容预加载的Selector对象，为了获取真实值，可以使用extract()，也可以使用re()。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: response.xpath(<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: [&lt;Selector xpath=<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span> data=<span class="string">'ForMe'</span>&gt;]</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>extract()名为提取，返回一个list列表，里面是一些要提取的内容。这里有个坑，在shell中输入extract()[0]访问第一个列表元素没有问题，但在pycharm中却报<code>index out of range</code>这个错，表示很奇怪，现在也不知道具体原因，pycharm中具体解决方法可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" target="_blank" rel="noopener">Scrapy框架之细数到目前为止我遇到的坑</a></p>
+<li><p>extract()名为提取，返回一个list列表，里面是一些要提取的内容。这里有个坑，在shell中输入extract()[0]访问第一个列表元素没有问题，但在pycharm中却报<code>index out of range</code>这个错，表示很奇怪，现在也不知道具体原因，pycharm中具体解决方法可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Scrapy框架之细数到目前为止我遇到的坑</a></p>
 </li>
 </ol>
 <h5 id="以后做数据提取的时候，可以先在Scrapy-Shell中测试，测试通过后再应用到代码中。而Scrapy-Shell的主要作用也是用来测试xpath表达式。"><a href="#以后做数据提取的时候，可以先在Scrapy-Shell中测试，测试通过后再应用到代码中。而Scrapy-Shell的主要作用也是用来测试xpath表达式。" class="headerlink" title="以后做数据提取的时候，可以先在Scrapy Shell中测试，测试通过后再应用到代码中。而Scrapy Shell的主要作用也是用来测试xpath表达式。"></a><b>以后做数据提取的时候，可以先在Scrapy Shell中测试，测试通过后再应用到代码中。而Scrapy Shell的主要作用也是用来测试xpath表达式。</b></h5><p>当然Scrapy Shell作用不仅仅如此，但是不属于我们课程重点，不做详细介绍。</p>
@@ -605,15 +605,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,10 +626,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
