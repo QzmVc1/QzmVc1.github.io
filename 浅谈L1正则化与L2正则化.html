@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEpJdf.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEiitK.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEiPk6.jpg">
-<meta property="og:updated_time" content="2019-04-23T13:42:53.942Z">
+<meta property="og:updated_time" content="2019-04-23T17:24:27.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈L1正则化与L2正则化">
 <meta name="twitter:description" content="前言监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这">
@@ -199,7 +199,11 @@
   	<time datetime="2019-04-22T16:15:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-23</time>
 </a>
         
-
+      
+    <span class="archive-article-date">
+      阅读量: <span id="busuanzi_value_site_pv"></span>
+    </span>
+  
       </header>
     
     <div class="article-entry" itemprop="articleBody">
@@ -242,7 +246,7 @@
 </li>
 <li><p>可解释性(Interpretability)：</p>
 <ul>
-<li>另一个青睐于稀疏的理由是，模型更容易解释。例如患某种病的概率是 $y$ ，然后我们收集到的数据 $x$ 是1000维的，也就是我们需要寻找这1000种因素到底是怎么影响患上这种病的概率的。假设我们这个是回归模型：$y=\omega_1<em>x_1+\omega_2</em>x_2+\ldots+\omega_{1000}<em>x_{1000}+b$ 。通过学习，如果最后学习到的 $\omega^{</em>}$ 就只有很少的非零元素，例如只有5个非零的 $\omega_i$，那么我们就有理由相信，这些对应的特征在患病分析上面提供的信息是巨大的。也就是说，患不患这种病只和这5个因素有关，那医生就好分析多了。但如果1000个 $\omega_i$ 都非0，医生面对这1000种因素，累觉不爱。</li>
+<li>另一个青睐于稀疏的理由是，模型更容易解释。例如患某种病的概率是 $y$ ，然后我们收集到的数据 $x$ 是1000维的，也就是我们需要寻找这1000种因素到底是怎么影响患上这种病的概率的。假设我们这个是回归模型：$y=\omega_1*x_1+\omega_2*x_2+\ldots+\omega_{1000}*x_{1000}+b$ 。通过学习，如果最后学习到的 $\omega^{*}$ 就只有很少的非零元素，例如只有5个非零的 $\omega_i$，那么我们就有理由相信，这些对应的特征在患病分析上面提供的信息是巨大的。也就是说，患不患这种病只和这5个因素有关，那医生就好分析多了。但如果1000个 $\omega_i$ 都非0，医生面对这1000种因素，累觉不爱。</li>
 </ul>
 </li>
 </ul>
@@ -293,9 +297,6 @@
 		</ul>
 	</div>
 
-       <span id="busuanzi_container_site_pv">
-            阅读量: <span id="busuanzi_value_site_pv"></span>
-          </span>
       
 
       
@@ -558,11 +559,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,15 +579,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">selenium</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">脚本</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
