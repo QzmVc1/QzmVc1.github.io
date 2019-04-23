@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEpJdf.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEiitK.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEiPk6.jpg">
-<meta property="og:updated_time" content="2019-04-23T09:38:37.916Z">
+<meta property="og:updated_time" content="2019-04-23T13:42:53.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈L1正则化与L2正则化">
 <meta name="twitter:description" content="前言监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这">
@@ -252,12 +252,12 @@
 
 <p>为了更加直观的了解为什么L1正则化可以实现稀疏、L2正则化可以有效防止过拟合，这里我们只考虑二维的情况，即只有两个权值 $\omega_1,\omega_2$。</p>
 <p><strong>此时 $L1=|\omega_1|+|\omega_2|$，在图像上表现为菱形。而$L2=\omega_1^2+\omega_2^2$，在图像上表现为圆。</strong></p>
-<p>当我们每次取一组 $\omega_1,\omega_2$ 时，都会有对应的输出值 $y$。为了在二维坐标轴上表示出来，我们用<strong>等高线</strong>来表示输出。最内层的等高线（图中表现为紫色）即最优化的结果。</p>
+<p>当我们每次取一组 $\omega_1,\omega_2$ 时，代价函数都会有对应的输出值。我们将代价函数的值用<strong>等值线</strong>来表示。最内层的等值线（图中表现为紫色）即最优化的结果。</p>
 <p><strong>再来回顾一下我们的目标：我们现在的目标是不仅原曲线的值要小（越来越接近中心的紫色圈圈），还要使得这个菱形或圆越小越好。</strong> 那么还和原来一样的话，过中心紫色圈圈的那个菱形明显很大，因此我们要取到一个恰好的值。那么如何求值呢？</p>
 <center><img src="https://s2.ax1x.com/2019/04/23/EEiPk6.jpg"></center>
 
-<p>以同一条原曲线目标等高线来说，现在以最外圈的红色等高线为例，我们看到，对于红色曲线上的每个点都可以做一个菱形，根据上图可知，<strong>当这个菱形与某条等高线相切</strong>（仅有一个交点）的时候，这个菱形最小，对比上图相割的较大的两个菱形对应的1范数更大。</p>
-<p>有了上面的说明，我们可以看出，最终加入L1范数得到的解，一定是某个菱形和某条原函数等高线的切点。现在有个比较重要的结论来了，我们经过观察可以看到，几乎对于很多原函数的等高曲线，<strong>和某个菱形相交的时候及其容易相交在坐标轴</strong>（比如上图）。也就是说最终的结果，解的某些维度及其容易是0，比如上图最终解是 $\omega = (0，x)$ ，<strong>这也就是我们所说的L1更容易得到稀疏解（解向量中0比较多）的原因。</strong></p>
+<p>以同一条原曲线目标等值线来说，现在以最外圈的红色等值线为例，我们看到，对于红色曲线上的每个点都可以做一个菱形，根据上图可知，<strong>当这个菱形与某条等值线相切</strong>（仅有一个交点）的时候，这个菱形最小，对比上图相割的较大的两个菱形对应的1范数更大。</p>
+<p>有了上面的说明，我们可以看出，最终加入L1范数得到的解，一定是某个菱形和某条原函数等值线的切点。现在有个比较重要的结论来了，我们经过观察可以看到，几乎对于很多原函数的等值曲线，<strong>和某个菱形相切的时候及其容易相交在坐标轴</strong>（比如上图）。也就是说最终的结果，解的某些维度及其容易是0，比如上图最终解是 $\omega = (0，x)$ ，<strong>这也就是我们所说的L1更容易得到稀疏解（解向量中0比较多）的原因。</strong></p>
 <p><strong>(注:以上分析仅从直观上理解，有关具体证明可参考Google、baidu)</strong></p>
 <p>当加入L2正则化的时候，分析和L1正则化是类似的，也就是说我们仅仅是从菱形变成了圆形而已，同样还是求原曲线和圆形的切点作为最终解。当然与L1范数比，我们这样求的L2范数的从图上来看，<strong>不容易交在坐标轴上，但是仍然比较靠近坐标轴</strong>。因此这也就是我们所说的，L2范数能让解比较小（靠近0），但是比较平滑（不等于0）。</p>
 <hr>
@@ -476,19 +476,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Module</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,7 +488,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Module</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,15 +512,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSV</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,11 +544,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,19 +576,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
