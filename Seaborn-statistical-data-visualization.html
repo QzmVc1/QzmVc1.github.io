@@ -6,11 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://qzmvc1.top">
-  <title>QzmVc1</title>
+  <title>Seaborn-statistical-data-visualization | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Seaborn简介Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。 以下是seaborn提供的一些功能：  面向数据集的API，用于检查多个变量之间的关系 专门支持使用分类变量来显示观察结果或汇总统计数据 可视化单变量或双变量分布以及在数据子集之间进行比较的选项 不同类型因变量的线性回归模型的自动估计和绘图 方便地查看复杂数据">
+<meta name="keywords" content="Python,Modules">
 <meta property="og:type" content="article">
-<meta property="og:title" content="QzmVc1">
+<meta property="og:title" content="Seaborn-statistical-data-visualization">
 <meta property="og:url" content="http://qzmvc1.top/Seaborn-statistical-data-visualization.html">
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="Seaborn简介Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。 以下是seaborn提供的一些功能：  面向数据集的API，用于检查多个变量之间的关系 专门支持使用分类变量来显示观察结果或汇总统计数据 可视化单变量或双变量分布以及在数据子集之间进行比较的选项 不同类型因变量的线性回归模型的自动估计和绘图 方便地查看复杂数据">
@@ -36,9 +37,9 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/30/EGwGrD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/30/EG08Wq.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/30/EG0tyT.png">
-<meta property="og:updated_time" content="2019-04-30T11:54:08.094Z">
+<meta property="og:updated_time" content="2019-04-30T12:06:25.334Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="QzmVc1">
+<meta name="twitter:title" content="Seaborn-statistical-data-visualization">
 <meta name="twitter:description" content="Seaborn简介Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。 以下是seaborn提供的一些功能：  面向数据集的API，用于检查多个变量之间的关系 专门支持使用分类变量来显示观察结果或汇总统计数据 可视化单变量或双变量分布以及在数据子集之间进行比较的选项 不同类型因变量的线性回归模型的自动估计和绘图 方便地查看复杂数据">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/04/29/E3IM8S.png">
   
@@ -200,6 +201,28 @@
             <article id="post-Seaborn-statistical-data-visualization" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Seaborn-statistical-data-visualization
+    </h1>
+  
+
+
+
+        
+        <a href="/Seaborn-statistical-data-visualization.html" class="archive-article-date">
+  	<time datetime="2019-04-30T12:00:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-30</time>
+</a>
+        
+        
+        <span class="archive-article-date">
+            阅读量: <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Seaborn简介"><a href="#Seaborn简介" class="headerlink" title="Seaborn简介"></a>Seaborn简介</h3><p>Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。</p>
@@ -258,7 +281,7 @@
 <p><img src="https://s2.ax1x.com/2019/04/30/EGYjRU.png" alt=""></p>
 <h6 id="2-2-2-通过hist和kde参数调节是否显示直方图及核密度估计-默认hist-kde均为True"><a href="#2-2-2-通过hist和kde参数调节是否显示直方图及核密度估计-默认hist-kde均为True" class="headerlink" title="2.2.2 通过hist和kde参数调节是否显示直方图及核密度估计(默认hist,kde均为True)"></a>2.2.2 通过<strong>hist</strong>和<strong>kde</strong>参数调节是否显示直方图及核密度估计(默认hist,kde均为True)</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fig,axes = plt.subplots(<span class="number">1</span>,<span class="number">3</span>)</span><br><span class="line">sns.distplot(x,ax=axes[<span class="number">0</span>])</span><br><span class="line">sns.distplot(x,hist=<span class="keyword">False</span>,ax=axes[<span class="number">1</span>])</span><br><span class="line">sns.distplot(x,kde=<span class="keyword">False</span>,ax=axes[<span class="number">2</span>])</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGYvzF.png" alt=""></p>
-<h6 id="2-2-3-bins：int或list，控制直方图的划分"><a href="#2-2-3-bins：int或list，控制直方图的划分" class="headerlink" title="2.2.3 bins：int或list，控制直方图的划分"></a>2.2.3 bins：int或list，控制直方图的划分</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig,axes=plt.subplots(<span class="number">1</span>,<span class="number">2</span>) </span><br><span class="line">sns.distplot(x,kde=<span class="keyword">False</span>,bins=<span class="number">20</span>,ax=axes[<span class="number">0</span>]) <span class="comment">#左图：分成20个区间</span></span><br><span class="line">sns.distplot(x,kde=<span class="keyword">False</span>,bins=[x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">4</span>)],ax=axes[<span class="number">1</span>]) <span class="comment">#右图：以0,1,2,3为分割点，形成区间[0,1],[1,2],[2,3]，区间外的值不计入。</span></span><br></pre></td></tr></table></figure>
+<h6 id="2-2-3-bins：int或list，控制直方图的划分"><a href="#2-2-3-bins：int或list，控制直方图的划分" class="headerlink" title="2.2.3 bins：int或list，控制直方图的划分"></a>2.2.3 bins：int或list，控制直方图的划分</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fig,axes=plt.subplots(<span class="number">1</span>,<span class="number">2</span>) </span><br><span class="line"><span class="comment">#左图：分成20个区间</span></span><br><span class="line">sns.distplot(x,kde=<span class="keyword">False</span>,bins=<span class="number">20</span>,ax=axes[<span class="number">0</span>]) </span><br><span class="line"><span class="comment">#右图：以0,1,2,3为分割点，形成区间[0,1],[1,2],[2,3]，区间外的值不计入。</span></span><br><span class="line">sns.distplot(x,kde=<span class="keyword">False</span>,bins=[x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">4</span>)],ax=axes[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGYzM4.png" alt=""></p>
 <h6 id="2-2-4-rag：控制是否生成观测数值的小细条"><a href="#2-2-4-rag：控制是否生成观测数值的小细条" class="headerlink" title="2.2.4 rag：控制是否生成观测数值的小细条"></a>2.2.4 rag：控制是否生成观测数值的小细条</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig,axes=plt.subplots(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">sns.distplot(x,rug=<span class="keyword">True</span>,ax=axes[<span class="number">0</span>]) <span class="comment">#左图</span></span><br><span class="line">sns.distplot(x,ax=axes[<span class="number">1</span>]) <span class="comment">#右图</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGYOiV.png" alt=""></p>
@@ -270,11 +293,11 @@
 <h3 id="四、jointplot"><a href="#四、jointplot" class="headerlink" title="四、jointplot( )"></a>四、jointplot( )</h3><blockquote>
 <p>seaborn.jointplot(<em>x**</em>,<strong> <em>y</em></strong>,<strong> <em>data=None</em></strong>,<strong> <em>kind=’scatter’</em></strong>,<strong> <em>stat_func=None</em></strong>,<strong> <em>color=None</em></strong>,<strong> <em>height=6</em></strong>,<strong> <em>ratio=5</em></strong>,<strong> <em>space=0.2</em></strong>,<strong> <em>dropna=True</em></strong>,<strong> <em>xlim=None</em></strong>,<strong> <em>ylim=None</em></strong>,<strong> <em>joint_kws=None</em></strong>,<strong> <em>marginal_kws=None</em></strong>,<strong> <em>annot_kws=None</em></strong>,<strong> *</strong>kwargs*)</p>
 </blockquote>
-<h6 id="4-1-散点图-分布图"><a href="#4-1-散点图-分布图" class="headerlink" title="4.1 散点图 + 分布图"></a>4.1 散点图 + 分布图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rs = np.random.RandomState(<span class="number">2</span>)</span><br><span class="line">df = pd.DataFrame(rs.randn(<span class="number">200</span>,<span class="number">2</span>), columns = [<span class="string">'A'</span>,<span class="string">'B'</span>])</span><br><span class="line"> </span><br><span class="line">sns.jointplot(x=df[<span class="string">'A'</span>], y=df[<span class="string">'B'</span>], <span class="comment">#设置xy轴，显示columns名称</span></span><br><span class="line">              data = df,  <span class="comment">#设置数据</span></span><br><span class="line">              color = <span class="string">'b'</span>, <span class="comment">#设置颜色</span></span><br><span class="line">              s = <span class="number">50</span>,edgecolor = <span class="string">'w'</span>,linewidth = <span class="number">1</span>,<span class="comment">#设置散点大小、边缘颜色及宽度(只针对scatter)</span></span><br><span class="line">              kind = <span class="string">'scatter'</span>,<span class="comment">#设置类型：'scatter','reg','resid','kde','hex'</span></span><br><span class="line">              space = <span class="number">0.1</span>, <span class="comment">#设置散点图和布局图的间距</span></span><br><span class="line">              height = <span class="number">8</span>, <span class="comment">#图表大小(自动调整为正方形))</span></span><br><span class="line">              ratio = <span class="number">5</span>, <span class="comment">#散点图与布局图高度比，整型</span></span><br><span class="line">              marginal_kws = dict(bins=<span class="number">15</span>, rug =<span class="keyword">True</span>), <span class="comment">#设置柱状图箱数，是否设置rug</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<h6 id="4-1-散点图-分布图"><a href="#4-1-散点图-分布图" class="headerlink" title="4.1 散点图 + 分布图"></a>4.1 散点图 + 分布图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rs = np.random.RandomState(<span class="number">2</span>)</span><br><span class="line">df = pd.DataFrame(rs.randn(<span class="number">200</span>,<span class="number">2</span>), columns = [<span class="string">'A'</span>,<span class="string">'B'</span>])</span><br><span class="line"> </span><br><span class="line">sns.jointplot(</span><br><span class="line">       		  x=df[<span class="string">'A'</span>], y=df[<span class="string">'B'</span>], <span class="comment">#设置xy轴，显示columns名称</span></span><br><span class="line">              data = df,  <span class="comment">#设置数据</span></span><br><span class="line">              color = <span class="string">'b'</span>, <span class="comment">#设置颜色</span></span><br><span class="line">              s = <span class="number">50</span>,edgecolor = <span class="string">'w'</span>,linewidth = <span class="number">1</span>,<span class="comment">#设置散点大小、边缘颜色及宽度(只针对scatter)</span></span><br><span class="line">              kind = <span class="string">'scatter'</span>,<span class="comment">#设置类型：'scatter','reg','resid','kde','hex'</span></span><br><span class="line">              space = <span class="number">0.1</span>, <span class="comment">#设置散点图和布局图的间距</span></span><br><span class="line">              height = <span class="number">8</span>, <span class="comment">#图表大小(自动调整为正方形))</span></span><br><span class="line">              ratio = <span class="number">5</span>, <span class="comment">#散点图与布局图高度比，整型</span></span><br><span class="line">              marginal_kws = dict(bins=<span class="number">15</span>, rug =<span class="keyword">True</span>), <span class="comment">#设置柱状图箱数，是否设置rug</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGaYQO.png" alt=""></p>
-<h6 id="4-2-六边形图"><a href="#4-2-六边形图" class="headerlink" title="4.2 六边形图"></a>4.2 六边形图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sns.jointplot(x=df[<span class="string">'A'</span>], y=df[<span class="string">'B'</span>], <span class="comment">#设置xy轴，显示columns名称</span></span><br><span class="line">              data = df,  <span class="comment">#设置数据</span></span><br><span class="line">              color = <span class="string">'grey'</span>, <span class="comment">#设置颜色</span></span><br><span class="line">              kind = <span class="string">'hex'</span>,<span class="comment">#设置类型：'scatter','reg','resid','kde','hex'</span></span><br><span class="line">              space = <span class="number">0.1</span>, <span class="comment">#设置散点图和布局图的间距</span></span><br><span class="line">              height = <span class="number">8</span>, <span class="comment">#图表大小(自动调整为正方形))</span></span><br><span class="line">              ratio = <span class="number">5</span>, <span class="comment">#散点图与布局图高度比，整型</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
+<h6 id="4-2-六边形图"><a href="#4-2-六边形图" class="headerlink" title="4.2 六边形图"></a>4.2 六边形图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sns.jointplot(</span><br><span class="line">    		  x=df[<span class="string">'A'</span>], y=df[<span class="string">'B'</span>], <span class="comment">#设置xy轴，显示columns名称</span></span><br><span class="line">              data = df,  <span class="comment">#设置数据</span></span><br><span class="line">              color = <span class="string">'grey'</span>, <span class="comment">#设置颜色</span></span><br><span class="line">              kind = <span class="string">'hex'</span>,<span class="comment">#设置类型：'scatter','reg','resid','kde','hex'</span></span><br><span class="line">              space = <span class="number">0.1</span>, <span class="comment">#设置散点图和布局图的间距</span></span><br><span class="line">              height = <span class="number">8</span>, <span class="comment">#图表大小(自动调整为正方形))</span></span><br><span class="line">              ratio = <span class="number">5</span>, <span class="comment">#散点图与布局图高度比，整型</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGatyD.png" alt=""></p>
-<h6 id="4-3-密度图"><a href="#4-3-密度图" class="headerlink" title="4.3 密度图"></a>4.3 密度图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建数据</span></span><br><span class="line">rs = np.random.RandomState(<span class="number">15</span>)</span><br><span class="line">df = pd.DataFrame(rs.randn(<span class="number">300</span>,<span class="number">2</span>), columns = [<span class="string">'A'</span>, <span class="string">'B'</span>])</span><br><span class="line"><span class="comment">#创建密度图</span></span><br><span class="line">g = sns.jointplot(x = df[<span class="string">'A'</span>], y = df[<span class="string">'B'</span>], </span><br><span class="line">                  data = df,</span><br><span class="line">                  kind = <span class="string">'kde'</span>,</span><br><span class="line">                  color = <span class="string">'k'</span>,</span><br><span class="line">                  shade_lowest = <span class="keyword">False</span></span><br><span class="line">                 )</span><br><span class="line"><span class="comment">#添加散点图</span></span><br><span class="line">g.plot_joint(plt.scatter, c = <span class="string">'w'</span>, s = <span class="number">30</span>, linewidth = <span class="number">1</span>, marker=<span class="string">'+'</span>)</span><br></pre></td></tr></table></figure>
+<h6 id="4-3-密度图"><a href="#4-3-密度图" class="headerlink" title="4.3 密度图"></a>4.3 密度图</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建数据</span></span><br><span class="line">rs = np.random.RandomState(<span class="number">15</span>)</span><br><span class="line">df = pd.DataFrame(rs.randn(<span class="number">300</span>,<span class="number">2</span>), columns = [<span class="string">'A'</span>, <span class="string">'B'</span>])</span><br><span class="line"><span class="comment">#创建密度图</span></span><br><span class="line">g = sns.jointplot(</span><br><span class="line">    			  x = df[<span class="string">'A'</span>], y = df[<span class="string">'B'</span>], </span><br><span class="line">                  data = df,</span><br><span class="line">                  kind = <span class="string">'kde'</span>,</span><br><span class="line">                  color = <span class="string">'k'</span>,</span><br><span class="line">                  shade_lowest = <span class="keyword">False</span></span><br><span class="line">                 )</span><br><span class="line"><span class="comment">#添加散点图</span></span><br><span class="line">g.plot_joint(plt.scatter, c = <span class="string">'w'</span>, s = <span class="number">30</span>, linewidth = <span class="number">1</span>, marker=<span class="string">'+'</span>)</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGaJSK.png" alt=""></p>
 <h3 id="五、heatmap"><a href="#五、heatmap" class="headerlink" title="五、heatmap( )"></a>五、heatmap( )</h3><p>热力图可以体现数据集中特征的两两关系。简单地说，可以反应协方差矩阵。</p>
 <blockquote>
@@ -285,7 +308,7 @@
 <h3 id="六、pairplot"><a href="#六、pairplot" class="headerlink" title="六、pairplot( )"></a>六、pairplot( )</h3><blockquote>
 <p>seaborn.pairplot(data, hue=None, hue_order=None, palette=None, vars=None, x_vars=None, y_vars=None, kind=’scatter’, diag_kind=’auto’, markers=None, height=2.5, aspect=1, dropna=True, plot_kws=None, diag_kws=None, grid_kws=None, size=None)</p>
 </blockquote>
-<h6 id="6-1-普通矩阵图示意"><a href="#6-1-普通矩阵图示意" class="headerlink" title="6.1 普通矩阵图示意"></a>6.1 普通矩阵图示意</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">iris = sns.load_dataset(<span class="string">'iris'</span>)</span><br><span class="line">sns.pairplot(iris,</span><br><span class="line">             kind = <span class="string">'scatter'</span>, <span class="comment">#散点图/回归分布图&#123;'scatter', 'reg'&#125;)</span></span><br><span class="line">             diag_kind = <span class="string">'hist'</span>, <span class="comment">#直方图/密度图&#123;'hist'， 'kde'&#125;</span></span><br><span class="line">             hue = <span class="string">'species'</span>,   <span class="comment">#按照某一字段进行分类</span></span><br><span class="line">             palette = <span class="string">'husl'</span>,  <span class="comment">#设置调色板</span></span><br><span class="line">             markers = [<span class="string">'o'</span>, <span class="string">'s'</span>, <span class="string">'D'</span>], <span class="comment">#设置不同系列的点样式（这里根据参考分类个数）</span></span><br><span class="line">             height = <span class="number">2</span>  <span class="comment">#图标大小</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
+<h6 id="6-1-普通矩阵图示意"><a href="#6-1-普通矩阵图示意" class="headerlink" title="6.1 普通矩阵图示意"></a>6.1 普通矩阵图示意</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">iris = sns.load_dataset(<span class="string">'iris'</span>)</span><br><span class="line">sns.pairplot(</span><br><span class="line">    		 iris,</span><br><span class="line">             kind = <span class="string">'scatter'</span>, <span class="comment">#散点图/回归分布图&#123;'scatter', 'reg'&#125;)</span></span><br><span class="line">             diag_kind = <span class="string">'hist'</span>, <span class="comment">#直方图/密度图&#123;'hist'， 'kde'&#125;</span></span><br><span class="line">             hue = <span class="string">'species'</span>,   <span class="comment">#按照某一字段进行分类</span></span><br><span class="line">             palette = <span class="string">'husl'</span>,  <span class="comment">#设置调色板</span></span><br><span class="line">             markers = [<span class="string">'o'</span>, <span class="string">'s'</span>, <span class="string">'D'</span>], <span class="comment">#设置不同系列的点样式（这里根据参考分类个数）</span></span><br><span class="line">             height = <span class="number">2</span>  <span class="comment">#图标大小</span></span><br><span class="line">             )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGwJqe.png" alt=""></p>
 <h6 id="6-2-提取局部变量进行对比"><a href="#6-2-提取局部变量进行对比" class="headerlink" title="6.2 提取局部变量进行对比"></a>6.2 提取局部变量进行对比</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sns.pairplot(</span><br><span class="line">             iris, </span><br><span class="line">             vars = [<span class="string">'sepal_width'</span>, <span class="string">'sepal_length'</span>],</span><br><span class="line">             kind = <span class="string">'reg'</span>, </span><br><span class="line">             diag_kind = <span class="string">'kde'</span>,</span><br><span class="line">             hue = <span class="string">'species'</span>, </span><br><span class="line">             palette = <span class="string">'husl'</span></span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EGwGrD.png" alt=""></p>
@@ -293,7 +316,7 @@
 <blockquote>
 <p>seaborn.violinplot(x=None, y=None, hue=None, data=None, order=None, hue_order=None, bw=’scott’, cut=2, scale=’area’, scale_hue=True, gridsize=100, width=0.8, inner=’box’, split=False, dodge=True, orient=None, linewidth=None, color=None, palette=None, saturation=0.75, ax=None, **kwargs)</p>
 </blockquote>
-<h6 id="7-1-小提琴图指定类别"><a href="#7-1-小提琴图指定类别" class="headerlink" title="7.1 小提琴图指定类别"></a>7.1 小提琴图指定类别</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">'tips'</span>)</span><br><span class="line">sns.violinplot(x = <span class="string">'day'</span>, y = <span class="string">'total_bill'</span>, <span class="comment"># x,y轴名字</span></span><br><span class="line">               data = tips,</span><br><span class="line">               linewidth = <span class="number">2</span>, <span class="comment">#线宽</span></span><br><span class="line">               width = <span class="number">0.8</span>,   <span class="comment">#箱之间的间隔比例</span></span><br><span class="line">               palette = <span class="string">'hls'</span>, <span class="comment">#设置调色板</span></span><br><span class="line">               order = &#123;<span class="string">'Thur'</span>, <span class="string">'Fri'</span>, <span class="string">'Sat'</span>,<span class="string">'Sun'</span>&#125;, <span class="comment">#筛选类别</span></span><br><span class="line">               scale = <span class="string">'count'</span>,  <span class="comment">#测度小提琴图的宽度： area-面积相同,count-按照样本数量决定宽度,width-宽度一样</span></span><br><span class="line">               gridsize = <span class="number">50</span>, <span class="comment">#设置小提琴图的平滑度，越高越平滑</span></span><br><span class="line">               inner = <span class="string">'box'</span>, <span class="comment">#设置内部显示类型 --&gt; 'box','quartile','point','stick',None</span></span><br><span class="line">               <span class="comment">#bw = 0.8      #控制拟合程度，一般可以不设置</span></span><br><span class="line">               )</span><br></pre></td></tr></table></figure>
+<h6 id="7-1-小提琴图指定类别"><a href="#7-1-小提琴图指定类别" class="headerlink" title="7.1 小提琴图指定类别"></a>7.1 小提琴图指定类别</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tips = sns.load_dataset(<span class="string">'tips'</span>)</span><br><span class="line">sns.violinplot(</span><br><span class="line">    		   x = <span class="string">'day'</span>, y = <span class="string">'total_bill'</span>, <span class="comment"># x,y轴名字</span></span><br><span class="line">               data = tips,</span><br><span class="line">               linewidth = <span class="number">2</span>, <span class="comment">#线宽</span></span><br><span class="line">               width = <span class="number">0.8</span>,   <span class="comment">#箱之间的间隔比例</span></span><br><span class="line">               palette = <span class="string">'hls'</span>, <span class="comment">#设置调色板</span></span><br><span class="line">               order = &#123;<span class="string">'Thur'</span>, <span class="string">'Fri'</span>, <span class="string">'Sat'</span>,<span class="string">'Sun'</span>&#125;, <span class="comment">#筛选类别</span></span><br><span class="line">               scale = <span class="string">'count'</span>,  <span class="comment">#测度小提琴图的宽度： area-面积相同,count-按照样本数量决定宽度,width-宽度一样</span></span><br><span class="line">               gridsize = <span class="number">50</span>, <span class="comment">#设置小提琴图的平滑度，越高越平滑</span></span><br><span class="line">               inner = <span class="string">'box'</span>, <span class="comment">#设置内部显示类型 --&gt; 'box','quartile','point','stick',None</span></span><br><span class="line">               <span class="comment">#bw = 0.8      #控制拟合程度，一般可以不设置</span></span><br><span class="line">               )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EG08Wq.png" alt=""></p>
 <h6 id="7-2-小提琴图通过hue分类"><a href="#7-2-小提琴图通过hue分类" class="headerlink" title="7.2 小提琴图通过hue分类"></a>7.2 小提琴图通过hue分类</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sns.violinplot(</span><br><span class="line">               x = <span class="string">'day'</span>, y = <span class="string">'total_bill'</span>, </span><br><span class="line">               data = tips,</span><br><span class="line">               hue = <span class="string">'smoker'</span>, </span><br><span class="line">               palette = <span class="string">'muted'</span>,</span><br><span class="line">               split = <span class="keyword">True</span>, <span class="comment">#设置是否拆分小提琴图</span></span><br><span class="line">               inner = <span class="string">'box'</span></span><br><span class="line">              )</span><br></pre></td></tr></table></figure>
 <p><img src="https://s2.ax1x.com/2019/04/30/EG0tyT.png" alt=""></p>
@@ -305,6 +328,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Modules</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -551,15 +589,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Modules</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,11 +613,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,15 +637,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,6 +650,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
