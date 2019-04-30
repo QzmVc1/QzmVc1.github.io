@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLwAfI.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLys9H.png">
-<meta property="og:updated_time" content="2019-03-04T05:23:24.686Z">
+<meta property="og:updated_time" content="2019-04-30T08:09:19.764Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python3-Selenium开启自动化测试">
 <meta name="twitter:description" content="一、Selenium简介Selenium是一款适用于Web应用程序的便携式软件测试框架。 Selenium为编写测试提供了一个回放工具，无需学习测试脚本语言。它还提供了一种测试领域特定的语言，用于编写包括C＃，Groovy，Java，Perl，PHP，Python，Ruby和Scala等多种流行编程语言的测试。 Selenium官网地址 环境配置： 系统：windows10浏览器：Chrome 7">
@@ -283,8 +283,8 @@
 <p>1.警告消息框（alert）<br>　　警告消息框提供了一个”确定”按钮让用户关闭该消息框，并且该消息框是模式对话框，也就是说用户必须先关闭该消息框然后才能继续进行操作。</p>
 <p>2.确认消息框（confirm）<br>　　确认消息框向用户提示一个”是与否”问题，用户可以根据选择”确定”按钮和”取消”按钮。</p>
 <p>3.提示消息对话（prompt）<br>　　提示消息框提供了一个文本字段，用户可以在此字段输入一个答案来响应您的提示。该消息框有一个”确定”按钮和一个”取消”按钮。选择”确认”会响应对应的提示信息，选择”取消”会关闭对话框。</p>
-<p>selenium 提供switch_to_alert()方法定位到 alert/confirm/prompt对话框。使用 text/accept/dismiss/send_keys 进行操作，这里注意的是send_keys只能对prompt进行操作。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">switch_to_alert() 　　<span class="comment">#定位弹出对话</span></span><br><span class="line">text 　　             <span class="comment">#获取对话框文本值</span></span><br><span class="line">accept()              <span class="comment">#相当于点击"确认"</span></span><br><span class="line">dismiss()            <span class="comment">#相当于点击"取消"</span></span><br><span class="line">send_keys()          <span class="comment"># 输入值，只能对prompt使用。</span></span><br><span class="line"></span><br><span class="line">alert = driver.switch_to_alert()</span><br><span class="line">alert.text</span><br><span class="line">alert.accept()</span><br><span class="line">alert.dismiss()</span><br></pre></td></tr></table></figure>
+<p>selenium 提供switch_to.alert()方法定位到 alert/confirm/prompt对话框。使用 text/accept/dismiss/send_keys 进行操作，这里注意的是send_keys只能对prompt进行操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">switch_to.alert() 　　<span class="comment">#定位弹出对话</span></span><br><span class="line">text 　　             <span class="comment">#获取对话框文本值</span></span><br><span class="line">accept()              <span class="comment">#相当于点击"确认"</span></span><br><span class="line">dismiss()            <span class="comment">#相当于点击"取消"</span></span><br><span class="line">send_keys()          <span class="comment"># 输入值，只能对prompt使用。</span></span><br><span class="line"></span><br><span class="line">alert = driver.switch_to.alert()</span><br><span class="line">alert.text</span><br><span class="line">alert.accept()</span><br><span class="line">alert.dismiss()</span><br></pre></td></tr></table></figure>
 <h3 id="八、等待方式"><a href="#八、等待方式" class="headerlink" title="八、等待方式"></a>八、等待方式</h3><p>在webdriver只有两种类型等待方式，显式等待和隐式等待，之前是在程序运行过程中使用time模块中的sleep进行代码的休眠进行强制等待，是显式等待中的一种极端情况。</p>
 <h4 id="8-1-显式等待"><a href="#8-1-显式等待" class="headerlink" title="8.1 显式等待"></a>8.1 显式等待</h4><p>显式等待是你在代码中定义等待一定条件发生后再进一步执行你的代码。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.get(<span class="string">'https://www.baidu.com'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    print(ctime())</span><br><span class="line">    element = WebDriverWait(dr, <span class="number">10</span>).until(</span><br><span class="line">        EC.presence_of_element_located((By.ID, <span class="string">"kw"</span>))</span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># WebDriverWait(driver=self.driver, timeout=300, poll_frequency=0.5,  ignored_exceptions=None)</span></span><br><span class="line">    <span class="comment"># driver：浏览器驱动</span></span><br><span class="line">    <span class="comment"># timeout：最长超时等待时间</span></span><br><span class="line">    <span class="comment"># poll_frequency：检测的时间间隔，默认为500ms</span></span><br><span class="line">    <span class="comment"># ignore_exception：超时后抛出的异常信息，默认情况下抛出 NoSuchElementException 异常</span></span><br><span class="line">    print(<span class="string">"我已找到"</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    print(ctime())</span><br><span class="line">    driver.quit()</span><br></pre></td></tr></table></figure></p>
 <p>以上代码执行后就发现，整段代码执行速度非常快，即使我在WebDriverWait中设置10秒，也不会等待10秒的情况，因为在不到一秒内，已经完成了加载并定位id为“kw”的元素。</p>
@@ -572,7 +572,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,7 +580,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,14 +592,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSV</a>
               </li>
              
@@ -608,7 +600,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,11 +616,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,6 +633,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,11 +664,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">

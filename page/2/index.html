@@ -173,6 +173,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Working-with-MongoDB-and-Pymongo" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Working-with-MongoDB-and-Pymongo.html">Working with MongoDB and Pymongo</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/Working-with-MongoDB-and-Pymongo.html" class="archive-article-date">
+  	<time datetime="2019-03-26T00:10:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-26</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>MongoDB的学习详见 <a href="https://docs.mongodb.com/manual/crud/" target="_blank" rel="noopener">官方文档</a> 或者 <a href="http://qzmvc1.top/2019/03/07/NoSQL-MongDB%E7%AE%80%E4%BB%8B/">我的博客</a></p>
+</blockquote>
+<p>运行环境：</p>
+<ul>
+<li>Pymongo 3.7.2</li>
+</ul>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymongo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建客户端对象，连接数据库</span></span><br><span class="line">client = pymongo.MongoClient(<span class="string">'localhost'</span>,<span class="number">27017</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接数据库</span></span><br><span class="line">db = client.dbname</span><br><span class="line">db = client[<span class="string">'dbname'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取数据库中的集合</span></span><br><span class="line">collection = db.collectionname</span><br><span class="line">collection = db[<span class="string">'collectionname'</span>]</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Pymongo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Working-with-MongoDB-and-Pymongo.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-常见反爬虫机制与应对方法" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -774,96 +867,6 @@
 
 
   
-    <article id="post-Python3-Selenium开启自动化测试" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Python3-Selenium开启自动化测试.html">Python3-Selenium开启自动化测试</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/Python3-Selenium开启自动化测试.html" class="archive-article-date">
-  	<time datetime="2019-03-03T06:05:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-03</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、Selenium简介"><a href="#一、Selenium简介" class="headerlink" title="一、Selenium简介"></a>一、Selenium简介</h3><p>Selenium是一款适用于Web应用程序的便携式软件测试框架。 Selenium为编写测试提供了一个回放工具，无需学习测试脚本语言。它还提供了一种测试领域特定的语言，用于编写包括C＃，Groovy，Java，Perl，PHP，Python，Ruby和Scala等多种流行编程语言的测试。</p>
-<p><a href="https://www.seleniumhq.org/" target="_blank" rel="noopener">Selenium官网地址</a></p>
-<h5 id="环境配置："><a href="#环境配置：" class="headerlink" title="环境配置："></a>环境配置：</h5><blockquote>
-<p>系统：windows10<br>浏览器：Chrome 70.0.3538.110<br>Python: 3.7.0<br>Selenium: 3.141.0</p>
-</blockquote>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Selenium</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Modules</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/Python3-Selenium开启自动化测试.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1030,7 +1033,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1038,7 +1041,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1050,14 +1053,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSV</a>
               </li>
              
@@ -1066,7 +1061,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1082,11 +1077,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1099,6 +1094,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1126,11 +1125,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
