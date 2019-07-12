@@ -173,6 +173,120 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-利用Pulp解决线性规划问题" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/利用Pulp解决线性规划问题.html">利用Pulp解决线性规划问题</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/利用Pulp解决线性规划问题.html" class="archive-article-date">
+  	<time datetime="2019-07-12T01:48:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-12</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、常用的线性规划求解器"><a href="#一、常用的线性规划求解器" class="headerlink" title="一、常用的线性规划求解器"></a>一、常用的线性规划求解器</h3><ul>
+<li>Excel</li>
+<li>Lingo</li>
+<li>Matlab</li>
+</ul>
+<h3 id="二、Python-interface-for-optimization"><a href="#二、Python-interface-for-optimization" class="headerlink" title="二、Python interface for optimization"></a>二、Python interface for optimization</h3><ul>
+<li>Pulp</li>
+<li><ul>
+<li>LP Modules</li>
+</ul>
+</li>
+<li>OpenOpt</li>
+<li><ul>
+<li>LP Modules</li>
+<li>non-LP Modules</li>
+</ul>
+</li>
+</ul>
+<h3 id="三、Pulp"><a href="#三、Pulp" class="headerlink" title="三、Pulp"></a>三、Pulp</h3><h5 id="3-1-安装pulp"><a href="#3-1-安装pulp" class="headerlink" title="3.1 安装pulp"></a>3.1 安装pulp</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pulp</span><br></pre></td></tr></table></figure>
+<h5 id="3-2-导入库函数"><a href="#3-2-导入库函数" class="headerlink" title="3.2 导入库函数"></a>3.2 导入库函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<h5 id="3-3-定义线性规划问题"><a href="#3-3-定义线性规划问题" class="headerlink" title="3.3 定义线性规划问题"></a>3.3 定义线性规划问题</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB = LpProblen(Problem name, sense)</span><br></pre></td></tr></table></figure>
+<p>构造函数，用来构造一个LP问题实例，其中name指定问题名（输出信息用），sense值是 LpMinimize 或 LpMaximize 中的一个，用来指定目标函数是求最大值还是最小值。</p>
+<h5 id="3-4-定义决策变量"><a href="#3-4-定义决策变量" class="headerlink" title="3.4 定义决策变量"></a>3.4 定义决策变量</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X1 = LpVariable(variable name, lowbound, upbound, category)</span><br></pre></td></tr></table></figure>
+<p>variable name 指定变量名， lowbound 和 upbound 是下界和上界，默认分别是 -inf 到 inf，category 用来指定变量是离散（LpInteger，LpBinary）还是连续（LpContinuous）。</p>
+<h5 id="3-5-添加目标函数"><a href="#3-5-添加目标函数" class="headerlink" title="3.5 添加目标函数"></a>3.5 添加目标函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB += linear objective <span class="keyword">in</span> equantion <span class="keyword">for</span> objective name</span><br></pre></td></tr></table></figure>
+<h5 id="3-6-添加约束条件"><a href="#3-6-添加约束条件" class="headerlink" title="3.6 添加约束条件"></a>3.6 添加约束条件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB += linear objective <span class="keyword">in</span> equantion <span class="keyword">for</span> constraint name</span><br></pre></td></tr></table></figure>
+<h5 id="3-7-写入LP文件"><a href="#3-7-写入LP文件" class="headerlink" title="3.7 写入LP文件"></a>3.7 写入LP文件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.writeLP(filename)</span><br></pre></td></tr></table></figure>
+<h5 id="3-8-模型求解"><a href="#3-8-模型求解" class="headerlink" title="3.8 模型求解"></a>3.8 模型求解</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.slove()</span><br></pre></td></tr></table></figure>
+<h5 id="3-9-结果显示"><a href="#3-9-结果显示" class="headerlink" title="3.9 结果显示"></a>3.9 结果显示</h5><blockquote>
+<p>check status: pulp.LpStatus[PB.status]</p>
+</blockquote>
+<h3 id="四、Python实例"><a href="#四、Python实例" class="headerlink" title="四、Python实例"></a>四、Python实例</h3><p><img src="https://s2.ax1x.com/2019/07/12/ZWP36A.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> * </span><br><span class="line"></span><br><span class="line">prob = LpProblem(<span class="string">'Problem1'</span>, LpMaximize)</span><br><span class="line"></span><br><span class="line">x1 = LpVariable(<span class="string">'x1'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line">x2 = LpVariable(<span class="string">'x2'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line">x3 = LpVariable(<span class="string">'x2'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line"></span><br><span class="line">prob += <span class="number">1000</span> * x1 + <span class="number">2000</span> * x2 + <span class="number">3000</span> * x3</span><br><span class="line"></span><br><span class="line">prob += x1 + <span class="number">2</span> * x2 + <span class="number">3</span> * x3 &lt;= <span class="number">10</span></span><br><span class="line">prob += <span class="number">0</span> * x1 + x2 + <span class="number">2</span> * x3 &lt;= <span class="number">5</span></span><br><span class="line"></span><br><span class="line">prob.writeLP(<span class="string">'Problem1.lp'</span>)</span><br><span class="line">prob.solve()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"status: "</span>, LpStatus[prob.status])</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> prob.variables():</span><br><span class="line">    print(v.name,<span class="string">'='</span>,v.variable)</span><br><span class="line">print(<span class="string">"Maximun Profit = "</span>, value(prob.objective))</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/利用Pulp解决线性规划问题.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-Seaborn-statistical-data-visualization" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -782,93 +896,6 @@
 
 
   
-    <article id="post-Scrapy框架-九-使用scrapyd部署爬虫" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Scrapy框架-九-使用scrapyd部署爬虫.html">Scrapy框架(九):使用scrapyd部署爬虫</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/Scrapy框架-九-使用scrapyd部署爬虫.html" class="archive-article-date">
-  	<time datetime="2019-03-31T07:16:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-31</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、Scrapyd简介"><a href="#一、Scrapyd简介" class="headerlink" title="一、Scrapyd简介"></a>一、Scrapyd简介</h3><p>Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。<br>Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。<br>在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。</p>
-<hr>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/Scrapy框架-九-使用scrapyd部署爬虫.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -999,6 +1026,14 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
@@ -1011,19 +1046,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,19 +1070,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1067,11 +1086,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1087,15 +1114,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,7 +1130,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1123,15 +1146,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Json</a>
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
