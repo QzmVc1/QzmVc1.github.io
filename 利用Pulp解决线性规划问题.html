@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://qzmvc1.top">
   <title>利用Pulp解决线性规划问题 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp  LP Modules   OpenOpt  LP Modules non-LP Modules    三、Pulp3.1 安装pulp1pip install pulp 3.2 导入库函数1from pulp import * 3.3 定义线性规划问">
+  <meta name="description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp LP Modules   OpenOpt LP Modules non-LP Modules">
 <meta name="keywords" content="Python,Module">
 <meta property="og:type" content="article">
 <meta property="og:title" content="利用Pulp解决线性规划问题">
 <meta property="og:url" content="http://qzmvc1.top/利用Pulp解决线性规划问题.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp  LP Modules   OpenOpt  LP Modules non-LP Modules    三、Pulp3.1 安装pulp1pip install pulp 3.2 导入库函数1from pulp import * 3.3 定义线性规划问">
+<meta property="og:description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp LP Modules   OpenOpt LP Modules non-LP Modules">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/12/ZWP36A.png">
-<meta property="og:updated_time" content="2019-07-12T02:14:13.141Z">
+<meta property="og:updated_time" content="2019-07-12T02:20:16.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Pulp解决线性规划问题">
-<meta name="twitter:description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp  LP Modules   OpenOpt  LP Modules non-LP Modules    三、Pulp3.1 安装pulp1pip install pulp 3.2 导入库函数1from pulp import * 3.3 定义线性规划问">
+<meta name="twitter:description" content="一、常用的线性规划求解器 Excel Lingo Matlab  二、Python interface for optimization Pulp LP Modules   OpenOpt LP Modules non-LP Modules">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/07/12/ZWP36A.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
@@ -211,18 +211,17 @@
 <li>Matlab</li>
 </ul>
 <h3 id="二、Python-interface-for-optimization"><a href="#二、Python-interface-for-optimization" class="headerlink" title="二、Python interface for optimization"></a>二、Python interface for optimization</h3><ul>
-<li>Pulp</li>
-<li><ul>
+<li>Pulp<ul>
 <li>LP Modules</li>
 </ul>
 </li>
-<li>OpenOpt</li>
-<li><ul>
+<li>OpenOpt<ul>
 <li>LP Modules</li>
 <li>non-LP Modules</li>
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <h3 id="三、Pulp"><a href="#三、Pulp" class="headerlink" title="三、Pulp"></a>三、Pulp</h3><h5 id="3-1-安装pulp"><a href="#3-1-安装pulp" class="headerlink" title="3.1 安装pulp"></a>3.1 安装pulp</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pulp</span><br></pre></td></tr></table></figure>
 <h5 id="3-2-导入库函数"><a href="#3-2-导入库函数" class="headerlink" title="3.2 导入库函数"></a>3.2 导入库函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
 <h5 id="3-3-定义线性规划问题"><a href="#3-3-定义线性规划问题" class="headerlink" title="3.3 定义线性规划问题"></a>3.3 定义线性规划问题</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB = LpProblen(Problem name, sense)</span><br></pre></td></tr></table></figure>
@@ -233,9 +232,7 @@
 <h5 id="3-6-添加约束条件"><a href="#3-6-添加约束条件" class="headerlink" title="3.6 添加约束条件"></a>3.6 添加约束条件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB += linear objective <span class="keyword">in</span> equantion <span class="keyword">for</span> constraint name</span><br></pre></td></tr></table></figure>
 <h5 id="3-7-写入LP文件"><a href="#3-7-写入LP文件" class="headerlink" title="3.7 写入LP文件"></a>3.7 写入LP文件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.writeLP(filename)</span><br></pre></td></tr></table></figure>
 <h5 id="3-8-模型求解"><a href="#3-8-模型求解" class="headerlink" title="3.8 模型求解"></a>3.8 模型求解</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.slove()</span><br></pre></td></tr></table></figure>
-<h5 id="3-9-结果显示"><a href="#3-9-结果显示" class="headerlink" title="3.9 结果显示"></a>3.9 结果显示</h5><blockquote>
-<p>check status: pulp.LpStatus[PB.status]</p>
-</blockquote>
+<h5 id="3-9-结果显示"><a href="#3-9-结果显示" class="headerlink" title="3.9 结果显示"></a>3.9 结果显示</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pulp.LpStatus[PB.status]</span><br></pre></td></tr></table></figure>
 <h3 id="四、Python实例"><a href="#四、Python实例" class="headerlink" title="四、Python实例"></a>四、Python实例</h3><p><img src="https://s2.ax1x.com/2019/07/12/ZWP36A.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> * </span><br><span class="line"></span><br><span class="line">prob = LpProblem(<span class="string">'Problem1'</span>, LpMaximize)</span><br><span class="line"></span><br><span class="line">x1 = LpVariable(<span class="string">'x1'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line">x2 = LpVariable(<span class="string">'x2'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line">x3 = LpVariable(<span class="string">'x2'</span>, <span class="number">0</span>, <span class="keyword">None</span>, LpContinuous)</span><br><span class="line"></span><br><span class="line">prob += <span class="number">1000</span> * x1 + <span class="number">2000</span> * x2 + <span class="number">3000</span> * x3</span><br><span class="line"></span><br><span class="line">prob += x1 + <span class="number">2</span> * x2 + <span class="number">3</span> * x3 &lt;= <span class="number">10</span></span><br><span class="line">prob += <span class="number">0</span> * x1 + x2 + <span class="number">2</span> * x3 &lt;= <span class="number">5</span></span><br><span class="line"></span><br><span class="line">prob.writeLP(<span class="string">'Problem1.lp'</span>)</span><br><span class="line">prob.solve()</span><br><span class="line"></span><br><span class="line">print(<span class="string">"status: "</span>, LpStatus[prob.status])</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> prob.variables():</span><br><span class="line">    print(v.name,<span class="string">'='</span>,v.variable)</span><br><span class="line">print(<span class="string">"Maximun Profit = "</span>, value(prob.objective))</span><br></pre></td></tr></table></figure>
 
@@ -463,14 +460,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
@@ -483,11 +472,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">blog</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,7 +504,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,19 +532,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -551,11 +548,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Pymongo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Virtualenv</a>
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,7 +568,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,19 +584,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Json</a>
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
