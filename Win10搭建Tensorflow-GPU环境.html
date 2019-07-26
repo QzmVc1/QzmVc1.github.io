@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://qzmvc1.top">
   <title>Win10搭建Tensorflow-GPU环境 | QzmVc1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu">
+  <meta name="description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu  注意：CUDA 选择安装的版本一定要和你电">
 <meta name="keywords" content="杂谈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Win10搭建Tensorflow-GPU环境">
 <meta property="og:url" content="http://qzmvc1.top/Win10搭建Tensorflow-GPU环境.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu">
+<meta property="og:description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu  注意：CUDA 选择安装的版本一定要和你电">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/26/enwaW9.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/26/endAN4.jpg">
@@ -29,10 +29,11 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/26/endJCd.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/26/endtgI.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/07/26/endNvt.png">
-<meta property="og:updated_time" content="2019-07-26T07:57:01.565Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/07/26/enhS2V.md.png">
+<meta property="og:updated_time" content="2019-07-26T08:54:15.849Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Win10搭建Tensorflow-GPU环境">
-<meta name="twitter:description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu">
+<meta name="twitter:description" content="一、前言最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。  自己的环境： 操作系统： Windows 10 GPU:           GTX1050+CUDA9.0+cuDNN Python：   Version 3.7 深度学习框架：tensorflow-gpu  注意：CUDA 选择安装的版本一定要和你电">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/07/26/enwaW9.png">
   
     <link rel="alternative" href="/atom.xml" title="QzmVc1" type="application/atom+xml">
@@ -225,6 +226,7 @@
 <p>Python：   Version 3.7</p>
 <p>深度学习框架：tensorflow-gpu</p>
 </blockquote>
+<p><strong>注意：CUDA 选择安装的版本一定要和你电脑上的显卡信息相匹配，否则tensorflow-gpu会报错！！！</strong></p>
 <a id="more"></a>
 <h3 id="二、安装过程"><a href="#二、安装过程" class="headerlink" title="二、安装过程"></a>二、安装过程</h3><h4 id="2-1-安装-CUDA-9-0"><a href="#2-1-安装-CUDA-9-0" class="headerlink" title="2.1 安装 CUDA 9.0"></a>2.1 安装 <a href="https://developer.nvidia.com/cuda-90-download-archive" target="_blank" rel="noopener">CUDA 9.0</a></h4><p><img src="https://s2.ax1x.com/2019/07/26/enwaW9.png" alt=""></p>
 <p><strong>下载好后打开进行安装：</strong></p>
@@ -288,6 +290,7 @@
 <p>pip install tensorflow-gpu</p>
 </blockquote>
 <p><strong>进入Python环境检测是否安装成功：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/07/26/enhS2V.md.png" alt=""></p>
 
       
 
@@ -529,11 +532,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,7 +548,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,7 +556,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Random</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,19 +584,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Random</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -586,10 +593,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,19 +612,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,11 +632,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">机器学习</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,7 +648,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
