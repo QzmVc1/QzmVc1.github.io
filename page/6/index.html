@@ -173,6 +173,378 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Scrapy框架-七-利用Scrapy进行模拟登陆" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Scrapy框架-七-利用Scrapy进行模拟登陆.html">Scrapy框架(七) 利用Scrapy进行模拟登陆</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/Scrapy框架-七-利用Scrapy进行模拟登陆.html" class="archive-article-date">
+  	<time datetime="2018-11-28T14:22:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-28</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动输入验证，或者直接用云打码平台，这里我们介绍一个利用Scrapy进行模拟登录的用法。</p>
+<p><strong>本片博客是对豆瓣进行模拟登陆，包括验证码的简单处理，不涉及爬取信息。</strong><br>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Scrapy框架-七-利用Scrapy进行模拟登陆.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片.html">Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片.html" class="archive-article-date">
+  	<time datetime="2018-11-27T07:47:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-27</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/">http://qzmvc1.top/</a></h4>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-Scrapy框架-五-将数据存储到Mysql数据库" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Scrapy框架-五-将数据存储到Mysql数据库.html">Scrapy框架(五) 将数据存储到数据库</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/Scrapy框架-五-将数据存储到Mysql数据库.html" class="archive-article-date">
+  	<time datetime="2018-11-22T02:47:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-22</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>这章作为我最感兴趣的一章，当然要好好大写特写一番了！</p>
+<p>因为本人对Mysql比较熟悉，Python也有Pymysql这个库可以和Mysql进行交互，所以这章主要就是介绍将数据存储到Mysql数据库的Pipeline。之前也听说过Scrapy和Mongodb数据库结合起来也很方便，有空的话以后学了再补上叭~</p>
+<p>注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！</p>
+<hr>
+<h3 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h3><p>我们首先需要创建或安装一些东西：</p>
+<ul>
+<li><p><strong>Mysql localhost新建数据库pysqltest，在该数据库下创建表单名为blog</strong></p>
+</li>
+<li><p><strong>安装pymysql用于连接Mysql服务器</strong></p>
+</li>
+</ul>
+<p>如果对Mysql不熟悉或者需要补一下Pymysql操作的可以参考我的以下博客：</p>
+<ol>
+<li><p><a href="http://qzmvc1.top/2018/10/28/MySQL%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">Mysql之增删改查</a></p>
+</li>
+<li><p><a href="http://qzmvc1.top/2018/10/29/PyMySQL%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BA%A4%E4%BA%92/">Pymysql实现与数据库的交互</a></p>
+</li>
+</ol>
+<hr>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Scrapy框架-五-将数据存储到Mysql数据库.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
+    <article id="post-Scrapy框架-四-使用Pipeline处理数据(一)" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Scrapy框架-四-使用Pipeline处理数据(一).html">Scrapy框架(四) 使用Pipeline处理数据(一)</a>
+    </h1>
+  
+
+
+
+        
+        <a href="/Scrapy框架-四-使用Pipeline处理数据(一).html" class="archive-article-date">
+  	<time datetime="2018-11-21T05:16:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-21</time>
+</a>
+        
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、Item-Pipeline简介"><a href="#一、Item-Pipeline简介" class="headerlink" title="一、Item Pipeline简介"></a>一、Item Pipeline简介</h3><p><strong>Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。</strong><br>当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。<br>每个初始Item管道的组件都是由一个简单的方法组成的Python类。<br>如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure></p>
+<p>但是我们没有具体定义，因此执行爬虫并不会输出结果。<br>他们获取了Item并执行他们的方法，同时他们还需要确定的是是否需要在Item管道中继续执行下一步或是直接丢弃掉不处理。</p>
+<hr>
+<h3 id="二、Item管道的通常执行过程"><a href="#二、Item管道的通常执行过程" class="headerlink" title="二、Item管道的通常执行过程"></a>二、Item管道的通常执行过程</h3><ul>
+<li>清理HTML数据  　</li>
+<li>验证解析到的数据（检查Item是否包含必要的字段）　　</li>
+<li>检查是否是重复数据（如果重复就删除）　　</li>
+<li>将解析到的数据存储到数据库中　　</li>
+</ul>
+<hr>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Scrapy框架-四-使用Pipeline处理数据(一).html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+  
     <article id="post-Scrapy框架-三-基于Excel文件爬取的爬虫" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -546,373 +918,6 @@
 
 
   
-    <article id="post-Windows下使用Virtualenv虚拟环境" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Windows下使用Virtualenv虚拟环境.html">Windows下使用Virtualenv虚拟环境</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/Windows下使用Virtualenv虚拟环境.html" class="archive-article-date">
-  	<time datetime="2018-11-07T14:07:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："><a href="#Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：" class="headerlink" title="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："></a><b>Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：</b></h4><ul>
-<li>解决库之间的版本依赖，比如同一系统上不同应用依赖同一个库的不同版本。</li>
-<li>解决权限限制，比如你没有root权限。</li>
-<li>尝试新的工具，而不用担心污染系统环境。
-        
-      
-
-      
-    </li></ul></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Virtualenv</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/Windows下使用Virtualenv虚拟环境.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-新篇-精通Python爬虫框架Scrapy" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/新篇-精通Python爬虫框架Scrapy.html">新篇 精通Python爬虫框架Scrapy</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/新篇-精通Python爬虫框架Scrapy.html" class="archive-article-date">
-  	<time datetime="2018-11-07T04:22:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://47.93.163.221:8084/uploadimg/Material/978-7-115-47420-9/72jpg/47420_s300.jpg" alt=""></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>很早之前学习了《Python网络数据采集》这本爬虫入门书籍，书上基本用的是Python标准库urllib和第三方库BeautifulSoup，还有一些少量的requests库。过了这么长时间，对爬虫也不是很熟悉了。想了想以后可能会从事大数据方面的工作，本人对数据也是hin感兴趣。于是想腾出时间学习一下Scrapy框架，也趁此机会巩固一下我的爬虫能力。</p>
-<p>这本《精通Python爬虫框架Scrapy》基于Scrapy1.0和Python2.x版本，虽然我学的是Python3.x，但这本书应该不会影响阅读，之后的博客就会基于这本书发布一些我学习Scrapy的进度，理解等等，路还很长，一起加油吧！</p>
-<hr>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Scrapy</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/新篇-精通Python爬虫框架Scrapy.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-Python3-numpy模块详解" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Python3-numpy模块详解.html">Python3 Numpy模块详解</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/Python3-numpy模块详解.html" class="archive-article-date">
-  	<time datetime="2018-11-06T16:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考链接：<a href="https://blog.csdn.net/a373595475/article/details/79580734" target="_blank" rel="noopener">https://blog.csdn.net/a373595475/article/details/79580734</a></p>
-<h3 id="一、Numpy-简介"><a href="#一、Numpy-简介" class="headerlink" title="一、Numpy - 简介"></a><b>一、Numpy - 简介</b></h3><p>Numpy 是一个 Python 包。 它代表 “Numeric Python”。 它是一个由多维数组对象和用于处理数组的例程集合组成的库。</p>
-<p>Numeric，即 NumPy 的前身，是由 Jim Hugunin 开发的。 也开发了另一个包 Numarray ，它拥有一些额外的功能。 2005年，Travis Oliphant 通过将 Numarray 的功能集成到 Numeric 包中来创建 NumPy 包。 这个开源项目有很多贡献者。</p>
-<hr>
-<h3 id="二、Numpy-操作"><a href="#二、Numpy-操作" class="headerlink" title="二、Numpy 操作"></a><b>二、Numpy 操作</b></h3><p>使用Numpy，开发人员可以执行以下操作：</p>
-<ul>
-<li><p>数组的算数和逻辑运算。</p>
-</li>
-<li><p>傅立叶变换和用于图形操作的例程。</p>
-</li>
-<li><p>与线性代数有关的操作。 Numpy 拥有线性代数和随机数生成的内置函数。</p>
-</li>
-</ul>
-<hr>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Module</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Numpy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/Python3-numpy模块详解.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
-    <article id="post-Xpath用法总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/Xpath用法总结.html">Xpath用法总结</a>
-    </h1>
-  
-
-
-
-        
-        <a href="/Xpath用法总结.html" class="archive-article-date">
-  	<time datetime="2018-11-05T13:53:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-05</time>
-</a>
-        
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考链接：<a href="https://blog.csdn.net/u013332124/article/details/80621638" target="_blank" rel="noopener">https://blog.csdn.net/u013332124/article/details/80621638</a></p>
-<h3 id="一、Xpath介绍"><a href="#一、Xpath介绍" class="headerlink" title="一、Xpath介绍"></a><b>一、Xpath介绍</b></h3><p>Xpath 是一门在 XML 文档中查找信息的语言，Xpath 用于在 XML 文档中通过元素和属性进行导航。</p>
-<ul>
-<li>Xpath 使用路径表达式在 XML 文档中进行导航</li>
-<li>Xpath 包含一个标准函数库</li>
-<li>Xpath 是 XSLT 中的主要元素</li>
-<li>Xpath 是一个 W3C 标准</li>
-</ul>
-<h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a><b>节点</b></h5><p>在 Xpath 中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML 文档是被作为节点树来对待的。<br>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">XPath</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/Xpath用法总结.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -1067,6 +1072,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">PyQt5</a>
               </li>
              
@@ -1075,27 +1084,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Module</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
+                <a href="javascript:void(0)" class="js-tag color2">Module</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,6 +1097,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Selenium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Modules</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1119,15 +1120,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Scrapy</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">装饰器</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1143,7 +1144,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1155,7 +1156,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">XPath</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1175,15 +1176,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Matplotlib</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Json</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color5">Json</a>
               </li>
              
               <li class="article-tag-list-item">
