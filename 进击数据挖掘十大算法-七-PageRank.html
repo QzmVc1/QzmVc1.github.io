@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="QzmVc1">
 <meta property="og:description" content="引言历史上，PageRank算法作为计算互联网网页重要度的算法被提出。PageRank是定义在网页集合上的一个函数，它对每个网页给出一个正实数，表示网页的重要程度，PageRank值越高，网页就越重要，在互联网搜索的排序中可能就被排在前面。 假设互联网是一个有向图，在其基础上定义随机游走模型，即一阶马尔可夫链，表示网页浏览者在互联网上随机浏览网页的过程。假设浏览者在每个网页依照连接出去的超链接以等">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-04T08:41:44.161Z">
+<meta property="og:updated_time" content="2019-09-04T08:46:50.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进击数据挖掘十大算法(七):PageRank">
 <meta name="twitter:description" content="引言历史上，PageRank算法作为计算互联网网页重要度的算法被提出。PageRank是定义在网页集合上的一个函数，它对每个网页给出一个正实数，表示网页的重要程度，PageRank值越高，网页就越重要，在互联网搜索的排序中可能就被排在前面。 假设互联网是一个有向图，在其基础上定义随机游走模型，即一阶马尔可夫链，表示网页浏览者在互联网上随机浏览网页的过程。假设浏览者在每个网页依照连接出去的超链接以等">
@@ -286,7 +286,7 @@
 </ul>
 <h4 id="4-3-代数算法"><a href="#4-3-代数算法" class="headerlink" title="4.3 代数算法"></a>4.3 代数算法</h4><p>代数算法通过一般转移矩阵的逆矩阵计算求有向图的一般 $PageRank$。</p>
 <p>按照一般 $PageRank$ 的定义式</p>
-<script type="math/tex; mode=display">R=dMR+\Large \frac{1-d}{n}1</script><p>于是，</p>
+<script type="math/tex; mode=display">R=dMR+\frac{1-d}{n}1</script><p>于是，</p>
 <script type="math/tex; mode=display">(I-dM)R=\frac{1-d}{n}1</script><script type="math/tex; mode=display">R=(I-dM)^{-1}\frac{1-d}{n}1</script><p>这里 $I$ 是单位矩阵。当 $0&lt;d&lt;1$时，线性方程组的解存在且唯一。这样，可以通过求逆矩阵 $(I-dM)^{-1}$ 得到有向图的一般 $PageRank$。</p>
 <h3 id="五、Reference"><a href="#五、Reference" class="headerlink" title="五、Reference"></a>五、Reference</h3><ul>
 <li>李航《统计学习方法》</li>
@@ -330,6 +330,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/机器学习日记-四-奇异值分解.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          机器学习日记(四):奇异值分解
+        
+      </div>
+    </a>
   
   
     <a href="/进击数据挖掘十大算法-六-EM算法.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -556,7 +565,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -564,7 +573,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
