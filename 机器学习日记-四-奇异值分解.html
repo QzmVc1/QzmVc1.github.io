@@ -17,7 +17,7 @@
 <meta property="og:description" content="引言在学习奇异值分解前，请务必看一下以下对于奇异值的直观理解：奇异值的物理意义是什么？ 奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/04/nZrhlQ.png">
-<meta property="og:updated_time" content="2019-09-04T13:43:24.715Z">
+<meta property="og:updated_time" content="2019-09-04T13:48:13.743Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习日记(四):奇异值分解">
 <meta name="twitter:description" content="引言在学习奇异值分解前，请务必看一下以下对于奇异值的直观理解：奇异值的物理意义是什么？ 奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的">
@@ -226,7 +226,7 @@
 <script type="math/tex; mode=display">\lambda_1 \geq \lambda_2 \geq \cdots \lambda_r >0，\lambda_{r+1}=\lambda_{r+2}=\cdots=\lambda_n=0</script><p>对应的有</p>
 <script type="math/tex; mode=display">\sigma_1 \geq \sigma_2 \geq \cdots \sigma_r >0，\sigma_{r+1}=\sigma_{r+2}=\cdots=\sigma_n=0</script><p>令</p>
 <script type="math/tex; mode=display">V_1 = [v_1\quad v_2\quad \cdots\quad v_r]，V_2=[v_{r+1}\quad v_{r+2}\quad \cdots\quad v_n]</script><p>其中 $v_1,\cdots,v_r$ 为 $A^TA$ 的正特征值对应的特征向量，$v_{r+1},\cdots,v_n$ 为 $0$ 特征值对应的特征向量，则</p>
-<script type="math/tex; mode=display">V = [V1\quad V2]</script><p>这就是矩阵 $A$ 的奇异值分解中的 $n$ 阶正交矩阵 $V$。</p>
+<script type="math/tex; mode=display">V = [V_1\quad V_2]</script><p>这就是矩阵 $A$ 的奇异值分解中的 $n$ 阶正交矩阵 $V$。</p>
 <p>令</p>
 <script type="math/tex; mode=display">\sum_1=\left[\begin{matrix}\sigma_1 &\quad & \quad &\quad \\ \quad & \sigma_2 &\quad & \quad \\ \quad& \quad & \cdots & \quad \\ \quad & \quad & \quad & \sigma_r \end{matrix}\right]</script><p>则 $\sum_1$ 是一个 $r$ 阶对角矩阵，其对角线元素为按降序排列的正的 $\sigma_1,\cdots,\sigma_r$，于是 $m×n$ 矩阵对角矩阵 $\sum$ 可以表示为</p>
 <script type="math/tex; mode=display">\sum = \left[\begin{matrix} \sum_1 & 0 \\ 0 & 0\end{matrix}\right]</script><p>这就是矩阵 $A$ 的奇异值分解中的 $m×n$ 矩阵对角矩阵 $\sum$。</p>
@@ -237,7 +237,7 @@
 <p>接着构造 $m$ 阶正交实矩阵 $U$。</p>
 <p>令</p>
 <script type="math/tex; mode=display">u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r</script><script type="math/tex; mode=display">U_1=[u_1\quad u_2 \quad \cdots \quad u_r]</script><p>则有</p>
-<script type="math/tex; mode=display">AV_1=U1\sum_1</script><p>$U_1$ 的列向量构成了一组标准正交基。</p>
+<script type="math/tex; mode=display">AV_1=U_1\sum_{1}</script><p>$U_1$ 的列向量构成了一组标准正交基。</p>
 <p>若 $R(A)^\bot$ 表示 $R(A)$ 的正交补，则有 $R(A)$ 的维数为 $r$， $R(A)^\bot$ 的维数为 $m-r$，两者的维数之和等于 $m$。而且有 $R(A)^\bot =N(A^T)$ 成立。</p>
 <p>令 $\{u_{r+1},u_{r+2},\cdots,u_m\}$ 为 $N(A^T)$ 的一组标准正交基，并令</p>
 <script type="math/tex; mode=display">U_2 = [u_{r+1}\quad u_{r+2} \quad \cdots \quad u_m]</script><script type="math/tex; mode=display">U = [U_1\quad U_2]</script><p>则 $u_1,u_2,\cdots,u_m$ 构成了 $R^m$ 的一组标准正交基。因此，$U$ 是 $m$ 阶正交矩阵，这就是矩阵 $A$ 的奇异值分解中的 $m$ 阶正交矩阵。</p>
@@ -258,13 +258,13 @@
  <center><img src="https://s2.ax1x.com/2019/09/04/nZrhlQ.png"></center>
 
 <h3 id="四、主要性质"><a href="#四、主要性质" class="headerlink" title="四、主要性质"></a>四、主要性质</h3><p>(1) 设矩阵 $A$ 的奇异值分解为 $A=U\sum V^T$，则以下关系成立：</p>
-<script type="math/tex; mode=display">A^TA=(U\sum V^T)^T(U\sum V^T)=V(\sum^T\sum)V^T</script><script type="math/tex; mode=display">AA^T = (U\sum V^T)(U\sum V^T)^T=U(\sum\sum^T)U^T</script><p>也就是说，矩阵 $A^TA$ 和 $AA^T$ 的特征分解存在，且可以有矩阵 $A$ 的奇异值分解的矩阵表示。$V$ 的列向量是 $A^TA$ 的特征向量，$U$ 的列向量是 $AA^T$ 的特征向量， $\sum$ 的奇异值是$A^TA$ 和 $AA^T$ 的特征值的平方根。</p>
+<script type="math/tex; mode=display">A^TA=(U\sum V^T)^T(U\sum V^T)=V(\sum^{T}\sum)V^T</script><script type="math/tex; mode=display">AA^T = (U\sum V^T)(U\sum V^T)^T=U(\sum\sum^{T})U^T</script><p>也就是说，矩阵 $A^TA$ 和 $AA^T$ 的特征分解存在，且可以有矩阵 $A$ 的奇异值分解的矩阵表示。$V$ 的列向量是 $A^TA$ 的特征向量，$U$ 的列向量是 $AA^T$ 的特征向量， $\sum$ 的奇异值是$A^TA$ 和 $AA^T$ 的特征值的平方根。</p>
 <p>(2) 在矩阵 $A$ 的奇异值分解中，奇异值、左奇异向量和右奇异向量之间存在对于关系。</p>
 <p>由 $A=U\sum V^T$ 易知</p>
 <script type="math/tex; mode=display">AV=U\sum</script><p>比较这一等式两端的第 $j$ 列，得到</p>
 <script type="math/tex; mode=display">Av_j=\sigma_ju_j \tag{关系一}</script><p>这是矩阵 $A$ 的右奇异向量和奇异值、左奇异向量的关系。</p>
 <p>类似的，由</p>
-<script type="math/tex; mode=display">A^TU = V\sum^T</script><p>得到</p>
+<script type="math/tex; mode=display">A^TU = V\sum^{T}</script><p>得到</p>
 <script type="math/tex; mode=display">A^Tu_j=\sigma_jv_j，j=1,2,\cdots,r \tag{关系二}</script><script type="math/tex; mode=display">A^Tu_j=0，j=r+1,r+2,\cdots,m \tag{关系三}</script><p>这是矩阵 $A$ 的左奇异向量和奇异值、右奇异向量的关系。</p>
 <p>(3) 矩阵 $A$ 的奇异值分解中，奇异值 $\sigma_1,\cdots,\sigma_n$ 是唯一的，而矩阵 $U$ 和 $V$ 不是唯一的。</p>
 <p>(4) 矩阵 $A$ 和 $\sum$  的秩相等，等于正奇异值的个数 $r$。</p>
@@ -566,7 +566,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -574,7 +574,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,15 +590,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSV</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件IO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
