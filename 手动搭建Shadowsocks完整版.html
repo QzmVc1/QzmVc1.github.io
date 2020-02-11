@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/11/1TwcOP.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/11/1T0tpj.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/11/1T0JhQ.png">
-<meta property="og:updated_time" content="2020-02-11T11:56:51.788Z">
+<meta property="og:updated_time" content="2020-02-11T12:00:45.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="手动搭建Shadowsocks完整版">
 <meta name="twitter:description" content="一、 Vultr购买VPS">
@@ -224,42 +224,26 @@
 <p><strong>输入用户名密码：</strong></p>
 <p><img src="https://s2.ax1x.com/2020/02/11/1T0JhQ.png" alt=""></p>
 <p><strong>之后成功进入后依次输入如下命令：</strong></p>
-<ol>
-<li>通过安装锐速脚本进行加速</li>
-</ol>
+<p><strong>通过安装锐速脚本进行加速</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N — no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</span><br></pre></td></tr></table></figure>
-<p>   2.下载Shadowsocks</p>
+<p><strong>下载Shadowsocks</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget — no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
-<ol>
-<li>更改权限</li>
-</ol>
+<p><strong>更改权限</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 shadowsocks.sh</span><br></pre></td></tr></table></figure>
-<ol>
-<li>安装Shadowsocks</li>
-</ol>
+<p><strong>安装Shadowsocks</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
 <p><strong>之后它会让你依次输入连接密码，端口和加密方式。依次输入就可以， 加密方式选择</strong> <strong>7（AES-256-CFB）</strong>。安装完之后就会出现一块红色的区域，那就是连接时使用的类似账号密码的东西，这样就ok啦~</p>
 <h3 id="三、多用户使用"><a href="#三、多用户使用" class="headerlink" title="三、多用户使用"></a>三、多用户使用</h3><p>有时候需要多个人使用一台服务器，因此我们需要增加端口：</p>
-<ol>
-<li>检测CentOS7是否安装vim，之后要用，没有的话直接安装：</li>
-</ol>
+<p><strong>检测CentOS7是否安装vim，之后要用，没有的话直接安装：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y vim</span><br></pre></td></tr></table></figure>
-<ol>
-<li>修改Shadowsocks文件，修改成如下形式（”端口”:”密码”）:</li>
-</ol>
+<p><strong>修改Shadowsocks文件，修改成如下形式（”端口”:”密码”）:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;::&quot;,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">         &quot;9000&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9001&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9002&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9003&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9004&quot;:&quot;12345&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>打开防火墙，开放对应端口</li>
-</ol>
+<p><strong>打开防火墙，开放对应端口</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/firewalld/zones/public.xml</span><br></pre></td></tr></table></figure>
-<ol>
-<li>重启Shadowsocks</li>
-</ol>
+<p><strong>重启Shadowsocks</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/shadowsocks restart</span><br></pre></td></tr></table></figure>
-<ol>
-<li>重启防火墙</li>
-</ol>
+<p><strong>重启防火墙</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service firewalld restart</span><br></pre></td></tr></table></figure>
 
       
@@ -502,11 +486,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,7 +506,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,11 +514,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,6 +527,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Random</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,15 +574,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
