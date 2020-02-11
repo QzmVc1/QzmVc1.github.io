@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/18/FSNHHg.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/19/FSgJRU.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/19/FSgGGT.png">
-<meta property="og:updated_time" content="2018-11-20T00:56:40.495Z">
+<meta property="og:updated_time" content="2019-10-21T06:25:10.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scrapy框架(一) 第一个Scrapy项目">
 <meta name="twitter:description" content="前言这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~ 本篇博客框架如下：  第一个Scrapy项目 编写爬虫 清理—-item装载器与管理字段 Scrapy Shell">
@@ -313,7 +313,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: response.xpath(<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>).extract()</span><br><span class="line">Out[<span class="number">4</span>]: [<span class="string">'ForMe'</span>]</span><br></pre></td></tr></table></figure>
 <p><b>下面对4.3.1做几点解释：</b></p>
 <ol>
-<li>xpath表达式语法不做过多的说明，具体可以参考我的一篇博客：<a href="http://qzmvc1.top/2018/11/05/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93/">Xpath用法总结</a></li>
+<li>xpath表达式语法不做过多的说明，具体可以参考我的一篇博客：<a href="[http://qzmvc1.top/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93.html](http://qzmvc1.top/Xpath用法总结.html">Xpath用法总结</a>)</li>
 <li><p>如果不使用extract()，response.xpath()的返回值是网页内容预加载的Selector对象，为了获取真实值，可以使用extract()，也可以使用re()。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: response.xpath(<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span>)</span><br><span class="line">Out[<span class="number">5</span>]: [&lt;Selector xpath=<span class="string">'//*[@id="header"]/hgroup/h1/a/text()'</span> data=<span class="string">'ForMe'</span>&gt;]</span><br></pre></td></tr></table></figure>
 </li>
@@ -445,7 +445,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 QzmVc1
+    		&copy; 2020 QzmVc1
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -580,11 +580,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,7 +600,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+                <a href="javascript:void(0)" class="js-tag color3">OS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,7 +608,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">OS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Pandas</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,10 +625,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Random</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Requests</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,15 +668,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">face_recognition</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">人脸识别</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
