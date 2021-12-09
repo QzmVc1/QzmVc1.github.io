@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://z3.ax1x.com/2021/10/05/4jo3LD.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/10/05/4joxOO.png">
 <meta property="article:published_time" content="2021-10-04T05:29:12.000Z">
-<meta property="article:modified_time" content="2021-10-07T03:00:04.000Z">
+<meta property="article:modified_time" content="2021-12-09T08:59:12.144Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="推荐算法">
 <meta name="twitter:card" content="summary">
@@ -288,7 +288,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-07 11:00:04" itemprop="dateModified" datetime="2021-10-07T11:00:04+08:00">2021-10-07</time>
+        <time title="修改时间：2021-12-09 16:59:12" itemprop="dateModified" datetime="2021-12-09T16:59:12+08:00">2021-12-09</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -338,7 +338,7 @@
 
 <h3 id="二、模型结构"><a href="#二、模型结构" class="headerlink" title="二、模型结构"></a>二、模型结构</h3><p>$Deep　Crossing$ 一共包含四层结构: $Embedding$层、$Stacking$层、$Multiple　Residual　Units$层、$Scoring$层。</p>
 <p><img src="https://z3.ax1x.com/2021/10/04/4O2eyR.png"></p>
-<h4 id="2-1-Embedding-Layer"><a href="#2-1-Embedding-Layer" class="headerlink" title="2.1 Embedding Layer"></a>2.1 Embedding Layer</h4><p>几乎所有基于深度学习的推荐、CTR预估模型都离不开 $Embedding$ 层，它的作用是将离散高维的稀疏特征转化为低维的密集型特征，其公式化定义为 $X_j^O=max(0, W_jX_j^I+b_j)$。其中，$X_j^I$ 表示经过 $One-Hot$ 编码的第 $j$ 个 $Field$，$W_j$ 表示对应的模型参数，$b_j$ 表示对应的偏置项，$max$ 操作等价于使用激活函数 $ReLU$。在模型结构中发现 $Feature　#2$ 并没有使用 $Embedding$，因为文章提到“维度小于256的特征“不需要进行 $Embedding$ 转化。</p>
+<h4 id="2-1-Embedding-Layer"><a href="#2-1-Embedding-Layer" class="headerlink" title="2.1 Embedding Layer"></a>2.1 Embedding Layer</h4><p>几乎所有基于深度学习的推荐、CTR预估模型都离不开 $Embedding$ 层，它的作用是将离散高维的稀疏特征转化为低维的密集型特征，其公式化定义为 $X_j^O=max(0, W_jX_j^I+b_j)$。其中，$X_j^I$ 表示经过 $One-Hot$ 编码的第 $j$ 个 $Field$，$W_j$ 表示对应的模型参数，$b_j$ 表示对应的偏置项，$max$ 操作等价于使用激活函数 $ReLU$。在模型结构中发现 Feature #2并没有使用 $Embedding$，因为文章提到“维度小于256的特征“不需要进行 $Embedding$ 转化。</p>
 <h4 id="2-2-Stacking-Layer"><a href="#2-2-Stacking-Layer" class="headerlink" title="2.2 Stacking Layer"></a>2.2 Stacking Layer</h4><p>$Stacking$ 层的操作非常简单，就是将所有的 $Embedding$ 向量、未进行 $Embedding$ 操作的原生特征进行拼接，形成一个向量 $X^O=[X_0^O,X_1^O,\cdots,X_n^O]$。</p>
 <h4 id="2-3-Multiple-Residual-Units"><a href="#2-3-Multiple-Residual-Units" class="headerlink" title="2.3 Multiple Residual Units"></a>2.3 Multiple Residual Units</h4><p>$Deep　Crossing$ 模型中的 $Crossing$ 就是<strong>多个残差单元</strong>层来实现。该层使用了残差网络的基本单元，单个残差单元如下所示：</p>
 <p><img src="https://z3.ax1x.com/2021/10/04/4OWrss.png"></p>
@@ -351,7 +351,7 @@
 <p>接着给出了各层的伪代码：</p>
 <p><img src="https://z3.ax1x.com/2021/10/04/4Ohn3D.png"></p>
 <h3 id="四、代码演示"><a href="#四、代码演示" class="headerlink" title="四、代码演示"></a>四、代码演示</h3><blockquote>
-<p>**实验数据选用MovieLens 1M **</p>
+<p>实验数据选用MovieLens 1M </p>
 </blockquote>
 <h4 id="4-1-数据处理"><a href="#4-1-数据处理" class="headerlink" title="4.1 数据处理"></a>4.1 数据处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取users、moives、ratings三个部分的数据</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readMovies</span>(<span class="params">path</span>):</span></span><br><span class="line">    movies = pd.read_table(os.path.join(path, <span class="string">&#x27;movies.dat&#x27;</span>), header=<span class="literal">None</span>, sep=<span class="string">&#x27;::&#x27;</span>, engine=<span class="string">&#x27;python&#x27;</span>)</span><br><span class="line">    movies.columns = [<span class="string">&#x27;MovieID&#x27;</span>, <span class="string">&#x27;Title&#x27;</span>, <span class="string">&#x27;Genres&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> movies</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readUsers</span>(<span class="params">path</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot; Age: &#123;1, &#x27;under 18&#x27;,  18: &quot;18-24&quot;,  25: &quot;25-34&quot;,  35: &quot;35-44&quot;,</span></span><br><span class="line"><span class="string">              45: &quot;45-49&quot;,    50: &quot;50-55&quot;,  56: &quot;56+&quot;,&#125;&quot;&quot;&quot;</span></span><br><span class="line">    users = pd.read_table(os.path.join(path, <span class="string">&#x27;users.dat&#x27;</span>), header=<span class="literal">None</span>, sep=<span class="string">&#x27;::&#x27;</span>, engine=<span class="string">&#x27;python&#x27;</span>)</span><br><span class="line">    users.columns = [<span class="string">&#x27;UserID&#x27;</span>, <span class="string">&#x27;Gender&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;Occupation&#x27;</span>, <span class="string">&#x27;Zip-code&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> users</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">readRatings</span>(<span class="params">path</span>):</span></span><br><span class="line">    ratings = pd.read_table(os.path.join(path, <span class="string">&#x27;ratings.dat&#x27;</span>), header=<span class="literal">None</span>, sep=<span class="string">&#x27;::&#x27;</span>, engine=<span class="string">&#x27;python&#x27;</span>)</span><br><span class="line">    ratings.columns = [<span class="string">&#x27;UserID&#x27;</span>, <span class="string">&#x27;MovieID&#x27;</span>, <span class="string">&#x27;Rating&#x27;</span>, <span class="string">&#x27;Timestamp&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> ratings</span><br></pre></td></tr></table></figure>
 
