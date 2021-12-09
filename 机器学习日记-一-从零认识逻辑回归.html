@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="引言分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。 逻辑回归(Logistic Regression,简称LR)，虽然它的名字中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习日记(一):从零认识逻辑回归">
+<meta property="og:url" content="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。 逻辑回归(Logistic Regression,简称LR)，虽然它的名字中">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/22/EkLNb4.png">
+<meta property="article:published_time" content="2019-04-22T07:34:50.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:55:12.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html","path":"机器学习日记-一-从零认识逻辑回归.html","title":"机器学习日记(一):从零认识逻辑回归"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>机器学习日记(一):从零认识逻辑回归 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%EF%BC%88Linear-Regression%EF%BC%89"><span class="nav-text">一、线性回归（Linear Regression）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E7%94%A8%E8%BF%9E%E7%BB%AD%E7%9A%84%E6%95%B0%E5%80%BC%E5%8E%BB%E9%A2%84%E6%B5%8B%E7%A6%BB%E6%95%A3%E7%9A%84%E6%A0%87%E7%AD%BE%E5%80%BC"><span class="nav-text">二、如何用连续的数值去预测离散的标签值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%EF%BC%88logistics-regression%EF%BC%89"><span class="nav-text">三、逻辑回归（logistics regression）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88Loss-Function%EF%BC%89"><span class="nav-text">四、逻辑回归的损失函数（Loss Function）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1MLE-Maximum-Likelihood-Estimation"><span class="nav-text">五、极大似然估计MLE(Maximum Likelihood Estimation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="nav-text">六、梯度下降法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E6%A2%AF%E5%BA%A6"><span class="nav-text">6.1 梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%9A%84%E7%9B%B4%E8%A7%82%E8%A7%A3%E9%87%8A"><span class="nav-text">6.2 梯度下降的直观解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="nav-text">6.3 梯度下降法描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-1-%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-text">6.3.1 先决条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-2-%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-text">6.3.2 算法相关参数初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-3-%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="nav-text">6.3.3 算法过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%B1%82-F-omega-%E7%9A%84%E6%A2%AF%E5%BA%A6-nabla-F-omega"><span class="nav-text">七、求 $F(\omega)$ 的梯度 $\nabla F(\omega)$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%9B%B4%E6%96%B0%E7%B3%BB%E6%95%B0-omega-i"><span class="nav-text">八、更新系数 $\omega_i$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">九、逻辑回归与正则化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%89%A9%E4%B8%8B%E7%9A%84%E5%B0%B1%E6%98%AF%E5%85%B7%E4%BD%93%E7%9A%84%E6%95%B2%E4%BB%A3%E7%A0%81%E4%BA%86%EF%BC%81"><span class="nav-text">剩下的就是具体的敲代码了！</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">参考链接:</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习日记(一):从零认识逻辑回归
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-22 15:34:50" itemprop="dateCreated datePublished" datetime="2019-04-22T15:34:50+08:00">2019-04-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:55:12" itemprop="dateModified" datetime="2021-10-06T19:55:12+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。<strong>本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。</strong></p>
+<p><strong>逻辑回归(Logistic Regression,简称LR)，虽然它的名字中带有“回归”两个字，但是它最擅长处理的却是分类问题。</strong> LR分类器适用于各项广义上的分类任务，例如：评论信息的正负情感分析（二分类）、用户点击率（二分类）、用户违约信息预测（二分类）、垃圾邮件检测（二分类）、疾病预测（二分类）、用户等级分类（多分类）等场景。我们这里主要讨论的是二分类问题，<strong>解决了二分类自然就解决了多分类，因为N分类问题可以转化成N个二分类问题。</strong></p>
+<span id="more"></span>
+<hr>
+<h3 id="一、线性回归（Linear-Regression）"><a href="#一、线性回归（Linear-Regression）" class="headerlink" title="一、线性回归（Linear Regression）"></a>一、线性回归（Linear Regression）</h3><p>线性回归的表达式：<br>$$ f(\bf{x})=\pmb{\omega^{T}x}+b$$<br>线性回归对于给定的输入 $x$，输出的是一个数值 $y$，因此它是一个解决回归问题的模型。</p>
+<p>为了消除掉后面的常数项b，我们可以令 $x^{‘}=[1\ \ x]^{T}$，同时 $\omega^{‘}=[b\ \ w]^T$ ，直线方程可以化简成为：<br>$$f(\bf{x^{‘}})=\pmb{\omega^{‘}x^{‘}}$$</p>
+<p>在接下来的文章中为了方便，我们所使用的 $\omega,x$ 其实指代的是 $\omega^{‘},x^{‘}$。</p>
+<h3 id="二、如何用连续的数值去预测离散的标签值"><a href="#二、如何用连续的数值去预测离散的标签值" class="headerlink" title="二、如何用连续的数值去预测离散的标签值"></a>二、如何用连续的数值去预测离散的标签值</h3><p>线性回归的输出是一个数值，而不是一个标签，显然不能直接解决二分类问题。那我如何改进我们的回归模型来预测标签呢？</p>
+<p>一个最直观的办法就是设定一个阈值，比如0。如果我们预测的数值 y&gt;0 ，那么属于标签A，反之属于标签B，采用这种方法的模型又叫做<strong>感知机（Perceptron）</strong>。</p>
+<p>另一种方法，我们不去直接预测标签，而是去预测标签为A概率，我们知道概率是一个[0,1]区间的连续数值，那我们的输出的数值就是标签为A的概率。一般的如果标签为A的概率大于0.5，我们就认为它是A类，否则就是B类。这就是我们的这次的主角**逻辑回归模型 (Logistics Regression)**。</p>
+<h3 id="三、逻辑回归（logistics-regression）"><a href="#三、逻辑回归（logistics-regression）" class="headerlink" title="三、逻辑回归（logistics regression）"></a>三、逻辑回归（logistics regression）</h3><p>通过以上分析，我们明确了预测目标是标签为A的概率。</p>
+<p>我们知道，概率是属于[0,1]区间。但是线性模型 $f(x) = \omega^Tx$ 值域是 $(-\infty,\infty)$。</p>
+<p>我们不能直接基于线性模型建模。我们需要找到一个模型的值域刚好在[0,1]区间，同时要足够好用。</p>
+<p>于是，选择了我们的<strong>sigmoid函数</strong>：<br>$$\sigma(x)=\frac{1}{1+e^{-x}}$$<br>函数图像为：</p>
+<center><img src="https://pic3.zhimg.com/80/v2-ab82d755dba95f0585678fe2d4af28d6_hd.jpg"></center>
+
+<p>但是我们不能直接拿sigmoid函数就用，毕竟它连要训练的参数 $\omega$ 都没有。</p>
+<p>因此我们结合sigmoid函数，线性回归函数，把线性回归模型的输出作为sigmoid函数的输入。于是最后就变成了逻辑回归模型：<br>$$y=\sigma(f(x))=\sigma(\omega^Tx)=\frac{1}{1+e^{-\pmb{\omega^Tx}}}$$</p>
+<p>假设我们已经训练好了一组权值 $\omega^T$。只要把我们需要预测的 $x$ 代入到上面的方程，输出的y值就是这个标签为A的概率，我们就能够判断输入数据是属于哪个类别。</p>
+<p>接下来就来详细介绍，如何利用一组采集到的真实样本，训练出参数 $\pmb{\omega}$ 的值。</p>
+<h3 id="四、逻辑回归的损失函数（Loss-Function）"><a href="#四、逻辑回归的损失函数（Loss-Function）" class="headerlink" title="四、逻辑回归的损失函数（Loss Function）"></a>四、逻辑回归的损失函数（Loss Function）</h3><p>一个人工训练出来的模型是无法达到100%准确率的。因此我们需要一个东西来衡量模型训练的好坏。<strong>损失函数就是用来衡量模型的输出与真实输出的差别。</strong></p>
+<p>下面就是逻辑回归的损失函数推导过程。</p>
+<p>假设只有两个标签1和0，$y_n\in{0,1}$。我们把采集到的任何一组样本看做一个事件的话，那么这个事件发生的概率假设为p。我们的模型y的值等于标签为1的概率也就是p，即：<br>$$P_{y=1}=\frac{1}{1+e^{-\omega^Tx}}=p$$<br>因为标签不是1就是0，因此标签为0的概率就是:<br>$$P_{y=0}=1-p$$</p>
+<p>我们把单个样本看做一个事件，那么这个事件发生的概率就是：<br>$$P(y\ |\ x)=\begin{cases}p,&amp;y=1 \cr 1-p,&amp;y=0\end{cases}$$<br>这个函数不方便计算，它等价于:<br>$$P(y_i\ |\ x_i)=p^{y_i}(1-p)^{1-y_i}$$</p>
+<p>解释下这个函数的含义，我们采集到了一个样本 $(x_i,y_i)$ 。对这个样本，它的标签是 $y_i$ 的概率是 $p^{y_i}(1-p)^{1-{y_i}}$ 。（当y=1，结果是p；当y=0，结果是1-p）。</p>
+<p>如果我们采集到了一组数据一共N个， $(x_1,y_1),(x_2,y_2),(x_3,y_3) \ldots (x_N,y_N)$ ，这个合成在一起的合事件发生的总概率怎么求呢？其实就是将每一个样本发生的概率相乘就可以了，即采集到这组样本的概率：<br>$$P_总=P(y_1|x_1)P(y_2|x_2)\cdots P(y_n|x_n)=\prod_{n=1}^{N}p^{y_n}(1-p)^{(1-y_n)}$$</p>
+<p><strong>注意 $P_总$ 是一个函数，并且未知的量只有 $\omega$（在p里面）。</strong></p>
+<p>由于连乘很复杂，我们通过两边取对数来把连乘变成连加的形式，即：<br>$$F(\omega)=ln(P_总)=ln(\prod_{n=1}^{N}p^{y_n}(1-p)^{(1-y_n)})$$<br>$$\quad\quad\quad\quad\quad\quad\quad=\sum_{n=1}^Nln(p^{y_n}(1-p)^{(1-y_n)})$$<br>$$\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=\sum_{n=1}^N(y_nln(p)+(1-y_n)ln(1-p))$$<br>其中，$p=\frac{1}{1+e^{-\omega^Tx}}$</p>
+<p>这个函数 $F(\omega)$ 就叫做它的<strong>损失函数</strong>。损失函数可以理解成衡量我们当前的模型的输出结果，跟实际的输出结果之间的差距的一种函数。这里的损失函数的值等于事件发生的总概率，我们希望它越大越好。但是跟损失的含义有点儿违背，因此也可以在前面取个负号，<strong>最终的表达式</strong>如下所示（1/m表示均值化）：<br>$$F(\omega)=-\frac{1}{m}\sum_{n=1}^m(y_nln(p)+(1-y_n)ln(1-p))$$</p>
+<h3 id="五、极大似然估计MLE-Maximum-Likelihood-Estimation"><a href="#五、极大似然估计MLE-Maximum-Likelihood-Estimation" class="headerlink" title="五、极大似然估计MLE(Maximum Likelihood Estimation)"></a>五、极大似然估计MLE(Maximum Likelihood Estimation)</h3><p>我们在真实世界中并不能直接看到概率是多少，我们只能观测到事件是否发生。也就是说，我们只能知道一个样本它实际的标签是1还是0。那么我们如何估计参数 $\omega$ 跟 $b$ 的值呢？</p>
+<p><strong>极大似然估计MLE</strong>(Maximum Likelihood Estimation)，就是一种估计参数 $\omega$ 的方法。在这里如何使用MLE来估计 $\omega$ 呢？</p>
+<p>我们知道损失函数 $F(\omega)$ 是正比于总概率 $P_总$ 的，而 $F(\omega)$ 又只有一个变量 $\omega$ 。也就是说，通过改变  $\omega$ 的值，就能得到不同的总概率值 $P_总$ 。那么当我们选取的某个 $\omega^{*}$ 刚好使得总概率 $P_总$ 取得最大值的时候。我们就认为这个 $\omega^{*}$ 就是我们要求得的 $\omega$ 的值，这就是极大似然估计的思想。</p>
+<p><em><em>现在我们的问题变成了，找到一个 $\omega^</em>$ ，使得我们的总事件发生的概率，即损失函数 $F(\omega)$ 取得最大值</em><em>，这句话用数学语言表达就是：<br>$$\omega^</em>=arg\mathop{max}\limits_{\omega}F(\omega)=-arg\mathop{min}\limits_{\omega}F(\omega)$$</p>
+<h3 id="六、梯度下降法"><a href="#六、梯度下降法" class="headerlink" title="六、梯度下降法"></a>六、梯度下降法</h3><p>由于极大似然函数无法直接求解，所以在机器学习算法中，在最小化损失函数时，可以通过<strong>梯度下降法</strong>来一步步的迭代求解，得到最小化的损失函数和模型参数值。</p>
+<h4 id="6-1-梯度"><a href="#6-1-梯度" class="headerlink" title="6.1 梯度"></a>6.1 梯度</h4><p><strong>在微积分里面，对多元函数的参数求 $\delta$ 偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。</strong> 比如函数 $f(x,y)$ , 分别对 $x,y$ 求偏导数，求得的梯度向量就是 $(\delta f/\delta x,\delta f/\delta y)^T$，简称 $grad f(x,y)$ 或者 $\nabla f(x,y)$。对于在点 $x_0,y_0$ 的具体梯度向量就是 $(\delta f/\delta x_0,\delta f/\delta y_0)^T$ 或者 $\nabla f(x_0,y_0)$。</p>
+<p>那么这个梯度向量求出来有什么意义呢？<strong>从几何意义上讲，就是函数变化增加最快的地方</strong>。具体来说，对于函数 $f(x,y)$ 在点  $x_0,y_0$  沿着梯度方向的向量就是 $f(x,y)$ 增加最快的地方。或者说沿着梯度向量的方向，更加容易找到函数的最大值；反过来说，沿着梯度向量相反的方向，也就是 $-(\delta f/\delta x_0,\delta f/\delta y_0)^T$ 的方向，梯度减少的最快，也就更容易找到函数的最小值。</p>
+<h4 id="6-2-梯度下降的直观解释"><a href="#6-2-梯度下降的直观解释" class="headerlink" title="6.2 梯度下降的直观解释"></a>6.2 梯度下降的直观解释</h4><p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。</p>
+<p>从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。</p>
+<p><img src="https://s2.ax1x.com/2019/04/22/EkLNb4.png"></p>
+<h4 id="6-3-梯度下降法描述"><a href="#6-3-梯度下降法描述" class="headerlink" title="6.3 梯度下降法描述"></a>6.3 梯度下降法描述</h4><h5 id="6-3-1-先决条件"><a href="#6-3-1-先决条件" class="headerlink" title="6.3.1 先决条件"></a>6.3.1 先决条件</h5><p>确认优化模型的假设函数和损失函数。</p>
+<h5 id="6-3-2-算法相关参数初始化"><a href="#6-3-2-算法相关参数初始化" class="headerlink" title="6.3.2 算法相关参数初始化"></a>6.3.2 算法相关参数初始化</h5><p>主要是初始化 $\omega_0,\omega_1\cdots,\omega_n$，算法终止距离 $\varepsilon$ 和步长 $\alpha$。在没有任何先验知识的时候，我们比较倾向于将所有的 $\omega_i$ 初始化为0，将步长初始化为1，在调优的时候再进行优化。</p>
+<h5 id="6-3-3-算法过程"><a href="#6-3-3-算法过程" class="headerlink" title="6.3.3 算法过程"></a>6.3.3 算法过程</h5><p>(1) 确定当前位置的损失函数的梯度，对于 $\omega_i$ ,其梯度表达式如下：<br>$$\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)$$<br>(2) 用步长乘以损失函数的梯度，得到当前位置下降的距离，即 $\alpha\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)$,对应于前面登山过程中的某一步。<br>(3) 确定是否所有的 $\omega_i$ 梯度下降的距离都小于 $\varepsilon$，如果小于 $\varepsilon$ 则算法终止，当前所有的 $\omega_i$ 即为最终结果，否则进入步骤4。<br>(4) 更新所有的 $\omega_i$，对于 $\omega_i$，其更新表达式如下，更新完毕后继续转入步骤1。<br>$$\omega_i=\omega_i-\alpha\frac{\delta}{\delta\omega_i}J(\omega_0,\omega_1,\cdots,\omega_n)$$</p>
+<h3 id="七、求-F-omega-的梯度-nabla-F-omega"><a href="#七、求-F-omega-的梯度-nabla-F-omega" class="headerlink" title="七、求 $F(\omega)$ 的梯度 $\nabla F(\omega)$"></a>七、求 $F(\omega)$ 的梯度 $\nabla F(\omega)$</h3><p>先回顾一下p的公式：<br>$$p=\frac{1}{1+e^{-\omega^Tx}}$$<br>再回顾一下 $F(\omega)$ 的公式：<br>$$F(\omega)=-\frac{1}{m}\sum_{n=1}^m(y_nln(p)+(1-y_n)ln(1-p))$$</p>
+<p>$p$ 是一个关于变量 $\omega$ 的函数，我们对 $p$ 求导，通过链式求导法则，慢慢展开可以得：<br>$$p^{‘}=(\frac{1}{1+e^{-\omega^Tx}})^{‘}$$<br>$$\qquad\qquad\quad\quad\qquad =-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot(1+e^{-\omega^Tx})^{‘}$$<br>$$\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot e^{-\omega^Tx}\cdot (-\omega^Tx)^{‘}$$<br>$$\quad\quad\quad\quad\quad\quad\quad\quad=-\frac{1}{(1+e^{-\omega^Tx})^{2}}\cdot e^{-\omega^Tx}\cdot (-x)$$<br>$$\quad\quad\quad\quad\quad\quad=\frac{1}{1+e^{-\omega^Tx}}\cdot \frac{e^{-\omega^Tx}}{1+e^{-\omega^Tx}}\cdot x$$<br>$$=p(1-p)x$$</p>
+<p>上面都是我们做的准备工作，总之我们得记住：<br>$$p^{‘}=p(1-p)x$$<br>$$(1-p)^{‘}=-p(1-p)x$$</p>
+<p>下面我们正式开始对 $F(\omega)$ 求导，求导的时候请始终记住，我们的变量只有 $\omega$，其他的什么 $y_n,x_n$ 都是已知的，可以看做常数。</p>
+<p>$$\nabla F(\omega)=-\frac{1}{m}\nabla(\sum_{n=1}^m(y_nln(p)+(1-y_n)ln(1-p)))$$<br>$$\quad\quad=-\frac{1}{m}\sum_{n=1}^m(y_nln^{‘}(p)+(1-y_n)ln^{‘}(1-p))$$<br>$$\quad\quad\quad\quad=-\frac{1}{m}\sum_{n=1}^m((y_n\frac{1}{p}p^{‘})+(1-y_n)\frac{1}{1-p}(1-p)^{‘})$$<br>$$\quad=-\frac{1}{m}\sum_{n=1}^m(y_n(1-p)x_n-(1-y_n)px_n)$$<br>$$=-\frac{1}{m}\sum_{n=1}^m(y_n-p)x_n$$</p>
+<p>终于，我们求出了梯度 $\nabla F(\omega)$ 的表达式了，现在我们再来看看它长什么样子：<br>$$ \nabla F(\omega)=-\frac{1}{m}\sum_{n=1}^N(y_n-p)x_n$$<br>它是如此简洁优雅，这就是我们选取sigmoid函数的原因之一。当然我们也能够把 $p$ 再展开，即：<br>$$ \nabla F(\omega)=-\frac{1}{m}\sum_{n=1}^N(y_n-\frac{1}{1+e^{-\omega^Tx_n}})x_n$$</p>
+<h3 id="八、更新系数-omega-i"><a href="#八、更新系数-omega-i" class="headerlink" title="八、更新系数 $\omega_i$"></a>八、更新系数 $\omega_i$</h3><p>梯度下降法共分为<strong>批量梯度下降（Batch Gradient Descent）、随机梯度下降（Stochastic Gradient Descent）和小批量梯度下降（Mini-Batch Gradient Descent）</strong>。</p>
+<p>具体知识请参考我的另一篇博客：</p>
+<blockquote>
+<p><a href="http://qzmvc1.top/2019/04/23/%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-BGD-%E3%80%81%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-SGD-%E3%80%81%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-MBGD/">批量梯度下降(BGD)、随机梯度下降(SGD)、小批量梯度下降(MBGD)</a></p>
+</blockquote>
+<p>这里给出<strong>基于BGD梯度下降的公式</strong>：<br>$$\omega_{i+1}=\omega_{i}-\alpha\nabla F(\omega)$$<br>$$\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad=\omega_{i}+\alpha\frac{1}{m}\sum_{n=1}^m(y_n-\frac{1}{1+e^{-\omega^Tx_n}})x_n$$</p>
+<h3 id="九、逻辑回归与正则化"><a href="#九、逻辑回归与正则化" class="headerlink" title="九、逻辑回归与正则化"></a>九、逻辑回归与正则化</h3><p>有关L1正则化和L2正则化可以参考我的另一篇博客：</p>
+<blockquote>
+<p><a href="http://qzmvc1.top/2019/04/23/%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96/">浅谈L1正则化与L2正则化</a></p>
+</blockquote>
+<p>这里给出<strong>基于L2正则化的公式</strong>：<br>$$F(\omega)=-\frac{1}{m}\sum_{n=1}^m(y_nln(p)+(1-y_n)ln(1-p))+\frac{\lambda}{2m}\sum_{j=1}^{k}\omega_j^2$$</p>
+<h5 id="剩下的就是具体的敲代码了！"><a href="#剩下的就是具体的敲代码了！" class="headerlink" title="剩下的就是具体的敲代码了！"></a>剩下的就是具体的敲代码了！</h5><hr>
+<h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h5><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44591359">逻辑回归 logistics regression 公式推导</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html" title="机器学习日记(一):从零认识逻辑回归">http://qzmvc1.top/机器学习日记-一-从零认识逻辑回归.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B8%B8%E8%A7%81%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B.html" rel="prev" title="神经网络常见激活函数简介">
+                  <i class="fa fa-chevron-left"></i> 神经网络常见激活函数简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-BGD-%E3%80%81%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-SGD-%E3%80%81%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-MBGD.html" rel="next" title="机器学习日记(二):批量梯度下降(BGD)、随机梯度下降(SGD)、小批量梯度下降(MBGD)">
+                  机器学习日记(二):批量梯度下降(BGD)、随机梯度下降(SGD)、小批量梯度下降(MBGD) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="一、基本介绍&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;信号和槽是一种高级接口，应用于对象之间的通信，它是 QT 的核心特性，也是 QT 区别于其它工具包的重要地方。它为高层次的事件处理自动生成所需要的附加代码。在我们所熟知的很多 GUI 工具包中，窗口小部件 (widget) 都有一个回调函数用于响应它们能触发的每个动作，这个回调函数通常是一个指向某个函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyQt5学习日记(二):信号与槽">
+<meta property="og:url" content="http://qzmvc1.top/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="一、基本介绍&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;信号和槽是一种高级接口，应用于对象之间的通信，它是 QT 的核心特性，也是 QT 区别于其它工具包的重要地方。它为高层次的事件处理自动生成所需要的附加代码。在我们所熟知的很多 GUI 工具包中，窗口小部件 (widget) 都有一个回调函数用于响应它们能触发的每个动作，这个回调函数通常是一个指向某个函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/05/Fl4lJe.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/05/Fl41RH.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/05/Fl4QiD.png">
+<meta property="article:published_time" content="2018-12-05T14:28:32.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:28.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="PyQt5">
+<meta property="article:tag" content="GUI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/05/Fl4lJe.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html","path":"PyQt5学习日记-二-信号与槽.html","title":"PyQt5学习日记(二):信号与槽"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>PyQt5学习日记(二):信号与槽 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-text">一、基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD"><span class="nav-text">二、信号与槽</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E4%BF%A1%E5%8F%B7"><span class="nav-text">2.1 信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%A7%BD"><span class="nav-text">2.2 槽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E7%9A%84%E7%BB%91%E5%AE%9A"><span class="nav-text">2.3 信号与槽的绑定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">三、信号与槽的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%9E%E4%BE%8B"><span class="nav-text">四、实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%B0%8F%E6%8F%90%E7%A4%BA"><span class="nav-text">五、小提示</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PyQt5学习日记(二):信号与槽
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-05 22:28:32" itemprop="dateCreated datePublished" datetime="2018-12-05T22:28:32+08:00">2018-12-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:28" itemprop="dateModified" datetime="2021-10-06T19:57:28+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">Python库</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号和槽是一种高级接口，应用于对象之间的通信，它是 QT 的核心特性，也是 QT 区别于其它工具包的重要地方。它为高层次的事件处理自动生成所需要的附加代码。在我们所熟知的很多 GUI 工具包中，窗口小部件 (widget) 都有一个回调函数用于响应它们能触发的每个动作，这个回调函数通常是一个指向某个函数的指针。但是，在 QT 中信号和槽取代了这些凌乱的函数指针，使得我们编写这些通信程序更为简洁明了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有从 QObject 或其子类 ( 例如 Qwidget) 派生的类都能够包含信号和槽。当对象改变其状态时，信号就由该对象发射 (emit) 出去，这就是对象所要做的全部事情，它不知道另一端是谁在接收这个信号。这就是真正的信息封装，它确保对象被当作一个真正的软件组件来使用。槽用于接收信号，但它们是普通的对象成员函数。一个槽并不知道是否有任何信号与自己相连接。而且，对象并不了解具体的通信机制。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以将很多信号与单个的槽进行连接，也可以将单个的信号与很多的槽进行连接，甚至于将一个信号与另外一个信号相连接也是可能的，这时无论第一个信号什么时候发射系统都将立刻发射第二个信号。总之，信号与槽构造了一个强大的部件编程机制。</p>
+<span id="more"></span>
+<hr>
+<h3 id="二、信号与槽"><a href="#二、信号与槽" class="headerlink" title="二、信号与槽"></a>二、信号与槽</h3><h4 id="2-1-信号"><a href="#2-1-信号" class="headerlink" title="2.1 信号"></a>2.1 信号</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当对象的状态发生改变的时候，信号就由该对象发射 (emit) 出去。当一个信号被发射(emit)时候，与其关联的槽函数被立刻执行。其中该对象只负责发送信号，发射该信号的对象并不知道是那个对象在接收这个信号。这样保证了对象与对象之间的低耦合。<br>如果存在信号和多个槽函数相关联的时候，当信号被发射时，这些槽的执行顺序将会是随机的、不确定的。</p>
+<h4 id="2-2-槽"><a href="#2-2-槽" class="headerlink" title="2.2 槽"></a>2.2 槽</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于接受信号，而且槽只是普通的对象成员函数。当和槽连接的信号被发射时，槽会被调用。一个槽并不知道是否有任何信号与自己相连接。</p>
+<h4 id="2-3-信号与槽的绑定"><a href="#2-3-信号与槽的绑定" class="headerlink" title="2.3 信号与槽的绑定"></a>2.3 信号与槽的绑定</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过调用 QObject 对象的 connect 函数来将某个对象的信号与另外一个对象的槽函数相关联，这样当发射者发射信号时，接收者的槽函数将被调用。该函数的定义如下：</p>
+<blockquote>
+<p>connect(slot[, type=PyQt5.QtCore.Qt.AutoConnection[, no_receiver_check=False]])<br>Parameters:<br>slot – the slot to connect to, either a Python callable or another bound signal.<br>type – the type of the connection to make.<br>no_receiver_check – suppress the check that the underlying C++ receiver instance still exists and deliver the signal anyway.</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当信号与槽没有必要继续保持关联时，我们可以使用 disconnect 函数来断开连接。其定义如下：</p>
+<blockquote>
+<p>disconnect([slot])<br>Parameters: slot – the optional slot to disconnect from, either a Python callable or another bound signal. If it is omitted then all slots connected to the signal are disconnected.</p>
+</blockquote>
+<hr>
+<h3 id="三、信号与槽的特点"><a href="#三、信号与槽的特点" class="headerlink" title="三、信号与槽的特点"></a>三、信号与槽的特点</h3><p><strong>1、一个信号可以连接到多个槽；<br>当信号发出后，槽函数都会被调用，但是调用的顺序是随机的，不确定的。</strong></p>
+<blockquote>
+<p>self.slider.valueChanged.connect(self.pBar.setValue)      self.slider.valueChanged.connect(self.lcdNumber.display)</p>
+</blockquote>
+<p>QSlider数据的变化同时绑定在setValue()和display()两个槽上。</p>
+<p><strong>2、多个信号可以连接到同一个槽；<br>其中任何一个信号发出，槽函数都会被执行。</strong></p>
+<blockquote>
+<p>self.buttonOn.clicked.connect(self.showMessage)<br>self.buttonOff.clicked.connect(self.showMessage)</p>
+</blockquote>
+<p>showMessage()同时绑定在两个button的clicked信号上。</p>
+<p><strong>3、信号的参数可以是任何的Python类型;</strong></p>
+<p>如list，dict等python独有的类型。自定义信号的时候举例说明。</p>
+<p><strong>4、信号和槽的连接可以被移除；</strong></p>
+<p>比如断开某个特定信号的关联。</p>
+<blockquote>
+<p>self.buttonOn.clicked.disconnect(self.showMessage)</p>
+</blockquote>
+<p><strong>5、信号可以和另外一个信号进行关联；<br>第一个信号发出后，第二个信号也同时发送。</strong></p>
+<p>比如关闭系统的信号发出之后，同时会发出保存数据的信号。</p>
+<hr>
+<h3 id="四、实例"><a href="#四、实例" class="headerlink" title="四、实例"></a>四、实例</h3><p>说实话对于像我这样的新手来说看着就脑壳疼，想学会它没办法，我们还是简化一下概念吧：</p>
+<p>所有QObject类都可以使用信号槽，换句话来说继承自PyQt5中的类基本上都可以使用信号槽机制。当然非QObject也是可以通过其他一些办法来使用信号槽的。</p>
+<p>仅仅有了信号和槽是不行的，我们还需要了解：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号(Signal)、槽(slot)、连接(connect)、动作事件(action)、发射(emit)、发送者、接受者等等一些列的知识。好吧，别搞的那么复杂行不行，我们还是学学该怎么用吧。</p>
+<p>在Qt Designer中为我们提供了一些基本的信号槽方法，我们来看看：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击工具栏上的“编辑信号/槽”，进入信号槽编辑模式，我们可以直接在发送者（button）上按住鼠标左键不放，拖动到接收者（Form窗体）上。这样就建立起了连接。</p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl4lJe.png"></p>
+<p>接着，会弹出配置连接对话框。</p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl41RH.png"></p>
+<p>左边是发送者（按钮）的信号（动作事件），右边是接收者（窗体）的槽（动作事件）。</p>
+<p>如图所示，我信号选择的是clicked,槽选择的是close:</p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl4QiD.png"></p>
+<p>我们看一下编译后生成的代码：</p>
+<blockquote>
+<p>self.quitButton.clicked.connect(Form.close)</p>
+</blockquote>
+<p>实现的功能是：当按钮点击之后关闭窗体。</p>
+<blockquote>
+<p>流程：<br>按钮是信号发送者，当点击按钮之后会发送一个信号出去，通过这段代码程序内部的通讯机制知道这个按钮的点击事情被连接到窗体的关闭事件上去了，然后通知接受者窗体，你该运行槽函数close了！</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PyQt5 <span class="keyword">import</span> QtWidgets  </span><br><span class="line"><span class="keyword">from</span> untitled <span class="keyword">import</span> Ui_Form  </span><br><span class="line"><span class="string">&quot;&quot;&quot;点击按钮，在控制台输出helloworld&quot;&quot;&quot;</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mywindow</span>(<span class="params">QtWidgets.QWidget,Ui_Form</span>):</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span>  </span><br><span class="line">        <span class="built_in">super</span>(mywindow,self).__init__()  </span><br><span class="line">        self.setupUi(self)</span><br><span class="line">        self.myButton.clicked.connect(self.myPrint)   <span class="comment">#槽函数不用加括号</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myPrint</span>(<span class="params">self</span>):</span>                                <span class="comment">#定义槽</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;helloWorld&quot;</span>)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="keyword">import</span> sys  </span><br><span class="line">  </span><br><span class="line">    app=QtWidgets.QApplication(sys.argv)  </span><br><span class="line">    myshow=mywindow()  </span><br><span class="line">    myshow.show()  </span><br><span class="line">    sys.exit(app.exec_())  </span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="五、小提示"><a href="#五、小提示" class="headerlink" title="五、小提示"></a>五、小提示</h3><p>槽其实就个函数（方法），Qt5中的槽函数不在限定必须是slot，可以是普通的函数、类的普通成员函数、lambda函数等。编译期间就会检查信号与槽是否存在！</p>
+<p>信号的connect连接最好放在__init__析构函数里面，这样只会声明一次连接，如果在类方法（函数中）使用的话，要记得disconnect，否则connect会连接多次，导致程序异常。</p>
+<p>信号槽函数不用加 ()，否则可能会导致连接异常。</p>
+<hr>
+<p>参考链接1：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhulove86/article/details/52530214">https://blog.csdn.net/zhulove86/article/details/52530214</a><br>参考链接2：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a359680405/article/details/45148717">https://blog.csdn.net/a359680405/article/details/45148717</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html" title="PyQt5学习日记(二):信号与槽">http://qzmvc1.top/PyQt5学习日记-二-信号与槽.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/PyQt5/" rel="tag"><i class="fa fa-tag"></i> PyQt5</a>
+              <a href="/tags/GUI/" rel="tag"><i class="fa fa-tag"></i> GUI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E7%AC%AC%E4%B8%80%E4%B8%AAGUI%E7%A8%8B%E5%BA%8F.html" rel="prev" title="PyQt5学习日记(一):第一个GUI程序">
+                  <i class="fa fa-chevron-left"></i> PyQt5学习日记(一):第一个GUI程序
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html" rel="next" title="优化算法(一)：模拟退火算法">
+                  优化算法(一)：模拟退火算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

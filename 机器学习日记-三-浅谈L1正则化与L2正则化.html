@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习日记(三):浅谈L1正则化与L2正则化">
+<meta property="og:url" content="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EAxlMq.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEpJdf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/23/EEiitK.jpg">
+<meta property="article:published_time" content="2019-04-22T16:15:11.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:53:34.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/23/EAxlMq.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html","path":"机器学习日记-三-浅谈L1正则化与L2正则化.html","title":"机器学习日记(三):浅谈L1正则化与L2正则化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>机器学习日记(三):浅谈L1正则化与L2正则化 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%AC%A0%E6%8B%9F%E5%90%88%E4%B8%8E%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-text">一、欠拟合与过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E8%8C%83%E6%95%B0"><span class="nav-text">二、什么是范数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-L-P%E8%8C%83%E6%95%B0"><span class="nav-text">2.1 L-P范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-L0%E8%8C%83%E6%95%B0"><span class="nav-text">2.2 L0范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-L1%E8%8C%83%E6%95%B0"><span class="nav-text">2.3 L1范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-L2%E8%8C%83%E6%95%B0"><span class="nav-text">2.4 L2范数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81L1%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">三、L1正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81L2%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-text">四、L2正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81L1%E3%80%81L2%E6%AD%A3%E5%88%99%E5%8C%96%E7%9B%B4%E8%A7%82%E8%A7%A3%E9%87%8A"><span class="nav-text">五、L1、L2正则化直观解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">参考链接</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习日记(三):浅谈L1正则化与L2正则化
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-23 00:15:11" itemprop="dateCreated datePublished" datetime="2019-04-23T00:15:11+08:00">2019-04-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:53:34" itemprop="dateModified" datetime="2021-10-06T19:53:34+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。</strong> 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这样得到的参数才具有较好的泛化性能，而模型“简单”就是通过规则函数来实现的。另外，规则项的使用还可以约束我们的模型的特性。这样就可以将人对这个模型的先验知识融入到模型的学习当中，强行地让学习到的模型具有人想要的特性，例如稀疏、低秩、平滑等等。要知道，有时候人的先验是非常重要的。前人的经验会让你少走很多弯路，这就是为什么我们平时学习最好找个大牛带带的原因，一句点拨可以为我们拨开眼前乌云，还我们一片晴空万里，醍醐灌顶。对机器学习也是一样，如果被我们人稍微点拨一下，它肯定能更快的学习相应的任务。只是由于人和机器的交流目前还没有那么直接的方法，目前这个媒介只能由规则项来担当了。</p>
+<span id="more"></span>
+
+<h3 id="一、欠拟合与过拟合"><a href="#一、欠拟合与过拟合" class="headerlink" title="一、欠拟合与过拟合"></a>一、欠拟合与过拟合</h3><p><img src="https://s2.ax1x.com/2019/04/23/EAxlMq.png"></p>
+<ul>
+<li><p><strong>欠拟合</strong>：所建的机器学习模型在训练数据上表现不佳。</p>
+</li>
+<li><p><strong>过拟合</strong>：所建的机器学习模型在训练样本中表现得过于优越，导致在测试数据集中表现不佳。</p>
+</li>
+</ul>
+<p>回想下我们的模型，假如我们采用梯度下降算法将模型中的损失函数不断减少，那么最终我们会在一定范围内求出最优解，最后损失函数不断趋近0。那么我们可以在所定义的损失函数后面加入一项永不为0的部分，那么最后经过不断优化，损失函数还是会存在。其实这就是所谓的“正则化”。</p>
+<p>一般来说，监督学习可以看做最小化下面的目标函数：<br>$$\omega^{*}=arg\mathop{min}\limits_{\omega}\sum_iL(y_i,f(x_i,\omega))+\lambdaΩ(\omega)$$</p>
+<p>其中，$\sum_iL(y_i,f(x_i,\omega))$ 是我们的损失函数，$Ω(\omega)$ 是我们的正则化项。</p>
+<p>常见的正则化方法包括L1正则化和L2正则化。</p>
+<h3 id="二、什么是范数"><a href="#二、什么是范数" class="headerlink" title="二、什么是范数"></a>二、什么是范数</h3><p>我们知道距离的定义是一个宽泛的概念，只要满足非负、自反、三角不等式就可以称之为距离。<strong>范数是一种强化了的距离概念，它在定义上比距离多了一条数乘的运算法则。有时候为了便于理解，我们可以把范数当作距离来理解。</strong></p>
+<p>在数学上，<strong>范数包括向量范数和矩阵范数，向量范数表征向量空间中向量的大小，矩阵范数表征矩阵引起变化的大小</strong>。一种非严密的解释就是，对应向量范数，向量空间中的向量都是有大小的，这个大小如何度量，就是用范数来度量的，不同的范数都可以来度量这个大小，就好比米和尺都可以来度量远近一样；对于矩阵范数，我们知道，通过运算 $AX=B$，可以将向量 $X$ 变化为 $B$，矩阵范数就是来度量这个变化大小的。</p>
+<p>这里简单地介绍以下几种向量范数的定义和含义。</p>
+<h4 id="2-1-L-P范数"><a href="#2-1-L-P范数" class="headerlink" title="2.1 L-P范数"></a>2.1 L-P范数</h4><p>L-P范数不是一个范数，而是一组范数，其定义如下：<br>$$L_p=||\omega||<em>p=(\sum</em>{i=1}^n|\omega_i|^p)^{\frac{1}{p}}$$</p>
+<p>根据P 的变化，范数也有着不同的变化，一个经典的有关P范数的变化图如下：</p>
+<p><img src="https://s2.ax1x.com/2019/04/23/EEpJdf.png"></p>
+<p>上图表示了p从无穷到0变化时，三维空间中到原点的距离（范数）为1的点构成的图形的变化情况。</p>
+<h4 id="2-2-L0范数"><a href="#2-2-L0范数" class="headerlink" title="2.2 L0范数"></a>2.2 L0范数</h4><p>当P=0时，也就是L0范数，由上面可知，L0范数并不是一个真正的范数，它主要被用来度量向量中非零元素的个数。用上面的L-P定义可以得到L-0的定义为：<br>$$||\omega||<em>0=(\sum</em>{i=1}^n|\omega_i|^0)^{\frac{1}{0}}$$</p>
+<p>这里就有点问题了，我们知道非零元素的零次方为1，但零的零次方，非零数开零次方都不知道是什么，很不好说明L0的意义，所以在通常情况下，大家都用来表示向量 $x$ 中非零元素的个数。</p>
+<h4 id="2-3-L1范数"><a href="#2-3-L1范数" class="headerlink" title="2.3 L1范数"></a>2.3 L1范数</h4><p>L1范数是我们经常见到的一种范数，它的定义如下：<br>$$||\omega||<em>1=\sum</em>{i=1}^n|\omega_i|$$</p>
+<p><strong>表示向量 $x$ 中非零元素的绝对值之和。</strong></p>
+<p>对于L1范数，它的优化问题如下：</p>
+<p>$$min\ \ ||\omega||_1$$</p>
+<p>由于L1范数的天然性质，对L1优化的解是一个<strong>稀疏解</strong>，因此L1范数也被叫做稀疏规则算子。<strong>通过L1可以实现特征的稀疏</strong>，去掉一些没有信息的特征。例如在对用户的电影爱好做分类的时候，用户有100个特征，可能只有十几个特征是对分类有用的，大部分特征如身高体重等可能都是无用的，利用L1范数就可以过滤掉。</p>
+<h4 id="2-4-L2范数"><a href="#2-4-L2范数" class="headerlink" title="2.4 L2范数"></a>2.4 L2范数</h4><p>L2范数是我们最常见最常用的范数了，我们用的最多的欧氏距离就是一种L2范数，它的定义如下：<br>$$||\omega||<em>2=\sqrt{\sum</em>{i=1}^n|\omega_i|^2}$$</p>
+<p><strong>表示向量 $x$ 元素的平方和再开平方。</strong></p>
+<p><strong>L2范数通常会被用来做优化目标函数的正则化项，防止模型为了迎合训练集而过于复杂造成的过拟合情况，从而提高模型的泛化能力。</strong></p>
+<h3 id="三、L1正则化"><a href="#三、L1正则化" class="headerlink" title="三、L1正则化"></a>三、L1正则化</h3><p>$$\omega^{*}=arg\mathop{min}\limits_{\omega}\sum_iL(y_i,f(x_i,\omega))+\lambda||\omega||_1$$</p>
+<p>从上面的分析中我们可以了解到L1正则化可以实现稀疏。但为什么要稀疏？让我们的参数稀疏有什么好处呢？</p>
+<ul>
+<li><p>特征选择(Feature Selection)：</p>
+<ul>
+<li>大家对稀疏规则化趋之若鹜的一个关键原因在于它能实现特征的自动选择。一般来说，$x_i$ 的大部分元素（也就是特征）都是和最终的输出 $y_i$ 没有关系或者不提供任何信息的，在最小化目标函数的时候考虑 $x_i$ 这些额外的特征，虽然可以获得更小的训练误差，但在预测新的样本时，这些没用的信息反而会被考虑，从而干扰了对正确 $y_i$ 的预测。稀疏规则化算子的引入就是为了完成特征自动选择的光荣使命，它会学习地去掉这些没有信息的特征，也就是把这些特征对应的权重置为0。</li>
+</ul>
+</li>
+<li><p>可解释性(Interpretability)：</p>
+<ul>
+<li>另一个青睐于稀疏的理由是，模型更容易解释。例如患某种病的概率是 $y$ ，然后我们收集到的数据 $x$ 是1000维的，也就是我们需要寻找这1000种因素到底是怎么影响患上这种病的概率的。假设我们这个是回归模型：$y=\omega_1*x_1+\omega_2*x_2+\ldots+\omega_{1000}*x_{1000}+b$ 。通过学习，如果最后学习到的 $\omega^{*}$ 就只有很少的非零元素，例如只有5个非零的 $\omega_i$，那么我们就有理由相信，这些对应的特征在患病分析上面提供的信息是巨大的。也就是说，患不患这种病只和这5个因素有关，那医生就好分析多了。但如果1000个 $\omega_i$ 都非0，医生面对这1000种因素，累觉不爱。</li>
+</ul>
+</li>
+</ul>
+<h3 id="四、L2正则化"><a href="#四、L2正则化" class="headerlink" title="四、L2正则化"></a>四、L2正则化</h3><p>$$\omega^{*}=arg\mathop{min}\limits_{\omega}\sum_iL(y_i,f(x_i,\omega))+\lambda||\omega||_2$$</p>
+<p><strong>L2正则化的强大功效是改善机器学习里面一个非常重要的问题：过拟合。</strong> 至于过拟合是什么，上面也解释了，就是模型训练时候的误差很小，但在测试的时候误差很大，也就是我们的模型复杂到可以拟合到我们的所有训练样本了，但在实际预测新的样本的时候，糟糕的一塌糊涂。通俗的讲就是应试能力很强，实际应用能力很差。擅长背诵知识，却不懂得灵活利用知识。</p>
+<p><strong>为什么L2能防止过拟合呢？</strong> 过拟合的时候，拟合函数的系数往往非常大，过拟合，就是拟合函数需要顾忌每一个点，最终形成的拟合函数波动很大。在某些很小的区间里，函数值的变化很剧烈。这就意味着函数在某些小区间里的导数值（绝对值）非常大，由于自变量值可大可小，所以只有系数足够大，才能保证导数值很大。我们让L2范数的规则项 $||\omega||_2$ 最小，可以使得 $\omega$ 的每个元素都很小，都接近于0，但与L1范数不同，<strong>它不会让它等于0，而是接近于0</strong>。而越小的参数说明模型越简单，越简单的模型则越不容易产生过拟合现象。</p>
+<h3 id="五、L1、L2正则化直观解释"><a href="#五、L1、L2正则化直观解释" class="headerlink" title="五、L1、L2正则化直观解释"></a>五、L1、L2正则化直观解释</h3><p><img src="https://s2.ax1x.com/2019/04/23/EEiitK.jpg"></p>
+<center><p><b>左图为L1正则化，右图为L2正则化</b></p></center>
+
+<p>为了更加直观的了解为什么L1正则化可以实现稀疏、L2正则化可以有效防止过拟合，这里我们只考虑二维的情况，即只有两个权值 $\omega_1,\omega_2$。</p>
+<p><strong>此时 $L1=|\omega_1|+|\omega_2|$，在图像上表现为菱形。而$L2=\omega_1^2+\omega_2^2$，在图像上表现为圆。</strong></p>
+<p>当我们每次取一组 $\omega_1,\omega_2$ 时，代价函数都会有对应的输出值。我们将代价函数的值用<strong>等值线</strong>来表示。最内层的等值线（图中表现为紫色）即最优化的结果。</p>
+<p><strong>再来回顾一下我们的目标：我们现在的目标是不仅原曲线的值要小（越来越接近中心的紫色圈圈），还要使得这个菱形或圆越小越好。</strong> 那么还和原来一样的话，过中心紫色圈圈的那个菱形明显很大，因此我们要取到一个恰好的值。那么如何求值呢？</p>
+<center><img src=https://s2.ax1x.com/2019/04/23/EEiPk6.jpg /></center>
+
+<p>以同一条原曲线目标等值线来说，现在以最外圈的红色等值线为例，我们看到，对于红色曲线上的每个点都可以做一个菱形，根据上图可知，<strong>当这个菱形与某条等值线相切</strong>（仅有一个交点）的时候，这个菱形最小，对比上图相割的较大的两个菱形对应的1范数更大。</p>
+<p>有了上面的说明，我们可以看出，最终加入L1范数得到的解，一定是某个菱形和某条原函数等值线的切点。现在有个比较重要的结论来了，我们经过观察可以看到，几乎对于很多原函数的等值曲线，<strong>和某个菱形相切的时候及其容易相交在坐标轴</strong>（比如上图）。也就是说最终的结果，解的某些维度及其容易是0，比如上图最终解是 $\omega = (0，x)$ ，<strong>这也就是我们所说的L1更容易得到稀疏解（解向量中0比较多）的原因。</strong></p>
+<p><strong>(注:以上分析仅从直观上理解，有关具体证明可参考Google、baidu)</strong></p>
+<p>当加入L2正则化的时候，分析和L1正则化是类似的，也就是说我们仅仅是从菱形变成了圆形而已，同样还是求原曲线和圆形的切点作为最终解。当然与L1范数比，我们这样求的L2范数的从图上来看，<strong>不容易交在坐标轴上，但是仍然比较靠近坐标轴</strong>。因此这也就是我们所说的，L2范数能让解比较小（靠近0），但是比较平滑（不等于0）。</p>
+<hr>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><ul>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jinping_shi/article/details/52433975">机器学习中正则化项L1和L2的直观理解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zouxy09/article/details/24971995">机器学习中的范数规则化之（一）L0、L1与L2范数</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/35356992">L1正则化与L2正则化</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html" title="机器学习日记(三):浅谈L1正则化与L2正则化">http://qzmvc1.top/机器学习日记-三-浅谈L1正则化与L2正则化.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9D%82%E8%B0%88/" rel="tag"><i class="fa fa-tag"></i> 杂谈</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-BGD-%E3%80%81%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-SGD-%E3%80%81%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-MBGD.html" rel="prev" title="机器学习日记(二):批量梯度下降(BGD)、随机梯度下降(SGD)、小批量梯度下降(MBGD)">
+                  <i class="fa fa-chevron-left"></i> 机器学习日记(二):批量梯度下降(BGD)、随机梯度下降(SGD)、小批量梯度下降(MBGD)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Seaborn-statistical-data-visualization.html" rel="next" title="Seaborn-statistical-data-visualization">
+                  Seaborn-statistical-data-visualization <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

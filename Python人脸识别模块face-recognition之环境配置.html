@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个基于CNN的face_recognition库，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，安装失败的原因主要是各环境版本的匹配问题。遂开此博客，记录环境安装流程。  Python3.7 + Cmake 3.14.0 + bo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python人脸识别模块face_recognition之环境配置">
+<meta property="og:url" content="http://qzmvc1.top/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个基于CNN的face_recognition库，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，安装失败的原因主要是各环境版本的匹配问题。遂开此博客，记录环境安装流程。  Python3.7 + Cmake 3.14.0 + bo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjepM8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjZOIA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aje9sS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjeCqg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjeXmF.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjmSYR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/AjmVTH.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Ajm6AJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Ajmfc6.png">
+<meta property="article:published_time" content="2019-04-15T04:12:48.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:55:34.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="Modules">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/15/AjepM8.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html","path":"Python人脸识别模块face-recognition之环境配置.html","title":"Python人脸识别模块face_recognition之环境配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Python人脸识别模块face_recognition之环境配置 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%89%E8%A3%85Visual-Studio-2017"><span class="nav-text">一、安装Visual Studio 2017</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E5%AE%89%E8%A3%85VS2017"><span class="nav-text">1.1 安装VS2017</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E9%85%8D%E7%BD%AEcl%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-text">1.2 配置cl环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Python3-7%E5%AE%89%E8%A3%85"><span class="nav-text">二、Python3.7安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AE%89%E8%A3%85Cmake-3-14-0"><span class="nav-text">三、安装Cmake 3.14.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%AE%89%E8%A3%85boost1-68-0"><span class="nav-text">四、安装boost1.68.0</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#4-1-%E5%B0%86%E4%B8%8B%E8%BD%BD%E7%9A%84boost%E8%A7%A3%E5%8E%8B%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BF%90%E8%A1%8C-bootstrap-bat-%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%EF%BC%8C%E4%BC%9A%E7%94%9F%E6%88%90b2-exe%E3%80%81bjam-exe%E4%BB%A5%E5%8F%8Aproject-config-jam%E3%80%82%EF%BC%88%E6%8E%A8%E8%8D%90%E5%9C%A8%E5%91%BD%E4%BB%A4%E8%A1%8Ccd%E5%88%B0%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E6%89%A7%E8%A1%8Cbootstrap-bat%EF%BC%89"><span class="nav-text">4.1 将下载的boost解压，然后运行 bootstrap.bat 执行文件，会生成b2.exe、bjam.exe以及project-config.jam。（推荐在命令行cd到当前目录执行bootstrap.bat）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-2-%E5%9C%A8%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4-b2-install-%E8%BF%99%E4%B8%AA%E8%BF%87%E7%A8%8B%E6%9C%89%E7%82%B9%E9%95%BF%EF%BC%8C%E5%A4%A7%E6%A6%82%E4%B8%A4%E4%B8%AA%E5%A4%9A%E5%B0%8F%E6%97%B6%E5%B7%A6%E5%8F%B3%EF%BC%8C%E8%80%90%E5%BF%83%E7%AD%89%E5%B0%B1%E5%A5%BD%E4%BA%86%E3%80%82"><span class="nav-text">4.2 在当前目录命令行中执行命令 b2 install ,这个过程有点长，大概两个多小时左右，耐心等就好了。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-3-%E5%9C%A8%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4-b2-a-with-python-address-model-64-toolset-msvc-runtime-link-static%E3%80%82"><span class="nav-text">4.3 在当前目录命令行中执行命令 b2 -a --with-python address-model&#x3D;64 toolset&#x3D;msvc runtime-link&#x3D;static。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-4-%E5%B0%86%E5%AE%89%E8%A3%85%E5%B7%B2%E5%AE%8C%E6%88%90%E5%90%8E%E7%9A%84boost%E8%B7%AF%E5%BE%84%E6%B7%BB%E5%8A%A0%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%9A"><span class="nav-text">4.4 将安装已完成后的boost路径添加到环境变量：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%AE%89%E8%A3%85dlib-19-14-0"><span class="nav-text">五、安装dlib 19.14.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%AE%89%E8%A3%85face-recognition"><span class="nav-text">六、安装face_recognition</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E7%BB%93%EF%BC%8C%E6%92%92%E8%8A%B1-%EF%BC%81%EF%BC%81"><span class="nav-text">完结，撒花~~！！</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python人脸识别模块face_recognition之环境配置
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-15 12:12:48" itemprop="dateCreated datePublished" datetime="2019-04-15T12:12:48+08:00">2019-04-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:55:34" itemprop="dateModified" datetime="2021-10-06T19:55:34+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Python%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">Python库</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>一时之间对人脸识别提起了兴趣，调研了一番，发现Python有个<strong>基于CNN的face_recognition库</strong>，不过安装这个库需要dlib库，而安装dlib还有很多需要的前置环境…反正就是各种深坑，辗转配了三天(emmm??)。网上的博客、论坛很少有能解决问题的，<strong>安装失败的原因主要是各环境版本的匹配问题</strong>。遂开此博客，记录环境安装流程。</p>
+<blockquote>
+<p><strong>Python3.7 + Cmake 3.14.0 + boost 1.68 + dlib 19.14 + face_recognition</strong></p>
+</blockquote>
+<span id="more"></span>
+<hr>
+<h3 id="一、安装Visual-Studio-2017"><a href="#一、安装Visual-Studio-2017" class="headerlink" title="一、安装Visual Studio 2017"></a>一、安装Visual Studio 2017</h3><p>我们需要用到VS2017中的cl.exe, 好像是这么个东西。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjepM8.png"></p>
+<h4 id="1-1-安装VS2017"><a href="#1-1-安装VS2017" class="headerlink" title="1.1 安装VS2017"></a>1.1 安装VS2017</h4><blockquote>
+<p>VS2017下载地址：<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/downloads/">https://visualstudio.microsoft.com/zh-hans/downloads/</a></p>
+</blockquote>
+<p>安装时需要选上<code>使用C++的桌面开发</code>、<code>Python开发</code>，最后别忘了设置安装位置。等待一段时间即可。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjZOIA.png"></p>
+<h4 id="1-2-配置cl环境变量"><a href="#1-2-配置cl环境变量" class="headerlink" title="1.2 配置cl环境变量"></a>1.2 配置cl环境变量</h4><p>VS2017安装好C++开发环境后，要将<code>cl.exe</code>的路径加入到环境变量，见到如下截图说明cl配置正常了:</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aje9sS.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjeCqg.png"></p>
+<hr>
+<h3 id="二、Python3-7安装"><a href="#二、Python3-7安装" class="headerlink" title="二、Python3.7安装"></a>二、Python3.7安装</h3><blockquote>
+<p>Python官网：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
+</blockquote>
+<p>安装流程略</p>
+<hr>
+<h3 id="三、安装Cmake-3-14-0"><a href="#三、安装Cmake-3-14-0" class="headerlink" title="三、安装Cmake 3.14.0"></a>三、安装Cmake 3.14.0</h3><p>这里不用pip。我写这篇博客的时候pip最高只能安装3.13.3的版本。所以我们选择在官网下载。</p>
+<blockquote>
+<p>Cmake官网：<a target="_blank" rel="noopener" href="https://cmake.org/files/v3.14/">https://cmake.org/files/v3.14/</a></p>
+</blockquote>
+<p>下载对应系统下的 <code>.msi</code> 或者 <code>.zip</code> 文件。这里拿Windows举例,32位电脑选择上面的，64位电脑选择下面的。</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjeXmF.png"></p>
+<p>下载完成之后将Cmake的bin目录添加到环境变量：</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/AjmSYR.png"></p>
+<hr>
+<h3 id="四、安装boost1-68-0"><a href="#四、安装boost1-68-0" class="headerlink" title="四、安装boost1.68.0"></a>四、安装boost1.68.0</h3><blockquote>
+<p>boost官网：<a target="_blank" rel="noopener" href="https://www.boost.org/">https://www.boost.org/</a></p>
+</blockquote>
+<h6 id="4-1-将下载的boost解压，然后运行-bootstrap-bat-执行文件，会生成b2-exe、bjam-exe以及project-config-jam。（推荐在命令行cd到当前目录执行bootstrap-bat）"><a href="#4-1-将下载的boost解压，然后运行-bootstrap-bat-执行文件，会生成b2-exe、bjam-exe以及project-config-jam。（推荐在命令行cd到当前目录执行bootstrap-bat）" class="headerlink" title="4.1 将下载的boost解压，然后运行 bootstrap.bat 执行文件，会生成b2.exe、bjam.exe以及project-config.jam。（推荐在命令行cd到当前目录执行bootstrap.bat）"></a>4.1 将下载的boost解压，然后运行 <code>bootstrap.bat</code> 执行文件，会生成<code>b2.exe</code>、<code>bjam.exe</code>以及<code>project-config.jam</code>。（推荐在命令行cd到当前目录执行bootstrap.bat）</h6><p><img src="https://s2.ax1x.com/2019/04/15/AjmVTH.png"></p>
+<p><strong>注意：如果在cmd中提示Failed，尝试切换到vs2017中的终端下进行操作，路径为 <code>ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017\Visual Studio Tools\VC</code></strong></p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Ajm6AJ.png"></p>
+<h6 id="4-2-在当前目录命令行中执行命令-b2-install-这个过程有点长，大概两个多小时左右，耐心等就好了。"><a href="#4-2-在当前目录命令行中执行命令-b2-install-这个过程有点长，大概两个多小时左右，耐心等就好了。" class="headerlink" title="4.2 在当前目录命令行中执行命令 b2 install ,这个过程有点长，大概两个多小时左右，耐心等就好了。"></a>4.2 在当前目录命令行中执行命令 <code>b2 install</code> ,这个过程有点长，大概两个多小时左右，耐心等就好了。</h6><h6 id="4-3-在当前目录命令行中执行命令-b2-a-with-python-address-model-64-toolset-msvc-runtime-link-static。"><a href="#4-3-在当前目录命令行中执行命令-b2-a-with-python-address-model-64-toolset-msvc-runtime-link-static。" class="headerlink" title="4.3 在当前目录命令行中执行命令 b2 -a --with-python address-model=64 toolset=msvc runtime-link=static。"></a>4.3 在当前目录命令行中执行命令 <code>b2 -a --with-python address-model=64 toolset=msvc runtime-link=static</code>。</h6><h6 id="4-4-将安装已完成后的boost路径添加到环境变量："><a href="#4-4-将安装已完成后的boost路径添加到环境变量：" class="headerlink" title="4.4 将安装已完成后的boost路径添加到环境变量："></a>4.4 将安装已完成后的boost路径添加到环境变量：</h6><p><img src="https://s2.ax1x.com/2019/04/15/Ajmfc6.png"></p>
+<p><strong>到这里前置环境已经全部安装完成了，只差最后一步！！！</strong></p>
+<hr>
+<h3 id="五、安装dlib-19-14-0"><a href="#五、安装dlib-19-14-0" class="headerlink" title="五、安装dlib 19.14.0"></a>五、安装dlib 19.14.0</h3><p>这里推荐使用pip安装.</p>
+<blockquote>
+<p>pip install dlib==19.14</p>
+</blockquote>
+<p>耐心等待就好！！</p>
+<hr>
+<h3 id="六、安装face-recognition"><a href="#六、安装face-recognition" class="headerlink" title="六、安装face_recognition"></a>六、安装face_recognition</h3><blockquote>
+<p>pip install face_recognition</p>
+</blockquote>
+<p>这边在推荐几个有关的库，一个计算机视觉库，一个深度学习框架：</p>
+<blockquote>
+<p>pip install opencv-python</p>
+</blockquote>
+<blockquote>
+<p>pip install tensorflow</p>
+</blockquote>
+<hr>
+<h4 id="完结，撒花-！！"><a href="#完结，撒花-！！" class="headerlink" title="完结，撒花~~！！"></a>完结，撒花~~！！</h4>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html" title="Python人脸识别模块face_recognition之环境配置">http://qzmvc1.top/Python人脸识别模块face-recognition之环境配置.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/%E6%9D%82%E8%B0%88/" rel="tag"><i class="fa fa-tag"></i> 杂谈</a>
+              <a href="/tags/Modules/" rel="tag"><i class="fa fa-tag"></i> Modules</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html" rel="prev" title="Scrapy框架(九):使用scrapyd部署爬虫">
+                  <i class="fa fa-chevron-left"></i> Scrapy框架(九):使用scrapyd部署爬虫
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html" rel="next" title="face_recognition实现摄像头实时人脸识别">
+                  face_recognition实现摄像头实时人脸识别 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

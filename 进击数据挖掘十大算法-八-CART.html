@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="引言CART(Classification and Regression Tree)，又名分类回归树，是在ID3的基础上进行优化的决策树，CART有以下几个关键点：  CART既能是分类树，又能是回归树； 当CART是分类树时，采用Gini值作为节点分裂的依据；当CART是回归树时，采用样本的最小方差作为节点分裂的依据； CART是一棵二叉树。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进击数据挖掘十大算法(八):CART">
+<meta property="og:url" content="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%85%AB-CART.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言CART(Classification and Regression Tree)，又名分类回归树，是在ID3的基础上进行优化的决策树，CART有以下几个关键点：  CART既能是分类树，又能是回归树； 当CART是分类树时，采用Gini值作为节点分裂的依据；当CART是回归树时，采用样本的最小方差作为节点分裂的依据； CART是一棵二叉树。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/24/W6AJXR.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/24/W6Atn1.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/24/W6AN0x.png">
+<meta property="article:published_time" content="2021-06-25T07:15:59.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:50:42.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据挖掘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/07/24/W6AJXR.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%85%AB-CART.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%85%AB-CART.html","path":"进击数据挖掘十大算法-八-CART.html","title":"进击数据挖掘十大算法(八):CART"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>进击数据挖掘十大算法(八):CART | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9E%E4%BE%8B"><span class="nav-text">一、实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%86%E7%B1%BB%E6%A0%91%EF%BC%9F%E5%9B%9E%E5%BD%92%E6%A0%91%EF%BC%9F"><span class="nav-text">二、分类树？回归树？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81CART%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%88%86%E8%A3%82%E7%9A%84%E5%B1%9E%E6%80%A7%EF%BC%9F"><span class="nav-text">三、CART如何选择分裂的属性？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81CART%E5%A6%82%E4%BD%95%E5%88%86%E8%A3%82%E6%88%90%E4%B8%80%E6%A3%B5%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%9F"><span class="nav-text">四、CART如何分裂成一棵二叉树？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%81%9C%E6%AD%A2%E5%88%86%E8%A3%82%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-text">五、停止分裂的条件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%85%AB-CART.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进击数据挖掘十大算法(八):CART
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-25 15:15:59" itemprop="dateCreated datePublished" datetime="2021-06-25T15:15:59+08:00">2021-06-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:50:42" itemprop="dateModified" datetime="2021-10-06T19:50:42+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p><strong>CART(Classification and Regression Tree)，又名分类回归树</strong>，是在ID3的基础上进行优化的决策树，CART有以下几个关键点：</p>
+<ol>
+<li>CART既能是分类树，又能是回归树；</li>
+<li>当CART是分类树时，采用<strong>Gini</strong>值作为节点分裂的依据；当CART是回归树时，采用<strong>样本的最小方差</strong>作为节点分裂的依据；</li>
+<li>CART<strong>是一棵二叉树</strong>。</li>
+</ol>
+<span id="more"></span>
+
+<h3 id="一、实例"><a href="#一、实例" class="headerlink" title="一、实例"></a>一、实例</h3><table>
+<thead>
+<tr>
+<th align="center">看电视时间</th>
+<th align="center">婚姻情况</th>
+<th align="center">职业</th>
+<th align="center">年龄</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">3</td>
+<td align="center">未婚</td>
+<td align="center">学生</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">未婚</td>
+<td align="center">学生</td>
+<td align="center">18</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">已婚</td>
+<td align="center">老师</td>
+<td align="center">26</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">已婚</td>
+<td align="center">上班族</td>
+<td align="center">47</td>
+</tr>
+<tr>
+<td align="center">2.5</td>
+<td align="center">已婚</td>
+<td align="center">上班族</td>
+<td align="center">36</td>
+</tr>
+<tr>
+<td align="center">3.5</td>
+<td align="center">未婚</td>
+<td align="center">老师</td>
+<td align="center">29</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">已婚</td>
+<td align="center">学生</td>
+<td align="center">21</td>
+</tr>
+</tbody></table>
+<h3 id="二、分类树？回归树？"><a href="#二、分类树？回归树？" class="headerlink" title="二、分类树？回归树？"></a>二、分类树？回归树？</h3><p>　　分类树的作用是通过一个对象的特征来预测该对象所属的类别，而回归树的目的是根据一个对象的信息预测该对象的属性，并以数值表示。</p>
+<p>​      CART既能是分类树，又能是决策树，如上表所示，如果我们想预测一个人是否已婚，那么构建的CART将是分类树；如果想预测一个人的年龄，那么构建的将是回归树。</p>
+<h3 id="三、CART如何选择分裂的属性？"><a href="#三、CART如何选择分裂的属性？" class="headerlink" title="三、CART如何选择分裂的属性？"></a>三、CART如何选择分裂的属性？</h3><p>　　分裂的目的是为了能够让数据变纯，使决策树输出的结果更接近真实值。那么CART是如何评价节点的纯度呢？<em><strong>如果是分类树</strong></em>，CART采用<strong>Gini</strong>值衡量节点纯度；<em><strong>如果是回归树</strong></em>，采用<strong>样本方差</strong>衡量节点纯度。节点越不纯，节点分类或者预测的效果就越差。</p>
+<p>　　<strong>Gini</strong>值的计算公式：<br>$$<br>Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}<br>$$<br>　　 节点越不纯，Gini值越大。以二分类为例，如果节点的所有数据只有一个类别，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=0$, 如果两类数量相同，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=\frac{1}{2}$。</p>
+<p>　　<strong>样本方差</strong>计算公式：<br>$$<br>\sigma=\sqrt{\mathop{\sum}\limits_{i \in I}(x_i-\mu)^2}<br>$$<br>　　方差越大，表示该节点的数据越分散，预测的效果就越差。如果一个节点的所有数据都相同，那么方差就为0，此时可以很肯定得认为该节点的输出值；如果节点的数据相差很大，那么输出的值有很大的可能与实际值相差较大。</p>
+<p>　　因此，无论是分类树还是回归树，CART都要选择使子节点的GINI值或者回归方差最小的属性作为分裂的方案。即最小化（分类树）：<br>$$<br>Gain=\mathop{\sum}\limits_{i \in I}P_i*Gini<br>$$<br>或者（回归树）：<br>$$<br>Gain=\mathop{\sum}\limits_{i \in I}\sigma_i<br>$$</p>
+<h3 id="四、CART如何分裂成一棵二叉树？"><a href="#四、CART如何分裂成一棵二叉树？" class="headerlink" title="四、CART如何分裂成一棵二叉树？"></a>四、CART如何分裂成一棵二叉树？</h3><p>　　节点的分裂分为两种情况，连续型的数据和离散型的数据。   　　</p>
+<p>　　CART对连续型属性的处理与C4.5差不多，通过最小化分裂后的 $Gini$值 或者 样本方差 寻找最优分割点，将数据一分为二。（对连续值的属性进行排序，$N$个数据共$N-1$个分裂点，每个分裂点计算$Gini$或者样本方差，找使其值最小的分裂点进行二分）</p>
+<p>　　对于离散型属性，理论上有多少个离散值就应该分裂成多少个节点。但CART是一棵二叉树，每一次分裂只会产生两个节点，怎么办呢？很简单，只要将其中一个离散值独立作为一个节点，其他的离散值生成另外一个节点即可。这种分裂方案有多少个离散值就有多少种划分的方法，举一个简单的例子：如果某离散属性一个有三个离散值X，Y，Z，则该属性的分裂方法有{X}、{Y，Z}; {Y}、{X，Z};{Z}、{X，Y}，分别计算每种划分方法的 $Gini$值 或者 样本方差 确定最优的方法。</p>
+<p><strong>划分方法举例：{“学生”}、{“老师”、“上班族”}</strong></p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6AJXR.png"></p>
+<p>预测是否已婚（分类）：</p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6Atn1.png"></p>
+<p>预测年龄（回归）：</p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6AN0x.png"></p>
+<h3 id="五、停止分裂的条件"><a href="#五、停止分裂的条件" class="headerlink" title="五、停止分裂的条件"></a>五、停止分裂的条件</h3><p>​     （1）最小节点数</p>
+<p>　　当节点的数据量小于一个指定的数量时，不继续分裂。两个原因：一是数据量较少时，再做分裂容易强化噪声数据的作用；二是降低树生长的复杂性。提前结束分裂一定程度上有利于降低过拟合的影响。</p>
+<p>　　（2）熵或者基尼值小于阀值。</p>
+<p>​     由上述可知，熵和基尼值的大小表示数据的复杂程度，当熵或者基尼值过小时，表示数据的纯度比较大，如果熵或者基尼值小于一定程度时，节点停止分裂。</p>
+<p>　　（3）决策树的深度达到指定的条件</p>
+<p>　  节点的深度可以理解为节点与决策树跟节点的距离，如根节点的子节点的深度为1，因为这些节点与跟节点的距离为1，子节点的深度要比父节点的深度大1。决策树的深度是所有叶子节点的最大深度，当深度到达指定的上限大小时，停止分裂。</p>
+<p>　　（4）所有特征已经使用完毕，不能继续进行分裂。</p>
+<p>​     被动式停止分裂的条件，当已经没有可分的属性时，直接将当前节点设置为叶子节点。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%85%AB-CART.html" title="进击数据挖掘十大算法(八):CART">http://qzmvc1.top/进击数据挖掘十大算法-八-CART.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="tag"><i class="fa fa-tag"></i> 数据挖掘</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%89%8B%E5%8A%A8%E6%90%AD%E5%BB%BAShadowsocks%E5%AE%8C%E6%95%B4%E7%89%88.html" rel="prev" title="手动搭建Shadowsocks完整版">
+                  <i class="fa fa-chevron-left"></i> 手动搭建Shadowsocks完整版
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/LeetCode1863-%E6%89%BE%E5%87%BA%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86%E7%9A%84%E5%BC%82%E6%88%96%E6%80%BB%E5%92%8C%E5%86%8D%E6%B1%82%E5%92%8C.html" rel="next" title="LeetCode1863:找出所有子集的异或总和再求和">
+                  LeetCode1863:找出所有子集的异或总和再求和 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

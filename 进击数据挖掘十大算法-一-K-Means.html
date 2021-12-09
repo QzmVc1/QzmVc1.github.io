@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="聚类与分类的区别分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。 聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。 关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。 Github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进击数据挖掘十大算法(一):K-Means">
+<meta property="og:url" content="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%80-K-Means.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="聚类与分类的区别分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。 聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。 关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。 Github">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEMDne.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEmurj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEnGTI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEn80A.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEu7rQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEuTKg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEuIxS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEu528.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEMEwj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/23/kEliZQ.png">
+<meta property="article:published_time" content="2019-01-23T08:17:18.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:10.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据挖掘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/23/kEMDne.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%80-K-Means.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%80-K-Means.html","path":"进击数据挖掘十大算法-一-K-Means.html","title":"进击数据挖掘十大算法(一):K-Means"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>进击数据挖掘十大算法(一):K-Means | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E7%B1%BB%E4%B8%8E%E5%88%86%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">聚类与分类的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90"><span class="nav-text">1.1 什么是聚类分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B0%87%E7%B1%BB%E5%9E%8B"><span class="nav-text">1.2 不同的簇类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-1-%E6%98%8E%E6%98%BE%E5%88%86%E7%A6%BB%E7%9A%84"><span class="nav-text">1.2.1 明显分离的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-2-%E5%9F%BA%E4%BA%8E%E5%8E%9F%E5%9E%8B%E7%9A%84"><span class="nav-text">1.2.2 基于原型的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-3-%E5%9F%BA%E4%BA%8E%E5%AF%86%E5%BA%A6%E7%9A%84"><span class="nav-text">1.2.3 基于密度的</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%81%9A%E7%B1%BB%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-text">1.3 基本的聚类分析算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-K%E5%9D%87%E5%80%BC%EF%BC%9A"><span class="nav-text">1.3.1 K均值：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-%E5%87%9D%E8%81%9A%E7%9A%84%E5%B1%82%E6%AC%A1%E8%B7%9D%E7%A6%BB%EF%BC%9A"><span class="nav-text">1.3.2 凝聚的层次距离：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-3-DBSCAN"><span class="nav-text">1.3.3 DBSCAN:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E8%B7%9D%E7%A6%BB%E9%87%8F%E5%BA%A6"><span class="nav-text">1.4 距离量度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81K-Means%E8%81%9A%E7%B1%BB"><span class="nav-text">二、K-Means聚类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3%EF%BC%9A"><span class="nav-text">2.1 算法思想：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%85%B7%E4%BD%93%E8%A7%A3%E9%87%8A%EF%BC%9A"><span class="nav-text">2.2 具体解释：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81K-Means%E7%AE%97%E6%B3%95Python%E5%AE%9E%E7%8E%B0"><span class="nav-text">三、K-Means算法Python实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Python%E4%BB%A3%E7%A0%81"><span class="nav-text">3.1 Python代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">3.2 数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-text">3.3 运行结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81K-Means%E4%BC%98%E7%82%B9%E4%B8%8E%E7%BC%BA%E7%82%B9"><span class="nav-text">四、K-Means优点与缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%99%E5%8A%A3%E7%9A%84%E5%88%9D%E5%A7%8B%E8%B4%A8%E5%BF%83"><span class="nav-text">拙劣的初始质心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-text">随机初始化的局限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#K-Means%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="nav-text">K-Means优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%85%E8%A1%A5%E5%85%85%E2%80%A6"><span class="nav-text">待补充…</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%80-K-Means.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进击数据挖掘十大算法(一):K-Means
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-01-23 16:17:18" itemprop="dateCreated datePublished" datetime="2019-01-23T16:17:18+08:00">2019-01-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:10" itemprop="dateModified" datetime="2021-10-06T19:57:10+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="聚类与分类的区别"><a href="#聚类与分类的区别" class="headerlink" title="聚类与分类的区别"></a>聚类与分类的区别</h3><p>分类：类别是已知的，通过对已知分类的数据进行训练和学习，找到这些不同类的特征，再对未分类的数据进行分类。属于监督学习。</p>
+<p>聚类：事先不知道数据会分为几类，通过聚类分析将数据聚合成几个群体。聚类不需要对数据进行训练和学习。属于无监督学习。</p>
+<p>关于监督学习和无监督学习，这里给一个简单的介绍：是否有监督，就看输入数据是否有标签，输入数据有标签，则为有监督学习，否则为无监督学习。</p>
+<p>Github源码：<a target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/K-Means">QzmVc1/Data-Mining/K-Means/</a></p>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/huangfei711/article/details/78480078">5 分钟带你弄懂 k-means 聚类</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/taoyanqi8932/article/details/53727841">深入理解K-Means聚类算法</a></li>
+</ul>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEMDne.png"></p>
+<hr>
+<span id="more"></span>
+<h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><h4 id="1-1-什么是聚类分析"><a href="#1-1-什么是聚类分析" class="headerlink" title="1.1 什么是聚类分析"></a>1.1 什么是聚类分析</h4><p>聚类分析是在数据中发现数据对象之间的关系，将数据进行分组，组内的相似性越大，组间的差别越大，则聚类效果越好。</p>
+<h4 id="1-2-不同的簇类型"><a href="#1-2-不同的簇类型" class="headerlink" title="1.2 不同的簇类型"></a>1.2 不同的簇类型</h4><p>聚类旨在发现有用的对象簇，在现实中我们用到很多的簇的类型，使用不同的簇类型划分数据的结果是不同的，如下的几种簇类型。</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEmurj.png"></p>
+<h5 id="1-2-1-明显分离的"><a href="#1-2-1-明显分离的" class="headerlink" title="1.2.1 明显分离的"></a>1.2.1 明显分离的</h5><p>可以看到(a)中不同组中任意两点之间的距离都大于组内任意两点之间的距离，明显分离的簇不一定是球形的，可以具有任意的形状。</p>
+<h5 id="1-2-2-基于原型的"><a href="#1-2-2-基于原型的" class="headerlink" title="1.2.2 基于原型的"></a>1.2.2 基于原型的</h5><p>簇是对象的集合，其中每个对象到定义该簇的<strong>原型</strong>的距离比其他簇的原型距离更近，如(b)所示的原型即为中心点，在一个簇中的数据到其中心点比到另一个簇的中心点更近。这是一种常见的<strong>基于中心的簇</strong>，最常用的K-Means就是这样的一种簇类型。<br>这样的簇趋向于球形。</p>
+<h5 id="1-2-3-基于密度的"><a href="#1-2-3-基于密度的" class="headerlink" title="1.2.3 基于密度的"></a>1.2.3 基于密度的</h5><p>簇是对象的密度区域，(d)所示的是基于密度的簇，当簇不规则或相互盘绕，并且有早上和离群点事，常常使用基于密度的簇定义。</p>
+<hr>
+<h4 id="1-3-基本的聚类分析算法"><a href="#1-3-基本的聚类分析算法" class="headerlink" title="1.3 基本的聚类分析算法"></a>1.3 基本的聚类分析算法</h4><h5 id="1-3-1-K均值："><a href="#1-3-1-K均值：" class="headerlink" title="1.3.1 K均值："></a>1.3.1 K均值：</h5><p>基于原型的、划分的距离技术，它试图发现用户指定个数(K)的簇。</p>
+<h5 id="1-3-2-凝聚的层次距离："><a href="#1-3-2-凝聚的层次距离：" class="headerlink" title="1.3.2 凝聚的层次距离："></a>1.3.2 凝聚的层次距离：</h5><p>开始时，每个点都作为一个单点簇，然后，重复的合并两个最靠近的簇，直到尝试单个、包含所有点的簇。</p>
+<h5 id="1-3-3-DBSCAN"><a href="#1-3-3-DBSCAN" class="headerlink" title="1.3.3 DBSCAN:"></a>1.3.3 DBSCAN:</h5><p>一种基于密度的划分距离的算法，簇的个数有算法自动的确定，低密度中的点被视为噪声而忽略，因此其不产生完全聚类。</p>
+<hr>
+<h4 id="1-4-距离量度"><a href="#1-4-距离量度" class="headerlink" title="1.4 距离量度"></a>1.4 距离量度</h4><p>不同的距离量度会对距离的结果产生影响，常见的距离量度如下所示：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEnGTI.png"></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEn80A.png"></p>
+<hr>
+<h3 id="二、K-Means聚类"><a href="#二、K-Means聚类" class="headerlink" title="二、K-Means聚类"></a>二、K-Means聚类</h3><h4 id="2-1-算法思想："><a href="#2-1-算法思想：" class="headerlink" title="2.1 算法思想："></a>2.1 算法思想：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">选择K个点作为初始质心</span><br><span class="line">repeat</span><br><span class="line">    将每个点指派到最近的质心，形成K个簇</span><br><span class="line">    重新计算每个簇的质心</span><br><span class="line">until 簇不发生变化或达到最大迭代次数</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-具体解释："><a href="#2-2-具体解释：" class="headerlink" title="2.2 具体解释："></a>2.2 具体解释：</h4><p>K-Means聚类算法的大致意思就是“物以类聚，人以群分”：</p>
+<blockquote>
+<ol>
+<li>首先输入 k 的值，即我们指定希望通过聚类得到 k 个分组；</li>
+<li>从数据集中随机选取 k 个数据点作为初始大佬（质心）；</li>
+<li>对集合中每一个小弟，计算与每一个大佬的距离，离哪个大佬距离近，就跟定哪个大佬。</li>
+<li>这时每一个大佬手下都聚集了一票小弟，这时候召开选举大会，每一群选出新的大佬（即通过算法选出新的质心）。</li>
+<li>如果新大佬和旧大佬之间的距离小于某一个设置的阈值（表示重新计算的质心的位置变化不大，趋于稳定，或者说收敛），可以认为我们进行的聚类已经达到期望的结果，算法终止。</li>
+<li>如果新大佬和旧大佬距离变化很大，需要迭代3~5步骤。</li>
+</ol>
+</blockquote>
+<p>下面举个非常形象简单的例子：<br>有6个点，从图上看应该可以分成两堆，前三个点一堆，后三个点另一堆。现在我手工地把K-Means计算过程演示一下，同时检验是不是和预期一致：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEu7rQ.png"></p>
+<p><strong>1.设定 k 值为2</strong></p>
+<p><strong>2.选择初始大佬（就选 P1 和 P2）</strong></p>
+<p><strong>3.计算小弟与大佬的距离：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEuTKg.png"></p>
+<p>从上图可以看出，所有的小弟都离 P2 更近，所以次站队的结果是：</p>
+<p>A 组：P1<br>B 组：P2、P3、P4、P5、P6</p>
+<p><strong>4.召开选举大会：</strong></p>
+<p>A 组没什么可选的，大佬就是自己<br>B 组有5个人，需要重新选大佬，这里要注意<strong>选大佬的方法是每个人 X 坐标的平均值和 Y 坐标的平均值组成的新的点</strong>，为新大佬，也就是说这个大佬是“虚拟的”。因此，B 组选出新大哥的坐标为：P（（1+3+8+9+10）/5，（2+1+8+10+7）/5）=（6.2，5.6）。<br>综合两组，新大哥为 P1’（0，0），P2’（6.2，5.6），而P2-P6重新成为小弟。</p>
+<p><strong>5.再次计算小弟到大佬的距离：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEuIxS.png"></p>
+<p>这时可以看到P2、P3离P1更近，P4、P5、P6离P哥更近，所以第二次站队的结果是：<br>A 组：P1、P2、P3<br>B 组：P4、P5、P6</p>
+<p><strong>6.第二届选举大会：</strong><br>同样的方法选出新的虚拟大佬：P1’（1.33，1），P2’（9，8.33），P1-P6都成为小弟。</p>
+<p><strong>7.第三次计算小弟到大佬的距离：</strong><br><img src="https://s2.ax1x.com/2019/01/23/kEu528.png"><br>这时可以看到 P1、P2、P3 离 P哥1 更近，P4、P5、P6离 P哥2 更近，所以第二次站队的结果是：<br>A 组：P1、P2、P3<br>B 组：P4、P5、P6</p>
+<p>我们可以发现，这次站队的结果和上次没有任何变化了，说明<strong>已经收敛，聚类结束</strong>，聚类结果和我们最开始设想的结果完全一致。</p>
+<hr>
+<h3 id="三、K-Means算法Python实现"><a href="#三、K-Means算法Python实现" class="headerlink" title="三、K-Means算法Python实现"></a>三、K-Means算法Python实现</h3><p>Github源码：<a target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/K-Means">QzmVc1/Data-Mining/K-Means/</a></p>
+<h4 id="3-1-Python代码"><a href="#3-1-Python代码" class="headerlink" title="3.1 Python代码"></a>3.1 Python代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">author: QzmVc1</span></span><br><span class="line"><span class="string">Time: 2019/1/23</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算欧几里得距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span>(<span class="params">x,y</span>):</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.<span class="built_in">sum</span>((x-y)**<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机生成k个初始聚类中心</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span>(<span class="params">dataSet,k</span>):</span></span><br><span class="line">    lst = []   <span class="comment"># 防止生成重复</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    m,n = dataSet.shape</span><br><span class="line">    centroids = np.zeros((k,n))  <span class="comment"># centroids 是保存k个质心的ndarray</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; k:</span><br><span class="line">        index = np.random.randint(<span class="number">0</span>,m)</span><br><span class="line">        <span class="keyword">if</span> index <span class="keyword">not</span> <span class="keyword">in</span> lst:</span><br><span class="line">            lst.append(index)</span><br><span class="line">            centroids[i,:] = dataSet[index,:]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> centroids</span><br><span class="line"></span><br><span class="line"><span class="comment"># K-Means算法具体实现</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">KMeans</span>(<span class="params">dataSet,k</span>):</span></span><br><span class="line">    m = dataSet.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 生成k个初始聚类中心</span></span><br><span class="line">    centroids = randCent(dataSet,k)</span><br><span class="line">    <span class="comment"># 第一列存样本属于哪一簇</span></span><br><span class="line">    <span class="comment"># 第二列存样本的到簇的中心点的误差</span></span><br><span class="line">    clusterAssment = np.zeros((m,<span class="number">2</span>))  <span class="comment"># clusterAssment数组将各点和质心关联起来</span></span><br><span class="line">    clusterChange = <span class="literal">True</span>  <span class="comment"># 循环条件</span></span><br><span class="line">    <span class="keyword">while</span> clusterChange:</span><br><span class="line">        clusterChange = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):   <span class="comment"># 遍历每一个点</span></span><br><span class="line">            minIndex = -<span class="number">1</span></span><br><span class="line">            minDist = <span class="number">10000</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(k):  <span class="comment"># 计算该点归属于哪一个质心</span></span><br><span class="line">                dist = distEclud(centroids[j, :], dataSet[i, :])</span><br><span class="line">                <span class="keyword">if</span> dist &lt; minDist:</span><br><span class="line">                    minIndex = j</span><br><span class="line">                    minDist = dist</span><br><span class="line">            <span class="comment"># 如果存在一个点没有收敛，则继续循环</span></span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChange = <span class="literal">True</span></span><br><span class="line">                clusterAssment[i,:] = minIndex,minDist**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算新的k个质心</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            selectrow = dataSet[np.nonzero(clusterAssment[:,<span class="number">0</span>]==j)[<span class="number">0</span>]]  <span class="comment"># 获取簇类所有的点</span></span><br><span class="line">            centroids[j,:] = np.mean(selectrow,axis=<span class="number">0</span>)  <span class="comment"># 对矩阵的行求均值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> centroids,clusterAssment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画聚类图</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showCluster</span>(<span class="params">dataSet,k,centroids,clusterAssment</span>):</span></span><br><span class="line">    m,n = dataSet.shape</span><br><span class="line">    marker = [<span class="string">&#x27;or&#x27;</span>, <span class="string">&#x27;ob&#x27;</span>, <span class="string">&#x27;og&#x27;</span>, <span class="string">&#x27;ok&#x27;</span>, <span class="string">&#x27;Dr&#x27;</span>, <span class="string">&#x27;Db&#x27;</span>, <span class="string">&#x27;Dg&#x27;</span>, <span class="string">&#x27;Dk&#x27;</span>, <span class="string">&#x27;&lt;r&#x27;</span>, <span class="string">&#x27;pr&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> n != <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;数据不是二维的！&quot;</span>)</span><br><span class="line">    <span class="keyword">elif</span> k &gt; <span class="built_in">len</span>(marker):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;聚类结果超出限制！&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 绘制所有样本</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">            plt.plot(dataSet[i,<span class="number">0</span>],dataSet[i,<span class="number">1</span>],marker[<span class="built_in">int</span>(clusterAssment[i,<span class="number">0</span>])])</span><br><span class="line">        <span class="comment"># 绘制质心</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k):</span><br><span class="line">            plt.plot(centroids[i,<span class="number">0</span>],centroids[i,<span class="number">1</span>],marker[i+k])</span><br><span class="line">        plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据集</span></span><br><span class="line">dataSet = np.loadtxt(<span class="string">&#x27;K-Means_Data.txt&#x27;</span>)</span><br><span class="line"><span class="comment"># 聚类个数</span></span><br><span class="line">k = <span class="number">4</span></span><br><span class="line">centroids,clusterAssment = KMeans(dataSet,k)</span><br><span class="line">showCluster(dataSet,k,centroids,clusterAssment)</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-数据集"><a href="#3-2-数据集" class="headerlink" title="3.2 数据集"></a>3.2 数据集</h4><p>共80组数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">1.658985	4.285136</span><br><span class="line">-3.453687	3.424321</span><br><span class="line">4.838138	-1.151539</span><br><span class="line">-5.379713	-3.362104</span><br><span class="line">0.972564	2.924086</span><br><span class="line">-3.567919	1.531611</span><br><span class="line">0.450614	-3.302219</span><br><span class="line">-3.487105	-1.724432</span><br><span class="line">2.668759	1.594842</span><br><span class="line">-3.156485	3.191137</span><br><span class="line">3.165506	-3.999838</span><br><span class="line">-2.786837	-3.099354</span><br><span class="line">4.208187	2.984927</span><br><span class="line">-2.123337	2.943366</span><br><span class="line">0.704199	-0.479481</span><br><span class="line">-0.392370	-3.963704</span><br><span class="line">2.831667	1.574018</span><br><span class="line">-0.790153	3.343144</span><br><span class="line">2.943496	-3.357075</span><br><span class="line">-3.195883	-2.283926</span><br><span class="line">2.336445	2.875106</span><br><span class="line">-1.786345	2.554248</span><br><span class="line">2.190101	-1.906020</span><br><span class="line">-3.403367	-2.778288</span><br><span class="line">1.778124	3.880832</span><br><span class="line">-1.688346	2.230267</span><br><span class="line">2.592976	-2.054368</span><br><span class="line">-4.007257	-3.207066</span><br><span class="line">2.257734	3.387564</span><br><span class="line">-2.679011	0.785119</span><br><span class="line">0.939512	-4.023563</span><br><span class="line">-3.674424	-2.261084</span><br><span class="line">2.046259	2.735279</span><br><span class="line">-3.189470	1.780269</span><br><span class="line">4.372646	-0.822248</span><br><span class="line">-2.579316	-3.497576</span><br><span class="line">1.889034	5.190400</span><br><span class="line">-0.798747	2.185588</span><br><span class="line">2.836520	-2.658556</span><br><span class="line">-3.837877	-3.253815</span><br><span class="line">2.096701	3.886007</span><br><span class="line">-2.709034	2.923887</span><br><span class="line">3.367037	-3.184789</span><br><span class="line">-2.121479	-4.232586</span><br><span class="line">2.329546	3.179764</span><br><span class="line">-3.284816	3.273099</span><br><span class="line">3.091414	-3.815232</span><br><span class="line">-3.762093	-2.432191</span><br><span class="line">3.542056	2.778832</span><br><span class="line">-1.736822	4.241041</span><br><span class="line">2.127073	-2.983680</span><br><span class="line">-4.323818	-3.938116</span><br><span class="line">3.792121	5.135768</span><br><span class="line">-4.786473	3.358547</span><br><span class="line">2.624081	-3.260715</span><br><span class="line">-4.009299	-2.978115</span><br><span class="line">2.493525	1.963710</span><br><span class="line">-2.513661	2.642162</span><br><span class="line">1.864375	-3.176309</span><br><span class="line">-3.171184	-3.572452</span><br><span class="line">2.894220	2.489128</span><br><span class="line">-2.562539	2.884438</span><br><span class="line">3.491078	-3.947487</span><br><span class="line">-2.565729	-2.012114</span><br><span class="line">3.332948	3.983102</span><br><span class="line">-1.616805	3.573188</span><br><span class="line">2.280615	-2.559444</span><br><span class="line">-2.651229	-3.103198</span><br><span class="line">2.321395	3.154987</span><br><span class="line">-1.685703	2.939697</span><br><span class="line">3.031012	-3.620252</span><br><span class="line">-4.599622	-2.185829</span><br><span class="line">4.196223	1.126677</span><br><span class="line">-2.133863	3.093686</span><br><span class="line">4.668892	-2.562705</span><br><span class="line">-2.793241	-2.149706</span><br><span class="line">2.884105	3.043438</span><br><span class="line">-2.967647	2.848696</span><br><span class="line">4.479332	-1.764772</span><br><span class="line">-4.905566	-2.911070</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-运行结果"><a href="#3-3-运行结果" class="headerlink" title="3.3 运行结果"></a>3.3 运行结果</h4><p><img src="https://s2.ax1x.com/2019/01/23/kEMEwj.png"></p>
+<hr>
+<h3 id="四、K-Means优点与缺点"><a href="#四、K-Means优点与缺点" class="headerlink" title="四、K-Means优点与缺点"></a>四、K-Means优点与缺点</h3><blockquote>
+<p>优点： 易于实现</p>
+<p>缺点:</p>
+<ol>
+<li><strong>K值需要预先给定，属于预先知识，很多情况下K值的估计是非常困难的</strong>，对于像计算全部微信用户的交往圈这样的场景就完全的没办法用K-Means进行。对于可以确定K值不会太大但不明确的K值的场景，可以进行迭代运算，然后找出Cost Function最小时所对应的K值，这个值往往能较好的描述有多少个簇类。</li>
+<li><strong>K-Means算法对初始选取的聚类中心点是敏感的，不同的随机种子点得到的聚类结果完全不同。</strong></li>
+<li><strong>K-Means算法并不是能处理所有的数据类型</strong>。它不能处理非球形簇、不同尺寸和不同密度的簇。</li>
+<li><strong>对离群点的数据进行聚类时，K均值也有问题</strong>，这种情况下，离群点检测和删除有很大的帮助。</li>
+</ol>
+</blockquote>
+<h4 id="拙劣的初始质心"><a href="#拙劣的初始质心" class="headerlink" title="拙劣的初始质心"></a>拙劣的初始质心</h4><p>当初始质心是随机的进行初始化的时候，K均值的每次运行将会产生不同的SSE,而且随机的选择初始质心结果可能很糟糕，<strong>可能只能得到局部的最优解，而无法得到全局的最优解</strong>。如下图所示：</p>
+<p><img src="https://s2.ax1x.com/2019/01/23/kEliZQ.png"></p>
+<p>可以看到程序迭代了4次终止，其得到了局部的最优解，显然我们可以看到其不是全局最优的，我们仍然可以找到一个更小的SSE的聚类。</p>
+<h4 id="随机初始化的局限"><a href="#随机初始化的局限" class="headerlink" title="随机初始化的局限"></a>随机初始化的局限</h4><p>你可能会想到：多次运行，每次使用一组不同的随机初始质心，然后选择一个具有最小的SSE的簇集。该策略非常的简单，但是效果可能不是很好，这取决于数据集合寻找的簇的个数。</p>
+<h4 id="K-Means优化算法"><a href="#K-Means优化算法" class="headerlink" title="K-Means优化算法"></a>K-Means优化算法</h4><p>为了克服K-Means算法收敛于局部最小值的问题，提出了一种二分K-均值(bisecting K-means)算法。</p>
+<h5 id="待补充…"><a href="#待补充…" class="headerlink" title="待补充…"></a>待补充…</h5><hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%80-K-Means.html" title="进击数据挖掘十大算法(一):K-Means">http://qzmvc1.top/进击数据挖掘十大算法-一-K-Means.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="tag"><i class="fa fa-tag"></i> 数据挖掘</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%B5%85%E6%9E%90Python3%E7%BB%98%E5%9B%BE%E5%BA%93matplotlib%E7%9A%84%E4%BD%BF%E7%94%A8.html" rel="prev" title="浅析Python3绘图库matplotlib的使用">
+                  <i class="fa fa-chevron-left"></i> 浅析Python3绘图库matplotlib的使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%BA%8C-%EF%BC%9AKNN.html" rel="next" title="进击数据挖掘十大算法(二):KNN">
+                  进击数据挖掘十大算法(二):KNN <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

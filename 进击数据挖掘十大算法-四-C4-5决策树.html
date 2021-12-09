@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="一、从分类问题开始分类（Classification）任务就是确定对象属于哪个预定义的目标类。 分类问题不仅是一个普遍存在的问题，而且是其他更加复杂的决策问题的基础，更是机器学习和数据挖掘技术中最庞大的一类算法家族。我们前面介绍过的朴素贝叶斯就可以用来解决分类问题。作为本文的开始，我们首先来简单回顾一下什么是分类。 分类问题的本质就是当给定这样一个数据集后，要求我们训练出（或建立）一个模型$f$。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进击数据挖掘十大算法(四):C4.5决策树">
+<meta property="og:url" content="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%9B%9B-C4-5%E5%86%B3%E7%AD%96%E6%A0%91.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="一、从分类问题开始分类（Classification）任务就是确定对象属于哪个预定义的目标类。 分类问题不仅是一个普遍存在的问题，而且是其他更加复杂的决策问题的基础，更是机器学习和数据挖掘技术中最庞大的一类算法家族。我们前面介绍过的朴素贝叶斯就可以用来解决分类问题。作为本文的开始，我们首先来简单回顾一下什么是分类。 分类问题的本质就是当给定这样一个数据集后，要求我们训练出（或建立）一个模型$f$。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/17/kyJdAO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/18/k66Ar8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/18/k66kKf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/02/18/kcwLOe.png">
+<meta property="article:published_time" content="2019-02-17T10:14:53.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:56:42.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="数据挖掘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/17/kyJdAO.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%9B%9B-C4-5%E5%86%B3%E7%AD%96%E6%A0%91.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%9B%9B-C4-5%E5%86%B3%E7%AD%96%E6%A0%91.html","path":"进击数据挖掘十大算法-四-C4-5决策树.html","title":"进击数据挖掘十大算法(四):C4.5决策树"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>进击数据挖掘十大算法(四):C4.5决策树 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%BB%8E%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98%E5%BC%80%E5%A7%8B"><span class="nav-text">一、从分类问题开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%B3%E7%AD%96%E6%A0%91%E5%9F%BA%E7%A1%80"><span class="nav-text">二、决策树基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%B3%E7%AD%96%E6%A0%91"><span class="nav-text">2.1 什么是决策树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E5%86%B3%E7%AD%96%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">2.2 决策树的构建准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-1-%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="nav-text">2.2.1 特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E9%A6%99%E6%B5%93%E7%86%B5"><span class="nav-text">(1) 香浓熵</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A"><span class="nav-text">(2) 信息增益</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A%E7%8E%87"><span class="nav-text">(3) 信息增益率</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81C4-5%E5%86%B3%E7%AD%96%E6%A0%91%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-text">三、C4.5决策树基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E8%AE%A1%E7%AE%97%E7%B1%BB%E5%88%AB%E4%BF%A1%E6%81%AF%E7%86%B5"><span class="nav-text">3.1 计算类别信息熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E8%AE%A1%E7%AE%97%E6%AF%8F%E4%B8%AA%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BF%A1%E6%81%AF%E7%86%B5"><span class="nav-text">3.2 计算每个属性的信息熵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E8%AE%A1%E7%AE%97%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A"><span class="nav-text">3.3 计算信息增益</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%88%86%E8%A3%82%E4%BF%A1%E6%81%AF%E5%BA%A6%E9%87%8F"><span class="nav-text">3.4 计算属性分裂信息度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-%E8%AE%A1%E7%AE%97%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A%E7%8E%87"><span class="nav-text">3.5 计算信息增益率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="nav-text">3.6 算法流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Python%E4%BB%A3%E7%A0%81"><span class="nav-text">四、Python代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="nav-text">运行结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E4%BC%98%E7%82%B9%E4%B8%8E%E7%BC%BA%E7%82%B9"><span class="nav-text">五、优点与缺点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%9B%9B-C4-5%E5%86%B3%E7%AD%96%E6%A0%91.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进击数据挖掘十大算法(四):C4.5决策树
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-17 18:14:53" itemprop="dateCreated datePublished" datetime="2019-02-17T18:14:53+08:00">2019-02-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:56:42" itemprop="dateModified" datetime="2021-10-06T19:56:42+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一、从分类问题开始"><a href="#一、从分类问题开始" class="headerlink" title="一、从分类问题开始"></a>一、从分类问题开始</h3><p><strong>分类（Classification）任务就是确定对象属于哪个预定义的目标类。</strong> 分类问题不仅是一个普遍存在的问题，而且是其他更加复杂的决策问题的基础，更是机器学习和数据挖掘技术中最庞大的一类算法家族。我们前面介绍过的朴素贝叶斯就可以用来解决分类问题。作为本文的开始，我们首先来简单回顾一下什么是分类。</p>
+<p>分类问题的本质就是当给定这样一个数据集后，要求我们训练出（或建立）一个模型$f$。当出现一组新的特征向量时，要求我们预测（或判断）拥有这样一组特征向量的对象应当属于哪个类别。</p>
+<p>分类问题的类别数目可以是两类也可以是多类。二分类问题是最简单的分类问题，而多分类问题模型可以在二分类模型的基础上进行构建。我们在前面文章中一直使用的鸢尾花数据集就是一个典型的多分类问题，问题的最终目标是判断给定一朵花，它应该属于setosa、versicolor和virginica中的哪一类。</p>
+<span id="more"></span>
+<hr>
+<h3 id="二、决策树基础"><a href="#二、决策树基础" class="headerlink" title="二、决策树基础"></a>二、决策树基础</h3><h4 id="2-1-什么是决策树"><a href="#2-1-什么是决策树" class="headerlink" title="2.1 什么是决策树"></a>2.1 什么是决策树</h4><p>决策树是一种用于对实例进行分类的树形结构。决策树由节点（node）和有向边（directed edge）组成。节点的类型有两种：内部节点和叶子节点。其中，内部节点表示一个特征或属性的测试条件（用于分开具有不同特性的记录），叶子节点表示一个分类。</p>
+<p>一旦我们构造了一个决策树模型，以它为基础来进行分类将是非常容易的。具体做法是，从根节点开始，对实例的某一特征进行测试，根据测试结构将实例分配到其子节点（也就是选择适当的分支）；沿着该分支可能达到叶子节点或者到达另一个内部节点。如果到达内部节点，那么就使用新的测试条件递归执行下去，直到抵达一个叶子节点。当到达叶子节点时，我们便得到了最终的分类结果。</p>
+<p>下图是一个决策树的示例（注意我们仅用了两个feature就对数据集中的5个记录实现了准确的分类）：</p>
+<p><img src="https://s2.ax1x.com/2019/02/17/kyJdAO.png"></p>
+<p>我们可以把决策树看作是一个if-then规则的集合。将决策树转换成if-then规则的过程是这样的：</p>
+<ul>
+<li>由决策树的根节点到叶节点的每一条路径构建一条规则</li>
+<li>路径上中间节点的特征对应着规则的条件，叶节点的类标签对应着规则的结论</li>
+</ul>
+<p>决策树的路径或者其对应的if-then规则集合有一个重要的性质：<strong>互斥并且完备</strong>。也就是说，每一个实例都被<strong>有且仅有一条</strong>路径或者规则所覆盖。这里的覆盖是指实例的特征与路径上的特征一致，或实例满足规则的条件。</p>
+<h4 id="2-2-决策树的构建准备工作"><a href="#2-2-决策树的构建准备工作" class="headerlink" title="2.2 决策树的构建准备工作"></a>2.2 决策树的构建准备工作</h4><p>使用决策树做分类的每一个步骤都很重要，首先我们要收集足够多的数据，如果数据收集不到位，将会导致没有足够的特征去构建错误率低的决策树。数据特征充足，但是不知道用哪些特征好，也会导致最终无法构建出分类效果好的决策树。从算法方面来看的话，决策树的构建就是我们的核心内容。<br>决策树如何构建呢？通常，这一过程可以概括为3个步骤：特征选择、决策树的生成和决策树的剪枝。</p>
+<h5 id="2-2-1-特征选择"><a href="#2-2-1-特征选择" class="headerlink" title="2.2.1 特征选择"></a>2.2.1 特征选择</h5><p>特征选择就是决定用哪个特征来划分特征空间，其目的在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随机分类的结果没有很大的差别，则称这个特征是没有分类能力的，经验上扔掉这些特征对决策树学习的精度影响不会很大。<br>那如何来选择最优的特征来划分呢？一般而言，随着划分过程不断进行，我们希望决策树的分支节点所包含的样本尽可能属于同一类别，也就是节点的纯度（purity）越来越高。</p>
+<p>在实际使用中，我们衡量的常常是不纯度。度量不纯度的指标有很多种，比如：熵、增益率、基尼值数。这里我们使用的是熵，也叫作香农熵，这个名字来源于信息论之父：克劳德·香农。</p>
+<h6 id="1-香浓熵"><a href="#1-香浓熵" class="headerlink" title="(1) 香浓熵"></a>(1) 香浓熵</h6><p>熵定义为信息的期望值。在信息论与概率统计中，熵是表示随机变量不确定性的度量。<br>假定当前样本集合D中一共有n类样本，第i类样本为$x_i$，那么$x_i$的信息定义为：</p>
+<p>$$l(x_i)=-log_2{p(x_i)}$$<br>其中 $p(x_i)$ 是选择该分类的概率。</p>
+<p>通过上式，我们可以得到所有类别的信息。为了计算熵，我们需要计算所有类别所有可能值包含的信息期望值(数学期望)，通过下面的公式得到：<br>$$Ent(D)=-\sum_{i=1}^{n}p(x_i)log_2p(x_i)$$</p>
+<p>$Ent(D)$ 的值越小，则D的不纯度就越低。</p>
+<h6 id="2-信息增益"><a href="#2-信息增益" class="headerlink" title="(2) 信息增益"></a>(2) 信息增益</h6><p><strong>信息增益（Information Gain）的计算公式其实就是父节点的信息熵与其下所有子节点总信息熵之差</strong>。但这里要注意的是，此时计算子节点的总信息熵不能简单求和，而要求在求和汇总之前进行修正。</p>
+<p>假设离散属性A有V个可能的取值 ${A^1,A^2,\ldots,A^V}$，若使用A对样本数据集D进行划分，则会产生V个分支节点，其中第v个分支节点包含了D中所有在属性A上取值为$A^v$的样本，记为$D^v$.我们可根据信息熵的计算公式计算出$D^v$的信息熵，再考虑到不同的分支节点所包含的样本数不同，给分支节点赋予权重 $|D^v|/D$ ，这就是所谓的的修正。</p>
+<p>所以信息增益的计算公式为：<br>$$Gain(D,A)=Ent(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$</p>
+<h6 id="3-信息增益率"><a href="#3-信息增益率" class="headerlink" title="(3) 信息增益率"></a>(3) 信息增益率</h6><p>信息增益率 = 惩罚参数 * 信息增益<br>公式：<br>$$IGR(D,A)=\frac{Gain(D,A)}{H_A(D)}$$<br>$$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}$$<br><strong>信息增益率本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。</strong></p>
+<p>使用信息增益率：并不是直接选择信息增益率最大的特征，而是先在候选特征中找出信息增益高于平均水平的特征，然后在这些特征中再选择信息增益率最高的特征。</p>
+<hr>
+<h3 id="三、C4-5决策树基本思想"><a href="#三、C4-5决策树基本思想" class="headerlink" title="三、C4.5决策树基本思想"></a>三、C4.5决策树基本思想</h3><p>下面以一个例子来详细说明C4.5的基本思想</p>
+<p><img src="https://s2.ax1x.com/2019/02/18/k66Ar8.png"></p>
+<p>上述数据集有四个属性，属性集合A={天气，温度，湿度，风速}， 类别标签有两个，类别集合L={进行，取消}。</p>
+<h4 id="3-1-计算类别信息熵"><a href="#3-1-计算类别信息熵" class="headerlink" title="3.1 计算类别信息熵"></a>3.1 计算类别信息熵</h4><p>类别信息熵表示的是所有样本中各种类别出现的不确定性之和。根据熵的概念，熵越大，不确定性就越大，把事情搞清楚所需要的信息量就越多。</p>
+<p><code>Ent(D) = -9/14 * log2(9/14)-5/14 * log2(5/14) = 0.940</code></p>
+<h4 id="3-2-计算每个属性的信息熵"><a href="#3-2-计算每个属性的信息熵" class="headerlink" title="3.2 计算每个属性的信息熵"></a>3.2 计算每个属性的信息熵</h4><p>每个属性的信息熵相当于一种条件熵。他表示的是在某种属性的条件下，各种类别出现的不确定性之和。属性的信息熵越大，表示这个属性中拥有的样本类别越不“纯”。</p>
+<p><code>Ent(天气) = 5/14 * [-2/5 * log2(2/5) - 3/5 * log2(3/5)] + 4/14 * [-4/4 * log2(4/4)] + 5/14 * [-3/5 * log2(3/5) - 2/5 * log2(2/5)] = 0.694</code></p>
+<p><code>Ent(温度) = 4/14 * [-2/4 * log2(2/4) - 2/4 * log2(2/4)] + 6/14 * [-4/6 * log2(4/6) - 2/6 * log2(2/6)] + 4/14 * [-3/4 * log2(3/4) - 1/4 * log2(1/4)] = 0.911</code></p>
+<p><code>Ent(湿度) = 7/14 * [-3/7 * log2(3/7) - 4/7 * log2(4/7)] + 7/14 * [-6/7 * log2(6/7) - 1/7 * log2(1/7)] = 0.789</code></p>
+<p><code>Ent(风速) = 6/14 * [-3/6 * log2(3/6) - 3/6 * log2(3/6)] + 8/14 * [-6/8 * log2(6/8) - 2/8 * log2(2/8)] = 0.892</code></p>
+<h4 id="3-3-计算信息增益"><a href="#3-3-计算信息增益" class="headerlink" title="3.3 计算信息增益"></a>3.3 计算信息增益</h4><p>信息增益 = 熵 - 条件熵，在这里就是 类别信息熵 - 属性信息熵，它表示的是信息不确定性减少的程度。如果一个属性的信息增益越大，就表示用这个属性进行样本划分可以更好的减少划分后样本的不确定性，当然，选择该属性就可以更快更好地完成我们的分类目标。</p>
+<p><strong>信息增益就是ID3算法的特征选择指标。</strong></p>
+<p><code>Gain(天气) = Ent(D) - Ent(天气) = 0.940 - 0.694 = 0.246</code><br><code>Gain(温度) = Ent(D) - Ent(温度) = 0.940 - 0.911 = 0.029</code><br><code>Gain(湿度) = Ent(D) - Ent(湿度) = 0.940 - 0.789 = 0.150</code><br><code>Gain(天气) = Ent(D) - Ent(风速) = 0.940 - 0.892 = 0.048</code></p>
+<p>但是我们假设这样的情况，每个属性中每种类别都只有一个样本，那这样属性信息熵就等于零，根据信息增益就无法选择出有效分类特征。所以，C4.5选择使用信息增益率对ID3进行改进。</p>
+<h4 id="3-4-计算属性分裂信息度量"><a href="#3-4-计算属性分裂信息度量" class="headerlink" title="3.4 计算属性分裂信息度量"></a>3.4 计算属性分裂信息度量</h4><p>用分裂信息度量来考虑某种属性进行分裂时分支的数量信息和尺寸信息，我们把这些信息称为属性的内在信息（instrisic information）。信息增益率用信息增益 / 内在信息，会导致属性的重要性随着内在信息的增大而减小（也就是说，如果这个属性本身不确定性就很大，那我就越不倾向于选取它），这样算是对单纯用信息增益有所补偿。</p>
+<p><code>H(天气) = -5/14 * log2(5/14) - 5/14 * log2(5/14) - 4/14 * log2(4/14) = 1.577</code><br><code>H(温度) = -4/14 * log2(4/14) - 6/14 * log2(6/14) - 4/14 * log2(4/14) = 1.556</code><br><code>H(湿度) = -7/14 * log2(7/14) - 7/14 * log2(7/14) = 1.0</code><br><code>H(风速) = -6/14 * log2(6/14) - 8/14 * log2(8/14) = 0.985</code></p>
+<h4 id="3-5-计算信息增益率"><a href="#3-5-计算信息增益率" class="headerlink" title="3.5 计算信息增益率"></a>3.5 计算信息增益率</h4><p><code>IGR(天气) = Gain(天气) / H(天气) = 0.246/1.577 = 0.155</code><br><code>IGR(温度) = Gain(温度) / H(温度) = 0.029/1.556 = 0.0186</code><br><code>IGR(湿度) = Gain(湿度) / H(湿度) = 0.151/1.000 = 0.151</code><br><code>IGR(风速) = Gain(风速) / H(风速) = 0.048/0.985 = 0.048</code></p>
+<p>天气的信息增益率最高，选择天气为分裂属性。发现分裂了之后，天气是“阴”的条件下，类别是”纯“的，所以把它定义为叶子节点，选择不“纯”的结点继续分裂。</p>
+<p><img src="https://s2.ax1x.com/2019/02/18/k66kKf.png"></p>
+<p><strong>在子结点当中重复过程1~5。</strong><br>至此，这个数据集上C4.5的计算过程就算完成了，一棵树也构建出来了。</p>
+<h4 id="3-6-算法流程"><a href="#3-6-算法流程" class="headerlink" title="3.6 算法流程"></a>3.6 算法流程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while (当前节点”不纯“)</span><br><span class="line">	(1)计算当前节点的类别信息熵Ent(D) （以类别取值计算）</span><br><span class="line">	(2)计算当前节点各个属性的信息熵Ent(Ai) （以属性取值下的类别取值计算）</span><br><span class="line">	(3)计算各个属性的信息增益Gain(Ai)=Ent(D)-Ent(Ai)</span><br><span class="line">	(4)计算各个属性的分类信息度量H(Ai) （以属性取值计算）</span><br><span class="line">	(5)计算各个属性的信息增益率IGR(Ai)=Gain(Ai)/H(Ai)</span><br><span class="line">end while</span><br><span class="line">当前节点设置为叶子节点</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="四、Python代码"><a href="#四、Python代码" class="headerlink" title="四、Python代码"></a>四、Python代码</h3><p>完整源码: <a target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/C4.5%E5%86%B3%E7%AD%96%E6%A0%91">QzmVc1/Data-Mining/C4.5决策树/</a></p>
+<p>这个程序还是有些瑕疵的，比如什么<code>RuntimeWarning: invalid value encountered in double_scalars</code>，看了很久也没发现程序哪里错了，也没找到相应的解决方法…暂且先鸽着吧…但还是可以跑起来的emmm…</p>
+<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://s2.ax1x.com/2019/02/18/kcwLOe.png"></p>
+<hr>
+<h3 id="五、优点与缺点"><a href="#五、优点与缺点" class="headerlink" title="五、优点与缺点"></a>五、优点与缺点</h3><p>优点：产生的分类规则易于理解，准确率较高。<br>缺点：在构造树的过程中，需要对数据集进行多次的顺序扫描和排序，因而导致算法的低效。</p>
+<hr>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/fuqiuai/article/details/79456971">数据挖掘领域十大经典算法之—C4.5算法</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E5%9B%9B-C4-5%E5%86%B3%E7%AD%96%E6%A0%91.html" title="进击数据挖掘十大算法(四):C4.5决策树">http://qzmvc1.top/进击数据挖掘十大算法-四-C4-5决策树.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" rel="tag"><i class="fa fa-tag"></i> 数据挖掘</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%89-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF.html" rel="prev" title="进击数据挖掘十大算法(三):朴素贝叶斯">
+                  <i class="fa fa-chevron-left"></i> 进击数据挖掘十大算法(三):朴素贝叶斯
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Numpy_Scipy_Pandas%E5%87%BD%E6%95%B0%E7%94%A8%E6%B3%95%E5%8F%8A%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB-%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0.html" rel="next" title="Numpy、Scipy、Pandas函数用法及问题汇总(长期更新)">
+                  Numpy、Scipy、Pandas函数用法及问题汇总(长期更新) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

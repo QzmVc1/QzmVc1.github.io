@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架(七) 利用Scrapy进行模拟登陆">
+<meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZiRC6.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZARCq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZAcUs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZnQgI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/28/FZnlvt.png">
+<meta property="article:published_time" content="2018-11-28T14:22:09.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:50.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/28/FZiRC6.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html","path":"Scrapy框架-七-利用Scrapy进行模拟登陆.html","title":"Scrapy框架(七) 利用Scrapy进行模拟登陆"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Scrapy框架(七) 利用Scrapy进行模拟登陆 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E6%9E%90%E8%B1%86%E7%93%A3%E7%99%BB%E9%99%86"><span class="nav-text">一、分析豆瓣登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">二、代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86"><span class="nav-text">三、问题处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%AE%8C"><span class="nav-text">本章完</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scrapy框架(七) 利用Scrapy进行模拟登陆
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-28 22:22:09" itemprop="dateCreated datePublished" datetime="2018-11-28T22:22:09+08:00">2018-11-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:50" itemprop="dateModified" datetime="2021-10-06T19:57:50+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动输入验证，或者直接用云打码平台，这里我们介绍一个利用Scrapy进行模拟登录的用法。</p>
+<p><strong>本片博客是对豆瓣进行模拟登陆，包括验证码的简单处理，不涉及爬取信息。</strong></p>
+<span id="more"></span>
+<hr>
+<h3 id="一、分析豆瓣登陆"><a href="#一、分析豆瓣登陆" class="headerlink" title="一、分析豆瓣登陆"></a>一、分析豆瓣登陆</h3><ol>
+<li>分析豆瓣的登陆样式 <a target="_blank" rel="noopener" href="https://accounts.douban.com/login?alias=&redir=https://www.douban.com/&source=index_nav&error=1001">豆瓣</a></li>
+</ol>
+<p><img src="https://s1.ax1x.com/2018/11/28/FZiRC6.png"></p>
+<p>从上图可以看出：</p>
+<p>(1)表单的action地址为:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://accounts.douban.com/login">https://accounts.douban.com/login</a></p>
+</blockquote>
+<p>(2)验证码图片的地址为:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.douban.com/misc/captcha?id=hBSbgCAQKftF1BGBeXNPI8uA:en&amp;size=s">https://www.douban.com/misc/captcha?id=hBSbgCAQKftF1BGBeXNPI8uA:en&amp;size=s</a></p>
+</blockquote>
+<p>(3)captcha-id值:</p>
+<blockquote>
+<p>&lt;type=”hidden”name=”captcha-id”value=”hBSbgCAQKftF1BGBeXNPI8uA:en”&gt;</p>
+</blockquote>
+<ol start="2">
+<li>分析豆瓣登录页的form表单登录</li>
+</ol>
+<p>通过登录页我们输入错误的密码登录一次，因为只有输入错误的密码，才可以看到Network里面提交了什么样式的表单。</p>
+<p><img src="https://s1.ax1x.com/2018/11/28/FZARCq.png"></p>
+<p><img src="https://s1.ax1x.com/2018/11/28/FZAcUs.png"><br>因此我们需要通过Scrapy提取以下来填充表单：<br>captcha-id：图片验证码id<br>captcha-solution：图片验证码，我们通过查看图片手动输入验证码</p>
+<p>其他如form_email等固定信息我们可以提前填入表单。</p>
+<hr>
+<h3 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h3><p><strong>2.1 在开始着手写代码之前，我们先了解一些关于POST请求所需要的函数：</strong></p>
+<p><strong>模拟浏览器登录</strong></p>
+<blockquote>
+<p><b>start_requests()：</b> 可以返回一个请求给爬虫的起始网站，这个返回的请求相当于start_urls，start_requests()返回的请求会替代start_urls里的请求。之所以利用该方法重写起始请求，是因为我们可以自定义一些解析函数；而start_urls和parse()默认解析函数是绑定在一起的。</p>
+</blockquote>
+<blockquote>
+<p><b>Request()：</b> get请求，可以设置url、cookie、回调函数等。</p>
+</blockquote>
+<blockquote>
+<p><b>FormRequest.from_response(): </b>表单post提交。第一个参数是上一次响应cookie的response对象，其他参数有cookie、url、表单内容等。</p>
+</blockquote>
+<blockquote>
+<p>yield Request()可以将一个新的请求返回给爬虫执行</p>
+</blockquote>
+<blockquote>
+<p>在发送请求时cookie的操作:<br><b>meta={‘cookiejar’:1}</b>表示开启cookie记录，首次请求时写在Request()里</p>
+<p><b>meta={‘cookiejar’:response.meta[‘cookiejar’]}</b>表示使用上一次response的cookie，写在FormRequest.from_response()里</p>
+<p><b>meta={‘cookiejar’:True}</b>表示使用授权后的cookie访问需要登录查看的页面</p>
+</blockquote>
+<p><strong>2.2 爬虫代码实现</strong></p>
+<p><em><strong>login.py</strong></em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlretrieve</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoginSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;login&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;web&#x27;</span>]</span><br><span class="line">    <span class="comment"># start_urls = [&#x27;http://web/&#x27;] 我们重写start_requests</span></span><br><span class="line">    <span class="comment"># 设置防盗链，防止反爬</span></span><br><span class="line">    headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#请求登陆页面,用meta开启cookie记录</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_requests</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> [scrapy.FormRequest(<span class="string">&quot;https://accounts.douban.com/login&quot;</span>,headers=self.headers,meta=&#123;<span class="string">&#x27;cookiejar&#x27;</span>:<span class="number">1</span>&#125;,callback=self.parse_before_login,dont_filter=<span class="literal">True</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="comment">#登陆表单填充，查看验证码</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_before_login</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;登陆前表单填充：......&quot;</span>)</span><br><span class="line">        <span class="comment"># 获取验证码的 id 和 url</span></span><br><span class="line">        captcha_id = response.xpath(<span class="string">&#x27;//input[@name=&quot;captcha-id&quot;]/@value&#x27;</span>).extract_first()</span><br><span class="line">        captcha_src_url = response.xpath(<span class="string">&#x27;//img[@id=&quot;captcha_image&quot;]/@src&#x27;</span>).extract_first()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> captcha_src_url <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;登陆时无需验证码...&#x27;</span>)</span><br><span class="line">            formdata = &#123;</span><br><span class="line">                <span class="string">&quot;source&quot;</span> : <span class="string">&quot;index_nav&quot;</span>,</span><br><span class="line">                <span class="string">&quot;form_email&quot;</span> : <span class="string">&quot;1026740678@qq.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;form_password&quot;</span> : <span class="string">&quot;xxxxxx&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;登陆时需要验证码...&#x27;</span>)</span><br><span class="line">            <span class="comment">#通过urllib将图片下载到本地，用Pillow打开并手动输入验证码</span></span><br><span class="line">            <span class="comment">#本地存储路径</span></span><br><span class="line">            save_path = <span class="string">&#x27;C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\SimulatedLanding\SimulatedLanding\captcha.jpeg&#x27;</span></span><br><span class="line">            <span class="comment">#下载</span></span><br><span class="line">            urlretrieve(captcha_src_url,save_path)</span><br><span class="line">            <span class="comment">#用Pillow打开图片</span></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                im = Image.<span class="built_in">open</span>(save_path)</span><br><span class="line">                im.show()</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">            captcha_solution = <span class="built_in">input</span>(<span class="string">&quot;请输入验证码：&quot;</span>)</span><br><span class="line">            formdata = &#123;</span><br><span class="line">                <span class="string">&quot;source&quot;</span>: <span class="string">&quot;index_nav&quot;</span>,</span><br><span class="line">                <span class="string">&quot;redir&quot;</span>: <span class="string">&quot;https: // www.douban.com /&quot;</span>,</span><br><span class="line">                <span class="string">&quot;form_email&quot;</span>: <span class="string">&quot;1026740678@qq.com&quot;</span>,</span><br><span class="line">                <span class="string">&quot;form_password&quot;</span>: <span class="string">&quot;xxxxxx&quot;</span>,</span><br><span class="line">                <span class="string">&quot;captcha-solution&quot;</span>: captcha_solution,</span><br><span class="line">                <span class="string">&quot;captcha-id&quot;</span>: captcha_id,</span><br><span class="line">                <span class="string">&quot;login&quot;</span>: <span class="string">&quot;登录&quot;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;正在登陆...&quot;</span>)</span><br><span class="line">        <span class="comment"># 提交表单进行登陆</span></span><br><span class="line">        <span class="keyword">return</span> scrapy.FormRequest.from_response(response,headers=self.headers,meta=&#123;<span class="string">&#x27;cookiejar&#x27;</span>:response.meta[<span class="string">&#x27;cookiejar&#x27;</span>]&#125;,formdata=formdata,callback=self.parse_after_login,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_after_login</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        <span class="comment">#验证是否登录成功</span></span><br><span class="line">        account = response.xpath(<span class="string">&#x27;//a[@class=&quot;bn-more&quot;]/span/text()&#x27;</span>).extract_first()</span><br><span class="line">        <span class="keyword">if</span> account <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;登陆失败...&quot;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;登陆成功! 账户为%s &quot;</span> % (account))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>输入以下命令开始模拟登陆：</p>
+<blockquote>
+<p>scrapy crawl login</p>
+</blockquote>
+<p>运行结果：</p>
+<p><img src="https://s1.ax1x.com/2018/11/28/FZnQgI.png"></p>
+<p>运行到验证码获取图片时它会自己蹦出来:</p>
+<p><img src="https://s1.ax1x.com/2018/11/28/FZnlvt.png"></p>
+<p>登陆成功！是不是很激动呢！</p>
+<hr>
+<h3 id="三、问题处理"><a href="#三、问题处理" class="headerlink" title="三、问题处理"></a>三、问题处理</h3><p><strong>每次进行请求时别忘了将dont_filter设置为True！我又掉了一次坑。</strong></p>
+<h4 id="本章完"><a href="#本章完" class="headerlink" title="本章完"></a>本章完</h4><hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html" title="Scrapy框架(七) 利用Scrapy进行模拟登陆">http://qzmvc1.top/Scrapy框架-七-利用Scrapy进行模拟登陆.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i> Scrapy</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html" rel="prev" title="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
+                  <i class="fa fa-chevron-left"></i> Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AB-%E5%88%A9%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE%E7%BB%98%E5%88%B6%E8%AF%8D%E4%BA%91%E5%9B%BE%E7%89%87.html" rel="next" title="Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片">
+                  Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

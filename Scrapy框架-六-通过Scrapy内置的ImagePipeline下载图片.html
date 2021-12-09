@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="引言相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http:&#x2F;&#x2F;qzmvc1.top&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">
+<meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！注：本章爬取的网页是我的博客: http:&#x2F;&#x2F;qzmvc1.top&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/27/FE6geK.png">
+<meta property="article:published_time" content="2018-11-27T07:47:03.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:48.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/27/FEyvKx.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html","path":"Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片.html","title":"Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-text">引言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E4%BF%A1%E5%A4%A7%E5%AE%B6%E5%AD%A6%E4%BA%86%E8%BF%99%E4%B9%88%E9%95%BF%E6%97%B6%E9%97%B4%E7%9A%84%E7%88%AC%E8%99%AB%E5%90%8E%E9%83%BD%E6%83%B3%E5%B9%B2%E7%82%B9%E4%BB%80%E4%B9%88%E3%80%82%E8%BF%99%E7%AB%A0%E7%9A%84%E4%B8%BB%E8%A6%81%E4%BB%BB%E5%8A%A1%E6%98%AF%E6%8A%93%E5%8F%96%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87%E5%B9%B6%E6%8A%8A%E5%AE%83%E4%BB%AC%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0%EF%BC%8C%E5%90%AC%E8%B5%B7%E6%9D%A5%E4%B8%8D%E5%A4%AA%E5%AE%B9%E6%98%93%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BD%86%E5%85%B6%E5%AE%9E%E8%BF%99%E5%BE%88%E7%AE%80%E5%8D%95%EF%BC%81"><span class="nav-text">相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%EF%BC%9A%E6%9C%AC%E7%AB%A0%E7%88%AC%E5%8F%96%E7%9A%84%E7%BD%91%E9%A1%B5%E6%98%AF%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2-http-qzmvc1-top"><span class="nav-text">注：本章爬取的网页是我的博客: http:&#x2F;&#x2F;qzmvc1.top&#x2F;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5"><span class="nav-text">一、爬取图片链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-items-py"><span class="nav-text">1.1 items.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-image-py"><span class="nav-text">1.2 image.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-pipelines-py"><span class="nav-text">1.3 pipelines.py</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-get-media-requests"><span class="nav-text">1.3.1 get_media_requests()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-2-item-completed"><span class="nav-text">1.3.2 item_completed()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-settings-py"><span class="nav-text">1.4 settings.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-%E8%BF%90%E8%A1%8C"><span class="nav-text">1.5 运行</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%EF%BC%9A%E6%88%91%E4%BB%AC%E4%B9%9F%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87Crawlspider%E8%BF%9B%E8%A1%8C%E7%88%AC%E5%8F%96%EF%BC%8C%E9%87%8C%E9%9D%A2%E7%9A%84Rules%E4%B9%9F%E5%BE%88%E5%A5%BD%E7%94%A8%E3%80%82"><span class="nav-text">注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%AE%8C"><span class="nav-text">本章完</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-27 15:47:03" itemprop="dateCreated datePublished" datetime="2018-11-27T15:47:03+08:00">2018-11-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:48" itemprop="dateModified" datetime="2021-10-06T19:57:48+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/">http://qzmvc1.top/</a></h4><span id="more"></span>
+<hr>
+<h3 id="一、爬取图片链接"><a href="#一、爬取图片链接" class="headerlink" title="一、爬取图片链接"></a>一、爬取图片链接</h3><p>首先要做的当然是新建爬虫项目和爬虫文件，通过图下命令即可：</p>
+<blockquote>
+<p>scrapy startproject ImageDownloads<br>cd ImageDownloads<br>scrapy genspider image</p>
+</blockquote>
+<p>下面我们开始着手工作！</p>
+<h4 id="1-1-items-py"><a href="#1-1-items-py" class="headerlink" title="1.1 items.py"></a>1.1 items.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImagedownloadsItem</span>(<span class="params">scrapy.Item</span>):</span></span><br><span class="line">  <span class="comment"># image_urls是存储图片链接的元数据</span></span><br><span class="line">    image_urls = scrapy.Field()</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-image-py"><a href="#1-2-image-py" class="headerlink" title="1.2 image.py"></a>1.2 image.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> ImageDownloads.items <span class="keyword">import</span> ImagedownloadsItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;image&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;web&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&#x27;http://qzmvc1.top/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        URL1 = response.xpath(<span class="string">&#x27;//a[@class=&quot;extend next&quot;]//@href&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL1:</span><br><span class="line">            <span class="keyword">yield</span> Request(urljoin(response.url,url),dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        URL2 = response.xpath(<span class="string">&#x27;//a[@class=&quot;article-title&quot;]/@href&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL2:</span><br><span class="line">            <span class="keyword">yield</span> Request(urljoin(response.url,url),callback=self.parse_item,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        item = ImagedownloadsItem()</span><br><span class="line">        image_urls = response.xpath(<span class="string">&#x27;//img/@src&#x27;</span>).extract()</span><br><span class="line">        item[<span class="string">&#x27;image_urls&#x27;</span>] = image_urls</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>水平爬取，垂直爬取一些基本的操作感到生疏的可以复习复习我以前的博客:<br><a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%80-%E7%AC%AC%E4%B8%80%E4%B8%AAScrapy%E9%A1%B9%E7%9B%AE/">第一个Scrapy项目</a><br><a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8A%BD%E5%8F%96%E6%9B%B4%E5%A4%9A%E7%9A%84URL/">抽取更多的URL</a></p>
+<p>parse_item()这个解析函数主要做的就是对于每一个待解析的页面(就是我们垂直爬取的内容页面)，通过Xpath表达式获取该页面内所有图片的<strong>一个URL列表</strong>，并把这个<strong>列表</strong>赋值给<em>items.py</em> 中我们定义的元数据。</p>
+<p>之所以需要给元数据赋值为列表，是因为<strong>管道里面需要用到列表进行迭代操作</strong>，如果不是列表爬取日志上会显示 <em><strong>raise ValueError(‘Missing scheme in request url: %s’ % self._url)</strong></em> 这个错误信息。</p>
+<p><strong>所以，<em>image.py</em> 主要是获取每张页面的图片链接，并返回每个Item。</strong></p>
+<h4 id="1-3-pipelines-py"><a href="#1-3-pipelines-py" class="headerlink" title="1.3 pipelines.py"></a>1.3 pipelines.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> scrapy.pipelines.images <span class="keyword">import</span> ImagesPipeline</span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> Request</span><br><span class="line"><span class="keyword">from</span> pymysql <span class="keyword">import</span> cursors</span><br><span class="line"><span class="keyword">from</span> twisted.enterprise <span class="keyword">import</span> adbapi</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> unquote</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImagedownloadsPipeline</span>(<span class="params">ImagesPipeline</span>):</span></span><br><span class="line">   <span class="comment"># 迭代获取图片URL链接并进行下载</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_media_requests</span>(<span class="params">self,item,info</span>):</span></span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> item[<span class="string">&#x27;image_urls&#x27;</span>]:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;http&#x27;</span> <span class="keyword">not</span> <span class="keyword">in</span> url:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                   <span class="keyword">yield</span> Request(url)</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="built_in">print</span>(e)</span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    文件下载完成之后，返回一个列表 results</span></span><br><span class="line"><span class="string">    列表中是一个元组，第一个值是布尔值，请求成功或失败，第二个值是下载到的资源</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">item_completed</span>(<span class="params">self,results,item,info</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> results[<span class="number">0</span>][<span class="number">0</span>]:</span><br><span class="line">            <span class="keyword">raise</span> DropItem(<span class="string">&#x27;Download failure!&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    lst = <span class="built_in">set</span>()</span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">from_settings</span>(<span class="params">cls,settings</span>):</span></span><br><span class="line">        adbparams = <span class="built_in">dict</span>(</span><br><span class="line">            host = settings[<span class="string">&#x27;MYSQL_HOST&#x27;</span>],</span><br><span class="line">            user = settings[<span class="string">&#x27;MYSQL_USER&#x27;</span>],</span><br><span class="line">            password = settings[<span class="string">&#x27;MYSQL_PASSWORD&#x27;</span>],</span><br><span class="line">            db = settings[<span class="string">&#x27;MYSQL_DB&#x27;</span>],</span><br><span class="line">            cursorclass = cursors.DictCursor</span><br><span class="line">        )</span><br><span class="line">        dbpool = adbapi.ConnectionPool(<span class="string">&#x27;pymysql&#x27;</span>,**adbparams)</span><br><span class="line">        <span class="keyword">return</span> cls(dbpool)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,dbpool</span>):</span></span><br><span class="line">        self.dbpool = dbpool</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self,item,spider</span>):</span></span><br><span class="line">        query = self.dbpool.runInteraction(self.do_insert,item)</span><br><span class="line">        query.addErrback(self.handle_error)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_error</span>(<span class="params">self,failure</span>):</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;failure&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_insert</span>(<span class="params">self,cursor,item</span>):</span></span><br><span class="line">        sql = <span class="string">&quot;insert into image(name,url) values(%s,%s);&quot;</span></span><br><span class="line">        urls = item[<span class="string">&#x27;image_urls&#x27;</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> urls:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> self.lst:</span><br><span class="line">                cursor.execute(sql, (random.randint(<span class="number">0</span>, <span class="number">10000</span>), unquote(i)))</span><br><span class="line">                self.lst.add(i)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我们在 <em>Pipelines.py</em> 中定义了两个管道。一个是用来下载图片的管道，还有一个就是将图片的地址存入到数据库的管道。如果对于存储数据到数据库不熟悉的同学可以看我的另一篇博客：</p>
+<p><a href="http://qzmvc1.top/2018/11/22/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%94-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%88%B0Mysql%E6%95%B0%E6%8D%AE%E5%BA%93/">Scrapy框架(五) 将数据存储到数据库</a></p>
+<p>我们主要介绍一下 <strong>ImagedownloadsPipeline</strong> 这个管道。<br>我们在里面定义了两个函数，<strong>这两个函数的名字都是固定的。</strong> 一个是 <strong>get_media_requests()</strong> ，还有一个是 <strong>item_completed()。</strong></p>
+<h5 id="1-3-1-get-media-requests"><a href="#1-3-1-get-media-requests" class="headerlink" title="1.3.1 get_media_requests()"></a>1.3.1 get_media_requests()</h5><p>首先我们将图片下载到本地，需要借助Scrapy内置的ImagesPipeline这个管道。</p>
+<blockquote>
+<p>from scrapy.pipelines.images import ImagesPipeline</p>
+</blockquote>
+<p>我们在 <em><strong>get_media_requests（）</strong></em> 中循环迭代存储图片URL的列表，通过 <em><strong>Request()</strong></em> 进行访问并下载。为什么要引入异常操作呢？这是因为我们爬取的图片中包含了一些本地图片：</p>
+<p><img src="https://s1.ax1x.com/2018/11/27/FEyvKx.png"></p>
+<p>如果不引入异常操作的话会报错:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;NoneType&#x27; object is not subscriptable</span><br></pre></td></tr></table></figure>
+<p>于是我们访问那些具有http请求头的URL并进行下载。</p>
+<h5 id="1-3-2-item-completed"><a href="#1-3-2-item-completed" class="headerlink" title="1.3.2 item_completed()"></a>1.3.2 item_completed()</h5><p>文件下载完成之后，返回一个列表 results。列表中是一个元组，第一个值是布尔值，请求成功或失败，第二个值是下载到的资源。代码很简单，非常好懂！</p>
+<h4 id="1-4-settings-py"><a href="#1-4-settings-py" class="headerlink" title="1.4 settings.py"></a>1.4 settings.py</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 管道</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">      <span class="string">&#x27;ImageDownloads.pipelines.ImagedownloadsPipeline&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">      <span class="string">&#x27;ImageDownloads.pipelines.MysqlPipeline&#x27;</span>:<span class="number">100</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 数据库</span></span><br><span class="line">MYSQL_HOST = <span class="string">&quot;localhost&quot;</span></span><br><span class="line">MYSQL_USER = <span class="string">&quot;root&quot;</span></span><br><span class="line">MYSQL_PASSWORD = <span class="string">&quot;root&quot;</span></span><br><span class="line">MYSQL_DB = <span class="string">&quot;pysqltest&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片存储路径</span></span><br><span class="line">IMAGES_STORE = <span class="string">&#x27;C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\ImageDownloads\Spider_Picture&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>我们在 <em>settings.py</em> 中设置图片的存储路径 <strong>IMAGES_STORE</strong> ，这可以是绝对路径，也可以是相对路径。</p>
+<h4 id="1-5-运行"><a href="#1-5-运行" class="headerlink" title="1.5 运行"></a>1.5 运行</h4><blockquote>
+<p>scrapy crawl images</p>
+</blockquote>
+<p>结果如下：<br><img src="https://s1.ax1x.com/2018/11/27/FE6geK.png"></p>
+<p><strong>注1： 图片的名字是根据URL的SHA1 值进行生成的，如果想要让名字变得更规范，可以增加file_name()函数，没什么时间了这里就先不写了，emmm…</strong></p>
+<p><strong>注2： settings.py里面关于图片的下载除了下载路径其实还可以添加很多东西，像一些失效时间，缩略图的设置等等…有需求的可以看看文档。</strong></p>
+<hr>
+<h5 id="注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。"><a href="#注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。" class="headerlink" title="注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。"></a>注：我们也可以通过Crawlspider进行爬取，里面的Rules也很好用。</h5><h3 id="本章完"><a href="#本章完" class="headerlink" title="本章完"></a>本章完</h3>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html" title="Scrapy框架(六) 通过Scrapy内置的ImagePipeline下载图片">http://qzmvc1.top/Scrapy框架-六-通过Scrapy内置的ImagePipeline下载图片.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i> Scrapy</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%94-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%88%B0Mysql%E6%95%B0%E6%8D%AE%E5%BA%93.html" rel="prev" title="Scrapy框架(五) 将数据存储到数据库">
+                  <i class="fa fa-chevron-left"></i> Scrapy框架(五) 将数据存储到数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html" rel="next" title="Scrapy框架(七) 利用Scrapy进行模拟登陆">
+                  Scrapy框架(七) 利用Scrapy进行模拟登陆 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

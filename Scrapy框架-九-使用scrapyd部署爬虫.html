@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架(九):使用scrapyd部署爬虫">
+<meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArKCex.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArNb0e.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArUkkj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArURu8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArUgjf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/31/AraVVe.png">
+<meta property="article:published_time" content="2019-03-31T07:16:21.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:55:40.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/31/ArKCex.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html","path":"Scrapy框架-九-使用scrapyd部署爬虫.html","title":"Scrapy框架(九):使用scrapyd部署爬虫"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Scrapy框架(九):使用scrapyd部署爬虫 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Scrapyd%E7%AE%80%E4%BB%8B"><span class="nav-text">一、Scrapyd简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Scrapyd%E5%AE%89%E8%A3%85"><span class="nav-text">二、Scrapyd安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Scrapyd-client"><span class="nav-text">三、Scrapyd-client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%AE%89%E8%A3%85"><span class="nav-text">3.1 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E9%83%A8%E7%BD%B2"><span class="nav-text">3.2 部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E7%89%88%E6%9C%AC"><span class="nav-text">3.3 版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">四、配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81API"><span class="nav-text">五、API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-daemonstatus-json"><span class="nav-text">5.1 daemonstatus.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-addversion-json"><span class="nav-text">5.2 addversion.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-schedule-json"><span class="nav-text">5.3 schedule.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-cancel-json"><span class="nav-text">5.4 cancel.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-listprojects-json"><span class="nav-text">5.5 listprojects.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-listversions-json"><span class="nav-text">5.6 listversions.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-listspiders-json"><span class="nav-text">5.7 listspiders.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-listjobs-json"><span class="nav-text">5.8 listjobs.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-delversion-json"><span class="nav-text">5.9 delversion.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-10-delproject-json"><span class="nav-text">5.10 delproject.json</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scrapy框架(九):使用scrapyd部署爬虫
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-31 15:16:21" itemprop="dateCreated datePublished" datetime="2019-03-31T15:16:21+08:00">2019-03-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:55:40" itemprop="dateModified" datetime="2021-10-06T19:55:40+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一、Scrapyd简介"><a href="#一、Scrapyd简介" class="headerlink" title="一、Scrapyd简介"></a>一、Scrapyd简介</h3><p>Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。<br>Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。<br>在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。</p>
+<hr>
+<span id="more"></span>
+
+<h3 id="二、Scrapyd安装"><a href="#二、Scrapyd安装" class="headerlink" title="二、Scrapyd安装"></a>二、Scrapyd安装</h3><blockquote>
+<p>安装命令: pip install scrapyd</p>
+</blockquote>
+<p><strong>等待下载完成，下载完成后，启动scrapyd,命令即：scrapyd，启动后，有一句会显示你的端口号，如图所示:</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArKCex.png"></p>
+<p><strong>然后在网页中输入你的本地ip加上端口号，即：127.0.0.1:6800。访问这个网页出现下面的页面即scrapyd的页面：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArNb0e.png"></p>
+<p><strong>上一步中如果连接启动成功后先关闭服务，在一个地方创建一个文件夹，文件夹名字自定义，但是要见名知意。然后进入文件夹，按住shift键不松手，并右击该文件夹随意空白处，然后点击“在此处打开命令窗口”，即进入的是cmd，然后在cmd里重新启动scrapyd,即输入scrapyd。执行后文件里会多出一个空的文件夹dbs，这个文件夹是用来存放爬虫文件数据的。</strong></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUkkj.png"></p>
+<p><strong>接下来我们需要把我们的项目打包上传到scrapyd服务里，那么我们要下载一个包：scrapyd-client。</strong></p>
+<hr>
+<h3 id="三、Scrapyd-client"><a href="#三、Scrapyd-client" class="headerlink" title="三、Scrapyd-client"></a>三、Scrapyd-client</h3><p>将Scrapy项目部署到远程服务器，首先第一步要做的就是把项目打包成<code>egg</code>文件，然后上传到目标服务器，这个操作使用<code>setup-tools</code>也是可以完成的，但比较麻烦。</p>
+<p>所以我们可以使用一个第三方库<code>Scrapyd-Client</code>来帮我们一步完成这些操作。</p>
+<p><code>scrapyd-client</code>的功能主要有两个：</p>
+<ul>
+<li><p>将项目打包成<code>egg</code>文件</p>
+</li>
+<li><p>将egg文件通过Scrapyd的<code>addversion.json</code>接口上传到目标服务器。</p>
+</li>
+</ul>
+<h4 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h4><blockquote>
+<p>pip install scrapyd-client</p>
+</blockquote>
+<p>下载完毕后，你的Python环境中的<code>Scripts</code>文件里会出现一个<code>scrapyd-deploy</code>，这个文件是启动文件，但是在windows下不能运行，只能在linux运行，所以我们要自己编写一个bat执行文件。</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArURu8.png"></p>
+<p>创建名字为<code>scrapy.bat</code> 和 <code>scrapyd-deploy.bat</code>的文件，里面写入下面的配置:</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUgjf.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.scrapy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapy %*</span><br><span class="line"></span><br><span class="line">-------------------</span><br><span class="line"></span><br><span class="line">2.scrapyd-deploy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapyd-deploy %*</span><br></pre></td></tr></table></figure>
+<p><strong>第一个是python.exe路径，第二个是Scripts中对应文件的路径。</strong></p>
+<p>然后我们来测试一下<code>scrapyd-deploy</code>是否可以使用:</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/AraVVe.png"></p>
+<h4 id="3-2-部署"><a href="#3-2-部署" class="headerlink" title="3.2 部署"></a>3.2 部署</h4><p>在安装<code>scrapyd-client</code>完毕之后，主要可以使用<code>scrapyd-deploy</code>命令完成项目的部署，以下是具体使用方式：</p>
+<p>要部署你的项目，首先先通过cd命令进入你项目的根目录，然后输入以下命令：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapyd-deploy &lt;target&gt; -p &lt;project&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这个命令会将你的项目打包成一个<code>egg</code>文件，然后上传到你指定的<code>target</code>，如果你的项目中有一个<code>setup.py</code>文件，那么其将会被使用，如果没有那么将会自动创建一个。如果这行代码运行成功的话，那么将会返回以下结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deploying myproject-1287453519 to http://localhost:6800/addversion.json</span><br><span class="line">Server response (200):</span><br><span class="line">&#123;&quot;status&quot;: &quot;ok&quot;, &quot;spiders&quot;: [&quot;spider1&quot;, &quot;spider2&quot;]&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-版本"><a href="#3-3-版本" class="headerlink" title="3.3 版本"></a>3.3 版本</h4><p>在使用以上命令部署<code>Scrapy</code>项目时，项目的版本号默认会设置为当前的时间戳，我们也可以使用<code>--version</code>参数来指定版本号。</p>
+<blockquote>
+<p>scrapyd-deploy <target> -p <project> –version <version></p>
+</blockquote>
+<p>需要注意的是，版本号只能为纯数字。在默认的情况下，<code>scrapyd</code>会使用版本号最大的版本。</p>
+<hr>
+<h3 id="四、配置文件"><a href="#四、配置文件" class="headerlink" title="四、配置文件"></a>四、配置文件</h3><p>Scrapyd将会在以下地址搜索配置文件，在解析的过程中更高的配置文件拥有更高的优先级：</p>
+<ul>
+<li><p><code>/etc/scrapyd/scrapyd.conf</code> (Unix)</p>
+</li>
+<li><p><code>c:/scrapyd/scrapyd.conf</code> (Windows)</p>
+</li>
+<li><p><code>/etc/scrapyd/conf.d/*</code> (in alphabetical order, Unix)</p>
+</li>
+<li><p><code>scrapyd.conf</code></p>
+</li>
+<li><p><code>~/.scrapyd.conf</code> (users home directory)</p>
+</li>
+</ul>
+<p>配置文件中支持配置以下选项：</p>
+<ul>
+<li><p><code>http_port</code><br>Scrapyd的API监听的端口，默认为6800。</p>
+</li>
+<li><p><code>bind_address</code><br>网页和Json服务监听的IP地址，默认为127.0.0.1。</p>
+</li>
+<li><p><code>max_proc</code><br>同时启动的最大Scrapy进程数，如果没有设置或者设置为0，那么将会使用当前cpu可用的核数乘以max_proc_per_cpu的值。默认为0。</p>
+</li>
+<li><p><code>max_proc_per_cpu</code><br>每个cpu能同时启动的最大Scrapy进程数。默认为4。</p>
+</li>
+<li><p><code>debug</code><br>是否开启debug模式，默认为off。开启之后，如果在调用Scrapy的Json API的时候出错，则会返回详细的traceback信息。</p>
+</li>
+<li><p><code>eggs_dir</code><br>项目的eggs文件存储的目录。</p>
+</li>
+<li><p><code>dbs_dir</code><br>项目存储数据库的目录，也包括爬虫队列。</p>
+</li>
+<li><p><code>logs_dir</code><br>存储Scrapy日志的目录。</p>
+</li>
+<li><p><code>items_dir</code><br>存储items的目录，一般来说不需要设置这个选项，因为抓取下来的数据都会存到数据库中。如果设置这个选项，那么将会覆盖Scrapy的FEED_URL设置，将抓取下来的items保存到指定目录。</p>
+</li>
+<li><p><code>jobs_to_keep</code><br>每个spider保留多少个完成的job，默认为5。这更多指的是item和log。</p>
+</li>
+<li><p><code>finished_to_keep</code><br>启动器中保留的已完成进程的数量，默认为100。</p>
+</li>
+<li><p><code>poll_interval</code><br>轮询队列的间隔，以秒为单位，默认值为5，可以为浮点数。</p>
+</li>
+<li><p><code>runner</code><br>用来启动子进程的启动器，可以自定义启动的模块。</p>
+</li>
+<li><p><code>node_name</code><br>每个节点的节点名称，默认为${socket.gethostname()}。</p>
+</li>
+</ul>
+<p><strong>以下是一个默认的配置文件的例子：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[scrapyd]</span><br><span class="line">eggs_dir    = eggs</span><br><span class="line">logs_dir    = logs</span><br><span class="line">items_dir   =</span><br><span class="line">jobs_to_keep = <span class="number">5</span></span><br><span class="line">dbs_dir     = dbs</span><br><span class="line">max_proc    = <span class="number">0</span></span><br><span class="line">max_proc_per_cpu = <span class="number">4</span></span><br><span class="line">finished_to_keep = <span class="number">100</span></span><br><span class="line">poll_interval = <span class="number">5.0</span></span><br><span class="line">bind_address = <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">http_port   = <span class="number">6800</span></span><br><span class="line">debug       = off</span><br><span class="line">runner      = scrapyd.runner</span><br><span class="line">application = scrapyd.app.application</span><br><span class="line">launcher    = scrapyd.launcher.Launcher</span><br><span class="line">webroot     = scrapyd.website.Root</span><br><span class="line"></span><br><span class="line">[services]</span><br><span class="line">schedule.json     = scrapyd.webservice.Schedule</span><br><span class="line">cancel.json       = scrapyd.webservice.Cancel</span><br><span class="line">addversion.json   = scrapyd.webservice.AddVersion</span><br><span class="line">listprojects.json = scrapyd.webservice.ListProjects</span><br><span class="line">listversions.json = scrapyd.webservice.ListVersions</span><br><span class="line">listspiders.json  = scrapyd.webservice.ListSpiders</span><br><span class="line">delproject.json   = scrapyd.webservice.DeleteProject</span><br><span class="line">delversion.json   = scrapyd.webservice.DeleteVersion</span><br><span class="line">listjobs.json     = scrapyd.webservice.ListJobs</span><br><span class="line">daemonstatus.json = scrapyd.webservice.DaemonStatus</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="五、API"><a href="#五、API" class="headerlink" title="五、API"></a>五、API</h3><p>在开启了<code>scrapyd</code>服务之后，就可以通过<code>Scrapyd</code>提供的<code>API</code>接口来操作你的<code>Scrapy</code>项目了。</p>
+<h4 id="5-1-daemonstatus-json"><a href="#5-1-daemonstatus-json" class="headerlink" title="5.1 daemonstatus.json"></a>5.1 daemonstatus.json</h4><p>用来检查服务器的负载状态。支持的请求方法：<code>GET</code>。</p>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/daemonstatus.json</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;running&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;pending&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;finished&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;node_name&quot;</span>: <span class="string">&quot;node-name&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-2-addversion-json"><a href="#5-2-addversion-json" class="headerlink" title="5.2 addversion.json"></a>5.2 addversion.json</h4><p>给项目增加一个版本，如果项目不存在的话那么就创建一个项目。这个接口主要被用来上传项目或者更新项目版本。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>version</code> (string, required) - 项目的版本</p>
+</li>
+<li><p><code>egg</code> (file, required) - 一个包含项目代码的egg文件</p>
+</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/addversion.json -F project=myproject -F version=r23 -F egg=@myproject.egg</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-3-schedule-json"><a href="#5-3-schedule-json" class="headerlink" title="5.3 schedule.json"></a>5.3 schedule.json</h4><p>调度运行一个爬虫（也成为job），并返回一个<code>jobid</code>。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>spider</code> (string, required) - 爬虫的名称</p>
+</li>
+<li><p><code>setting</code> (string, optional) - 爬虫运行时要用到的Scrapy设置</p>
+</li>
+<li><p><code>jobid</code> (string, optional) - 用来作为标识的jobid，会覆盖掉默认生成的UUID</p>
+</li>
+<li><p><code>_version</code> (string, optional) - 使用的项目版本<br>任何其他的参数将会传递作为爬虫的参数</p>
+</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;jobid&quot;</span>: <span class="string">&quot;6487ec79947edab326d6db28a2d86511e8247444&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>以下是传递spider参数和setting参数的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider -d setting=DOWNLOAD_DELAY=<span class="number">2</span> -d arg1=val1</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-4-cancel-json"><a href="#5-4-cancel-json" class="headerlink" title="5.4 cancel.json"></a>5.4 cancel.json</h4><p>取消一个<code>job</code>的运行，如果这个<code>job</code>处于等待的状态，那么将会被移除，如果这个<code>job</code>正在运行，那么它将会被终止。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>job</code> (string, required) - job的id</p>
+</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/cancel.json -d project=myproject -d job=6487ec79947edab326d6db28a2d86511e8247444</span><br></pre></td></tr></table></figure>
+
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;prevstate&quot;</span>: <span class="string">&quot;running&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-5-listprojects-json"><a href="#5-5-listprojects-json" class="headerlink" title="5.5 listprojects.json"></a>5.5 listprojects.json</h4><p>获取上传到服务器的项目列表。支持请求方法：<code>GET</code>，无参数。</p>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listprojects.json</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;projects&quot;</span>: [<span class="string">&quot;myproject&quot;</span>, <span class="string">&quot;otherproject&quot;</span>]&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-6-listversions-json"><a href="#5-6-listversions-json" class="headerlink" title="5.6 listversions.json"></a>5.6 listversions.json</h4><p>获取某个或某些项目的版本列表。返回的版本将会按顺序排列，最后的那个版本是当前正在使用的版本。支持请求参数：<code>GET</code>。</p>
+<p>参数：<br><code>project</code> (string, required) - 项目名称</p>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listversions.json?project=myproject</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;versions&quot;</span>: [<span class="string">&quot;r99&quot;</span>, <span class="string">&quot;r156&quot;</span>]&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-7-listspiders-json"><a href="#5-7-listspiders-json" class="headerlink" title="5.7 listspiders.json"></a>5.7 listspiders.json</h4><p>默认获取某个项目最新版本中的<code>spider</code>列表。支持的请求方法：<code>GET</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目的名称</p>
+</li>
+<li><p><code>_version</code> (string, optional) - 检查的项目版本</p>
+</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listspiders.json?project=myproject</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: [<span class="string">&quot;spider1&quot;</span>, <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;spider3&quot;</span>]&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-8-listjobs-json"><a href="#5-8-listjobs-json" class="headerlink" title="5.8 listjobs.json"></a>5.8 listjobs.json</h4><p>获取某个项目正在等待、运行或者运行完毕的job列表。支持的请求类型：<code>GET</code>。</p>
+<p>参数：</p>
+<ul>
+<li><code>project</code> (string, required) - 项目名称</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listjobs.json?project=myproject</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>,</span><br><span class="line"> <span class="string">&quot;pending&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;78391cc0fcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider1&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;running&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;422e608f9f28cef127b3d5ef93fe9399&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;finished&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;2f16646cfcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider3&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>, <span class="string">&quot;end_time&quot;</span>: <span class="string">&quot;2012-09-12 10:24:03.594664&quot;</span>&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-9-delversion-json"><a href="#5-9-delversion-json" class="headerlink" title="5.9 delversion.json"></a>5.9 delversion.json</h4><p>删除某个项目的某个版本，如果这个项目不再有能用的版本，那么项目也会被删除。支持的请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><p><code>project</code> (string, required) - 项目名称</p>
+</li>
+<li><p><code>version</code> (string, required) - 要删除的项目版本</p>
+</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delversion.json -d project=myproject -d version=r99</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-10-delproject-json"><a href="#5-10-delproject-json" class="headerlink" title="5.10 delproject.json"></a>5.10 delproject.json</h4><p>删除指定项目。支持请求方法：<code>POST</code>。</p>
+<p>参数：</p>
+<ul>
+<li><code>project</code> (string, required) - 项目名称</li>
+</ul>
+<p>request例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delproject.json -d project=myproject</span><br></pre></td></tr></table></figure>
+<p>response例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>参考链接:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2a189127901a">https://www.jianshu.com/p/2a189127901a</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://scrapyd.readthedocs.io/en/latest/api.html">https://scrapyd.readthedocs.io/en/latest/api.html</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html" title="Scrapy框架(九):使用scrapyd部署爬虫">http://qzmvc1.top/Scrapy框架-九-使用scrapyd部署爬虫.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i> Scrapy</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Working-with-MongoDB-and-Pymongo.html" rel="prev" title="Working with MongoDB and Pymongo">
+                  <i class="fa fa-chevron-left"></i> Working with MongoDB and Pymongo
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html" rel="next" title="Python人脸识别模块face_recognition之环境配置">
+                  Python人脸识别模块face_recognition之环境配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="简介$AutoRec$ 模型是由澳大利亚国立大学在2015年提出的，它将自编码器($AutoEncoder$)的思想与协同过滤($Collaborative　Filter$)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。 原文地址：AutoRec: Autoencoders Meet Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的推荐算法之路(5):AutoRec">
+<meta property="og:url" content="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="简介$AutoRec$ 模型是由澳大利亚国立大学在2015年提出的，它将自编码器($AutoEncoder$)的思想与协同过滤($Collaborative　Filter$)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。 原文地址：AutoRec: Autoencoders Meet Co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/17/4MmWLT.png">
+<meta property="og:image" content="https://z3.ax1x.com/2021/09/17/4MlL6A.png">
+<meta property="article:published_time" content="2021-09-17T08:59:18.000Z">
+<meta property="article:modified_time" content="2021-10-06T12:21:38.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="推荐算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/09/17/4MmWLT.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html","path":"我的推荐算法之路-5-AutoRec.html","title":"我的推荐算法之路(5):AutoRec"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>我的推荐算法之路(5):AutoRec | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8AutoEncoder"><span class="nav-text">一、自动编码器AutoEncoder</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">1.1 自编码器的介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8%E4%B8%8E%E5%89%8D%E9%A6%88%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%AF%94%E8%BE%83%EF%BC%9A"><span class="nav-text">1.2 自编码器与前馈神经网络的比较：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81AutoRec"><span class="nav-text">二、AutoRec</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="nav-text">2.1 模型结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-text">2.2 损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E5%9F%BA%E4%BA%8EAutoRec%E7%9A%84%E6%8E%A8%E8%8D%90%E8%BF%87%E7%A8%8B"><span class="nav-text">2.3 基于AutoRec的推荐过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Item-AutoRec"><span class="nav-text">Item-AutoRec</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#User-AutoRec"><span class="nav-text">User-AutoRec</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA"><span class="nav-text">三、代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-text">四、总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的推荐算法之路(5):AutoRec
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-17 16:59:18" itemprop="dateCreated datePublished" datetime="2021-09-17T16:59:18+08:00">2021-09-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 20:21:38" itemprop="dateModified" datetime="2021-10-06T20:21:38+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>$AutoRec$ 模型是由澳大利亚国立大学在2015年提出的，它将自编码器($AutoEncoder$)的思想与协同过滤($Collaborative　Filter$)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。</p>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://users.cecs.anu.edu.au/~akmenon/papers/autorec/autorec-paper.pdf">AutoRec: Autoencoders Meet Collaborative Filtering</a></p>
+<span id="more"></span>
+
+<h3 id="一、自动编码器AutoEncoder"><a href="#一、自动编码器AutoEncoder" class="headerlink" title="一、自动编码器AutoEncoder"></a>一、自动编码器AutoEncoder</h3><h4 id="1-1-自编码器的介绍"><a href="#1-1-自编码器的介绍" class="headerlink" title="1.1 自编码器的介绍"></a>1.1 自编码器的介绍</h4><p>自编码器是一种<strong>无监督</strong>的<strong>数据维度压缩和数据特征</strong>表达方法，它是神经网络的一种，经过训练后能尝试将输入复制到输出。自编码器由编码器和解码器组成，结构如下：</p>
+<p><img src="https://z3.ax1x.com/2021/09/17/4MmWLT.png"></p>
+<p>  其中，输入为 $x$，输出为 $r$ ，$S$ 代表所有的输入数据向量，$h=f(x)$ 表示编码器，$r=g(h)$ 表示解码器，自编码器的目标便是优化损失函数：<br>$$<br>min \mathop{\sum}\limits_{r \in S} ||r-g(h)||^2_2<br>$$<br>也就是令图中红色部分的Error值最小。</p>
+<blockquote>
+<p>Q1：输出向量与输入向量误差最小有什么意义？直接使用原始输入向量不行吗？为什么需要编码和解码这些操作？</p>
+<p>A1：比如协同过滤中，每个用户对每个物品不可能都评过分，即当数据规模较大时，共现矩阵是一个巨大的稀疏矩阵，该矩阵存在大量的缺失值。故将初始向量通过已训练好的AutoEncoder模型得到的输出向量会因为网络权重的作用而自动填补一些缺失值，与输入向量有所区别。</p>
+<p>事实上，AutoEncoder的中间隐层是其最有用的特性之一。其可以作为特征提取的结果，也可作为数据降维的结果等。</p>
+<p>Q2：既然共现矩阵稀疏，存在大量缺失值，怎么处理缺失值？训练的效果会好吗？</p>
+<p>A2：缺失值的处理可以尝试用0代替，在训练过程中，不同输入向量的不同缺失值相互弥补了输出向量的空缺。个人理解是某些输入向量的训练集中在某些权值上，而另一些与其缺失值不同的输入向量的训练集中在另一些权值上。</p>
+</blockquote>
+<h4 id="1-2-自编码器与前馈神经网络的比较："><a href="#1-2-自编码器与前馈神经网络的比较：" class="headerlink" title="1.2 自编码器与前馈神经网络的比较："></a>1.2 自编码器与前馈神经网络的比较：</h4><blockquote>
+<ul>
+<li>自编码器是前馈神经网络的一种，最开始主要用于数据的降维以及特征的抽取，随着技术的不断发展，现在也被用于生成模型中，可用来生成图片等。</li>
+<li>前馈神经网络是有监督学习，其需要大量的标注数据；自编码器是无监督学习，数据不需要标注因此较容易收集。</li>
+<li>前馈神经网络在训练时主要关注输出层的数据以及错误率；而自编码器可能更多的关注中间隐层的结果。</li>
+</ul>
+</blockquote>
+<h3 id="二、AutoRec"><a href="#二、AutoRec" class="headerlink" title="二、AutoRec"></a>二、AutoRec</h3><p>$AutoRec$ 模型跟多层感知机类似，是一个标准的3层全连接神经网络，只不过它结合了自编码器和协同过滤的思想。再确切一点说，$AutoRec$ 模型就是一个标准的自编码器结构，它的基本原理是利用协同过滤中的共现矩阵，完成物品向量或者用户向量的自编码，再利用自编码结果得到用户对所有物品的评分，结果通过排序之后就可以用于物品推荐。</p>
+<h4 id="2-1-模型结构"><a href="#2-1-模型结构" class="headerlink" title="2.1 模型结构"></a>2.1 模型结构</h4><p>在基于评分数据的协同过滤算法中，假设我们有 $m$ 个用户，$n$ 个物品，则有用户-物品评分矩阵 $R \in  {\Bbb R}^{m×n}$ 。对于一个用户 $u$ 来说，他对所有 $n$ 个物品的评分数据可以形成一个 $n$ 维的向量 $r^{(u)}=(R_{u1},\cdots,R_{un})$。同理，对于一个物品 $i$ 而言，所有 $m$ 个用户对它的评分可以构成一个 $m$ 维的向量 $r^{(i)}=(R_{1i},\cdots,R_{mi})$  。其中 $R_{ui}$ 代表的是用户 $u$ 对 物品 $i$ 的评分。</p>
+<p>下面是 $AutoRec$ 的整体模型框图：</p>
+<p><img src="https://z3.ax1x.com/2021/09/17/4MlL6A.png"></p>
+<p>可以看到整个模型只有3层，蓝色的圆点代表的是隐层神经元，红色方框代表的是模型的输入，经过权重矩阵 $V$ 到达隐藏层，再经过权重矩阵 $W$ 到达输出层，我们的目的是通过训练模型，找到合适的权重矩阵 $V$ 和 $W$，以及偏置 $\mu$ 和 $b$，使得输入和输出的误差最小。令模型的重建函数为 $h(r;\theta)$，其中 $r \in {\Bbb R}^d$，其定义如下：<br>$$<br>h(r;\theta) = f(W·g(Vr+\mu)+b)<br>$$<br>其中， $f(·)$ 代表的是输出层的神经元激活函数，$g(·)$ 代表的是隐层神经元的激活函数。$\theta={W,V,\mu,b}$，$V$ 和 $W$ 分别是隐层和输出层的权重矩阵，$\mu$ 和 $b$ 分别是隐层和输出层的偏置。</p>
+<h4 id="2-2-损失函数"><a href="#2-2-损失函数" class="headerlink" title="2.2 损失函数"></a>2.2 损失函数</h4><p>$$<br>\mathop{min}\limits_{\theta}\sum^n_{i=1}||r^{(i)}-h(r^{(i)};\theta)||^2_2+\frac{\lambda}{2}(||W||^2_2+||V||^2_2)<br>$$</p>
+<h4 id="2-3-基于AutoRec的推荐过程"><a href="#2-3-基于AutoRec的推荐过程" class="headerlink" title="2.3 基于AutoRec的推荐过程"></a>2.3 基于AutoRec的推荐过程</h4><h5 id="Item-AutoRec"><a href="#Item-AutoRec" class="headerlink" title="Item-AutoRec"></a>Item-AutoRec</h5><ul>
+<li>依次输入物品 $i$ 的评分向量 $r^{(i)}$，得到模型输出的预测评分向量 $h(r^{(i)};\theta)$；</li>
+<li>遍历所有物品预测评分向量的第 $u$ 维，得到用户 $u$ 对所有物品的评分，进行排序之后得到用户 $u$ 的推荐列表。</li>
+</ul>
+<h5 id="User-AutoRec"><a href="#User-AutoRec" class="headerlink" title="User-AutoRec"></a>User-AutoRec</h5><ul>
+<li>依次输入用户 $u$ 的评分向量 $r^{(u)}$，得到模型输出的预测评分向量 $h(r^{(u)};\theta)$；</li>
+<li>进行排序得到用户 $u$ 的推荐列表。</li>
+</ul>
+<h3 id="三、代码演示"><a href="#三、代码演示" class="headerlink" title="三、代码演示"></a>三、代码演示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> moviesData <span class="keyword">import</span> readRatings</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># AutoRec_user_based</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AutoRec</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_users, num_items, hidden_nodes=<span class="number">1000</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.num_users = num_users</span><br><span class="line">        self.num_items = num_items</span><br><span class="line">        self.hidden_nodes = hidden_nodes</span><br><span class="line"></span><br><span class="line">        self.encoder = nn.Sequential(</span><br><span class="line">            nn.Linear(self.num_items, self.hidden_nodes),</span><br><span class="line">            nn.ReLU()</span><br><span class="line">        )</span><br><span class="line">        self.decoder = nn.Sequential(</span><br><span class="line">            nn.Linear(self.hidden_nodes, self.num_items),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, X</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.decoder(self.encoder(X))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">epochs, data_iter</span>):</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        epochloss = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_iter):</span><br><span class="line">            loss = lossF(net(x), x)</span><br><span class="line">            epochloss += loss.item()</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">        losslist.append(epochloss/(i+<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 共现矩阵</span></span><br><span class="line">    comatrix = torch.tensor(np.load(<span class="string">&#x27;./comatrix.npy&#x27;</span>), dtype=torch.float32)</span><br><span class="line">    trainX, testX = comatrix[:<span class="built_in">int</span>(<span class="number">0.7</span>*comatrix.shape[<span class="number">0</span>])], comatrix[<span class="built_in">int</span>(<span class="number">0.7</span>*comatrix.shape[<span class="number">0</span>]):]</span><br><span class="line">    data_iter = data.DataLoader(trainX, batch_size=<span class="number">4</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    net = AutoRec(trainX.shape[<span class="number">0</span>], trainX.shape[<span class="number">1</span>])</span><br><span class="line">    lossF = nn.MSELoss()</span><br><span class="line">    optimizer = torch.optim.Adam(net.parameters(), lr=<span class="number">1e-4</span>, weight_decay=<span class="number">1e-3</span>)</span><br><span class="line"></span><br><span class="line">    losslist = []</span><br><span class="line">    train(<span class="number">1000</span>, data_iter)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>$AutoRec$ 模型是深度学习方法用于推荐系统中的开山之作，它仅仅使用了一个单隐层的自编码器来泛化用户和物品评分，使模型具有一定的泛化和表达能力。但是由于模型过于简单，也让它在实际使用中显得表征能力不足。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html" title="我的推荐算法之路(5):AutoRec">http://qzmvc1.top/我的推荐算法之路-5-AutoRec.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 推荐算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/LeetCodeLCP07-%E4%BC%A0%E9%80%92%E4%BF%A1%E6%81%AF.html" rel="prev" title="LeetCodeLCP07:传递信息">
+                  <i class="fa fa-chevron-left"></i> LeetCodeLCP07:传递信息
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-6-Deep-Crossing.html" rel="next" title="我的推荐算法之路(6):Deep Crossing">
+                  我的推荐算法之路(6):Deep Crossing <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

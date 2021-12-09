@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言 face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它">
+<meta property="og:type" content="article">
+<meta property="og:title" content="face_recognition实现摄像头实时人脸识别">
+<meta property="og:url" content="http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言 face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aj3h0P.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aj34Tf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aj3fmt.png">
+<meta property="article:published_time" content="2019-04-15T06:18:18.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:55:28.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="face_recognition">
+<meta property="article:tag" content="人脸识别">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/15/Aj3h0P.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html","path":"face-recognition实现摄像头实时人脸识别.html","title":"face_recognition实现摄像头实时人脸识别"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>face_recognition实现摄像头实时人脸识别 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#face-recognition%E7%AE%80%E4%BB%8B"><span class="nav-text">face_recognition简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81face-recognition%E8%AF%A6%E8%A7%A3"><span class="nav-text">一、face_recognition详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-face-recognition-load-image-file%EF%BC%88file%EF%BC%8Cmode-%E2%80%99RGB%E2%80%99-%EF%BC%89"><span class="nav-text">1.1 face_recognition.load_image_file（file，mode &#x3D;’RGB’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-face-recognition-face-locations%EF%BC%88img%EF%BC%8Cnumber-of-times-to-upsample-1%EF%BC%8Cmodel-%E2%80%99hog%E2%80%99-%EF%BC%89"><span class="nav-text">1.2 face_recognition.face_locations（img，number_of_times_to_upsample &#x3D; 1，model &#x3D;’hog’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-face-recognition-face-landmarks%EF%BC%88face-image%EF%BC%8Cface-locations-None%EF%BC%8Cmodel-%E2%80%99large%E2%80%99-%EF%BC%89"><span class="nav-text">1.3 face_recognition.face_landmarks（face_image，face_locations &#x3D; None，model &#x3D;’large’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-face-recognition-face-encodings%EF%BC%88face-image%EF%BC%8Cknown-face-locations-None%EF%BC%8Cnum-jitters-1-%EF%BC%89"><span class="nav-text">1.4 face_recognition.face_encodings（face_image，known_face_locations &#x3D; None，num_jitters &#x3D; 1 ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-face-recognition-api-face-distance%EF%BC%88face-encodings%EF%BC%8Cface-to-compare-%EF%BC%89"><span class="nav-text">1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-face-recognition-api-compare-faces%EF%BC%88known-face-encodings%EF%BC%8Cface-encoding-to-check%EF%BC%8Ctolerance-0-6-%EF%BC%89"><span class="nav-text">1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance &#x3D; 0.6 ）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81face-recognition%E4%BB%A3%E7%A0%81%E9%98%90%E8%BF%B0"><span class="nav-text">二、face_recognition代码阐述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%AD%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8"><span class="nav-text">2.1 在图片中识别人脸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%89%BE%E5%88%B0%E5%B9%B6%E6%93%8D%E4%BD%9C%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8%E9%83%A8%E7%89%B9%E5%BE%81"><span class="nav-text">2.2 找到并操作图片中的脸部特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E9%89%B4%E5%AE%9A%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8"><span class="nav-text">2.3 鉴定图片中的脸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81OpenCV-face-recognition-%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB"><span class="nav-text">三、OpenCV+face_recognition 摄像头实时人脸识别</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          face_recognition实现摄像头实时人脸识别
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-15 14:18:18" itemprop="dateCreated datePublished" datetime="2019-04-15T14:18:18+08:00">2019-04-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:55:28" itemprop="dateModified" datetime="2021-10-06T19:55:28+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition document</a></p>
+</blockquote>
+<p>本篇博客使用 <code>OpenCV + face_recognition</code> 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
+<h4 id="face-recognition简介"><a href="#face-recognition简介" class="headerlink" title="face_recognition简介"></a>face_recognition简介</h4><p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别**准确率在《Labled Faces in the world》测试基准下达到了99.38%**。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。</p>
+<hr>
+<span id="more"></span>
+<h3 id="一、face-recognition详解"><a href="#一、face-recognition详解" class="headerlink" title="一、face_recognition详解"></a>一、face_recognition详解</h3><p><strong>（以下内容翻译自官方文档）</strong></p>
+<h5 id="1-1-face-recognition-load-image-file（file，mode-’RGB’-）"><a href="#1-1-face-recognition-load-image-file（file，mode-’RGB’-）" class="headerlink" title="1.1 face_recognition.load_image_file（file，mode =’RGB’ ）"></a>1.1 face_recognition.load_image_file（file，mode =’RGB’ ）</h5><blockquote>
+<p>解释:</p>
+<ul>
+<li>将图像文件（.jpg，.png等）加载到numpy数组中</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li><p>file - 要加载的图像文件名或文件对象</p>
+</li>
+<li><p>mode - 将图像转换为的格式。仅支持“RGB”（8位RGB，3个通道）和“L”（黑色和白色）。</p>
+</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>图像内容为numpy数组</li>
+</ul>
+</blockquote>
+<h5 id="1-2-face-recognition-face-locations（img，number-of-times-to-upsample-1，model-’hog’-）"><a href="#1-2-face-recognition-face-locations（img，number-of-times-to-upsample-1，model-’hog’-）" class="headerlink" title="1.2 face_recognition.face_locations（img，number_of_times_to_upsample = 1，model =’hog’ ）"></a>1.2 face_recognition.face_locations（img，number_of_times_to_upsample = 1，model =’hog’ ）</h5><blockquote>
+<p>解释：</p>
+<ul>
+<li>返回图像中人脸边界框的数组</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>img - 一个图像（作为一个numpy数组）</li>
+<li>number_of_times_to_upsample - 对图像进行上采样以查找面部的次数。数字越大，面部越小。</li>
+<li>model - 使用哪种人脸检测模型。“hog”不太准确，但在CPU上更快。“cnn”是一种更准确的深度学习模型，它是GPU / CUDA加速（如果可用）。默认为“hog”。</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>css（顶部，右侧，底部，左侧）顺序中找到的面部位置的元组列表</li>
+</ul>
+</blockquote>
+<h5 id="1-3-face-recognition-face-landmarks（face-image，face-locations-None，model-’large’-）"><a href="#1-3-face-recognition-face-landmarks（face-image，face-locations-None，model-’large’-）" class="headerlink" title="1.3 face_recognition.face_landmarks（face_image，face_locations = None，model =’large’ ）"></a>1.3 face_recognition.face_landmarks（face_image，face_locations = None，model =’large’ ）</h5><blockquote>
+<p>解释:</p>
+<ul>
+<li>给定图像，返回图像中每个面部的面部特征位置（眼睛，鼻子等）的字典</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>face_image - 要搜索的图像</li>
+<li>face_locations - 可选择提供要检查的面部位置列表。</li>
+<li>model - 可选 - 要使用的模型。“大”（默认）或 “小”（速度更快）。</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>面部特征位置（眼睛，鼻子等）的序列表</li>
+</ul>
+</blockquote>
+<h5 id="1-4-face-recognition-face-encodings（face-image，known-face-locations-None，num-jitters-1-）"><a href="#1-4-face-recognition-face-encodings（face-image，known-face-locations-None，num-jitters-1-）" class="headerlink" title="1.4 face_recognition.face_encodings（face_image，known_face_locations = None，num_jitters = 1 ）"></a>1.4 face_recognition.face_encodings（face_image，known_face_locations = None，num_jitters = 1 ）</h5><blockquote>
+<p>解释：</p>
+<ul>
+<li>给定图像，返回图像中每个面的128维面部编码。</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>face_image - 包含一个或多个面的图像</li>
+<li>known_face_locations - 可选 - 如果您已经知道它们，则每个面的边界框。</li>
+<li>num_jitters - 计算编码时重新采样面的次数。更高更准确，但更慢（即100慢100倍）</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>128维面部编码列表（图像中每个面部一个）</li>
+</ul>
+</blockquote>
+<h5 id="1-5-face-recognition-api-face-distance（face-encodings，face-to-compare-）"><a href="#1-5-face-recognition-api-face-distance（face-encodings，face-to-compare-）" class="headerlink" title="1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）"></a>1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）</h5><blockquote>
+<p>解释：</p>
+<ul>
+<li>给定面部编码列表，将它们与已知面部编码进行比较，并获得每个比较面部的欧氏距离。距离告诉您脸部的相似程度。</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>faces - 要比较的面部编码列表</li>
+<li>face_to_compare - 要与之进行比较的面部编码</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>一个numpy ndarray，每个面的距离与’faces’数组的顺序相同</li>
+</ul>
+</blockquote>
+<h5 id="1-6-face-recognition-api-compare-faces（known-face-encodings，face-encoding-to-check，tolerance-0-6-）"><a href="#1-6-face-recognition-api-compare-faces（known-face-encodings，face-encoding-to-check，tolerance-0-6-）" class="headerlink" title="1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance = 0.6 ）"></a>1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance = 0.6 ）</h5><blockquote>
+<p>解释：</p>
+<ul>
+<li>将面部编码列表与候选编码进行比较，看它们是否匹配。</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>known_face_encodings - 已知面部编码的列表</li>
+<li>face_encoding_to_check - 用于与列表进行比较的单面编码</li>
+<li>tolerance - 面部之间的距离，将其视为匹配。越低越严格。0.6是典型的最佳性能。</li>
+</ul>
+<p>返回：</p>
+<ul>
+<li>True / False值的列表，指示哪个known_face_encodings与要检查的面部编码匹配</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="二、face-recognition代码阐述"><a href="#二、face-recognition代码阐述" class="headerlink" title="二、face_recognition代码阐述"></a>二、face_recognition代码阐述</h3><h4 id="2-1-在图片中识别人脸"><a href="#2-1-在图片中识别人脸" class="headerlink" title="2.1 在图片中识别人脸"></a>2.1 在图片中识别人脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3h0P.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image=face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_locations=face_recognition.face_locations(image)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-找到并操作图片中的脸部特征"><a href="#2-2-找到并操作图片中的脸部特征" class="headerlink" title="2.2 找到并操作图片中的脸部特征"></a>2.2 找到并操作图片中的脸部特征</h4><p>获得图片中人类眼睛、鼻子、嘴、下巴的位置和轮廓：</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aj34Tf.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image = face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_landmarks_list = face_recognition.face_landmarks(image)</span><br></pre></td></tr></table></figure>
+<p>找到脸部特征有很多超级有用的应用场景，当然你也可以把它用在最显而易见的功能上：美颜功能，就像美图秀秀那样。</p>
+<h4 id="2-3-鉴定图片中的脸"><a href="#2-3-鉴定图片中的脸" class="headerlink" title="2.3 鉴定图片中的脸"></a>2.3 鉴定图片中的脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3fmt.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">known_image=face_recognition.load_image_file(<span class="string">&quot;biden.jpg&quot;</span>)</span><br><span class="line">unknown_image=face_recognition.load_image_file(<span class="string">&quot;unknown.jpg&quot;</span>)</span><br><span class="line">biden_encoding=face_recognition.face_encodings(known_image)[<span class="number">0</span></span><br><span class="line">]unknown_encoding=face_recognition.face_encodings(unknown_image)[<span class="number">0</span>]</span><br><span class="line">results=face_recognition.compare_faces([biden_encoding],unknown_encoding)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="三、OpenCV-face-recognition-摄像头实时人脸识别"><a href="#三、OpenCV-face-recognition-摄像头实时人脸识别" class="headerlink" title="三、OpenCV+face_recognition 摄像头实时人脸识别"></a>三、OpenCV+face_recognition 摄像头实时人脸识别</h3><blockquote>
+<p>设计思路：</p>
+<ul>
+<li>读入目标图片并对已知人脸进行编码</li>
+<li>读取摄像头</li>
+<li>定位摄像头每一帧拍摄中的人脸位置坐标</li>
+<li>对摄像头每一帧进行编码并与已知图片的编码进行比较</li>
+<li>达到相似度的阈值则进行边框标记</li>
+<li>识别成功</li>
+</ul>
+</blockquote>
+<p><strong>注：过程中的函数的作用及参数的设置不懂的可以参考百度</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读入相关库</span></span><br><span class="line"><span class="comment"># cv2即 OpenCV(cv和cv2 有点类似 py2和py3)，用来读取摄像头</span></span><br><span class="line"><span class="comment"># face_recognition 进行人脸识别</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> face_recognition <span class="keyword">as</span> fr</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存在本地的待比较图片</span></span><br><span class="line"><span class="comment"># image是numpy三维数组</span></span><br><span class="line">image = fr.load_image_file(<span class="string">r&#x27;C:\SecurityMonitor\FaceRecognition\img\face.jpg&#x27;</span>)</span><br><span class="line"><span class="comment"># 对已知图片进行编码，由于face_encodings是元组列表，并且我们已知的图片中只有一个人，所以获取索引0即目标编码</span></span><br><span class="line">Admin_encoding = fr.face_encodings(image)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用OpenCV获取摄像头，VideoCapture(0)是后置摄像头，VideoCapture(1)是前置摄像头</span></span><br><span class="line">cap = cv2.VideoCapture(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 让摄像头一直进行拍摄</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># 由于摄像头中会出现很多人脸，设置index为编码列表中识别成功的元素下标值</span></span><br><span class="line">    index = -<span class="number">1</span></span><br><span class="line">    <span class="comment"># 进行摄像头的拍摄，read()是按帧拍摄</span></span><br><span class="line">    <span class="comment"># 返回值1：ret是bool值，拍摄成功与否</span></span><br><span class="line">    <span class="comment"># 返回值2：frame是该帧的numpy数组</span></span><br><span class="line">    ret,frame = cap.read()</span><br><span class="line">    <span class="comment"># 对图像进行resize()缩小，提高速度</span></span><br><span class="line">    smallFrame = cv2.resize(frame,(<span class="number">0</span>,<span class="number">0</span>),fx=<span class="number">0.25</span>,fy=<span class="number">0.25</span>)</span><br><span class="line">    <span class="comment"># 定位摄像头该帧中的人脸，face_locations(top，right，bottom，left)是元组列表，可能有多个人脸</span></span><br><span class="line">    face_locations = fr.face_locations(smallFrame)</span><br><span class="line">    <span class="comment"># 在该帧图像中定位人脸位置，并进行人脸编码</span></span><br><span class="line">    face_encodings = fr.face_encodings(smallFrame,face_locations)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对每一个编码进行与已知编码进行比较，识别成功则记录下标并退出</span></span><br><span class="line">    <span class="keyword">for</span> i,face_encoding <span class="keyword">in</span> <span class="built_in">enumerate</span>(face_encodings):</span><br><span class="line">        result = fr.compare_faces([Admin_encoding],face_encoding)</span><br><span class="line">        <span class="keyword">if</span> result:</span><br><span class="line">            index = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 识别成功则进行矩形框标记，需要将该帧图像恢复原图，因为上面的比例因子为0.25，所以这里扩大四倍</span></span><br><span class="line">    <span class="keyword">if</span> index != -<span class="number">1</span>:</span><br><span class="line">        face_location = face_locations[index]</span><br><span class="line">        top = face_location[<span class="number">0</span>] * <span class="number">4</span></span><br><span class="line">        right = face_location[<span class="number">1</span>] * <span class="number">4</span></span><br><span class="line">        bottom = face_location[<span class="number">2</span>] * <span class="number">4</span></span><br><span class="line">        left = face_location[<span class="number">3</span>] * <span class="number">4</span></span><br><span class="line">        <span class="comment"># 矩形框标记</span></span><br><span class="line">        cv2.rectangle(frame,(left,top),(right,bottom),(<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示摄像头图像</span></span><br><span class="line">    cv2.imshow(<span class="string">&#x27;Identification&#x27;</span>,frame)</span><br><span class="line">    <span class="comment"># 按 q 退出</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 释放资源</span></span><br><span class="line">cap.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html" title="face_recognition实现摄像头实时人脸识别">http://qzmvc1.top/face-recognition实现摄像头实时人脸识别.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/face-recognition/" rel="tag"><i class="fa fa-tag"></i> face_recognition</a>
+              <a href="/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="tag"><i class="fa fa-tag"></i> 人脸识别</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html" rel="prev" title="Python人脸识别模块face_recognition之环境配置">
+                  <i class="fa fa-chevron-left"></i> Python人脸识别模块face_recognition之环境配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B8%B8%E8%A7%81%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B.html" rel="next" title="神经网络常见激活函数简介">
+                  神经网络常见激活函数简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

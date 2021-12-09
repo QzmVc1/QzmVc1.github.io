@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：　　　　　　　　　　　　　　　　　min  f(x).如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优化算法(一)：模拟退火算法">
+<meta property="og:url" content="http://qzmvc1.top/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：　　　　　　　　　　　　　　　　　min  f(x).如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F04aZV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F046MR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F04Xo8.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F05Fe0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/17/F05AoT.png">
+<meta property="article:published_time" content="2018-12-17T12:18:11.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:16.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/17/F04aZV.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html","path":"优化算法-一-：模拟退火算法.html","title":"优化算法(一)：模拟退火算法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>优化算法(一)：模拟退火算法 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-text">一、模拟退火算法基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95%E8%BF%87%E7%A8%8B"><span class="nav-text">二、模拟退火算法过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">三、模拟退火算法的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95Python%E5%AE%9E%E6%88%98"><span class="nav-text">四、模拟退火算法Python实战</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          优化算法(一)：模拟退火算法
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-17 20:18:11" itemprop="dateCreated datePublished" datetime="2018-12-17T20:18:11+08:00">2018-12-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:16" itemprop="dateModified" datetime="2021-10-06T19:57:16+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">优化算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在实际日常中，人们会经常遇到如下问题：在某个给定的定义域X内，求函数f(x)对应的最优值。此处以最小值问题举例（最大值问题可以等价转化成最小值问题），形式化为：<br>　　　　　　　　　　　　　　　　　<strong>min  f(x).</strong><br>如果X是离散有限取值，那么可以通过穷取法获得问题的最优解；如果X连续，但f(x)是凸的，那可以通过梯度下降等方法获得最优解；如果X连续且f(x)非凸，虽说根据已有的近似求解法能够找到问题解，可解是否是最优的还有待考量，很多时候若初始值选择的不好，非常容易陷入局部最优值。<br><img src="https://s1.ax1x.com/2018/12/17/F04aZV.png"></p>
+<p>随着日常业务场景的复杂化，第三种问题经常遇见。如何有效地避免局部最优的困扰？模拟退火算法应运而生。其实模拟退火也算是启发式算法的一种，具体学习的是冶金学中金属加热-冷却的过程。由S.Kirkpatrick, C.D.Gelatt和M.P.Vecchi在1983年所发明的，V.Čern在1985年也独立发明此演算法。</p>
+<p>不过模拟退火算法到底是如何模拟金属退火的原理？主要是将热力学的理论套用到统计学上，将搜寻空间内每一点想像成空气内的分子；分子的能量，就是它本身的动能；而搜寻空间内的每一点，也像空气分子一样带有“能量”，以表示该点对命题的合适程度。演算法先以搜寻空间内一个任意点作起始：每一步先选择一个“邻居”，然后再计算从现有位置到达“邻居”的概率。若概率大于给定的阈值，则跳转到“邻居”；若概率较小，则停留在原位置不动。</p>
+<span id="more"></span>
+<hr>
+<h3 id="一、模拟退火算法基本思想"><a href="#一、模拟退火算法基本思想" class="headerlink" title="一、模拟退火算法基本思想"></a>一、模拟退火算法基本思想</h3><p>爬山法是一种贪婪的方法，对于一个优化问题，其大致图像如下图所示：</p>
+<p><img src="https://s1.ax1x.com/2018/12/17/F046MR.png"></p>
+<p>其目标是要找到函数的最大值，若初始化时，初始点的位置在C处，则会寻找到附近的局部最大值A点处，由于A点出是一个局部最大值点，故对于爬山法来讲，该算法无法跳出局部最大值点。若初始点选择在D处，根据爬山法，则会找到全部最大值点B。这一点也说明了这样基于贪婪的爬山法是否能够取得全局最优解与初始值的选取由很大的关系。</p>
+<p>模拟退火算法(Simulated Annealing, SA)的思想借鉴于固体的退火原理，当固体的温度很高的时候，内能比较大，固体的内部粒子处于快速无序运动，当温度慢慢降低的过程中，固体的内能减小，粒子的慢慢趋于有序，最终，当固体处于常温时，内能达到最小，此时，粒子最为稳定。模拟退火算法便是基于这样的原理设计而成。</p>
+<p>模拟退火算法从某一较高的温度出发，这个温度称为初始温度，伴随着温度参数的不断下降，算法中的解趋于稳定，但是，可能这样的稳定解是一个局部最优解，此时，模拟退火算法中会以一定的概率跳出这样的局部最优解，以寻找目标函数的全局最优解。如上图中所示，若此时寻找到了A点处的解，模拟退火算法会以一定的概率跳出这个解，如跳到了D点重新寻找，这样在一定程度上增加了寻找到全局最优解的可能性。</p>
+<p><img src="https://s1.ax1x.com/2018/12/17/F04Xo8.png"></p>
+<hr>
+<h3 id="二、模拟退火算法过程"><a href="#二、模拟退火算法过程" class="headerlink" title="二、模拟退火算法过程"></a>二、模拟退火算法过程</h3><p>(1)随机挑选一个单元k，并给它一个随机的位移，求出系统因此而产生的能量变化ΔEk。</p>
+<p>(2)若ΔEk⩽0，该位移可采纳，而变化后的系统状态可作为下次变化的起点；<br>若ΔEk&gt;0，位移后的状态可采纳的概率为</p>
+<p><img src="https://s1.ax1x.com/2018/12/17/F05Fe0.png"></p>
+<p>式中T为温度，然后从(0,1)区间均匀分布的随机数中挑选一个数R，若R &lt; Pk ，则将变化后的状态作为下次的起点；否则，将变化前的状态作为下次的起点。</p>
+<p>(3)转第(1)步继续执行，知道达到平衡状态为止。</p>
+<p><img src="https://s1.ax1x.com/2018/12/17/F05AoT.png"></p>
+<hr>
+<h3 id="三、模拟退火算法的优缺点"><a href="#三、模拟退火算法的优缺点" class="headerlink" title="三、模拟退火算法的优缺点"></a>三、模拟退火算法的优缺点</h3><p>模拟退火算法的应用很广泛，可以高效地求解NP完全问题，如货郎担问题(Travelling Salesman Problem，简记为TSP)、最大截问题(Max Cut Problem)、0-1背包问题(Zero One Knapsack Problem)、图着色问题(Graph Colouring Problem)等等，但其参数难以控制，不能保证一次就收敛到最优值，一般需要多次尝试才能获得（大部分情况下还是会陷入局部最优值）。观察模拟退火算法的过程，发现其主要存在如下三个参数问题：</p>
+<p><strong>(1) 温度T的初始值设置问题</strong><br>　　温度T的初始值设置是影响模拟退火算法全局搜索性能的重要因素之一、初始温度高，则搜索到全局最优解的可能性大，但因此要花费大量的计算时间；反之，则可节约计算时间，但全局搜索性能可能受到影响。</p>
+<p>　　<strong>(2) 退火速度问题，即每个T值的迭代次数</strong><br>　　模拟退火算法的全局搜索性能也与退火速度密切相关。一般来说，同一温度下的“充分”搜索是相当必要的，但这也需要计算时间。循环次数增加必定带来计算开销的增大。</p>
+<p>　　<strong>(3) 温度管理问题</strong><br>　　温度管理问题也是模拟退火算法难以处理的问题之一。实际应用中，由于必须考虑计算复杂度的切实可行性等问题，常采用如下所示的降温方式：<br>　　　　　　　　　　　　　　　　<strong>T=α×T.α∈(0,1).</strong><br>注：为了保证较大的搜索空间，α一般取接近于1的值，如0.95、0.9。</p>
+<hr>
+<h3 id="四、模拟退火算法Python实战"><a href="#四、模拟退火算法Python实战" class="headerlink" title="四、模拟退火算法Python实战"></a>四、模拟退火算法Python实战</h3><p>经过上面理论知识的熏陶，相信大家已经对模拟退火算法有了较深入的理解，接下来通过实战再强化一下大家的认识，此处利用模拟退火算法求解如下优化问题：<br>　　　　　　　　<strong>min f(x)=(x−2)∗(x+3)∗(x+8)∗(x−9)</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inputfun</span>(<span class="params">x</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (x-<span class="number">2</span>)*(x+<span class="number">3</span>)*(x+<span class="number">8</span>)*(x-<span class="number">9</span>)</span><br><span class="line"></span><br><span class="line">initT = <span class="number">1000</span> <span class="comment">#初始温度</span></span><br><span class="line">minT = <span class="number">1</span> <span class="comment">#温度下限</span></span><br><span class="line">iterL = <span class="number">1000</span> <span class="comment">#每个T值的迭代次数</span></span><br><span class="line">delta = <span class="number">0.95</span> <span class="comment">#温度衰减系数</span></span><br><span class="line">k = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">initx = <span class="number">10</span>*(<span class="number">2</span>*np.random.rand()-<span class="number">1</span>)</span><br><span class="line">nowt = initT</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;初始解：&quot;</span>,initx)</span><br><span class="line"></span><br><span class="line">xx = np.linspace(-<span class="number">10</span>,<span class="number">10</span>,<span class="number">300</span>)</span><br><span class="line">yy = inputfun(xx)</span><br><span class="line">plt.figure()</span><br><span class="line">plt.plot(xx,yy)</span><br><span class="line">plt.plot(initx,inputfun(initx),<span class="string">&#x27;o&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#模拟退火算法寻找最小值过程</span></span><br><span class="line"><span class="keyword">while</span> nowt&gt;minT:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> np.arange(<span class="number">1</span>,iterL,<span class="number">1</span>):</span><br><span class="line">        funVal = inputfun(initx)</span><br><span class="line">        xnew = initx+(<span class="number">2</span>*np.random.rand()-<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">if</span> xnew&gt;=-<span class="number">10</span> <span class="keyword">and</span> xnew&lt;=<span class="number">10</span>:</span><br><span class="line">            funnew = inputfun(xnew)</span><br><span class="line">            res = funnew-funVal</span><br><span class="line">            <span class="keyword">if</span> res&lt;<span class="number">0</span>:</span><br><span class="line">                initx = xnew</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p = np.exp(-(res)/(k*nowt))</span><br><span class="line">                <span class="keyword">if</span> np.random.rand()&lt;p:</span><br><span class="line">                    initx = xnew</span><br><span class="line">    nowt = nowt * delta</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最优解：&quot;</span>,initx)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最优值：&quot;</span>,inputfun(initx))</span><br><span class="line">plt.plot(initx,inputfun(initx),<span class="string">&#x27;*r&#x27;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/AI_BigData_wh/article/details/77943787">https://blog.csdn.net/AI_BigData_wh/article/details/77943787</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/google19890102/article/details/45395257">https://blog.csdn.net/google19890102/article/details/45395257</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heaad/archive/2010/12/20/1911614.html">https://www.cnblogs.com/heaad/archive/2010/12/20/1911614.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%80-%EF%BC%9A%E6%A8%A1%E6%8B%9F%E9%80%80%E7%81%AB%E7%AE%97%E6%B3%95.html" title="优化算法(一)：模拟退火算法">http://qzmvc1.top/优化算法-一-：模拟退火算法.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/PyQt5%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html" rel="prev" title="PyQt5学习日记(二):信号与槽">
+                  <i class="fa fa-chevron-left"></i> PyQt5学习日记(二):信号与槽
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%B5%85%E6%9E%90Python3%E7%BB%98%E5%9B%BE%E5%BA%93matplotlib%E7%9A%84%E4%BD%BF%E7%94%A8.html" rel="next" title="浅析Python3绘图库matplotlib的使用">
+                  浅析Python3绘图库matplotlib的使用 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

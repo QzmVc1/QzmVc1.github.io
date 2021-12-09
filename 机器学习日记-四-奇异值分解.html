@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="引言在学习奇异值分解前，请务必看一下以下对于奇异值的直观理解：奇异值的物理意义是什么？ 奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习日记(四):奇异值分解">
+<meta property="og:url" content="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="引言在学习奇异值分解前，请务必看一下以下对于奇异值的直观理解：奇异值的物理意义是什么？ 奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/04/nZrhlQ.png">
+<meta property="article:published_time" content="2019-09-04T08:51:36.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:53:26.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/04/nZrhlQ.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html","path":"机器学习日记-四-奇异值分解.html","title":"机器学习日记(四):奇异值分解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>机器学习日记(四):奇异值分解 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-text">引言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%9A%E7%90%86%E4%B8%8E%E5%AE%9A%E4%B9%89"><span class="nav-text">一、定理与定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B4%A7%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8E%E6%88%AA%E6%96%AD%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3"><span class="nav-text">二、紧奇异值分解与截断奇异值分解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1%E7%B4%A7%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3"><span class="nav-text">2.1紧奇异值分解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%88%AA%E6%96%AD%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3"><span class="nav-text">2.2 截断奇异值分解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%87%A0%E4%BD%95%E8%A7%A3%E9%87%8A"><span class="nav-text">三、几何解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E4%B8%BB%E8%A6%81%E6%80%A7%E8%B4%A8"><span class="nav-text">四、主要性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-text">五、奇异值分解的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E4%B8%8E%E7%9F%A9%E9%98%B5%E8%BF%91%E4%BC%BC"><span class="nav-text">六、奇异值分解与矩阵近似</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-%E5%BC%97%E7%BD%97%E8%B4%9D%E5%B0%BC%E4%B9%8C%E6%96%AF%E8%8C%83%E6%95%B0"><span class="nav-text">6.1 弗罗贝尼乌斯范数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9C%80%E4%BC%98%E8%BF%91%E4%BC%BC"><span class="nav-text">6.2 矩阵的最优近似</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-%E7%9F%A9%E9%98%B5%E7%9A%84%E5%A4%96%E7%A7%AF%E5%B1%95%E5%BC%80%E5%BC%8F"><span class="nav-text">6.3 矩阵的外积展开式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81Reference"><span class="nav-text">七、Reference</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器学习日记(四):奇异值分解
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-04 16:51:36" itemprop="dateCreated datePublished" datetime="2019-09-04T16:51:36+08:00">2019-09-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:53:26" itemprop="dateModified" datetime="2021-10-06T19:53:26+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在学习奇异值分解前，请<strong>务必</strong>看一下以下对于奇异值的直观理解：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22237507/answer/53804902">奇异值的物理意义是什么？</a></p>
+<p>奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的一种方法，即用因子分解的方式近似地表示原始矩阵，这种近似是在平方损失意义下的最有近似。</p>
+<span id="more"></span>
+
+<h3 id="一、定理与定义"><a href="#一、定理与定义" class="headerlink" title="一、定理与定义"></a>一、定理与定义</h3><p><strong>定义1&nbsp;  (奇异值分解)</strong>  矩阵的奇异值分解是指，将一个非零的 $m×n$ 实矩阵 $A$, $A\in R^{m×n}$，表示为以下三个实矩阵乘积形式的运算，即进行矩阵因子分解：</p>
+<p>$$A=U\sum V^T$$</p>
+<p>其中 $U$ 是 $m$ 阶正交矩阵，$V$ 是 $n$ 阶正交矩阵，$\sum$ 是由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵，</p>
+<p>$$UU^T=I$$</p>
+<p>$$VV^T=I$$</p>
+<p>$$\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_p)$$</p>
+<p>$$\sigma_1\geq \sigma_2 \geq \cdots \geq \sigma_p \geq 0$$</p>
+<p>$$p=min(m,n)$$</p>
+<p>$U\sum V^T$ 称为矩阵 $A$ 的奇异值分解， $\sigma_i$ 称为矩阵 $A$ 的奇异值， $U$ 的列向量称为左奇异向量，$V$ 的列向量称为右奇异向量。</p>
+<p><strong>那么任意给定一个实矩阵，其奇异值分解是否一定存在呢？答案是肯定的，下面的奇异值分解的基本定理给予保证。</strong></p>
+<hr>
+<p><strong>定理1&nbsp; (奇异值分解基本定理)</strong> 若 $A$ 为一 $m×n$ 实矩阵，$A\in R^{m×n}$，则 $A$ 的奇异值分解存在</p>
+<p>$$A=U\sum V^T$$</p>
+<p><strong>证明：</strong>证明是构造性的，对给定的矩阵 $A$，构造出其奇异值分解的各个矩阵。为了方便，不放假设 $m\geq n$，如果 $m&lt;n$ 证明仍然成立。证明由三步完成。</p>
+<p>(1) 确定 $V$ 和 $\sum$</p>
+<p>首先构造 $n$ 阶正交实矩阵 $V$ 和 $m×n$ 矩阵对角实矩阵 $\sum$。</p>
+<p>矩阵 $A$ 是 $m×n$ 实矩阵，则矩阵 $A^TA$ 是 $n$ 阶实对称矩阵。因而 $A^TA$ 的特征值都是实数，并且存在一个 $n$ 阶正交实矩阵 $V$ 实现 $A^TA$ 的对角化，使得 $V^T(A^TA)V= \Lambda$ 成立，其中 $\Lambda$ 是 $n$ 阶对角矩阵，其对角线元素由 $A^TA$ 的特征值组成。</p>
+<p>而且，$A^TA$ 的特征值都是非负的。事实上，令 $\lambda$ 是 $A^TA$ 的一个特征值，$x$ 是对应的特征向量，则</p>
+<p>$$||Ax||^2=x^TA^TAx=\lambda x^Tx=\lambda ||x||^2$$</p>
+<p>于是</p>
+<p>$$\lambda=\frac{||Ax||^2}{||x||^2}\geq0$$</p>
+<p>可以假设正交矩阵 $V$ 的列的排列使得对应的特征值形成降序排列</p>
+<p>$$\lambda_1\geq \lambda_2\geq \cdots \geq \lambda_n \geq 0$$</p>
+<p>计算特征值的平方根（实际就是矩阵 $A$ 的奇异值）</p>
+<p>$$\sigma_j=\sqrt{\lambda_j}，j=1,2,\cdots,n$$</p>
+<p>设矩阵 $A$ 的秩是 $r$ , $rank(A) = r$，则矩阵 $A^TA$ 的秩也是 $r$。由于 $A^TA$ 是对称矩阵，它的秩等于正的特征值的个数，所以</p>
+<p>$$\lambda_1 \geq \lambda_2 \geq \cdots \lambda_r &gt;0，\lambda_{r+1}=\lambda_{r+2}=\cdots=\lambda_n=0$$</p>
+<p>对应的有</p>
+<p>$$\sigma_1 \geq \sigma_2 \geq \cdots \sigma_r &gt;0，\sigma_{r+1}=\sigma_{r+2}=\cdots=\sigma_n=0$$</p>
+<p>令</p>
+<p>$$V_1 = [v_1\quad v_2\quad \cdots\quad v_r]，V_2=[v_{r+1}\quad v_{r+2}\quad \cdots\quad v_n]$$</p>
+<p>其中 $v_1,\cdots,v_r$ 为 $A^TA$ 的正特征值对应的特征向量，$v_{r+1},\cdots,v_n$ 为 $0$ 特征值对应的特征向量，则</p>
+<p>$$V = [V_1\quad V_2]$$</p>
+<p>这就是矩阵 $A$ 的奇异值分解中的 $n$ 阶正交矩阵 $V$。</p>
+<p>令</p>
+<p>$$\sum_1=\left[\begin{matrix}\sigma_1 &amp;\quad &amp; \quad &amp;\quad \ \quad &amp; \sigma_2 &amp;\quad &amp; \quad \ \quad&amp; \quad &amp; \cdots &amp; \quad \ \quad &amp; \quad &amp; \quad &amp; \sigma_r \end{matrix}\right]$$</p>
+<p>则 $\sum_1$ 是一个 $r$ 阶对角矩阵，其对角线元素为按降序排列的正的 $\sigma_1,\cdots,\sigma_r$，于是 $m×n$ 矩阵对角矩阵 $\sum$ 可以表示为</p>
+<p>$$\sum = \left[\begin{matrix} \sum_1 &amp; 0 \ 0 &amp; 0\end{matrix}\right]$$</p>
+<p>这就是矩阵 $A$ 的奇异值分解中的 $m×n$ 矩阵对角矩阵 $\sum$。</p>
+<p>下面推出后面要用到的一个公式。 $V_2$ 的列向量是 $A^TA$ 对应于特征值为 $0$ 的特征向量。因此</p>
+<p>$$A^TAv_j=0，j=r+1,\cdots,n$$</p>
+<p>于是， $V_2$ 的列向量构成了 $A^TA$ 的零空间 $N(A^TA)$，而 $N(A^TA)=N(A)$。所以 $V_2$ 的列向量构成 $A$ 的零空间的一组标准正交基。因此</p>
+<p>$$AV_2=0$$</p>
+<p>由于 $V$ 是正交矩阵，所以</p>
+<p>$$I=VV^T=V_1V_1^T+V_2V_2^T$$</p>
+<p>$$A =AI=AV_1V_1^T+AV_2V_2^T=AV_1V_1^T$$</p>
+<p>(2) 确定 $U$</p>
+<p>接着构造 $m$ 阶正交实矩阵 $U$。</p>
+<p>令</p>
+<p>$$u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r$$</p>
+<p>$$U_1=[u_1\quad u_2 \quad \cdots \quad u_r]$$</p>
+<p>则有</p>
+<p>$$AV_1=U_1 \sum_{1}$$</p>
+<p>$U_1$ 的列向量构成了一组标准正交基。</p>
+<p>若 $R(A)^\bot$ 表示 $R(A)$ 的正交补，则有 $R(A)$ 的维数为 $r$， $R(A)^\bot$ 的维数为 $m-r$，两者的维数之和等于 $m$。而且有 $R(A)^\bot =N(A^T)$ 成立。</p>
+<p>令 ${u_{r+1},u_{r+2},\cdots,u_m}$ 为 $N(A^T)$ 的一组标准正交基，并令</p>
+<p>$$U_2 = [u_{r+1}\quad u_{r+2} \quad \cdots \quad u_m]$$</p>
+<p>$$U = [U_1\quad U_2]$$</p>
+<p>则 $u_1,u_2,\cdots,u_m$ 构成了 $R^m$ 的一组标准正交基。因此，$U$ 是 $m$ 阶正交矩阵，这就是矩阵 $A$ 的奇异值分解中的 $m$ 阶正交矩阵。</p>
+<p>(3) 证明 $U\sum V^T=A$</p>
+<p>$$U\sum V^T= [U_1\quad U_2]\left[\begin{matrix} \sum_1 &amp; 0 \ 0 &amp; 0\end{matrix}\right]\left[\begin{matrix}V_1^T \ V_2^T \end{matrix}\right]$$</p>
+<p>$$=U_1 \sum_{1} V_1^T$$</p>
+<p>$$=AV_1V_1^T$$</p>
+<p>$$=A$$</p>
+<p>至此证明了矩阵 $A$ 存在奇异值分解。</p>
+<h3 id="二、紧奇异值分解与截断奇异值分解"><a href="#二、紧奇异值分解与截断奇异值分解" class="headerlink" title="二、紧奇异值分解与截断奇异值分解"></a>二、紧奇异值分解与截断奇异值分解</h3><p>定理1给出的奇异值分解</p>
+<p>$$A=U\sum V^T$$</p>
+<p>又称为矩阵的完全奇异值分解。实际常用的是奇异值分解的紧凑形式和截断形式。紧奇异值分解是与原始矩阵等秩的奇异值分解，截断奇异值分解是比原始矩阵低秩的奇异值分解。</p>
+<h4 id="2-1紧奇异值分解"><a href="#2-1紧奇异值分解" class="headerlink" title="2.1紧奇异值分解"></a>2.1紧奇异值分解</h4><p>设有 $m×n$ 实矩阵 $A$，其秩为 $rank(A)=r，r\leq min(m,n)$，则称 $U_r\sum_rV_r^T$ 为 $A$ 的紧奇异值分解，即</p>
+<p>$$A=U_r \sum_{r} V_r^T$$</p>
+<p>其中 $U_r$ 是 $m×r$ 矩阵，$V_r$ 是 $n×r$ 矩阵，$\sum_r$ 是 $r$ 阶对角矩阵；矩阵 $U_r$ 由完全奇异值分解中 $U$ 的前 $r$ 列、矩阵 $V_r$ 由 $V$ 的前 $r$ 列、矩阵 $\sum_r$ 由 $\sum$ 的前 $r$ 个对角线元素得到。紧奇异值分解的对角矩阵 $\sum_r$ 的秩与原始矩阵 $A$ 的秩相等。</p>
+<h4 id="2-2-截断奇异值分解"><a href="#2-2-截断奇异值分解" class="headerlink" title="2.2 截断奇异值分解"></a>2.2 截断奇异值分解</h4><p>在矩阵的奇异值分解中，只取最大的 $k$ 个奇异值 $(k&lt;r)$ 对应的部分，就得到矩阵的截断奇异值分解。实际应用中提到的矩阵的奇异值分解时，通常指截断奇异值分解。</p>
+<p>设 $A$ 为 $m×n$ 实矩阵，其秩 $rank(A)=r$，且 $0&lt;k&lt;r$，则称 $U_k\sum_kV_k^T$ 为矩阵 $A$ 的截断奇异值分解</p>
+<p>$$A \approx U_k \sum_{k} V_k^T$$</p>
+<p>其中 $U_k$ 是 $m×$k 矩阵，$V_k$ 是 $n×k$ 矩阵，$\sum_k$ 是 $k$ 阶对角矩阵；矩阵 $U_k$ 由完全奇异值分解中 $U$ 的前 $k$ 列、矩阵 $V_k$ 由 $V$ 的前 $k$ 列、矩阵 $\sum_k$ 由 $\sum$ 的前 $k$ 个对角线元素得到。对角矩阵 $\sum_k$ 的秩比原始矩阵 $A$ 的秩低。</p>
+<p>在实际应用中，常常需要对矩阵的数据进行压缩，将其近似表示，奇异值分解提供了一种方法。紧奇异值分解对应着无损压缩，截断奇异值分解对应着有损压缩。</p>
+<h3 id="三、几何解释"><a href="#三、几何解释" class="headerlink" title="三、几何解释"></a>三、几何解释</h3><p>从线性变换的角度理解奇异值分解，$m×n$ 矩阵 $A$ 表示从 $n$ 维空间 $R^n$ 到 $m$ 维空间 $R^m$ 的一个线性变换，</p>
+<p>$$T:x\rightarrow Ax$$</p>
+<p>$x\in R^n，Ax\in R^m$，$x$ 和 $Ax$ 分别是各自空间的向量。线性变换可以分解为三个简单的变换：一个坐标系的旋转或发射变换、一个坐标轴的缩放变换、另一个坐标系的旋转或反射变换。奇异值定理保证这种分解一定存在。这就是奇异值分解的几何解释。</p>
+<p>对矩阵 $A$ 进行奇异值分解，得到 $A=U\sum V^T$ ，$V$ 和 $U$ 都是正交矩阵。所以 $V$ 的列向量 $v_1,v_2,\cdots,v_n$ 构成 $R^n$ 空间的一组标准正交基，表示 $R^n$ 中的正交坐标系的旋转或反射变换； $U$ 的列向量 $u_1,u_2,\cdots,u_m$ 构成 $R^m$ 空间的一组标准正交基，表示 $R^m$ 中的正交坐标系的旋转或反射变换； $\sum$ 的对角元素 $\sigma_1,\sigma_2,\cdots,\sigma_n$ 是一组非负实数，表示 $R^n$ 中的原始正交坐标系坐标轴的 $\sigma_1,\sigma_2,\cdots,\sigma_n$ 倍的缩放变换。</p>
+<p>任意一个向量 $x\in R^n$，经过基于 $A=U\sum V^T$ 的线性变换，等价于经过坐标系的旋转或反射变换 $V^    T$，坐标轴的缩放变换 $\sum$，以及坐标系的旋转或反射变换 $U$，得到向量 $Ax\in R^m$。下图给出了直观的几何解释。</p>
+ <center><img src="https://s2.ax1x.com/2019/09/04/nZrhlQ.png" /></center>
+
+<h3 id="四、主要性质"><a href="#四、主要性质" class="headerlink" title="四、主要性质"></a>四、主要性质</h3><p>(1) 设矩阵 $A$ 的奇异值分解为 $A=U\sum V^T$，则以下关系成立：</p>
+<p>$$A^TA=(U \sum V^T)^T(U \sum V^T)=V(\sum^{T} \sum)V^T$$</p>
+<p>$$AA^T = (U\sum V^T)(U \sum V^T)^T=U(\sum \sum^{T})U^T$$</p>
+<p>也就是说，矩阵 $A^TA$ 和 $AA^T$ 的特征分解存在，且可以有矩阵 $A$ 的奇异值分解的矩阵表示。$V$ 的列向量是 $A^TA$ 的特征向量，$U$ 的列向量是 $AA^T$ 的特征向量， $\sum$ 的奇异值是$A^TA$ 和 $AA^T$ 的特征值的平方根。</p>
+<p>(2) 在矩阵 $A$ 的奇异值分解中，奇异值、左奇异向量和右奇异向量之间存在对于关系。</p>
+<p>由 $A=U\sum V^T$ 易知</p>
+<p>$$AV=U\sum$$ </p>
+<p>比较这一等式两端的第 $j$ 列，得到</p>
+<p>$$Av_j=\sigma_ju_j \tag{关系一}$$</p>
+<p>这是矩阵 $A$ 的右奇异向量和奇异值、左奇异向量的关系。</p>
+<p>类似的，由</p>
+<p>$$A^TU = V \sum^{T}$$</p>
+<p>得到</p>
+<p>$$A^Tu_j=\sigma_jv_j，j=1,2,\cdots,r \tag{关系二}$$</p>
+<p>$$A^Tu_j=0，j=r+1,r+2,\cdots,m \tag{关系三}$$</p>
+<p>这是矩阵 $A$ 的左奇异向量和奇异值、右奇异向量的关系。</p>
+<p>(3) 矩阵 $A$ 的奇异值分解中，奇异值 $\sigma_1,\cdots,\sigma_n$ 是唯一的，而矩阵 $U$ 和 $V$ 不是唯一的。</p>
+<p>(4) 矩阵 $A$ 和 $\sum$  的秩相等，等于正奇异值的个数 $r$。</p>
+<h3 id="五、奇异值分解的计算"><a href="#五、奇异值分解的计算" class="headerlink" title="五、奇异值分解的计算"></a>五、奇异值分解的计算</h3><p>给定 $m×n$ 矩阵 $A$，可以按照上面的叙述写出矩阵奇异值分解的计算过程。</p>
+<p>(1) 首先求 $A^TA$ 的特征值和特征向量。</p>
+<p>计算对称矩阵 $W=A^TA$。</p>
+<p>求解特征方程</p>
+<p>$$(W-\lambda I)x=0$$</p>
+<p>得到特征值 $\lambda_i(i=1,2,\cdots,n)$，并将特征值由大到小排列</p>
+<p>$$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$$</p>
+<p>将特征值带入特征方程求得对应的特征向量。</p>
+<p>(2) 求 $n$ 阶正交矩阵 $V$ </p>
+<p><strong>将特征向量单位化</strong>， 得到单位特征向量 $v_1,\cdots,v_n$，构成 $n$ 阶正交矩阵 $V$ :</p>
+<p>$$V=[v_1\quad v_2\quad \cdots\quad v_n]$$</p>
+<p>(3) 求 $m×n$ 对角矩阵 $\sum$ </p>
+<p>计算 $A$ 的奇异值</p>
+<p>$$\sigma_i=\sqrt{\lambda_i}，i=1,2,\cdots,n$$</p>
+<p>构造 $m×n$ 矩阵对角矩阵 $\sum$，主对角线元素是奇异值，其余元素是 $0$，</p>
+<p>$$\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_n)$$</p>
+<p>(4) 求 $m$ 阶正交矩阵 $U$ </p>
+<p>对 $A$ 的前 $r$ 个正奇异值，令</p>
+<p>$$u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r$$</p>
+<p>得到</p>
+<p>$$U_1=[u_1\quad u_2\quad \cdots \quad u_r]$$</p>
+<p><strong>利用上面所述性质等式</strong>求 $A^T$ 的零空间的一组标准正交基 ${u_{r+1}，u_{r+2},\cdots,u_m}$，令</p>
+<p>$$U_2=[u_{r+1}\quad u_{r+2}\quad \cdots \quad u_m]$$</p>
+<p>并令</p>
+<p>$$U=[U_1\quad U_2]$$</p>
+<p>(5) 得到奇异值分解</p>
+<p>$$A=U\sum V^T$$</p>
+<h3 id="六、奇异值分解与矩阵近似"><a href="#六、奇异值分解与矩阵近似" class="headerlink" title="六、奇异值分解与矩阵近似"></a>六、奇异值分解与矩阵近似</h3><h4 id="6-1-弗罗贝尼乌斯范数"><a href="#6-1-弗罗贝尼乌斯范数" class="headerlink" title="6.1 弗罗贝尼乌斯范数"></a>6.1 弗罗贝尼乌斯范数</h4><p>奇异值分解也是一种矩阵近似的方法，这个近似是在弗罗贝尼乌斯范数意义下的近似。矩阵的弗罗贝尼乌斯范数是向量的 $L_2$ 范数的直接推广，对应着机器学习中平方损失函数。</p>
+<p><strong>定义 （弗罗贝尼乌斯范数）</strong> 设矩阵 $A \in R^{m×n}，A=[a_{ij}]_{m×n}$，定义矩阵 $A$ 的弗罗贝尼乌斯为</p>
+<p>$$||A||<em>F = \left(\mathop{\sum}\limits</em>{i=1}^{m}\mathop{\sum}\limits_{j=1}^{n}(a_{ij})^2\right)^{1\over2}$$</p>
+<p><strong>引理</strong>  &nbsp; &nbsp;&nbsp;设矩阵 $A \in R^{m×n}$，$A$ 的奇异值分解为 $U\sum V^T$，其中 $\sum=diag(\sigma_1,\sigma_2,\cdots,\sigma_n)$，则</p>
+<p>$$||A||_F = (\sigma_1^2+\sigma_2^2+\cdots+\sigma_n^2)^{1\over 2}$$</p>
+<h4 id="6-2-矩阵的最优近似"><a href="#6-2-矩阵的最优近似" class="headerlink" title="6.2 矩阵的最优近似"></a>6.2 矩阵的最优近似</h4><p><strong>奇异值分解是在平方损失(弗罗贝尼乌斯范数)意义下对矩阵的最优近似，即数据压缩。</strong></p>
+<p><strong>定理1&nbsp;&nbsp;&nbsp;</strong>&nbsp; &nbsp;&nbsp;设矩阵 $A\in R^{m×n}$，矩阵得秩 $rank(A)=r$，并设 $M$ 为 $R^{m×n}$ 中所有秩不超过 $k$ 的矩阵集合， $0&lt;k&lt;r$，则存在一个秩为 $k$ 的矩阵 $X \in M$，使得</p>
+<p>$$||A-X||<em>F=\mathop{min}\limits</em>{S\in M} ||A-S||_F$$</p>
+<p><strong>称矩阵 $X$ 为矩阵 $A$ 在弗罗贝尼乌斯范数意义下的最优近似。</strong></p>
+<p><strong>定理2&nbsp;&nbsp;&nbsp;</strong>&nbsp; 设矩阵 $A\in R^{m×n}$，矩阵得秩 $rank(A)=r$，有奇异值分解$A=U\sum V^T$，并设 $M$ 为 $R^{m×n}$ 中所有秩不超过 $k$ 的矩阵的集合，$0&lt;k&lt;r$，若秩为 $k$ 的矩阵 $X \in M$ 满足</p>
+<p>$$||A-X||<em>F=\mathop{min}\limits</em>{S\in M} ||A-S||_F$$</p>
+<p>则</p>
+<p>$$||A-X||<em>F=(\sigma</em>{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}$$</p>
+<p><strong>特别的</strong>，若 $A^{‘}=U\sum^{‘}V^T$，其中</p>
+<p>$$\sum^{‘}=\left[\begin{matrix} \sigma_1 &amp; \quad&amp; \quad&amp; \quad&amp; \quad&amp; \quad \  \quad &amp; \ddots &amp; \quad&amp; \quad &amp; 0 &amp; \quad \ \quad &amp; \quad &amp; \sigma_k &amp; \quad&amp; \quad&amp; \quad \  \quad&amp; \quad&amp; \quad &amp;0 &amp; \quad&amp; \quad\ \quad &amp; 0 &amp; \quad&amp; \quad &amp; \ddots &amp; \quad \ \quad &amp; \quad&amp; \quad&amp; \quad&amp; \quad&amp;0\end{matrix}\right]=\left[\begin{matrix} \sum_k &amp; 0 \ 0 &amp; 0\end{matrix}\right]$$</p>
+<p>则</p>
+<p>$$||A-A^{‘}||<em>F=(\sigma</em>{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}=\mathop{min}\limits_{S\in M} ||A-S||_F$$</p>
+<p><strong>上式表明，在秩不超过 $k$ 的矩阵集合中，存在矩阵 $A$ 的弗罗贝尼乌斯范数意义下的最优近似矩阵 $X$。 $A^{‘}=U\sum^{‘}V^T$ 是达到最优值的一个矩阵。</strong></p>
+<h4 id="6-3-矩阵的外积展开式"><a href="#6-3-矩阵的外积展开式" class="headerlink" title="6.3 矩阵的外积展开式"></a>6.3 矩阵的外积展开式</h4><p>矩阵 $A$  的奇异值分解也可以由外积形式表示。事实上，若将 $A$ 的奇异值分解看成矩阵 $U\sum$ 和 $V^T$ 的乘积，将 $U\sum$ 按列向量分块，将 $V^T$按行向量分块，即得</p>
+<p>$$U\sum=[\sigma_1u_1\quad \sigma_2u_2\quad\cdots\quad \sigma_nu_n]$$</p>
+<p>$$V^T=\left[\begin{matrix} v_1^T \ v_2^T \ \vdots \ v_n^T\end{matrix}\right]$$</p>
+<p>则</p>
+<p>$$A=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_nu_nv_n^T$$</p>
+<p>上式称为矩阵 $A$ 的外积展开式。其中 $u_kv_k^T$ 为 $m×n$ 的矩阵，是列向量 $u_k$ 和行向量 $v_k^T$ 的外积，其第 $i$ 行第 $j$ 列元素为 $u_k$ 的第 $i$ 个元素与 $v_k^T$ 的第 $j$ 个元素的乘积。</p>
+<p>一般的，设矩阵</p>
+<p>$$A_k=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_ku_kv_k^T$$</p>
+<p><strong>则 $A_k$ 的秩为 $k$，并且 $A_k$ 是秩为 $k$ 的矩阵在弗罗贝尼乌斯范数意义下 $A$ 的最优近似矩阵。矩阵 $A_k$ 就是 $A$ 的截断奇异值分解。</strong></p>
+<p>由于通常奇异值 $\sigma_i$ 递减很快，所以 $k$ 取很小值时， $A_k$  也可以对 $A$ 有很好得近似。</p>
+<h3 id="七、Reference"><a href="#七、Reference" class="headerlink" title="七、Reference"></a>七、Reference</h3><ul>
+<li>李航《统计学习方法》</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html" title="机器学习日记(四):奇异值分解">http://qzmvc1.top/机器学习日记-四-奇异值分解.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%B8%83-PageRank.html" rel="prev" title="进击数据挖掘十大算法(七):PageRank">
+                  <i class="fa fa-chevron-left"></i> 进击数据挖掘十大算法(七):PageRank
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-%E4%B8%89-%E7%B2%92%E5%AD%90%E7%BE%A4%E7%AE%97%E6%B3%95.html" rel="next" title="优化算法(三):粒子群算法">
+                  优化算法(三):粒子群算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

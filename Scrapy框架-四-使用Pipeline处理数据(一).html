@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="一、Item Pipeline简介Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。每个初始Item管道的组件都是由一个简单的方法组成的Python类。如下所示： 123class DemoPipeline(object):    def process_item(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架(四) 使用Pipeline处理数据(一)">
+<meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="一、Item Pipeline简介Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。每个初始Item管道的组件都是由一个简单的方法组成的Python类。如下所示： 123class DemoPipeline(object):    def process_item(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/11/21/FClz1f.png">
+<meta property="article:published_time" content="2018-11-21T05:16:59.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:57:56.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Scrapy">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/11/21/FClz1f.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html","path":"Scrapy框架-四-使用Pipeline处理数据(一).html","title":"Scrapy框架(四) 使用Pipeline处理数据(一)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Scrapy框架(四) 使用Pipeline处理数据(一) | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Item-Pipeline%E7%AE%80%E4%BB%8B"><span class="nav-text">一、Item Pipeline简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Item%E7%AE%A1%E9%81%93%E7%9A%84%E9%80%9A%E5%B8%B8%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-text">二、Item管道的通常执行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%BC%96%E5%86%99pineline%E8%A7%84%E8%8C%83"><span class="nav-text">三、编写pineline规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Item-Pipeline%E4%BE%8B%E5%AD%90"><span class="nav-text">四、Item Pipeline例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E6%95%B0%E6%8D%AE%E6%B8%85%E7%90%86"><span class="nav-text">4.1 数据清理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E6%8A%8AItem%E5%86%99%E5%85%A5Json%E6%96%87%E4%BB%B6"><span class="nav-text">4.2 把Item写入Json文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E6%95%B0%E6%8D%AE"><span class="nav-text">4.3 删除重复数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-text">4.4 将数据写入数据库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%BF%80%E6%B4%BBItem-Pipeline%E7%BB%84%E4%BB%B6"><span class="nav-text">五、激活Item Pipeline组件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Scrapy框架(四) 使用Pipeline处理数据(一)
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-21 13:16:59" itemprop="dateCreated datePublished" datetime="2018-11-21T13:16:59+08:00">2018-11-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:57:56" itemprop="dateModified" datetime="2021-10-06T19:57:56+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一、Item-Pipeline简介"><a href="#一、Item-Pipeline简介" class="headerlink" title="一、Item Pipeline简介"></a>一、Item Pipeline简介</h3><p><strong>Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。</strong><br>当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。<br>每个初始Item管道的组件都是由一个简单的方法组成的Python类。<br>如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+<p>但是我们没有具体定义，因此执行爬虫并不会输出结果。<br>他们获取了Item并执行他们的方法，同时他们还需要确定的是是否需要在Item管道中继续执行下一步或是直接丢弃掉不处理。</p>
+<hr>
+<h3 id="二、Item管道的通常执行过程"><a href="#二、Item管道的通常执行过程" class="headerlink" title="二、Item管道的通常执行过程"></a>二、Item管道的通常执行过程</h3><ul>
+<li>清理HTML数据  　</li>
+<li>验证解析到的数据（检查Item是否包含必要的字段）　　</li>
+<li>检查是否是重复数据（如果重复就删除）　　</li>
+<li>将解析到的数据存储到数据库中　　</li>
+</ul>
+<hr>
+<span id="more"></span>
+<h3 id="三、编写pineline规范"><a href="#三、编写pineline规范" class="headerlink" title="三、编写pineline规范"></a>三、编写pineline规范</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">      <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 可选方法，用于做参数初始化等操作，常用于保存item到文件中穿件文件并打开时用到</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># doing someting</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">      <span class="keyword">pass</span></span><br><span class="line">      <span class="keyword">return</span> item   <span class="comment">#如果有下一个管道，为了传给下一个管道时用</span></span><br><span class="line">    <span class="comment"># 参数item---被爬取的item</span></span><br><span class="line">    <span class="comment"># 参数spider--爬取该item的spider</span></span><br><span class="line">    <span class="comment"># 该方法process_item是必须的方法，必须返回一个Item对象或者抛出DropItem异常</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">      <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 参数spider---被开启的spider</span></span><br><span class="line">    <span class="comment"># 当spider被开启时，该方法open_spider会被调用</span></span><br><span class="line">    <span class="comment"># 该方法open_spider为可选方法</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span>(<span class="params">self, spider</span>):</span></span><br><span class="line">      <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 参数spider---被关闭的spider</span></span><br><span class="line">    <span class="comment"># 当spider爬虫被关闭时，close_spider方法会被调用</span></span><br><span class="line">    <span class="comment"># 该方法close_spider为可选方法</span></span><br></pre></td></tr></table></figure>
+<p>注意:</p>
+<blockquote>
+<p><strong>在settings.py文件中默认是关闭pipeline管道的。因此如果要使用自定义的管道文件，还需要在settings.py文件中启用pipeline。如果你在pipeline定义了多个管道的类，在settings.py中可以写多个pipeline的类，通过后面的数字的优先级区分哪个先执行。优先级的取值范围为0到1000，数值越小优先级越高。</strong></p>
+</blockquote>
+<p>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure item pipelines</span></span><br><span class="line"><span class="comment"># See https://doc.scrapy.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">   <span class="string">&#x27;Demo.pipelines.DemoPipeline1&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">   <span class="string">&#x27;Demo.pipelines.DemoPipeline2&#x27;</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述DemoPipeline2先执行。</p>
+<hr>
+<h3 id="四、Item-Pipeline例子"><a href="#四、Item-Pipeline例子" class="headerlink" title="四、Item Pipeline例子"></a>四、Item Pipeline例子</h3><h4 id="4-1-数据清理"><a href="#4-1-数据清理" class="headerlink" title="4.1 数据清理"></a>4.1 数据清理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注：VAT:Value Added Tax(增值税)</span></span><br><span class="line"><span class="comment"># 以上代码可以过滤那些没有价格的产品，并且对那些不包括增值税产品的价格进行调整</span></span><br><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    vat_factor = <span class="number">1.15</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self,item,spider</span>):</span></span><br><span class="line">        <span class="keyword">if</span> item[<span class="string">&#x27;price&#x27;</span>]:</span><br><span class="line">            <span class="keyword">if</span> item[<span class="string">&#x27;price_excludes_vat&#x27;</span>]:</span><br><span class="line">                item[<span class="string">&#x27;price&#x27;</span>] = item[<span class="string">&#x27;price&#x27;</span>] * self.vat_factor</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> DropItem(<span class="string">&quot;Missing price in %s&quot;</span> % item)</span><br></pre></td></tr></table></figure>
+<h4 id="4-2-把Item写入Json文件"><a href="#4-2-把Item写入Json文件" class="headerlink" title="4.2 把Item写入Json文件"></a>4.2 把Item写入Json文件</h4><p>还是之前的项目Demo, 我们直接修改 <em>pipelines.py</em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入Json模块</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 生成文件对象</span></span><br><span class="line">        self.fp = <span class="built_in">open</span>(<span class="string">&#x27;C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\Demo\scrapy.json&#x27;</span>,<span class="string">&#x27;wb&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self,item,spider</span>):</span></span><br><span class="line">        <span class="comment"># 将item转换为json格式</span></span><br><span class="line">        data = json.dumps(<span class="built_in">dict</span>(item),ensure_ascii=<span class="literal">False</span>)</span><br><span class="line">        <span class="comment"># 写入json文件</span></span><br><span class="line">        self.fp.write(data.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span>(<span class="params">self,spider</span>):</span></span><br><span class="line">        <span class="comment"># 关闭文件</span></span><br><span class="line">        self.fp.close()</span><br></pre></td></tr></table></figure>
+<p>scrapy.json文件内容:<br><img src="https://s1.ax1x.com/2018/11/21/FClz1f.png"></p>
+<p>有的时候真的不能只看不练，当自己真正上手写的时候，才会发现自己的基础是那么差，漏洞百出。这里写的时候又碰到N多个坑，慢慢来吧，唉…</p>
+<p>我同时也会把这些坑加入到我的这篇博客：<a href="http://qzmvc1.top/2018/11/19/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Scrapy框架之细数到目前为止我遇到的坑</a></p>
+<blockquote>
+<p>坑1：<strong>json.dumps的参数ensure_ascii=False：</strong></p>
+<p>在使用json.dumps时要注意一个问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span> json.dumps(<span class="string">&#x27;中国&#x27;</span>)</span><br><span class="line"></span><br><span class="line">输出：<span class="string">&quot;\u4e2d\u56fd&quot;</span></span><br><span class="line">输出的会是</span><br><span class="line"><span class="string">&#x27;中国&#x27;</span> 中的<span class="built_in">ascii</span> 字符码，而不是真正的中文。</span><br></pre></td></tr></table></figure>
+<p>因为json.dumps 序列化时对中文默认使用的ascii编码.想输出真正的中文需要指定ensure_ascii=False;</p>
+</blockquote>
+<blockquote>
+<p>坑2：<strong>中文保存到json文件中产生乱码</strong></p>
+<p>如上述代码所示转换为’UTF-8’编码，因为str.encode返回值是一个bytes对象，因此打开文件的方式要写成 ‘wb’ 。<br>也可以通过在settings.py中添加如下代码：</p>
+<blockquote>
+<p>FEED_EXPORT_ENCODING = ‘UTF-8’</p>
+</blockquote>
+</blockquote>
+<h4 id="4-3-删除重复数据"><a href="#4-3-删除重复数据" class="headerlink" title="4.3 删除重复数据"></a>4.3 删除重复数据</h4><p>一个用于去重的过滤器，丢弃那些已经被处理过的item。假设item有一个唯一的id，但是我们spider返回的多个item中包含了相同的id,去重方法如下：这里初始化了一个集合，每次判断id是否在集合中已经存在，从而做到去重的功能。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.exceptions <span class="keyword">import</span> DropItem</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DuplicatesPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.ids_seen = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">if</span> item[<span class="string">&#x27;id&#x27;</span>] <span class="keyword">in</span> self.ids_seen:</span><br><span class="line">            <span class="keyword">raise</span> DropItem(<span class="string">&quot;Duplicate item found: %s&quot;</span> % item)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.ids_seen.add(item[<span class="string">&#x27;id&#x27;</span>])</span><br><span class="line">            <span class="keyword">return</span> item</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-将数据写入数据库"><a href="#4-4-将数据写入数据库" class="headerlink" title="4.4 将数据写入数据库"></a>4.4 将数据写入数据库</h4><p>见下一章</p>
+<hr>
+<h3 id="五、激活Item-Pipeline组件"><a href="#五、激活Item-Pipeline组件" class="headerlink" title="五、激活Item Pipeline组件"></a>五、激活Item Pipeline组件</h3><p>在settings.py文件中，往ITEM_PIPELINES中添加项目管道的类名，就可以激活项目管道组件，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    <span class="string">&#x27;Demo.pipelines.DemoPipeline1&#x27;</span>: <span class="number">300</span>,</span><br><span class="line">    <span class="string">&#x27;Demo.pipelines.DemoPipeline2&#x27;</span>: <span class="number">100</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整数值通常设置在0-1000之间，数值越低代表优先级越高。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html" title="Scrapy框架(四) 使用Pipeline处理数据(一)">http://qzmvc1.top/Scrapy框架-四-使用Pipeline处理数据(一).html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+              <a href="/tags/Scrapy/" rel="tag"><i class="fa fa-tag"></i> Scrapy</a>
+              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"><i class="fa fa-tag"></i> 爬虫</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%89-%E5%9F%BA%E4%BA%8EExcel%E6%96%87%E4%BB%B6%E7%88%AC%E5%8F%96%E7%9A%84%E7%88%AC%E8%99%AB.html" rel="prev" title="Scrapy框架(三) 基于Excel文件爬取的爬虫">
+                  <i class="fa fa-chevron-left"></i> Scrapy框架(三) 基于Excel文件爬取的爬虫
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%94-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%88%B0Mysql%E6%95%B0%E6%8D%AE%E5%BA%93.html" rel="next" title="Scrapy框架(五) 将数据存储到数据库">
+                  Scrapy框架(五) 将数据存储到数据库 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

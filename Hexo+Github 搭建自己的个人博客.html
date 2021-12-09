@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="前言本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，身心疲惫，欲哭无泪，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有细节（坑）记录下来，为有同样好奇心的小伙伴给个参考。                  准备搭建博客，前期需要四个工具： Hexo: Hexo快速、简洁且高效的博客框架 Git: 一款免费、开源的分布式版本控制系统 No">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo+Github 搭建自己的个人博客">
+<meta property="og:url" content="http://qzmvc1.top/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="前言本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，身心疲惫，欲哭无泪，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有细节（坑）记录下来，为有同样好奇心的小伙伴给个参考。                  准备搭建博客，前期需要四个工具： Hexo: Hexo快速、简洁且高效的博客框架 Git: 一款免费、开源的分布式版本控制系统 No">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iylB38.png">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2789715-ee429e804f5e0f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2789715-0eb05444b0831153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://i.postimg.cc/kXyYcq7K/yuming1.png">
+<meta property="og:image" content="https://i.postimg.cc/T2tWq4Zh/yuming2.png">
+<meta property="og:image" content="https://i.postimg.cc/W31FZmpQ/yuming3.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyuhOs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyuIwq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyuoT0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyu5mn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMLL9.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMXZR.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMhaq.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMRqs.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMfZn.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyM4I0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMoGT.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMIiV.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMTRU.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyM7zF.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMbM4.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyMqsJ.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iylCt0.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyQRSO.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyQWlD.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iyQ7kt.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1EPP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1k5t.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1iVA.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1Cbd.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1FUI.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1V8f.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/10/25/iy1nKg.jpg">
+<meta property="article:published_time" content="2018-10-25T01:10:42.000Z">
+<meta property="article:modified_time" content="2021-12-09T08:24:18.611Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/10/25/iylB38.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html","path":"Hexo+Github 搭建自己的个人博客.html","title":"Hexo+Github 搭建自己的个人博客"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>Hexo+Github 搭建自己的个人博客 | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-text">准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%8C%E5%89%8D%E6%9C%9F%E9%9C%80%E8%A6%81%E5%9B%9B%E4%B8%AA%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-text">搭建博客，前期需要四个工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85"><span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2"><span class="nav-text">2. 创建个人博客</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D"><span class="nav-text">域名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A"><span class="nav-text">绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Hexo"><span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-1"><span class="nav-text">1. 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ssh%E8%AE%BE%E7%BD%AE"><span class="nav-text">2. ssh设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-repo%E4%BF%AE%E6%94%B9"><span class="nav-text">3. repo修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%96%B0%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="nav-text">4. 新建博客</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE"><span class="nav-text">Hexo主题设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A%E5%B0%B1%E6%98%AF%E7%AE%80%E5%8D%95%E7%9A%84%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE%EF%BC%8C%E6%9C%89%E5%85%B3%E4%B8%BB%E9%A2%98%E7%9A%84%E7%BB%86%E8%8A%82%E8%AE%BE%E7%BD%AE%E5%BE%85%E6%88%91%E7%BB%86%E7%BB%86%E6%91%B8%E7%B4%A2%E4%B9%8B%E5%90%8E%E5%86%8D%E8%A1%A5%E5%8F%91%E5%90%A7%EF%BC%81%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%B0%B1%E8%AE%A9%E6%88%91%E4%BB%AC%E6%84%89%E5%BF%AB%E7%9A%84%E7%95%85%E7%8E%A9%E5%90%A7%EF%BC%81"><span class="nav-text">以上就是简单的主题设置，有关主题的细节设置待我细细摸索之后再补发吧！接下来就让我们愉快的畅玩吧！</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo+Github 搭建自己的个人博客
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-10-25 09:10:42" itemprop="dateCreated datePublished" datetime="2018-10-25T09:10:42+08:00">2018-10-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-09 16:24:18" itemprop="dateModified" datetime="2021-12-09T16:24:18+08:00">2021-12-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，<del>身心疲惫，欲哭无泪</del>，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有<del>细节</del>（坑）记录下来，为有同样好奇心的小伙伴给个参考。                </p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iylB38.png"></p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h3 id="搭建博客，前期需要四个工具："><a href="#搭建博客，前期需要四个工具：" class="headerlink" title="搭建博客，前期需要四个工具："></a>搭建博客，前期需要四个工具：</h3><ul>
+<li>Hexo: Hexo快速、简洁且高效的博客框架</li>
+<li>Git: 一款免费、开源的分布式版本控制系统</li>
+<li>Node.js: 建立在Chrome上的JavaScript运行引擎</li>
+<li>GitHub: 国内一款面向开发者的云端开发平台，提供代码托管，运行空间，质量控制，项目管理等功能<span id="more"></span>
+<h4 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h4>安装必要的配置环境，如果已经安装过，可以跳过<br><b>1.1 &nbsp; 安装git</b> &nbsp;&nbsp;&nbsp; <a target="_blank" rel="noopener" href="https://git-scm.com/">git下载地址</a>   </li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2789715-ee429e804f5e0f19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Download"><br>找到Download,安装自己对应的系统版本，系统会自动判定你当前版本，推荐下载。如果没有推荐，那就自己选择吧，下载成功安装的步骤就不贴了。</p>
+<p><b>1.2 &nbsp; 安装Node.js</b> &nbsp;&nbsp;&nbsp; <a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js下载地址</a><br><b>1.3 &nbsp; GitHub账号注册</b> &nbsp;&nbsp;&nbsp; <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a><br>GitHub账号注册过程很简单，注册流程就省略，完成之后，就开始创建博客了</p>
+<h4 id="2-创建个人博客"><a href="#2-创建个人博客" class="headerlink" title="2. 创建个人博客"></a>2. 创建个人博客</h4><p>注册完成之后,点击头像左侧的+号, —&gt;<em><strong>New repository</strong></em>，创建新仓库</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2789715-0eb05444b0831153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"></p>
+<p>因为我们创建的是个人网站，所以仓库的名称需要安装GitHub个人网站项目的规定来写。<br>规则就是：</p>
+<blockquote>
+<p>userName.github.io</p>
+</blockquote>
+<p>比如我的GitHub用户名是QzmVc1，那我就要填写<a href="QzmVc1.github.io">QzmVc1.github.io</a>，然后选择Public模式，接着点击创建仓库按钮。创建成功后，进入新仓库，点击<em><strong>Settings</strong></em>，往下找到<em><strong>GitHub Pages</strong></em>。选择一个主题，之后一个托管在GitHub上的博客就就搞定了，大概几分钟后，例如我的个人博客：<a href="QzmVc1.github.io">QzmVc1.github.io</a>就可以访问了。</p>
+<p>这时候，你的确可以访问自己博客了，但是我们的博客访问地址是：userName.github.io，是不是一点都不满足？想用自己个性化的域名作为自己的博客地址？接下来，就需要我们去购买域名，配置成自己个性化的域名地址。</p>
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><p>购买域名有很多途径，例如<a target="_blank" rel="noopener" href="https://wanwang.aliyun.com/?spm=5176.8142029.735711.61.79ca6d3e2uYEhL">阿里云</a>、<a target="_blank" rel="noopener" href="https://cloud.tencent.com/act/domainsales?from=10029">腾讯云</a>等，这里以阿里云为例。<br>域名的价格差别比较大，我们是做个个人博客，所以买个便宜的后缀域名，推荐*.top* 域名。如图所示，价格差别较大</p>
+<p><img src="https://i.postimg.cc/kXyYcq7K/yuming1.png"><br>&nbsp;&nbsp;<br>购买域名很简单，但是一定要注意的是，选择的域名后缀一定是可以备案的，不然只能是注册保护，无法使用，在购买时，阿里云会有提示信息：</p>
+<p><img src="https://i.postimg.cc/T2tWq4Zh/yuming2.png"><br>&nbsp;&nbsp;<br>例如我注册的是qzmvc1.top,具体购买流程就不写了。</p>
+<p><img src="https://i.postimg.cc/W31FZmpQ/yuming3.png"></p>
+<p>&nbsp;&nbsp;<br><b>买完域名之后一定要实名注册！！！</b>这坑我掉进去一天了，一直在等dns同步（哭死我了x…</p>
+<h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><p>购买完成后，选择<em>管理控制台–域名–域名服务–域名列表</em>，看到你购买的域名，选择解析</p>
+<p>参考下图，修改下面信息<br>分别添加两个CNAME记录类型。一个主机记录为www，代表可以解析<em><a target="_blank" rel="noopener" href="http://www.qzmvc1.top/">www.qzmvc1.top</a></em> 的域名；另一个为@，代表<em>qzmvc1.top</em>。记录值就是我们的GitHub仓库地址：<em>userName.github.io</em><br><img src="https://s1.ax1x.com/2018/10/25/iyuhOs.png"></p>
+<p>&nbsp;&nbsp;<br>这里，我们已经完成了域名解析工作，回到GitHub，完成域名和<em>GitHub Pages</em> 的绑定</p>
+<h3 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h3><p>回到Github, 选择我们创建的个人域名仓库，选择<em>Settings</em>，找到<em>GitHub pages</em>，将我们购买的域名地址填入下方<em>Custom domain</em>，这时候我们的<em>GitHub pages</em> 和域名就绑定到一起。</p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iyuIwq.png"></p>
+<p><b>坑又来了！！</b>实际上我们是点不了保存按钮的。那怎么办呢？经过多番搜索，我们只需在博客仓库下的<em>code</em> 中创建一个大写CNAME的文件就行。具体操作如下图所示:</p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iyuoT0.png"><br><img src="https://s1.ax1x.com/2018/10/25/iyu5mn.png"></p>
+<p>&nbsp;&nbsp;<br>到了这一步，我们已经完成了个人博客的创建，不过你肯定有疑问了，为什么你的博客主题那么个性？别急，下面就来试试。</p>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>安装Hexo，在自己认为合适的地方创个文件夹，我是在C盘建了一个<em>Blog_Test</em> 文件夹，然后在该文件夹下右击进入git bash。</p>
+<h4 id="1-安装-1"><a href="#1-安装-1" class="headerlink" title="1. 安装"></a><b>1. 安装</b></h4><p><b>输入npm install hexo -g，开始安装Hexo</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMLL9.png"></p>
+<p><b>输入hexo -v，检查hexo是否安装成功</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMXZR.png"></p>
+<p><b>输入hexo init，初始化该文件夹（时间可能会有点长，慢慢等就好）</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMhaq.png"><br><b>看到后面的“Start blogging with Hexo！”，是不是很激动！</b></p>
+<p><b>输入npm install，安装所需要的组件</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMRqs.png"></p>
+<p><b>输入hexo g，生成静态文件，首次体验Hexo</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMfZn.png"></p>
+<p><b>输入hexo s，开启服务器，访问该网址，正式体验Hexo</b><br><img src="https://s1.ax1x.com/2018/10/25/iyM4I0.png"></p>
+<p><b>假如页面一直无法跳转，那么可能端口被占用了。此时我们ctrl+c停止服务器</b><br><b>接着输入“hexo server -p 端口号”来改变端口号</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMoGT.png"></p>
+<h4 id="2-ssh设置"><a href="#2-ssh设置" class="headerlink" title="2. ssh设置"></a><b>2. ssh设置</b></h4><p><b>将Hexo与Github page联系起来，设置Git的user name和email（如果是第一次的话）</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMIiV.png"></p>
+<p><b>输入cd ~/.ssh，检查是否由.ssh的文件夹</b><br><b>输入ls，列出该文件下的内容。下图说明存在</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMTRU.png"></p>
+<p><b>输入ssh-keygen -t rsa -C “<a href="mailto:&#x31;&#48;&#50;&#54;&#x37;&#52;&#48;&#x36;&#x37;&#56;&#x40;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;">&#x31;&#48;&#50;&#54;&#x37;&#52;&#48;&#x36;&#x37;&#56;&#x40;&#x71;&#x71;&#x2e;&#99;&#x6f;&#x6d;</a>”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:\Users\Administrator.ssh）。</b><br><img src="https://s1.ax1x.com/2018/10/25/iyM7zF.png"></p>
+<p><b>输入eval “$(ssh-agent -s)”，添加密钥到ssh-agent</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMbM4.png"></p>
+<p><b>再输入ssh-add ~/.ssh/id_rsa，添加生成的SSH key到ssh-agent</b><br><img src="https://s1.ax1x.com/2018/10/25/iyMqsJ.png"></p>
+<p><b>登录Github，点击头像下的<em>settings</em>，添加ssh</b><br><b>新建一个new ssh key，将id_rsa.pub文件里的内容复制上去</b><br><img src="https://s1.ax1x.com/2018/10/25/iylCt0.png">    </p>
+<p><b>输入ssh -T <a href="mailto:&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#109;">&#x67;&#105;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#x2e;&#x63;&#111;&#109;</a>，测试添加ssh是否成功。如果看到Hi后面是你的用户名，就说明成功了！！</b></p>
+<h4 id="3-repo修改"><a href="#3-repo修改" class="headerlink" title="3. repo修改"></a><b>3. repo修改</b></h4><p><b>配置Deployment，在其文件夹中，找到*_config.yml* 文件，修改repository值（在末尾）</b><br><img src="https://s1.ax1x.com/2018/10/25/iyQRSO.png"></p>
+<p><b>repository值是你在github项目里的ssh（右下角）</b><br><img src="https://s1.ax1x.com/2018/10/25/iyQWlD.png"></p>
+<h4 id="4-新建博客"><a href="#4-新建博客" class="headerlink" title="4. 新建博客"></a><b>4. 新建博客</b></h4><p><b>新建一篇博客，在git bash执行命令：hexo new post “博客名”</b><br><b>这时候在文件夹*_posts* 目录下将会看到已经创建的文件   </b>   </p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iyQ7kt.png">       </p>
+<blockquote>
+<p>在生成以及部署文章之前，需要安装一个扩展：npm install hexo-deployer-git –save<br>使用编辑器编好文章（推荐Notepad++），那么就可以使用命令<b>hexo g &amp;&amp; hexo d &amp;&amp; hexo s</b>，生成以及部署了<br>//hexo g生成静态文件 &nbsp;&nbsp;hexo d部署到gitbub上&nbsp;&nbsp;hexo s启动服务器<br>部署成功后访问你的地址：<a href="http://qzmvc1.top/">http://qzmvc1.top</a> &nbsp;那么将看到生成的文章     </p>
+</blockquote>
+<p>&nbsp;&nbsp;<br><b>到此，最基本也最全面的Hexo+GitHub新建博客也就大功告成啦！ 呼~~</b><br><b>下面就让我们谈谈最吸引人的hexo主题设置吧！</b></p>
+<h3 id="Hexo主题设置"><a href="#Hexo主题设置" class="headerlink" title="Hexo主题设置"></a><b>Hexo主题设置</b></h3><p><a target="_blank" rel="noopener" href="https://hexo.io/themes/">选择一个自己喜欢的Hexo主题</a><br>这个网站有很多主题可以供我们去选择，如下图所示。每一个主题都有对应网站可以预览，并且都有 Github 地址，我们可以照着 Github 的 wiki 就可以安装了，过程都比较简单。         </p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iy1EPP.png"> &nbsp;&nbsp;<br>&nbsp;&nbsp;<br><b>这里我们以Diaspora举例</b><br><img src="https://s1.ax1x.com/2018/10/25/iy1k5t.png"> &nbsp;&nbsp;<br>&nbsp;&nbsp;  </p>
+<ol>
+<li>我们来到该主题的Github上，如下图所示：<br><img src="https://s1.ax1x.com/2018/10/25/iy1iVA.png"><br>&nbsp;&nbsp;</li>
+<li>进入博客文件中的<em>theme</em> 目录下，右击进入git bash命令，执行语句<blockquote>
+<p>git clone <a target="_blank" rel="noopener" href="https://github.com/Fechin/hexo-theme-diaspora.git">https://github.com/Fechin/hexo-theme-diaspora.git</a>   </p>
+</blockquote>
+</li>
+</ol>
+<p><img src="https://s1.ax1x.com/2018/10/25/iy1Cbd.png"><br>&nbsp;&nbsp;<br>3. 结束之后我们就能在<em>theme</em> 目录下看到我们的主题目录啦~~~<br>   <img src="https://s1.ax1x.com/2018/10/25/iy1FUI.png">      </p>
+<p>&nbsp;&nbsp;<br>4. 最后，我们进入博客根目录*_config.yml* 文件下设置<em>theme</em> 的值，大功告成啦~~~  （撒花~<br><img src="https://s1.ax1x.com/2018/10/25/iy1V8f.png"><br>&nbsp;&nbsp;</p>
+<p><b>别忘了hexo clean &amp;&amp; hexo g &amp;&amp; hexo d &amp;&amp; hexo s命令哦，只有通过<em>hexo deploy</em> 命令部署到github才能看到自己写的博客！</b><br>&nbsp;&nbsp;</p>
+<h4 id="以上就是简单的主题设置，有关主题的细节设置待我细细摸索之后再补发吧！接下来就让我们愉快的畅玩吧！"><a href="#以上就是简单的主题设置，有关主题的细节设置待我细细摸索之后再补发吧！接下来就让我们愉快的畅玩吧！" class="headerlink" title="以上就是简单的主题设置，有关主题的细节设置待我细细摸索之后再补发吧！接下来就让我们愉快的畅玩吧！"></a><b>以上就是简单的主题设置，有关主题的细节设置待我细细摸索之后再补发吧！接下来就让我们愉快的畅玩吧！</b></h4><p><img src="https://s1.ax1x.com/2018/10/25/iy1nKg.jpg"></p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html" title="Hexo+Github 搭建自己的个人博客">http://qzmvc1.top/Hexo+Github 搭建自己的个人博客.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"><i class="fa fa-tag"></i> hexo</a>
+              <a href="/tags/blog/" rel="tag"><i class="fa fa-tag"></i> blog</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E5%A5%BD%E7%8E%A9%E7%9A%84JS%E7%89%B9%E6%95%88.html" rel="next" title="好玩的JS特效">
+                  好玩的JS特效 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-fill-left.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+<meta name="description" content="一、为什么需要特征组合？在仅利用单一特征而非交叉特征进行判断的情况下，有时不仅是信息损失的问题，甚至会得出错误的结论。著名的“辛普森悖论”用一个非常简单的例子，说明了进行多维度特征交叉的重要性。 辛普森悖论在对样本集合进行分组研究时，在分组比较中都占优势的一方，在总评中有时反而是失势的一方，这种有悖常理的现象，被称为“辛普森悖论”。 假设表2-1和表2-2所示为某视频应用中男性用户和女性用户点击视">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的推荐算法之路(3):从FM到FFM">
+<meta property="og:url" content="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html">
+<meta property="og:site_name" content="QzmVc1">
+<meta property="og:description" content="一、为什么需要特征组合？在仅利用单一特征而非交叉特征进行判断的情况下，有时不仅是信息损失的问题，甚至会得出错误的结论。著名的“辛普森悖论”用一个非常简单的例子，说明了进行多维度特征交叉的重要性。 辛普森悖论在对样本集合进行分组研究时，在分组比较中都占优势的一方，在总评中有时反而是失势的一方，这种有悖常理的现象，被称为“辛普森悖论”。 假设表2-1和表2-2所示为某视频应用中男性用户和女性用户点击视">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://z3.ax1x.com/2021/08/07/fKQC26.png">
+<meta property="article:published_time" content="2021-08-07T01:24:43.000Z">
+<meta property="article:modified_time" content="2021-10-06T11:49:32.000Z">
+<meta property="article:author" content="QzmVc1">
+<meta property="article:tag" content="推荐算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/08/07/fKQC26.png">
+
+
+<link rel="canonical" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html","path":"我的推荐算法之路-3-从FM到FFM.html","title":"我的推荐算法之路(3):从FM到FFM"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('加密文，来试试你的运气吧！') !== ''){
+                alert('要不要再尝试一次呢~~');
+                history.back();
+            }
+        }
+    })();
+</script><title>我的推荐算法之路(3):从FM到FFM | QzmVc1</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">QzmVc1</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Standing on Shoulders of Giants.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%89%B9%E5%BE%81%E7%BB%84%E5%90%88%EF%BC%9F"><span class="nav-text">一、为什么需要特征组合？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA"><span class="nav-text">辛普森悖论</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%89%B9%E5%BE%81%E4%BA%A4%E5%8F%89%E7%9A%84%E5%BC%80%E5%A7%8B%E2%80%94%E2%80%94POLY2%E6%A8%A1%E5%9E%8B"><span class="nav-text">二、特征交叉的开始——POLY2模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3%E6%9C%BA%E6%A8%A1%E5%9E%8B%EF%BC%88Factorization-Machine-FM%EF%BC%89%EF%BC%882010%E5%B9%B4%EF%BC%89"><span class="nav-text">三、因子分解机模型（Factorization Machine, FM）（2010年）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%89%B9%E5%BE%81%E5%9F%9F%E6%84%9F%E7%9F%A5%E5%9B%A0%E5%AD%90%E5%88%86%E8%A7%A3%E6%9C%BA%E6%A8%A1%E5%9E%8B%EF%BC%88Field-aware-Factorization-Machines%EF%BC%8CFFM%EF%BC%89%EF%BC%882015%E5%B9%B4%EF%BC%89"><span class="nav-text">四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%95%E5%85%A5Field%EF%BC%9F"><span class="nav-text">为什么引入Field？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81FM%E4%B8%8EFFM%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-text">五、FM与FFM的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-FM"><span class="nav-text">5.1 FM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-FFM"><span class="nav-text">5.2 FFM</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="QzmVc1"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">QzmVc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:qzmvc1@gmail.com" title="E-Mail → mailto:qzmvc1@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://jcoffeezph.top/" title="https:&#x2F;&#x2F;jcoffeezph.top&#x2F;" rel="noopener" target="_blank">ForMe</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://szd0319.github.io/" title="https:&#x2F;&#x2F;szd0319.github.io&#x2F;" rel="noopener" target="_blank">Silence</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我的推荐算法之路(3):从FM到FFM
+        </h1>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-07 09:24:43" itemprop="dateCreated datePublished" datetime="2021-08-07T09:24:43+08:00">2021-08-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-06 19:49:32" itemprop="dateModified" datetime="2021-10-06T19:49:32+08:00">2021-10-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="一、为什么需要特征组合？"><a href="#一、为什么需要特征组合？" class="headerlink" title="一、为什么需要特征组合？"></a>一、为什么需要特征组合？</h3><p>在仅利用单一特征而非交叉特征进行判断的情况下，有时不仅是信息损失的问题，甚至会得出错误的结论。著名的“辛普森悖论”用一个非常简单的例子，说明了进行多维度特征交叉的重要性。</p>
+<h4 id="辛普森悖论"><a href="#辛普森悖论" class="headerlink" title="辛普森悖论"></a>辛普森悖论</h4><p>在对样本集合进行分组研究时，在分组比较中都占优势的一方，在总评中有时反而是失势的一方，这种有悖常理的现象，被称为“辛普森悖论”。</p>
+<p>假设表2-1和表2-2所示为某视频应用中男性用户和女性用户点击视频的数据。</p>
+<span id="more"></span>
+
+<table>
+    <caption>表2-1 男性用户</caption></table>
+
+<table>
+<thead>
+<tr>
+<th align="center">视频</th>
+<th align="center">点击（次）</th>
+<th align="center">曝光（次）</th>
+<th align="center">点击率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">视频A</td>
+<td align="center">8</td>
+<td align="center">530</td>
+<td align="center">1.51%</td>
+</tr>
+<tr>
+<td align="center">视频B</td>
+<td align="center">51</td>
+<td align="center">1520</td>
+<td align="center">3.36%</td>
+</tr>
+</tbody></table>
+<table>
+    <caption>表2-2 女性用户</caption></table>
+
+<table>
+<thead>
+<tr>
+<th align="center">视频</th>
+<th align="center">点击（次）</th>
+<th align="center">曝光（次）</th>
+<th align="center">点击率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">视频A</td>
+<td align="center">201</td>
+<td align="center">2510</td>
+<td align="center">8.01%</td>
+</tr>
+<tr>
+<td align="center">视频B</td>
+<td align="center">92</td>
+<td align="center">1010</td>
+<td align="center">9.11%</td>
+</tr>
+</tbody></table>
+<p>从以上数据中可以看出，无论男性用户还是女性用户，对视频B的点击率都高于视频A，显然推荐系统应该优先考虑向用户推荐视频B。</p>
+<p>那么，如果忽略性别这个维度，将数据汇总（如表2-3所示）会得出什么结论呢？</p>
+<table>
+    <caption>表2-3 数据汇总</caption></table>
+
+<table>
+<thead>
+<tr>
+<th align="center">视频</th>
+<th align="center">点击（次）</th>
+<th align="center">总曝光（次）</th>
+<th align="center">点击率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">视频A</td>
+<td align="center">209</td>
+<td align="center">3040</td>
+<td align="center">6.88%</td>
+</tr>
+<tr>
+<td align="center">视频B</td>
+<td align="center">143</td>
+<td align="center">2530</td>
+<td align="center">5.65%</td>
+</tr>
+</tbody></table>
+<p>在汇总结果中，视频A的点击率居然比视频B高。如果据此进行推荐，将得出与之前结果完全相反的结论，这就是所谓的“辛普森悖论”。</p>
+<p><strong>在辛普森悖论的例子中，分组实验相当于使用“性别”+“视频ID”的组合特征计算点击率，而汇总实验则使用“视频ID”这一单一特征计算点击率。汇总实验对高维特征进行了合并，损失了大量的有效信息，因此无法正确地刻画数据模式。</strong></p>
+<h3 id="二、特征交叉的开始——POLY2模型"><a href="#二、特征交叉的开始——POLY2模型" class="headerlink" title="二、特征交叉的开始——POLY2模型"></a>二、特征交叉的开始——POLY2模型</h3><p>$$<br>POLY2(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n w_{ij}x_ix_j<br>$$</p>
+<p>可以看到，该模型对所有特征进行了两两交叉（特征 $x_i$ 和 $x_j$），并对所有特征组合赋予权重 $w_{ij}$ 。$POLY2$ 通过暴力组合特征的方式，在一定程度上解决了特征组合的问题。但该模型存在两个较大的缺陷：</p>
+<blockquote>
+<ul>
+<li>在处理数据时，经常采用 one-hot 编码的方法处理类别型数据，致使特征向量极度稀疏， $POLY2$ 进行无选择的特征交叉，使原本就非常稀疏的特征向量更加稀疏，导致大部分交叉特征的权重缺乏有效的数据进行训练，无法收敛。</li>
+<li>权重参数的数量由 $n$ 直接上升到 $n^2$ ，极大的增加了训练复杂度。</li>
+</ul>
+</blockquote>
+<h3 id="三、因子分解机模型（Factorization-Machine-FM）（2010年）"><a href="#三、因子分解机模型（Factorization-Machine-FM）（2010年）" class="headerlink" title="三、因子分解机模型（Factorization Machine, FM）（2010年）"></a>三、因子分解机模型（Factorization Machine, FM）（2010年）</h3><p>$$<br>FM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_i}\cdot \vec{v_j}）x_ix_j<br>$$</p>
+<p>与 $POLY2$ 相比，其主要区别是用两个向量的内积 $（\vec{v_i}\cdot \vec{v_j}）$ 取代了单一的权重系数 $w_{ij}$ 。具体地说，$FM$ 为每个特征学习了一个权重隐向量，在特征交叉时，使用两个特征隐向量的内积作为交叉特征的权重。</p>
+<p>本质上，$FM$ 引入隐向量的做法，与矩阵分解用隐向量代表用户和物品的做法异曲同工。可以说， $FM$ 是将矩阵分解隐向量的思想进行了进一步扩展，从单纯的用户、物品隐向量扩展到了所有特征上。</p>
+<p>$FM$ 通过引入特征隐向量的方式，直接把 $POLY2$ 模型 $n^2$ 级别的权重参数数量减少到了 $nk$ （$k$ 为隐向量维度， $n&gt;&gt;k$），极大地降低了训练开销；而且，隐向量的引入使  $FM$ 能更好地解决数据稀疏性的问题。比如在 $POLY2$ 模型中，只有当特征$x_i,x_j$ 均非零时，才能训练与之对应的 $w_{ij}$，而对于 $FM$ ，每个特征都有其对应的隐向量，减少了训练条件的苛刻性，并且对于未出现的特征组合，只要模型之前分别学习过对应的隐向量，就具备了计算其特征组合权重的能力。</p>
+<p>$FM$ 公式二次项后继推导如下：</p>
+<p><img src="https://z3.ax1x.com/2021/08/07/fKQC26.png"></p>
+<p>采用梯度下降法求解参数：<br>$$<br>\frac{∂FM}{∂ \theta}=\begin{cases}1,&amp;\theta=w_0 \cr x_i,&amp;\theta=w_i \cr x_i\sum_{i=1}^n(v_{ik}x_i)-v_{ik}x_i^2,&amp;\theta=v_{ik}\end{cases}<br>$$</p>
+<h3 id="四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）"><a href="#四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）" class="headerlink" title="四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）"></a>四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）</h3><p>$$<br>FFM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_{i，f_j}}\cdot \vec{v_{j,f_i}}）x_ix_j<br>$$</p>
+<p>其与 $FM$ 的区别在于隐向量由原来的 $\vec{v_i}$ 变成了 $\vec{v_{i，f_j}}$ ，这意味着每个特征对应的不是唯一一个隐向量，而是一组隐向量。当 $x_i$ 特征与 $x_j$ 特征进行交叉时， $x_i$ 特征会从 $x_i$ 的这一组隐向量中挑出与特征 $x_j$ 的域 $f_j$ 对应的隐向量 $\vec{v_{i，f_j}}$ 进行交叉。同理， $x_j$ 也会用与 $x_i$ 的域 $f_i$ 对应的隐向量 $\vec{v_{j，f_i}}$ 进行交叉。</p>
+<h4 id="为什么引入Field？"><a href="#为什么引入Field？" class="headerlink" title="为什么引入Field？"></a>为什么引入Field？</h4><p>如下表所示，其中性别和年龄同属于user维度特征，而tag属于item维度特征。<strong>在FM原理讲解中，“男性”与“篮球”、“男性”与“年龄”所起潜在作用是默认一样的，但实际上不一定。FM算法无法捕捉这个差异，因为它不区分更广泛类别field的概念，而会使用相同参数的点积来计算。</strong></p>
+<div class="table-box"><table border="1" cellpadding="1" cellspacing="1" style="width:500px;"><tbody><tr><td>field</td><td colspan="5" rowspan="1">user field(<em><strong>U</strong></em>)</td><td colspan="2" rowspan="1">item field(<em><strong>I</strong></em>)</td></tr><tr><td>clicked</td><td>userId</td><td>Gender_男</td><td>Gender_女</td><td>Age_[20,30]</td><td>Age_[30,40]</td><td>Tag_篮球</td><td>Tag_化妆品</td></tr><tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>1</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr></tbody></table></div>
+
+<p>在 $FFM$（Field-aware Factorization Machines ）中每一维特征（feature）都归属于一个特定的 $field$，$field$ 和 $feature$ 是一对多的关系。</p>
+<p>$FFM$ 模型认为 $v_i$ 不仅跟 $x_i$ 有关系，还跟与 $x_i$ 相乘的 $x_j$ 所属的Field有关系，即 $v_i$ 成了一个二维向量 $v_{f×k}$，$k$ 是隐向量长度，$f$ 是Field的总个数。设样本一共有 $n$ 个特征, 那么 $FFM$ 的二次项有 $nf$ 个隐向量。而在 $FM$ 模型中，每一维特征的隐向量只有一个。$FM$ 可以看作 $FFM$ 的特例，是把所有特征都归属到一个 $field$ 时的 $FFM$ 模型。 </p>
+<h3 id="五、FM与FFM的代码实现"><a href="#五、FM与FFM的代码实现" class="headerlink" title="五、FM与FFM的代码实现"></a>五、FM与FFM的代码实现</h3><h4 id="5-1-FM"><a href="#5-1-FM" class="headerlink" title="5.1 FM"></a>5.1 FM</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FM</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, n, k</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.n = n  <span class="comment"># 特征个数</span></span><br><span class="line">        self.k = k  <span class="comment"># 隐向量维度</span></span><br><span class="line">        self.linear = nn.Linear(n, <span class="number">1</span>, bias=<span class="literal">True</span>) <span class="comment"># 一次项部分</span></span><br><span class="line">        self.v = nn.parameter(torch.randn(k, n))  <span class="comment"># 隐向量</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="comment"># x: (batch, n)</span></span><br><span class="line">        part1 = self.linear(x)</span><br><span class="line">        ans1 = torch.<span class="built_in">pow</span>(torch.mm(x, self.v.t()), <span class="number">2</span>)</span><br><span class="line">        ans2 = torch.mm(torch.<span class="built_in">pow</span>(x, <span class="number">2</span>), torch.<span class="built_in">pow</span>(self.v.t(), <span class="number">2</span>))</span><br><span class="line">        <span class="keyword">return</span> part1 + <span class="number">0.5</span> * torch.<span class="built_in">sum</span>(ans1 - ans2)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2-FFM"><a href="#5-2-FFM" class="headerlink" title="5.2 FFM"></a>5.2 FFM</h4><p>代码详解参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/sunupo/p/12826308.html">推荐系统——FFM模型点击率CTR预估（代码，数据流动详细过程）</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FieldAwareFactorizationMachine</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, field_dims, embed_dim</span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.num_fields = <span class="built_in">len</span>(field_dims)</span><br><span class="line">        self.embeddings = torch.nn.ModuleList([</span><br><span class="line">            torch.nn.Embedding(<span class="built_in">sum</span>(field_dims), embed_dim) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(self.num_fields)</span><br><span class="line">        ])</span><br><span class="line">        self.offsets = np.array((<span class="number">0</span>, *np.cumsum(field_dims)[:-<span class="number">1</span>]), dtype=np.long)</span><br><span class="line">        <span class="keyword">for</span> embedding <span class="keyword">in</span> self.embeddings:</span><br><span class="line">            torch.nn.init.xavier_uniform_(embedding.weight.data)  <span class="comment">#初始化</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        x = x + x.new_tensor(self.offsets, dtype=np.long).unsqueeze(<span class="number">0</span>)</span><br><span class="line">        xs = [self.embeddings[i](x) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.num_fields)]</span><br><span class="line">        ix = <span class="built_in">list</span>()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.num_fields - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, self.num_fields):</span><br><span class="line">                ix.append(xs[j][:, i] * xs[i][:, j])</span><br><span class="line">        ix = torch.stack(ix, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FieldAwareFactorizationMachineModel</span>(<span class="params">torch.nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, field_dims, embed_dim</span>):</span></span><br><span class="line">        <span class="comment"># field_dims:[10, 20, 30] 共3个field,每个field下各多少特征</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="built_in">sum</span>(field_dims))</span><br><span class="line">        self.ffm = FieldAwareFactorizationMachine(field_dims, embed_dim)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, x</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        :param x: Long tensor of size ``(batch_size, num_fields)``</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        ffm_term = torch.<span class="built_in">sum</span>(torch.<span class="built_in">sum</span>(self.ffm(x), dim=<span class="number">1</span>), dim=<span class="number">1</span>, keepdim=<span class="literal">True</span>)</span><br><span class="line">        x = self.linear(x) + ffm_term</span><br><span class="line">        <span class="keyword">return</span> torch.sigmoid(x.squeeze(<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>觉得本文对你有用的话，不妨打个赏吧~</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="QzmVc1 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="QzmVc1 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>QzmVc1
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html" title="我的推荐算法之路(3):从FM到FFM">http://qzmvc1.top/我的推荐算法之路-3-从FM到FFM.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 推荐算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-2-%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3.html" rel="prev" title="我的推荐算法之路(2):矩阵分解">
+                  <i class="fa fa-chevron-left"></i> 我的推荐算法之路(2):矩阵分解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-4-GBDT-LR.html" rel="next" title="我的推荐算法之路(4):GBDT+LR">
+                  我的推荐算法之路(4):GBDT+LR <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QzmVc1</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">334k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:03</span>
+  </span>
+</div>
+
+
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"QzmVc1/blog-comment","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+
+  
+ 
+	<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+ 
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
+
