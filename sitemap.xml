@@ -585,6 +585,20 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/hexo/</loc>
+    <lastmod>2021-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/blog/</loc>
+    <lastmod>2021-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/LeetCode/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
@@ -600,20 +614,6 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2021-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/hexo/</loc>
-    <lastmod>2021-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/blog/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -662,13 +662,6 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Random/</loc>
-    <lastmod>2021-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://qzmvc1.top/tags/Selenium/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
@@ -683,7 +676,21 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/Random/</loc>
+    <lastmod>2021-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/Numpy/</loc>
+    <lastmod>2021-12-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/Requests/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -704,7 +711,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Requests/</loc>
+    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -712,13 +719,6 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/geopy/</loc>
-    <lastmod>2021-12-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -823,14 +823,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Json/</loc>
+    <loc>http://qzmvc1.top/tags/Matplotlib/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Matplotlib/</loc>
+    <loc>http://qzmvc1.top/tags/Json/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -853,14 +853,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/categories/LeetCode/</loc>
+    <loc>http://qzmvc1.top/categories/%E6%9D%82%E9%A1%B9/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/categories/%E6%9D%82%E9%A1%B9/</loc>
+    <loc>http://qzmvc1.top/categories/LeetCode/</loc>
     <lastmod>2021-12-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
