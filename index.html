@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-count">78</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -231,6 +231,182 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html" class="post-title-link" itemprop="url">我的推荐算法之路(7):MiNet</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-01-07 19:51:08 / 修改时间：21:38:17" itemprop="dateCreated datePublished" datetime="2022-01-07T19:51:08+08:00">2022-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><h4 id="1-1-跨域推荐的概念"><a href="#1-1-跨域推荐的概念" class="headerlink" title="1.1 跨域推荐的概念"></a>1.1 跨域推荐的概念</h4><p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
+<p>那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的东西，它基于的数据也都是游戏用户本身的东西。但什么是”跨域推荐“呢？比如，我要给“鬼畜区”推荐东西，但是使用的数据不只是鬼畜区自己的，它还包括了”舞蹈区“，”数码区“，”游戏区“等其他域产生的数据。</p>
+<p>对于此，我们要定义两个”域“的概念：”源域“和”目标域“，我们要优化、提升的目标叫做”目标域“，比如我们要优化”鬼畜区“的CTR，那么“鬼畜区”就是“目标域”。而”源域“相当于是辅助的部分，我们会把“舞蹈区”，“数码区”等看做是“源域”。</p>
+<h4 id="1-2-跨域推荐的细节"><a href="#1-2-跨域推荐的细节" class="headerlink" title="1.2 跨域推荐的细节"></a>1.2 跨域推荐的细节</h4><p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
+<ul>
+<li>用户与物品之间没有都没有交集；</li>
+<li>两个域的用户有部分交集，但是物品没有交集。这种情况可以理解成鬼畜用户和舞蹈用户会有部分交集，这部分用户他们既访问了鬼畜区的视频又去舞蹈区看了小姐姐；</li>
+<li>两个域的用户没有交集，但是物品有部分重合。一种可能的情况：youtube和b站的用户在法定情况下是不一样的，但是b站的部分内容又是从youtube上搬运过来的；</li>
+<li>这个场景的重合度就比较高了，不论是用户还是物品都有一定程度上的重叠，这在b站上也是很常见的，比如自制区的视频同时也是数码区的视频。</li>
+</ul>
+<p>原文链接：<a href="https://link.zhihu.com/?target=https://arxiv.org/abs/2008.02974">MiNet:Mixed Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
+<h3 id="二、模型设计"><a href="#二、模型设计" class="headerlink" title="二、模型设计"></a>二、模型设计</h3><h4 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1 数据集"></a>2.1 数据集</h4><p>本文基于UC头条的应用场景，将新闻feed流作为源域，广告作为目标域。</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/7967FK.png"></p>
+<h4 id="2-2-结构设计"><a href="#2-2-结构设计" class="headerlink" title="2.2 结构设计"></a>2.2 结构设计</h4><p>为了更好的利用好跨域数据，文中对三种不同的user interest进行建模：</p>
+<ul>
+<li><p>跨域长期兴趣（Long-term interest across domains）：用户的profile feature能反映出他长期的、固有的兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。</p>
+</li>
+<li><p>源域短期兴趣（Short-term interest from the source domain）：对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联，尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p>
+</li>
+<li><p>目标域短期兴趣（Short-term interest from the target domain）：这个不言而喻了，就不多阐述了，简单来说就是对用户在目标域的短期行为进行建模。</p>
+</li>
+</ul>
+<p>尽管上面的三种user interest看起来可行性很高，但依然存在几个问题：</p>
+<ul>
+<li><p>不是所有交互过的新闻都和目标广告有关系</p>
+</li>
+<li><p>同样，也不是所有交互过的广告都和目标广告有关系</p>
+</li>
+<li><p>模型必须能把信息从源域迁移到目标域</p>
+</li>
+<li><p>对于每个目标广告，三种用户兴趣的重要性是不一样的</p>
+</li>
+<li><p>用户兴趣向量的维度可能不一样</p>
+</li>
+</ul>
+<p>为了解决这些问题，提出<strong>MiNet</strong>模型，模型结构如下：</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/79ctTx.png"></p>
+<h4 id="2-3-详细说明"><a href="#2-3-详细说明" class="headerlink" title="2.3 详细说明"></a>2.3 详细说明</h4><h4 id="2-3-1-Embedding层"><a href="#2-3-1-Embedding层" class="headerlink" title="2.3.1 Embedding层"></a>2.3.1 Embedding层</h4><p>对于用户、新闻、广告来说，其某些特征可能如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th align="center">type</th>
+<th align="center">feature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">User information</td>
+<td align="center">user ID, city, age…</td>
+</tr>
+<tr>
+<td align="center">Ad information</td>
+<td align="center">creative ID, campaign ID, title…</td>
+</tr>
+<tr>
+<td align="center">News information</td>
+<td align="center">creative ID, campaign ID, title…</td>
+</tr>
+</tbody></table>
+<p>以上表中的city特征为例，若对其进行one-hot编码之后直接输入到模型当中，结果往往是非常糟糕的，因为其one-hot向量是高度稀疏的，因此我们需要对其进行降维。正如大部分模型那样，这里同样使用了Embedding技术。在对每个特征Embedding之后，我们得到了相较之前维度较少的特征向量，再对各个特征的Embedding向量进行拼接之后，作为模型的输入并准备下一步的工作。</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/79g14f.png"></p>
+<h4 id="2-3-2-跨域长期建模"><a href="#2-3-2-跨域长期建模" class="headerlink" title="2.3.2 跨域长期建模"></a>2.3.2 跨域长期建模</h4><p>用户的profile feature能反映出他长期的、固有的兴趣，⽐如20岁左右的男性⽤户可能对体育赛事或者游戏类的资讯或者⼴告⽐较感兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。这⾥主要做法是将⽤户ID、⽤户性别、⽤户所在地域、⽤户的⼿机设备等embedding向量进⾏拼接，输出为 $P_u$。例如⽤户ID为123，城市为北京，男性⽤户，使⽤苹果⼿机，得到的⻓期兴趣表示为：<br>$$<br>P_u=[e_{u123}||e_{BJ}||e_{male}||e_{ios}]<br>$$<br><img src="https://s4.ax1x.com/2022/01/07/79RPfK.png"></p>
+<h4 id="2-3-3-源域短期兴趣建模"><a href="#2-3-3-源域短期兴趣建模" class="headerlink" title="2.3.3 源域短期兴趣建模"></a>2.3.3 源域短期兴趣建模</h4><p>对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联。尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/79WlU1.png"></p>
+<h5 id="2-3-3-1-Item-attention"><a href="#2-3-3-1-Item-attention" class="headerlink" title="2.3.3.1 Item attention"></a>2.3.3.1 Item attention</h5><p>首先，定义<br>$$<br>\widetilde{a_i}=h_s^TReLU(W_s[r_{si}||q_t||p_u||Mr_{si}\odot{q_t}])<br>$$</p>
+<ul>
+<li>$r_{si}$ 是源域被点击新闻embedding并拼接后的特征向量；</li>
+<li>$q_t$ 是目标域目标广告embedding并拼接后的特征向量；</li>
+<li>$p_u$ 是用户长期兴趣向量；</li>
+<li>$Mr_{si}\odot{q_t}$ 中，$M$ 是待学习的矩阵，其将 $r_{si}$ 映射到目标域空间中与$q_t$ 作元素积；</li>
+</ul>
+<h5 id="2-3-3-2-Aggregation"><a href="#2-3-3-2-Aggregation" class="headerlink" title="2.3.3.2 Aggregation"></a>2.3.3.2 Aggregation</h5><p>通过softmax公式对 $\widetilde{a_i}$ 进行映射<br>$$<br>a_i =\frac{exp(\widetilde{a_i})}{\sum{exp(\widetilde{a_i})}}<br>$$<br>并线性加权得到最后的 $a_s$：<br>$$<br>a_s=\sum{a_ir_{si}}<br>$$</p>
+<h4 id="2-3-4-目标域短期兴趣建模"><a href="#2-3-4-目标域短期兴趣建模" class="headerlink" title="2.3.4 目标域短期兴趣建模"></a>2.3.4 目标域短期兴趣建模</h4><p><img src="https://s4.ax1x.com/2022/01/07/795soj.png"></p>
+<h5 id="2-3-4-1-Item-attention"><a href="#2-3-4-1-Item-attention" class="headerlink" title="2.3.4.1 Item attention"></a>2.3.4.1 Item attention</h5><p>首先，定义<br>$$<br>\widetilde{\beta_j}=h_t^TReLU(W_t[r_{tj}||q_t||p_u||r_{tj}\odot{q_t}])<br>$$<br>与源域短期兴趣建模唯一的区别就是 $r_{tj}$, ${q_t}$ 都是目标域的向量，不需要训练映射矩阵。</p>
+<h5 id="2-3-4-2-Aggregation"><a href="#2-3-4-2-Aggregation" class="headerlink" title="2.3.4.2 Aggregation"></a>2.3.4.2 Aggregation</h5><p>通过softmax公式对 $\widetilde{\beta_j}$ 进行映射<br>$$<br>\beta_j =\frac{exp(\widetilde{\beta_j})}{\sum{exp(\widetilde{\beta_j})}}<br>$$<br>并线性加权得到最后的 $a_t$：<br>$$<br>a_t=\sum{\beta_jr_{tj}}<br>$$</p>
+<h4 id="2-3-5-Interest-Attention层"><a href="#2-3-5-Interest-Attention层" class="headerlink" title="2.3.5 Interest Attention层"></a>2.3.5 Interest Attention层</h4><p><img src="https://s4.ax1x.com/2022/01/07/79ICtA.png"></p>
+<p>最终，输入到预测层的向量 $m_t=[q_t||v_up_u||v_sa_s||v_ta_t]$</p>
+<p>其中，<br>$$<br>v_u=exp(g^T_uReLU(V_u[q_t||p_u||a_s||a_t])+b_u)<br>$$</p>
+<p>$$<br>v_s=exp(g^T_sReLU(V_s[q_t||p_u||a_s||a_t])+b_s)<br>$$</p>
+<p>$$<br>v_t=exp(g^T_tReLU(V_t[q_t||p_u||a_s||a_t])+b_t)<br>$$</p>
+<h4 id="2-3-6-Prediction层和Loss函数"><a href="#2-3-6-Prediction层和Loss函数" class="headerlink" title="2.3.6 Prediction层和Loss函数"></a>2.3.6 Prediction层和Loss函数</h4><p><img src="https://s4.ax1x.com/2022/01/07/79TDeO.png"></p>
+<p>预测层是一个多层的全连接神经网络，其输出是经过sigmoid函数映射后的 [0, 1] 值。$MiNet$ 采用了辅助任务，通过使用 $q_s$ 向量促进对 $p_u$ 向量的训练，并将其通过预测层。</p>
+<p>最终模型的损失函数包括两部分：$loss1$ 和 $loss2$，分别记为 $loss_t$ 和 $loss_s$ 。每个 $loss$ 都是用交叉熵作为损失函数，最终的损失函数 $loss$ 如下：<br>$$<br>loss=loss_t+\gamma loss_s<br>$$</p>
+<h3 id="三、参考链接"><a href="#三、参考链接" class="headerlink" title="三、参考链接"></a>三、参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/221719082">https://zhuanlan.zhihu.com/p/221719082</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -971,113 +1147,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-      <meta itemprop="name" content="QzmVc1">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QzmVc1">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html" class="post-title-link" itemprop="url">我的推荐算法之路(3):从FM到FFM</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          <div class="post-meta">
-  
-	
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-08-07 09:24:43" itemprop="dateCreated datePublished" datetime="2021-08-07T09:24:43+08:00">2021-08-07</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-06 19:49:32" itemprop="dateModified" datetime="2021-10-06T19:49:32+08:00">2021-10-06</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一、为什么需要特征组合？"><a href="#一、为什么需要特征组合？" class="headerlink" title="一、为什么需要特征组合？"></a>一、为什么需要特征组合？</h3><p>在仅利用单一特征而非交叉特征进行判断的情况下，有时不仅是信息损失的问题，甚至会得出错误的结论。著名的“辛普森悖论”用一个非常简单的例子，说明了进行多维度特征交叉的重要性。</p>
-<h4 id="辛普森悖论"><a href="#辛普森悖论" class="headerlink" title="辛普森悖论"></a>辛普森悖论</h4><p>在对样本集合进行分组研究时，在分组比较中都占优势的一方，在总评中有时反而是失势的一方，这种有悖常理的现象，被称为“辛普森悖论”。</p>
-<p>假设表2-1和表2-2所示为某视频应用中男性用户和女性用户点击视频的数据。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1091,7 +1160,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1103,14 +1172,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">334k</span>
+    <span title="站点总字数">337k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:03</span>
+    <span title="站点阅读时长">5:07</span>
   </span>
 </div>
 
