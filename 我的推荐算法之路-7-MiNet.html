@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://s4.ax1x.com/2022/01/07/79ICtA.png">
 <meta property="og:image" content="https://s4.ax1x.com/2022/01/07/79TDeO.png">
 <meta property="article:published_time" content="2022-01-07T11:51:08.000Z">
-<meta property="article:modified_time" content="2022-01-07T13:41:32.035Z">
+<meta property="article:modified_time" content="2022-01-07T13:44:25.823Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="推荐算法">
 <meta name="twitter:card" content="summary">
@@ -284,7 +284,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-01-07 19:51:08 / 修改时间：21:41:32" itemprop="dateCreated datePublished" datetime="2022-01-07T19:51:08+08:00">2022-01-07</time>
+      <time title="创建时间：2022-01-07 19:51:08 / 修改时间：21:44:25" itemprop="dateCreated datePublished" datetime="2022-01-07T19:51:08+08:00">2022-01-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -406,7 +406,7 @@
 <p>$$<br>v_t=exp(g^T_tReLU(V_t[q_t||p_u||a_s||a_t])+b_t)<br>$$</p>
 <h4 id="2-3-6-Prediction层和Loss函数"><a href="#2-3-6-Prediction层和Loss函数" class="headerlink" title="2.3.6 Prediction层和Loss函数"></a>2.3.6 Prediction层和Loss函数</h4><p><img src="https://s4.ax1x.com/2022/01/07/79TDeO.png"></p>
 <p>预测层是一个多层的全连接神经网络，其输出是经过sigmoid函数映射后的 [0, 1] 值。$MiNet$ 采用了辅助任务，通过使用 $q_s$ 向量促进对 $p_u$ 向量的训练，并将其通过预测层。</p>
-<p>最终模型的损失函数包括两部分：$loss1$ 和 $loss2$，分别记为 $loss_t$ 和 $loss_s$ ，每个 $loss$ 都是用交叉熵作为损失函数，最终的损失函数 $loss$ 如下：<br>$$<br>loss=loss_t+\gamma loss_s<br>$$</p>
+<p>最终模型的损失函数包括两部分：$loss1$ 和 $loss2$，分别记为 $loss_t$ 和 $loss_s$ ，每个 $loss$ 都是用交叉熵作为损失函数，最终的损失函数 $loss$ 如下：<br>$$<br>loss=loss_t+\gamma loss_s<br>$$<br>其中，$\gamma$ 是平衡因子。 </p>
 <h3 id="三、参考链接"><a href="#三、参考链接" class="headerlink" title="三、参考链接"></a>三、参考链接</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/221719082">https://zhuanlan.zhihu.com/p/221719082</a></li>
 </ul>
