@@ -342,33 +342,27 @@
 <blockquote>
 <ul>
 <li>python2<br>python2.7</li>
-<li>python3<br>python version &gt;=3.4</li>
+<li>python3<br>python version &gt;=3.4<span id="more"></span>
+</li>
 </ul>
-</blockquote>
-<span id="more"></span>
 <hr>
-<h3 id="2、如何安装PyMySQL"><a href="#2、如何安装PyMySQL" class="headerlink" title="2、如何安装PyMySQL"></a><b>2、如何安装PyMySQL</b></h3><p>打开cmd，输入以下语句：</p>
-<blockquote>
-<p>pip install PyMySQL</p>
+<h3 id="2、如何安装PyMySQL"><a href="#2、如何安装PyMySQL" class="headerlink" title="2、如何安装PyMySQL"></a><b>2、如何安装PyMySQL</b></h3><p>打开cmd，输入以下语句：<br>pip install PyMySQL</p>
 </blockquote>
 <p>回车等待安装完成。</p>
 <hr>
 <h3 id="3、PyMySQL实现与数据库的交互"><a href="#3、PyMySQL实现与数据库的交互" class="headerlink" title="3、PyMySQL实现与数据库的交互"></a><b>3、PyMySQL实现与数据库的交互</b></h3><blockquote>
 <p><b>PyMySQL实现与数据库的交互，我们首先需要了解一下Python数据库的图解流程。关于图解流程图中的Connection对象和游标对象Cursor下面给出了生动的比喻。</b></p>
-</blockquote>
-<h4 id="Python-数据库图解流程"><a href="#Python-数据库图解流程" class="headerlink" title="Python 数据库图解流程:"></a><b>Python 数据库图解流程:</b></h4><p><img src="https://s1.ax1x.com/2018/11/21/FCFsVU.jpg"></p>
-<h4 id="Connection、Cursor比喻"><a href="#Connection、Cursor比喻" class="headerlink" title="Connection、Cursor比喻:"></a><b>Connection、Cursor比喻:</b></h4><p><img src="https://s1.ax1x.com/2018/11/21/FCF654.png"></p>
-<blockquote>
-<p> <b>下面我们先上代码，用PyMySQL与数据库进行交互实现增删改查，有关代码中的陌生函数会在文章末尾给出说明。</b></p>
+<h4 id="Python-数据库图解流程"><a href="#Python-数据库图解流程" class="headerlink" title="Python 数据库图解流程:"></a><b>Python 数据库图解流程:</b></h4><p><img src="https://s1.ax1x.com/2018/11/21/FCFsVU.jpg" alt=""></p>
+<h4 id="Connection、Cursor比喻"><a href="#Connection、Cursor比喻" class="headerlink" title="Connection、Cursor比喻:"></a><b>Connection、Cursor比喻:</b></h4><p><img src="https://s1.ax1x.com/2018/11/21/FCF654.png" alt=""><br> <b>下面我们先上代码，用PyMySQL与数据库进行交互实现增删改查，有关代码中的陌生函数会在文章末尾给出说明。</b></p>
 </blockquote>
 <hr>
 <h4 id="3-1-查询操作"><a href="#3-1-查询操作" class="headerlink" title="3.1 查询操作"></a><b>3.1 查询操作</b></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql <span class="comment">#导入pymysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据库链接</span></span><br><span class="line">db = pymysql.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,password=<span class="string">&quot;root&quot;</span>,db=<span class="string">&quot;demo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用cursor()方法获取操作游标</span></span><br><span class="line">cur = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用查询操作</span></span><br><span class="line"><span class="comment">#编写sql语句，profile是db里面的一个表名</span></span><br><span class="line">sql = <span class="string">&quot;select * from profile&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#比喻图解里面出现的“事故”</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cur.execute(sql)   <span class="comment">#执行查询操作</span></span><br><span class="line">    results = cur.fetchall()  <span class="comment">#fetchall方法返回一个包含所有查询信息的元组</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;name&quot;</span>,<span class="string">&quot;critical_level&quot;</span>) <span class="comment">#表中字段名</span></span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> results:                <span class="comment">#打印表单</span></span><br><span class="line">        <span class="built_in">print</span>(row[<span class="number">0</span>],row[<span class="number">1</span>],row[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">raise</span> e        <span class="comment">#抛出异常</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    db.close()      <span class="comment">#关闭数据库</span></span><br><span class="line">		cur.close()     <span class="comment">#关闭光标</span></span><br></pre></td></tr></table></figure>
 <p><b>运行结果</b></p>
 <blockquote>
 <p>id name critical_level<br>1 warp core 4<br>2 life support 3<br>3 thruster 2<br>4 transporer 1<br>5 deflecter 2<br>6 botanic bay 0<br>8 warp system 2<br>9 phaser bank 1<br>10 photon torpedo 2<br>11 primary system 2<br>12 secondary system 1<br>13 coca cola 4<br>14 sensor 1</p>
-</blockquote>
 <hr>
-<h4 id="3-2-插入操作"><a href="#3-2-插入操作" class="headerlink" title="3.2 插入操作"></a><b>3.2 插入操作</b></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql <span class="comment">#导入pymysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据库链接</span></span><br><span class="line">db = pymysql.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,password=<span class="string">&quot;root&quot;</span>,db=<span class="string">&quot;demo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用cursor()方法获取操作游标</span></span><br><span class="line">cur = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用插入操作</span></span><br><span class="line"><span class="comment">#编写sql语句，profile是db里面的一个表名</span></span><br><span class="line">sql = <span class="string">&quot;insert into profile(id,name,critical_level) values(15,&#x27;QzmVc1&#x27;,&#x27;5&#x27;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#比喻图解里面出现的“事故”</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cur.execute(sql)  <span class="comment">#执行插入操作</span></span><br><span class="line">    db.commit()       <span class="comment">#提交操作</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    db.rollback()     <span class="comment">#错误回滚</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    db.close()      <span class="comment">#关闭数据库</span></span><br><span class="line">		cur.close()     <span class="comment">#关闭光标</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-2-插入操作"><a href="#3-2-插入操作" class="headerlink" title="3.2 插入操作"></a><b>3.2 插入操作</b></h4></blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql <span class="comment">#导入pymysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据库链接</span></span><br><span class="line">db = pymysql.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,password=<span class="string">&quot;root&quot;</span>,db=<span class="string">&quot;demo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用cursor()方法获取操作游标</span></span><br><span class="line">cur = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用插入操作</span></span><br><span class="line"><span class="comment">#编写sql语句，profile是db里面的一个表名</span></span><br><span class="line">sql = <span class="string">&quot;insert into profile(id,name,critical_level) values(15,&#x27;QzmVc1&#x27;,&#x27;5&#x27;)&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#比喻图解里面出现的“事故”</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cur.execute(sql)  <span class="comment">#执行插入操作</span></span><br><span class="line">    db.commit()       <span class="comment">#提交操作</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    db.rollback()     <span class="comment">#错误回滚</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    db.close()      <span class="comment">#关闭数据库</span></span><br><span class="line">		cur.close()     <span class="comment">#关闭光标</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="3-3-更新操作"><a href="#3-3-更新操作" class="headerlink" title="3.3 更新操作"></a><b>3.3 更新操作</b></h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql <span class="comment">#导入pymysql</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#数据库链接</span></span><br><span class="line">db = pymysql.connect(host=<span class="string">&quot;localhost&quot;</span>,user=<span class="string">&quot;root&quot;</span>,password=<span class="string">&quot;root&quot;</span>,db=<span class="string">&quot;demo&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用cursor()方法获取操作游标</span></span><br><span class="line">cur = db.cursor()</span><br><span class="line"></span><br><span class="line"><span class="comment">#使用更新操作</span></span><br><span class="line"><span class="comment">#编写sql语句，profile是db里面的一个表名</span></span><br><span class="line">sql = <span class="string">&quot;update profile set name = &#x27;%s&#x27;,critical_level = %d where id = %d&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#比喻图解里面出现的“事故”</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    cur.execute(sql % (<span class="string">&#x27;Vincent&#x27;</span>,<span class="number">3</span>,<span class="number">15</span>))  <span class="comment">#执行插入操作</span></span><br><span class="line">    db.commit()       <span class="comment">#提交操作</span></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    db.rollback()     <span class="comment">#错误回滚</span></span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    db.close()      <span class="comment">#关闭数据库</span></span><br><span class="line">		cur.close()     <span class="comment">#关闭光标</span></span><br></pre></td></tr></table></figure>
 <hr>
@@ -377,39 +371,35 @@
 <h3 id="4、关于以上代码做几点说明"><a href="#4、关于以上代码做几点说明" class="headerlink" title="4、关于以上代码做几点说明"></a><b>4、关于以上代码做几点说明</b></h3><blockquote>
 <p><b>4.1 pymysql.connect()函数参数</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCFgPJ.png">
+<p><img src="https://s1.ax1x.com/2018/11/21/FCFgPJ.png" alt="">
 　　　　　　　　　　　　</p>
 <blockquote>
 <p><b>4.2 Connection对象支持的方法</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCFBrV.png">
+<p><img src="https://s1.ax1x.com/2018/11/21/FCFBrV.png" alt="">
 　　　　　　　　　　　　　　　　</p>
 <blockquote>
 <p><b>4.3 游标对象Cursor支持的方法</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCFDbT.png">
+<p><img src="https://s1.ax1x.com/2018/11/21/FCFDbT.png" alt="">
 　　　　　　　　　　　　　　　　</p>
 <blockquote>
 <p><b>4.4 execute方法执行过程图解</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCFyaF.png">
+<p><img src="https://s1.ax1x.com/2018/11/21/FCFyaF.png" alt="">
 　　　　　　　　　　　　　　　</p>
 <blockquote>
 <p><b>4.5 fetch* 方法</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCFR2R.png">
+<p><img src="https://s1.ax1x.com/2018/11/21/FCFR2R.png" alt="">
 　　　　　　　　　　　　　　　</p>
 <blockquote>
 <p><b>4.6 关于事务的几点说明</b></p>
 </blockquote>
-<p><img src="https://s1.ax1x.com/2018/11/21/FCF2G9.png"></p>
+<p><img src="https://s1.ax1x.com/2018/11/21/FCF2G9.png" alt=""></p>
 <blockquote>
 <p><b>4.6.1 commit方法</b><br>　　<br>像插入、删除、更新这种对数据库造成更改的操作需要进行提交操作</p>
-</blockquote>
-<blockquote>
 <p><b>4.6.2 什么是错误回滚?</b><br>　　　　　<br>Cursor游标对象在Python和数据库之间进行交互时可能会发生异常事件，这就类似货车在公路上可能会发生事故。在程序中我们用try-except-finally进行异常处理。比如现在在try语句我们要进行多条数据库数据的插入命令，当执行到某条语句的时候发生了异常。这时，except接收并处理异常，由于异常语句之前的插入命令已经生效，为了不对数据库造成永久性的改变，我们需要事务回滚，回到数据库最初的状态，这就是错误回滚。</p>
-</blockquote>
-<blockquote>
 <p><b>4.7 close()方法</b><br>　　　　　　　　　　　　<br>用完游标和连接后，千万记得把他们关闭。如果不关闭就会导致连接泄露，造成一种未关闭连接现象，即连接已经不再使用，但是数据库却不能关闭，因为数据库不能确定你还要不要继续使用它。这种现象会一直耗费数据库的资源，所以用完数据库之后记得关闭连接！</p>
 </blockquote>
 <hr>
@@ -515,14 +505,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

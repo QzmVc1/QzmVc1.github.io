@@ -345,34 +345,19 @@
 </li>
 </ul>
 <span id="more"></span>
-
 <h3 id="三、Pulp"><a href="#三、Pulp" class="headerlink" title="三、Pulp"></a>三、Pulp</h3><h5 id="3-1-安装pulp"><a href="#3-1-安装pulp" class="headerlink" title="3.1 安装pulp"></a>3.1 安装pulp</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pulp</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-2-导入库函数"><a href="#3-2-导入库函数" class="headerlink" title="3.2 导入库函数"></a>3.2 导入库函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-3-定义线性规划问题"><a href="#3-3-定义线性规划问题" class="headerlink" title="3.3 定义线性规划问题"></a>3.3 定义线性规划问题</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB = LpProblen(Problem name, sense)</span><br></pre></td></tr></table></figure>
-
 <p>构造函数，用来构造一个LP问题实例，其中name指定问题名（输出信息用），sense值是 LpMinimize 或 LpMaximize 中的一个，用来指定目标函数是求最大值还是最小值。</p>
 <h5 id="3-4-定义决策变量"><a href="#3-4-定义决策变量" class="headerlink" title="3.4 定义决策变量"></a>3.4 定义决策变量</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X1 = LpVariable(variable name, lowbound, upbound, category)</span><br></pre></td></tr></table></figure>
-
 <p>variable name 指定变量名， lowbound 和 upbound 是下界和上界，默认分别是 -inf 到 inf，category 用来指定变量是离散（LpInteger，LpBinary）还是连续（LpContinuous）。</p>
 <h5 id="3-5-添加目标函数"><a href="#3-5-添加目标函数" class="headerlink" title="3.5 添加目标函数"></a>3.5 添加目标函数</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB += linear objective <span class="keyword">in</span> equantion <span class="keyword">for</span> objective name</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-6-添加约束条件"><a href="#3-6-添加约束条件" class="headerlink" title="3.6 添加约束条件"></a>3.6 添加约束条件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB += linear objective <span class="keyword">in</span> equantion <span class="keyword">for</span> constraint name</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-7-写入LP文件"><a href="#3-7-写入LP文件" class="headerlink" title="3.7 写入LP文件"></a>3.7 写入LP文件</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.writeLP(filename)</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-8-模型求解"><a href="#3-8-模型求解" class="headerlink" title="3.8 模型求解"></a>3.8 模型求解</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PB.slove()</span><br></pre></td></tr></table></figure>
-
 <h5 id="3-9-结果显示"><a href="#3-9-结果显示" class="headerlink" title="3.9 结果显示"></a>3.9 结果显示</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pulp.LpStatus[PB.status]</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="四、Python实例"><a href="#四、Python实例" class="headerlink" title="四、Python实例"></a>四、Python实例</h3><p><img src="https://s2.ax1x.com/2019/07/12/ZWP36A.png"></p>
+<h3 id="四、Python实例"><a href="#四、Python实例" class="headerlink" title="四、Python实例"></a>四、Python实例</h3><p><img src="https://s2.ax1x.com/2019/07/12/ZWP36A.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pulp <span class="keyword">import</span> * </span><br><span class="line"></span><br><span class="line">prob = LpProblem(<span class="string">&#x27;Problem1&#x27;</span>, LpMaximize)</span><br><span class="line"></span><br><span class="line">x1 = LpVariable(<span class="string">&#x27;x1&#x27;</span>, <span class="number">0</span>, <span class="literal">None</span>, LpContinuous)</span><br><span class="line">x2 = LpVariable(<span class="string">&#x27;x2&#x27;</span>, <span class="number">0</span>, <span class="literal">None</span>, LpContinuous)</span><br><span class="line">x3 = LpVariable(<span class="string">&#x27;x2&#x27;</span>, <span class="number">0</span>, <span class="literal">None</span>, LpContinuous)</span><br><span class="line"></span><br><span class="line">prob += <span class="number">1000</span> * x1 + <span class="number">2000</span> * x2 + <span class="number">3000</span> * x3</span><br><span class="line"></span><br><span class="line">prob += x1 + <span class="number">2</span> * x2 + <span class="number">3</span> * x3 &lt;= <span class="number">10</span></span><br><span class="line">prob += <span class="number">0</span> * x1 + x2 + <span class="number">2</span> * x3 &lt;= <span class="number">5</span></span><br><span class="line"></span><br><span class="line">prob.writeLP(<span class="string">&#x27;Problem1.lp&#x27;</span>)</span><br><span class="line">prob.solve()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;status: &quot;</span>, LpStatus[prob.status])</span><br><span class="line"><span class="keyword">for</span> v <span class="keyword">in</span> prob.variables():</span><br><span class="line">    <span class="built_in">print</span>(v.name,<span class="string">&#x27;=&#x27;</span>,v.variable)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Maximun Profit = &quot;</span>, value(prob.objective))</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -475,14 +460,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

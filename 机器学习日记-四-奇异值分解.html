@@ -310,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.2k</span>
+      <span>7.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -331,162 +331,99 @@
         <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>在学习奇异值分解前，请<strong>务必</strong>看一下以下对于奇异值的直观理解：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22237507/answer/53804902">奇异值的物理意义是什么？</a></p>
 <p>奇异值分解是一种矩阵因子分解方法，任意一个 $m×n$ 矩阵，都可以表示为三个矩阵的乘积(因子分解)形式，分别是 $m$ 阶正交矩阵、由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵和 $n$ 阶正交矩阵，称为该矩阵的奇异值分解。矩阵的奇异值分解一定存在，但不唯一。奇异值分解可以看作是矩阵数据压缩的一种方法，即用因子分解的方式近似地表示原始矩阵，这种近似是在平方损失意义下的最有近似。</p>
 <span id="more"></span>
-
 <h3 id="一、定理与定义"><a href="#一、定理与定义" class="headerlink" title="一、定理与定义"></a>一、定理与定义</h3><p><strong>定义1&nbsp;  (奇异值分解)</strong>  矩阵的奇异值分解是指，将一个非零的 $m×n$ 实矩阵 $A$, $A\in R^{m×n}$，表示为以下三个实矩阵乘积形式的运算，即进行矩阵因子分解：</p>
-<p>$$A=U\sum V^T$$</p>
-<p>其中 $U$ 是 $m$ 阶正交矩阵，$V$ 是 $n$ 阶正交矩阵，$\sum$ 是由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵，</p>
-<p>$$UU^T=I$$</p>
-<p>$$VV^T=I$$</p>
-<p>$$\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_p)$$</p>
-<p>$$\sigma_1\geq \sigma_2 \geq \cdots \geq \sigma_p \geq 0$$</p>
-<p>$$p=min(m,n)$$</p>
-<p>$U\sum V^T$ 称为矩阵 $A$ 的奇异值分解， $\sigma_i$ 称为矩阵 $A$ 的奇异值， $U$ 的列向量称为左奇异向量，$V$ 的列向量称为右奇异向量。</p>
+<script type="math/tex; mode=display">A=U\sum V^T</script><p>其中 $U$ 是 $m$ 阶正交矩阵，$V$ 是 $n$ 阶正交矩阵，$\sum$ 是由降序排列的非负的对角线元素组成的 $m×n$ 矩阵对角矩阵，</p>
+<script type="math/tex; mode=display">UU^T=I</script><script type="math/tex; mode=display">VV^T=I</script><script type="math/tex; mode=display">\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_p)</script><script type="math/tex; mode=display">\sigma_1\geq \sigma_2 \geq \cdots \geq \sigma_p \geq 0</script><script type="math/tex; mode=display">p=min(m,n)</script><p>$U\sum V^T$ 称为矩阵 $A$ 的奇异值分解， $\sigma_i$ 称为矩阵 $A$ 的奇异值， $U$ 的列向量称为左奇异向量，$V$ 的列向量称为右奇异向量。</p>
 <p><strong>那么任意给定一个实矩阵，其奇异值分解是否一定存在呢？答案是肯定的，下面的奇异值分解的基本定理给予保证。</strong></p>
 <hr>
 <p><strong>定理1&nbsp; (奇异值分解基本定理)</strong> 若 $A$ 为一 $m×n$ 实矩阵，$A\in R^{m×n}$，则 $A$ 的奇异值分解存在</p>
-<p>$$A=U\sum V^T$$</p>
-<p><strong>证明：</strong>证明是构造性的，对给定的矩阵 $A$，构造出其奇异值分解的各个矩阵。为了方便，不放假设 $m\geq n$，如果 $m&lt;n$ 证明仍然成立。证明由三步完成。</p>
+<script type="math/tex; mode=display">A=U\sum V^T</script><p><strong>证明：</strong>证明是构造性的，对给定的矩阵 $A$，构造出其奇异值分解的各个矩阵。为了方便，不放假设 $m\geq n$，如果 $m&lt;n$ 证明仍然成立。证明由三步完成。</p>
 <p>(1) 确定 $V$ 和 $\sum$</p>
 <p>首先构造 $n$ 阶正交实矩阵 $V$ 和 $m×n$ 矩阵对角实矩阵 $\sum$。</p>
 <p>矩阵 $A$ 是 $m×n$ 实矩阵，则矩阵 $A^TA$ 是 $n$ 阶实对称矩阵。因而 $A^TA$ 的特征值都是实数，并且存在一个 $n$ 阶正交实矩阵 $V$ 实现 $A^TA$ 的对角化，使得 $V^T(A^TA)V= \Lambda$ 成立，其中 $\Lambda$ 是 $n$ 阶对角矩阵，其对角线元素由 $A^TA$ 的特征值组成。</p>
 <p>而且，$A^TA$ 的特征值都是非负的。事实上，令 $\lambda$ 是 $A^TA$ 的一个特征值，$x$ 是对应的特征向量，则</p>
-<p>$$||Ax||^2=x^TA^TAx=\lambda x^Tx=\lambda ||x||^2$$</p>
-<p>于是</p>
-<p>$$\lambda=\frac{||Ax||^2}{||x||^2}\geq0$$</p>
-<p>可以假设正交矩阵 $V$ 的列的排列使得对应的特征值形成降序排列</p>
-<p>$$\lambda_1\geq \lambda_2\geq \cdots \geq \lambda_n \geq 0$$</p>
-<p>计算特征值的平方根（实际就是矩阵 $A$ 的奇异值）</p>
-<p>$$\sigma_j=\sqrt{\lambda_j}，j=1,2,\cdots,n$$</p>
-<p>设矩阵 $A$ 的秩是 $r$ , $rank(A) = r$，则矩阵 $A^TA$ 的秩也是 $r$。由于 $A^TA$ 是对称矩阵，它的秩等于正的特征值的个数，所以</p>
-<p>$$\lambda_1 \geq \lambda_2 \geq \cdots \lambda_r &gt;0，\lambda_{r+1}=\lambda_{r+2}=\cdots=\lambda_n=0$$</p>
-<p>对应的有</p>
-<p>$$\sigma_1 \geq \sigma_2 \geq \cdots \sigma_r &gt;0，\sigma_{r+1}=\sigma_{r+2}=\cdots=\sigma_n=0$$</p>
+<script type="math/tex; mode=display">||Ax||^2=x^TA^TAx=\lambda x^Tx=\lambda ||x||^2</script><p>于是</p>
+<script type="math/tex; mode=display">\lambda=\frac{||Ax||^2}{||x||^2}\geq0</script><p>可以假设正交矩阵 $V$ 的列的排列使得对应的特征值形成降序排列</p>
+<script type="math/tex; mode=display">\lambda_1\geq \lambda_2\geq \cdots \geq \lambda_n \geq 0</script><p>计算特征值的平方根（实际就是矩阵 $A$ 的奇异值）</p>
+<script type="math/tex; mode=display">\sigma_j=\sqrt{\lambda_j}，j=1,2,\cdots,n</script><p>设矩阵 $A$ 的秩是 $r$ , $rank(A) = r$，则矩阵 $A^TA$ 的秩也是 $r$。由于 $A^TA$ 是对称矩阵，它的秩等于正的特征值的个数，所以</p>
+<script type="math/tex; mode=display">\lambda_1 \geq \lambda_2 \geq \cdots \lambda_r >0，\lambda_{r+1}=\lambda_{r+2}=\cdots=\lambda_n=0</script><p>对应的有</p>
+<script type="math/tex; mode=display">\sigma_1 \geq \sigma_2 \geq \cdots \sigma_r >0，\sigma_{r+1}=\sigma_{r+2}=\cdots=\sigma_n=0</script><p>令</p>
+<script type="math/tex; mode=display">V_1 = [v_1\quad v_2\quad \cdots\quad v_r]，V_2=[v_{r+1}\quad v_{r+2}\quad \cdots\quad v_n]</script><p>其中 $v_1,\cdots,v_r$ 为 $A^TA$ 的正特征值对应的特征向量，$v_{r+1},\cdots,v_n$ 为 $0$ 特征值对应的特征向量，则</p>
+<script type="math/tex; mode=display">V = [V_1\quad V_2]</script><p>这就是矩阵 $A$ 的奇异值分解中的 $n$ 阶正交矩阵 $V$。</p>
 <p>令</p>
-<p>$$V_1 = [v_1\quad v_2\quad \cdots\quad v_r]，V_2=[v_{r+1}\quad v_{r+2}\quad \cdots\quad v_n]$$</p>
-<p>其中 $v_1,\cdots,v_r$ 为 $A^TA$ 的正特征值对应的特征向量，$v_{r+1},\cdots,v_n$ 为 $0$ 特征值对应的特征向量，则</p>
-<p>$$V = [V_1\quad V_2]$$</p>
-<p>这就是矩阵 $A$ 的奇异值分解中的 $n$ 阶正交矩阵 $V$。</p>
-<p>令</p>
-<p>$$\sum_1=\left[\begin{matrix}\sigma_1 &amp;\quad &amp; \quad &amp;\quad \ \quad &amp; \sigma_2 &amp;\quad &amp; \quad \ \quad&amp; \quad &amp; \cdots &amp; \quad \ \quad &amp; \quad &amp; \quad &amp; \sigma_r \end{matrix}\right]$$</p>
-<p>则 $\sum_1$ 是一个 $r$ 阶对角矩阵，其对角线元素为按降序排列的正的 $\sigma_1,\cdots,\sigma_r$，于是 $m×n$ 矩阵对角矩阵 $\sum$ 可以表示为</p>
-<p>$$\sum = \left[\begin{matrix} \sum_1 &amp; 0 \ 0 &amp; 0\end{matrix}\right]$$</p>
-<p>这就是矩阵 $A$ 的奇异值分解中的 $m×n$ 矩阵对角矩阵 $\sum$。</p>
+<script type="math/tex; mode=display">\sum_1=\left[\begin{matrix}\sigma_1 &\quad & \quad &\quad \\ \quad & \sigma_2 &\quad & \quad \\ \quad& \quad & \cdots & \quad \\ \quad & \quad & \quad & \sigma_r \end{matrix}\right]</script><p>则 $\sum_1$ 是一个 $r$ 阶对角矩阵，其对角线元素为按降序排列的正的 $\sigma_1,\cdots,\sigma_r$，于是 $m×n$ 矩阵对角矩阵 $\sum$ 可以表示为</p>
+<script type="math/tex; mode=display">\sum = \left[\begin{matrix} \sum_1 & 0 \\ 0 & 0\end{matrix}\right]</script><p>这就是矩阵 $A$ 的奇异值分解中的 $m×n$ 矩阵对角矩阵 $\sum$。</p>
 <p>下面推出后面要用到的一个公式。 $V_2$ 的列向量是 $A^TA$ 对应于特征值为 $0$ 的特征向量。因此</p>
-<p>$$A^TAv_j=0，j=r+1,\cdots,n$$</p>
-<p>于是， $V_2$ 的列向量构成了 $A^TA$ 的零空间 $N(A^TA)$，而 $N(A^TA)=N(A)$。所以 $V_2$ 的列向量构成 $A$ 的零空间的一组标准正交基。因此</p>
-<p>$$AV_2=0$$</p>
-<p>由于 $V$ 是正交矩阵，所以</p>
-<p>$$I=VV^T=V_1V_1^T+V_2V_2^T$$</p>
-<p>$$A =AI=AV_1V_1^T+AV_2V_2^T=AV_1V_1^T$$</p>
-<p>(2) 确定 $U$</p>
+<script type="math/tex; mode=display">A^TAv_j=0，j=r+1,\cdots,n</script><p>于是， $V_2$ 的列向量构成了 $A^TA$ 的零空间 $N(A^TA)$，而 $N(A^TA)=N(A)$。所以 $V_2$ 的列向量构成 $A$ 的零空间的一组标准正交基。因此</p>
+<script type="math/tex; mode=display">AV_2=0</script><p>由于 $V$ 是正交矩阵，所以</p>
+<script type="math/tex; mode=display">I=VV^T=V_1V_1^T+V_2V_2^T</script><script type="math/tex; mode=display">A =AI=AV_1V_1^T+AV_2V_2^T=AV_1V_1^T</script><p>(2) 确定 $U$</p>
 <p>接着构造 $m$ 阶正交实矩阵 $U$。</p>
 <p>令</p>
-<p>$$u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r$$</p>
-<p>$$U_1=[u_1\quad u_2 \quad \cdots \quad u_r]$$</p>
-<p>则有</p>
-<p>$$AV_1=U_1 \sum_{1}$$</p>
-<p>$U_1$ 的列向量构成了一组标准正交基。</p>
+<script type="math/tex; mode=display">u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r</script><script type="math/tex; mode=display">U_1=[u_1\quad u_2 \quad \cdots \quad u_r]</script><p>则有</p>
+<script type="math/tex; mode=display">AV_1=U_1 \sum_{1}</script><p>$U_1$ 的列向量构成了一组标准正交基。</p>
 <p>若 $R(A)^\bot$ 表示 $R(A)$ 的正交补，则有 $R(A)$ 的维数为 $r$， $R(A)^\bot$ 的维数为 $m-r$，两者的维数之和等于 $m$。而且有 $R(A)^\bot =N(A^T)$ 成立。</p>
-<p>令 ${u_{r+1},u_{r+2},\cdots,u_m}$ 为 $N(A^T)$ 的一组标准正交基，并令</p>
-<p>$$U_2 = [u_{r+1}\quad u_{r+2} \quad \cdots \quad u_m]$$</p>
-<p>$$U = [U_1\quad U_2]$$</p>
-<p>则 $u_1,u_2,\cdots,u_m$ 构成了 $R^m$ 的一组标准正交基。因此，$U$ 是 $m$ 阶正交矩阵，这就是矩阵 $A$ 的奇异值分解中的 $m$ 阶正交矩阵。</p>
+<p>令 $\{u_{r+1},u_{r+2},\cdots,u_m\}$ 为 $N(A^T)$ 的一组标准正交基，并令</p>
+<script type="math/tex; mode=display">U_2 = [u_{r+1}\quad u_{r+2} \quad \cdots \quad u_m]</script><script type="math/tex; mode=display">U = [U_1\quad U_2]</script><p>则 $u_1,u_2,\cdots,u_m$ 构成了 $R^m$ 的一组标准正交基。因此，$U$ 是 $m$ 阶正交矩阵，这就是矩阵 $A$ 的奇异值分解中的 $m$ 阶正交矩阵。</p>
 <p>(3) 证明 $U\sum V^T=A$</p>
-<p>$$U\sum V^T= [U_1\quad U_2]\left[\begin{matrix} \sum_1 &amp; 0 \ 0 &amp; 0\end{matrix}\right]\left[\begin{matrix}V_1^T \ V_2^T \end{matrix}\right]$$</p>
-<p>$$=U_1 \sum_{1} V_1^T$$</p>
-<p>$$=AV_1V_1^T$$</p>
-<p>$$=A$$</p>
-<p>至此证明了矩阵 $A$ 存在奇异值分解。</p>
+<script type="math/tex; mode=display">U\sum V^T= [U_1\quad U_2]\left[\begin{matrix} \sum_1 & 0 \\ 0 & 0\end{matrix}\right]\left[\begin{matrix}V_1^T \\ V_2^T \end{matrix}\right]</script><script type="math/tex; mode=display">=U_1 \sum_{1} V_1^T</script><script type="math/tex; mode=display">=AV_1V_1^T</script><script type="math/tex; mode=display">=A</script><p>至此证明了矩阵 $A$ 存在奇异值分解。</p>
 <h3 id="二、紧奇异值分解与截断奇异值分解"><a href="#二、紧奇异值分解与截断奇异值分解" class="headerlink" title="二、紧奇异值分解与截断奇异值分解"></a>二、紧奇异值分解与截断奇异值分解</h3><p>定理1给出的奇异值分解</p>
-<p>$$A=U\sum V^T$$</p>
-<p>又称为矩阵的完全奇异值分解。实际常用的是奇异值分解的紧凑形式和截断形式。紧奇异值分解是与原始矩阵等秩的奇异值分解，截断奇异值分解是比原始矩阵低秩的奇异值分解。</p>
+<script type="math/tex; mode=display">A=U\sum V^T</script><p>又称为矩阵的完全奇异值分解。实际常用的是奇异值分解的紧凑形式和截断形式。紧奇异值分解是与原始矩阵等秩的奇异值分解，截断奇异值分解是比原始矩阵低秩的奇异值分解。</p>
 <h4 id="2-1紧奇异值分解"><a href="#2-1紧奇异值分解" class="headerlink" title="2.1紧奇异值分解"></a>2.1紧奇异值分解</h4><p>设有 $m×n$ 实矩阵 $A$，其秩为 $rank(A)=r，r\leq min(m,n)$，则称 $U_r\sum_rV_r^T$ 为 $A$ 的紧奇异值分解，即</p>
-<p>$$A=U_r \sum_{r} V_r^T$$</p>
-<p>其中 $U_r$ 是 $m×r$ 矩阵，$V_r$ 是 $n×r$ 矩阵，$\sum_r$ 是 $r$ 阶对角矩阵；矩阵 $U_r$ 由完全奇异值分解中 $U$ 的前 $r$ 列、矩阵 $V_r$ 由 $V$ 的前 $r$ 列、矩阵 $\sum_r$ 由 $\sum$ 的前 $r$ 个对角线元素得到。紧奇异值分解的对角矩阵 $\sum_r$ 的秩与原始矩阵 $A$ 的秩相等。</p>
+<script type="math/tex; mode=display">A=U_r \sum_{r} V_r^T</script><p>其中 $U_r$ 是 $m×r$ 矩阵，$V_r$ 是 $n×r$ 矩阵，$\sum_r$ 是 $r$ 阶对角矩阵；矩阵 $U_r$ 由完全奇异值分解中 $U$ 的前 $r$ 列、矩阵 $V_r$ 由 $V$ 的前 $r$ 列、矩阵 $\sum_r$ 由 $\sum$ 的前 $r$ 个对角线元素得到。紧奇异值分解的对角矩阵 $\sum_r$ 的秩与原始矩阵 $A$ 的秩相等。</p>
 <h4 id="2-2-截断奇异值分解"><a href="#2-2-截断奇异值分解" class="headerlink" title="2.2 截断奇异值分解"></a>2.2 截断奇异值分解</h4><p>在矩阵的奇异值分解中，只取最大的 $k$ 个奇异值 $(k&lt;r)$ 对应的部分，就得到矩阵的截断奇异值分解。实际应用中提到的矩阵的奇异值分解时，通常指截断奇异值分解。</p>
 <p>设 $A$ 为 $m×n$ 实矩阵，其秩 $rank(A)=r$，且 $0&lt;k&lt;r$，则称 $U_k\sum_kV_k^T$ 为矩阵 $A$ 的截断奇异值分解</p>
-<p>$$A \approx U_k \sum_{k} V_k^T$$</p>
-<p>其中 $U_k$ 是 $m×$k 矩阵，$V_k$ 是 $n×k$ 矩阵，$\sum_k$ 是 $k$ 阶对角矩阵；矩阵 $U_k$ 由完全奇异值分解中 $U$ 的前 $k$ 列、矩阵 $V_k$ 由 $V$ 的前 $k$ 列、矩阵 $\sum_k$ 由 $\sum$ 的前 $k$ 个对角线元素得到。对角矩阵 $\sum_k$ 的秩比原始矩阵 $A$ 的秩低。</p>
+<script type="math/tex; mode=display">A \approx U_k \sum_{k} V_k^T</script><p>其中 $U_k$ 是 $m×$k 矩阵，$V_k$ 是 $n×k$ 矩阵，$\sum_k$ 是 $k$ 阶对角矩阵；矩阵 $U_k$ 由完全奇异值分解中 $U$ 的前 $k$ 列、矩阵 $V_k$ 由 $V$ 的前 $k$ 列、矩阵 $\sum_k$ 由 $\sum$ 的前 $k$ 个对角线元素得到。对角矩阵 $\sum_k$ 的秩比原始矩阵 $A$ 的秩低。</p>
 <p>在实际应用中，常常需要对矩阵的数据进行压缩，将其近似表示，奇异值分解提供了一种方法。紧奇异值分解对应着无损压缩，截断奇异值分解对应着有损压缩。</p>
 <h3 id="三、几何解释"><a href="#三、几何解释" class="headerlink" title="三、几何解释"></a>三、几何解释</h3><p>从线性变换的角度理解奇异值分解，$m×n$ 矩阵 $A$ 表示从 $n$ 维空间 $R^n$ 到 $m$ 维空间 $R^m$ 的一个线性变换，</p>
-<p>$$T:x\rightarrow Ax$$</p>
-<p>$x\in R^n，Ax\in R^m$，$x$ 和 $Ax$ 分别是各自空间的向量。线性变换可以分解为三个简单的变换：一个坐标系的旋转或发射变换、一个坐标轴的缩放变换、另一个坐标系的旋转或反射变换。奇异值定理保证这种分解一定存在。这就是奇异值分解的几何解释。</p>
+<script type="math/tex; mode=display">T:x\rightarrow Ax</script><p>$x\in R^n，Ax\in R^m$，$x$ 和 $Ax$ 分别是各自空间的向量。线性变换可以分解为三个简单的变换：一个坐标系的旋转或发射变换、一个坐标轴的缩放变换、另一个坐标系的旋转或反射变换。奇异值定理保证这种分解一定存在。这就是奇异值分解的几何解释。</p>
 <p>对矩阵 $A$ 进行奇异值分解，得到 $A=U\sum V^T$ ，$V$ 和 $U$ 都是正交矩阵。所以 $V$ 的列向量 $v_1,v_2,\cdots,v_n$ 构成 $R^n$ 空间的一组标准正交基，表示 $R^n$ 中的正交坐标系的旋转或反射变换； $U$ 的列向量 $u_1,u_2,\cdots,u_m$ 构成 $R^m$ 空间的一组标准正交基，表示 $R^m$ 中的正交坐标系的旋转或反射变换； $\sum$ 的对角元素 $\sigma_1,\sigma_2,\cdots,\sigma_n$ 是一组非负实数，表示 $R^n$ 中的原始正交坐标系坐标轴的 $\sigma_1,\sigma_2,\cdots,\sigma_n$ 倍的缩放变换。</p>
 <p>任意一个向量 $x\in R^n$，经过基于 $A=U\sum V^T$ 的线性变换，等价于经过坐标系的旋转或反射变换 $V^    T$，坐标轴的缩放变换 $\sum$，以及坐标系的旋转或反射变换 $U$，得到向量 $Ax\in R^m$。下图给出了直观的几何解释。</p>
  <center><img src="https://s2.ax1x.com/2019/09/04/nZrhlQ.png" /></center>
 
 <h3 id="四、主要性质"><a href="#四、主要性质" class="headerlink" title="四、主要性质"></a>四、主要性质</h3><p>(1) 设矩阵 $A$ 的奇异值分解为 $A=U\sum V^T$，则以下关系成立：</p>
-<p>$$A^TA=(U \sum V^T)^T(U \sum V^T)=V(\sum^{T} \sum)V^T$$</p>
-<p>$$AA^T = (U\sum V^T)(U \sum V^T)^T=U(\sum \sum^{T})U^T$$</p>
-<p>也就是说，矩阵 $A^TA$ 和 $AA^T$ 的特征分解存在，且可以有矩阵 $A$ 的奇异值分解的矩阵表示。$V$ 的列向量是 $A^TA$ 的特征向量，$U$ 的列向量是 $AA^T$ 的特征向量， $\sum$ 的奇异值是$A^TA$ 和 $AA^T$ 的特征值的平方根。</p>
+<script type="math/tex; mode=display">A^TA=(U \sum V^T)^T(U \sum V^T)=V(\sum^{T} \sum)V^T</script><script type="math/tex; mode=display">AA^T = (U\sum V^T)(U \sum V^T)^T=U(\sum \sum^{T})U^T</script><p>也就是说，矩阵 $A^TA$ 和 $AA^T$ 的特征分解存在，且可以有矩阵 $A$ 的奇异值分解的矩阵表示。$V$ 的列向量是 $A^TA$ 的特征向量，$U$ 的列向量是 $AA^T$ 的特征向量， $\sum$ 的奇异值是$A^TA$ 和 $AA^T$ 的特征值的平方根。</p>
 <p>(2) 在矩阵 $A$ 的奇异值分解中，奇异值、左奇异向量和右奇异向量之间存在对于关系。</p>
 <p>由 $A=U\sum V^T$ 易知</p>
-<p>$$AV=U\sum$$ </p>
-<p>比较这一等式两端的第 $j$ 列，得到</p>
-<p>$$Av_j=\sigma_ju_j \tag{关系一}$$</p>
-<p>这是矩阵 $A$ 的右奇异向量和奇异值、左奇异向量的关系。</p>
+<script type="math/tex; mode=display">AV=U\sum</script><p>比较这一等式两端的第 $j$ 列，得到</p>
+<script type="math/tex; mode=display">Av_j=\sigma_ju_j \tag{关系一}</script><p>这是矩阵 $A$ 的右奇异向量和奇异值、左奇异向量的关系。</p>
 <p>类似的，由</p>
-<p>$$A^TU = V \sum^{T}$$</p>
-<p>得到</p>
-<p>$$A^Tu_j=\sigma_jv_j，j=1,2,\cdots,r \tag{关系二}$$</p>
-<p>$$A^Tu_j=0，j=r+1,r+2,\cdots,m \tag{关系三}$$</p>
-<p>这是矩阵 $A$ 的左奇异向量和奇异值、右奇异向量的关系。</p>
+<script type="math/tex; mode=display">A^TU = V \sum^{T}</script><p>得到</p>
+<script type="math/tex; mode=display">A^Tu_j=\sigma_jv_j，j=1,2,\cdots,r \tag{关系二}</script><script type="math/tex; mode=display">A^Tu_j=0，j=r+1,r+2,\cdots,m \tag{关系三}</script><p>这是矩阵 $A$ 的左奇异向量和奇异值、右奇异向量的关系。</p>
 <p>(3) 矩阵 $A$ 的奇异值分解中，奇异值 $\sigma_1,\cdots,\sigma_n$ 是唯一的，而矩阵 $U$ 和 $V$ 不是唯一的。</p>
 <p>(4) 矩阵 $A$ 和 $\sum$  的秩相等，等于正奇异值的个数 $r$。</p>
 <h3 id="五、奇异值分解的计算"><a href="#五、奇异值分解的计算" class="headerlink" title="五、奇异值分解的计算"></a>五、奇异值分解的计算</h3><p>给定 $m×n$ 矩阵 $A$，可以按照上面的叙述写出矩阵奇异值分解的计算过程。</p>
 <p>(1) 首先求 $A^TA$ 的特征值和特征向量。</p>
 <p>计算对称矩阵 $W=A^TA$。</p>
 <p>求解特征方程</p>
-<p>$$(W-\lambda I)x=0$$</p>
-<p>得到特征值 $\lambda_i(i=1,2,\cdots,n)$，并将特征值由大到小排列</p>
-<p>$$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0$$</p>
-<p>将特征值带入特征方程求得对应的特征向量。</p>
+<script type="math/tex; mode=display">(W-\lambda I)x=0</script><p>得到特征值 $\lambda_i(i=1,2,\cdots,n)$，并将特征值由大到小排列</p>
+<script type="math/tex; mode=display">\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0</script><p>将特征值带入特征方程求得对应的特征向量。</p>
 <p>(2) 求 $n$ 阶正交矩阵 $V$ </p>
 <p><strong>将特征向量单位化</strong>， 得到单位特征向量 $v_1,\cdots,v_n$，构成 $n$ 阶正交矩阵 $V$ :</p>
-<p>$$V=[v_1\quad v_2\quad \cdots\quad v_n]$$</p>
-<p>(3) 求 $m×n$ 对角矩阵 $\sum$ </p>
+<script type="math/tex; mode=display">V=[v_1\quad v_2\quad \cdots\quad v_n]</script><p>(3) 求 $m×n$ 对角矩阵 $\sum$ </p>
 <p>计算 $A$ 的奇异值</p>
-<p>$$\sigma_i=\sqrt{\lambda_i}，i=1,2,\cdots,n$$</p>
-<p>构造 $m×n$ 矩阵对角矩阵 $\sum$，主对角线元素是奇异值，其余元素是 $0$，</p>
-<p>$$\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_n)$$</p>
-<p>(4) 求 $m$ 阶正交矩阵 $U$ </p>
+<script type="math/tex; mode=display">\sigma_i=\sqrt{\lambda_i}，i=1,2,\cdots,n</script><p>构造 $m×n$ 矩阵对角矩阵 $\sum$，主对角线元素是奇异值，其余元素是 $0$，</p>
+<script type="math/tex; mode=display">\sum = diag(\sigma_1,\sigma_2,\cdots,\sigma_n)</script><p>(4) 求 $m$ 阶正交矩阵 $U$ </p>
 <p>对 $A$ 的前 $r$ 个正奇异值，令</p>
-<p>$$u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r$$</p>
-<p>得到</p>
-<p>$$U_1=[u_1\quad u_2\quad \cdots \quad u_r]$$</p>
-<p><strong>利用上面所述性质等式</strong>求 $A^T$ 的零空间的一组标准正交基 ${u_{r+1}，u_{r+2},\cdots,u_m}$，令</p>
-<p>$$U_2=[u_{r+1}\quad u_{r+2}\quad \cdots \quad u_m]$$</p>
-<p>并令</p>
-<p>$$U=[U_1\quad U_2]$$</p>
-<p>(5) 得到奇异值分解</p>
-<p>$$A=U\sum V^T$$</p>
-<h3 id="六、奇异值分解与矩阵近似"><a href="#六、奇异值分解与矩阵近似" class="headerlink" title="六、奇异值分解与矩阵近似"></a>六、奇异值分解与矩阵近似</h3><h4 id="6-1-弗罗贝尼乌斯范数"><a href="#6-1-弗罗贝尼乌斯范数" class="headerlink" title="6.1 弗罗贝尼乌斯范数"></a>6.1 弗罗贝尼乌斯范数</h4><p>奇异值分解也是一种矩阵近似的方法，这个近似是在弗罗贝尼乌斯范数意义下的近似。矩阵的弗罗贝尼乌斯范数是向量的 $L_2$ 范数的直接推广，对应着机器学习中平方损失函数。</p>
+<script type="math/tex; mode=display">u_j=\frac{1}{\sigma_j}Av_j，j=1,2,\cdots,r</script><p>得到</p>
+<script type="math/tex; mode=display">U_1=[u_1\quad u_2\quad \cdots \quad u_r]</script><p><strong>利用上面所述性质等式</strong>求 $A^T$ 的零空间的一组标准正交基 $\{u_{r+1}，u_{r+2},\cdots,u_m\}$，令</p>
+<script type="math/tex; mode=display">U_2=[u_{r+1}\quad u_{r+2}\quad \cdots \quad u_m]</script><p>并令</p>
+<script type="math/tex; mode=display">U=[U_1\quad U_2]</script><p>(5) 得到奇异值分解</p>
+<script type="math/tex; mode=display">A=U\sum V^T</script><h3 id="六、奇异值分解与矩阵近似"><a href="#六、奇异值分解与矩阵近似" class="headerlink" title="六、奇异值分解与矩阵近似"></a>六、奇异值分解与矩阵近似</h3><h4 id="6-1-弗罗贝尼乌斯范数"><a href="#6-1-弗罗贝尼乌斯范数" class="headerlink" title="6.1 弗罗贝尼乌斯范数"></a>6.1 弗罗贝尼乌斯范数</h4><p>奇异值分解也是一种矩阵近似的方法，这个近似是在弗罗贝尼乌斯范数意义下的近似。矩阵的弗罗贝尼乌斯范数是向量的 $L_2$ 范数的直接推广，对应着机器学习中平方损失函数。</p>
 <p><strong>定义 （弗罗贝尼乌斯范数）</strong> 设矩阵 $A \in R^{m×n}，A=[a_{ij}]_{m×n}$，定义矩阵 $A$ 的弗罗贝尼乌斯为</p>
-<p>$$||A||<em>F = \left(\mathop{\sum}\limits</em>{i=1}^{m}\mathop{\sum}\limits_{j=1}^{n}(a_{ij})^2\right)^{1\over2}$$</p>
-<p><strong>引理</strong>  &nbsp; &nbsp;&nbsp;设矩阵 $A \in R^{m×n}$，$A$ 的奇异值分解为 $U\sum V^T$，其中 $\sum=diag(\sigma_1,\sigma_2,\cdots,\sigma_n)$，则</p>
-<p>$$||A||_F = (\sigma_1^2+\sigma_2^2+\cdots+\sigma_n^2)^{1\over 2}$$</p>
-<h4 id="6-2-矩阵的最优近似"><a href="#6-2-矩阵的最优近似" class="headerlink" title="6.2 矩阵的最优近似"></a>6.2 矩阵的最优近似</h4><p><strong>奇异值分解是在平方损失(弗罗贝尼乌斯范数)意义下对矩阵的最优近似，即数据压缩。</strong></p>
+<script type="math/tex; mode=display">||A||_F = \left(\mathop{\sum}\limits_{i=1}^{m}\mathop{\sum}\limits_{j=1}^{n}(a_{ij})^2\right)^{1\over2}</script><p><strong>引理</strong>  &nbsp; &nbsp;&nbsp;设矩阵 $A \in R^{m×n}$，$A$ 的奇异值分解为 $U\sum V^T$，其中 $\sum=diag(\sigma_1,\sigma_2,\cdots,\sigma_n)$，则</p>
+<script type="math/tex; mode=display">||A||_F = (\sigma_1^2+\sigma_2^2+\cdots+\sigma_n^2)^{1\over 2}</script><h4 id="6-2-矩阵的最优近似"><a href="#6-2-矩阵的最优近似" class="headerlink" title="6.2 矩阵的最优近似"></a>6.2 矩阵的最优近似</h4><p><strong>奇异值分解是在平方损失(弗罗贝尼乌斯范数)意义下对矩阵的最优近似，即数据压缩。</strong></p>
 <p><strong>定理1&nbsp;&nbsp;&nbsp;</strong>&nbsp; &nbsp;&nbsp;设矩阵 $A\in R^{m×n}$，矩阵得秩 $rank(A)=r$，并设 $M$ 为 $R^{m×n}$ 中所有秩不超过 $k$ 的矩阵集合， $0&lt;k&lt;r$，则存在一个秩为 $k$ 的矩阵 $X \in M$，使得</p>
-<p>$$||A-X||<em>F=\mathop{min}\limits</em>{S\in M} ||A-S||_F$$</p>
-<p><strong>称矩阵 $X$ 为矩阵 $A$ 在弗罗贝尼乌斯范数意义下的最优近似。</strong></p>
+<script type="math/tex; mode=display">||A-X||_F=\mathop{min}\limits_{S\in M} ||A-S||_F</script><p><strong>称矩阵 $X$ 为矩阵 $A$ 在弗罗贝尼乌斯范数意义下的最优近似。</strong></p>
 <p><strong>定理2&nbsp;&nbsp;&nbsp;</strong>&nbsp; 设矩阵 $A\in R^{m×n}$，矩阵得秩 $rank(A)=r$，有奇异值分解$A=U\sum V^T$，并设 $M$ 为 $R^{m×n}$ 中所有秩不超过 $k$ 的矩阵的集合，$0&lt;k&lt;r$，若秩为 $k$ 的矩阵 $X \in M$ 满足</p>
-<p>$$||A-X||<em>F=\mathop{min}\limits</em>{S\in M} ||A-S||_F$$</p>
-<p>则</p>
-<p>$$||A-X||<em>F=(\sigma</em>{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}$$</p>
-<p><strong>特别的</strong>，若 $A^{‘}=U\sum^{‘}V^T$，其中</p>
-<p>$$\sum^{‘}=\left[\begin{matrix} \sigma_1 &amp; \quad&amp; \quad&amp; \quad&amp; \quad&amp; \quad \  \quad &amp; \ddots &amp; \quad&amp; \quad &amp; 0 &amp; \quad \ \quad &amp; \quad &amp; \sigma_k &amp; \quad&amp; \quad&amp; \quad \  \quad&amp; \quad&amp; \quad &amp;0 &amp; \quad&amp; \quad\ \quad &amp; 0 &amp; \quad&amp; \quad &amp; \ddots &amp; \quad \ \quad &amp; \quad&amp; \quad&amp; \quad&amp; \quad&amp;0\end{matrix}\right]=\left[\begin{matrix} \sum_k &amp; 0 \ 0 &amp; 0\end{matrix}\right]$$</p>
-<p>则</p>
-<p>$$||A-A^{‘}||<em>F=(\sigma</em>{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}=\mathop{min}\limits_{S\in M} ||A-S||_F$$</p>
-<p><strong>上式表明，在秩不超过 $k$ 的矩阵集合中，存在矩阵 $A$ 的弗罗贝尼乌斯范数意义下的最优近似矩阵 $X$。 $A^{‘}=U\sum^{‘}V^T$ 是达到最优值的一个矩阵。</strong></p>
+<script type="math/tex; mode=display">||A-X||_F=\mathop{min}\limits_{S\in M} ||A-S||_F</script><p>则</p>
+<script type="math/tex; mode=display">||A-X||_F=(\sigma_{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}</script><p><strong>特别的</strong>，若 $A^{‘}=U\sum^{‘}V^T$，其中</p>
+<script type="math/tex; mode=display">\sum^{'}=\left[\begin{matrix} \sigma_1 & \quad& \quad& \quad& \quad& \quad \\  \quad & \ddots & \quad& \quad & 0 & \quad \\ \quad & \quad & \sigma_k & \quad& \quad& \quad \\  \quad& \quad& \quad &0 & \quad& \quad\\ \quad & 0 & \quad& \quad & \ddots & \quad \\ \quad & \quad& \quad& \quad& \quad&0\end{matrix}\right]=\left[\begin{matrix} \sum_k & 0 \\ 0 & 0\end{matrix}\right]</script><p>则</p>
+<script type="math/tex; mode=display">||A-A^{'}||_F=(\sigma_{k+1}^2+\sigma_{k+2}^2+\cdots+\sigma_{n}^2)^{1\over2}=\mathop{min}\limits_{S\in M} ||A-S||_F</script><p><strong>上式表明，在秩不超过 $k$ 的矩阵集合中，存在矩阵 $A$ 的弗罗贝尼乌斯范数意义下的最优近似矩阵 $X$。 $A^{‘}=U\sum^{‘}V^T$ 是达到最优值的一个矩阵。</strong></p>
 <h4 id="6-3-矩阵的外积展开式"><a href="#6-3-矩阵的外积展开式" class="headerlink" title="6.3 矩阵的外积展开式"></a>6.3 矩阵的外积展开式</h4><p>矩阵 $A$  的奇异值分解也可以由外积形式表示。事实上，若将 $A$ 的奇异值分解看成矩阵 $U\sum$ 和 $V^T$ 的乘积，将 $U\sum$ 按列向量分块，将 $V^T$按行向量分块，即得</p>
-<p>$$U\sum=[\sigma_1u_1\quad \sigma_2u_2\quad\cdots\quad \sigma_nu_n]$$</p>
-<p>$$V^T=\left[\begin{matrix} v_1^T \ v_2^T \ \vdots \ v_n^T\end{matrix}\right]$$</p>
-<p>则</p>
-<p>$$A=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_nu_nv_n^T$$</p>
-<p>上式称为矩阵 $A$ 的外积展开式。其中 $u_kv_k^T$ 为 $m×n$ 的矩阵，是列向量 $u_k$ 和行向量 $v_k^T$ 的外积，其第 $i$ 行第 $j$ 列元素为 $u_k$ 的第 $i$ 个元素与 $v_k^T$ 的第 $j$ 个元素的乘积。</p>
+<script type="math/tex; mode=display">U\sum=[\sigma_1u_1\quad \sigma_2u_2\quad\cdots\quad \sigma_nu_n]</script><script type="math/tex; mode=display">V^T=\left[\begin{matrix} v_1^T \\ v_2^T \\ \vdots \\ v_n^T\end{matrix}\right]</script><p>则</p>
+<script type="math/tex; mode=display">A=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_nu_nv_n^T</script><p>上式称为矩阵 $A$ 的外积展开式。其中 $u_kv_k^T$ 为 $m×n$ 的矩阵，是列向量 $u_k$ 和行向量 $v_k^T$ 的外积，其第 $i$ 行第 $j$ 列元素为 $u_k$ 的第 $i$ 个元素与 $v_k^T$ 的第 $j$ 个元素的乘积。</p>
 <p>一般的，设矩阵</p>
-<p>$$A_k=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_ku_kv_k^T$$</p>
-<p><strong>则 $A_k$ 的秩为 $k$，并且 $A_k$ 是秩为 $k$ 的矩阵在弗罗贝尼乌斯范数意义下 $A$ 的最优近似矩阵。矩阵 $A_k$ 就是 $A$ 的截断奇异值分解。</strong></p>
+<script type="math/tex; mode=display">A_k=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\cdots+\sigma_ku_kv_k^T</script><p><strong>则 $A_k$ 的秩为 $k$，并且 $A_k$ 是秩为 $k$ 的矩阵在弗罗贝尼乌斯范数意义下 $A$ 的最优近似矩阵。矩阵 $A_k$ 就是 $A$ 的截断奇异值分解。</strong></p>
 <p>由于通常奇异值 $\sigma_i$ 递减很快，所以 $k$ 取很小值时， $A_k$  也可以对 $A$ 有很好得近似。</p>
 <h3 id="七、Reference"><a href="#七、Reference" class="headerlink" title="七、Reference"></a>七、Reference</h3><ul>
 <li>李航《统计学习方法》</li>
@@ -593,14 +530,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

@@ -331,10 +331,11 @@
         <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>$AutoRec$ 模型是由澳大利亚国立大学在2015年提出的，它将自编码器($AutoEncoder$)的思想与协同过滤($Collaborative　Filter$)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。</p>
 <p>原文地址：<a target="_blank" rel="noopener" href="https://users.cecs.anu.edu.au/~akmenon/papers/autorec/autorec-paper.pdf">AutoRec: Autoencoders Meet Collaborative Filtering</a></p>
 <span id="more"></span>
-
 <h3 id="一、自动编码器AutoEncoder"><a href="#一、自动编码器AutoEncoder" class="headerlink" title="一、自动编码器AutoEncoder"></a>一、自动编码器AutoEncoder</h3><h4 id="1-1-自编码器的介绍"><a href="#1-1-自编码器的介绍" class="headerlink" title="1.1 自编码器的介绍"></a>1.1 自编码器的介绍</h4><p>自编码器是一种<strong>无监督</strong>的<strong>数据维度压缩和数据特征</strong>表达方法，它是神经网络的一种，经过训练后能尝试将输入复制到输出。自编码器由编码器和解码器组成，结构如下：</p>
-<p><img src="https://z3.ax1x.com/2021/09/17/4MmWLT.png"></p>
-<p>  其中，输入为 $x$，输出为 $r$ ，$S$ 代表所有的输入数据向量，$h=f(x)$ 表示编码器，$r=g(h)$ 表示解码器，自编码器的目标便是优化损失函数：<br>$$<br>min \mathop{\sum}\limits_{r \in S} ||r-g(h)||^2_2<br>$$<br>也就是令图中红色部分的Error值最小。</p>
+<p><img src="https://z3.ax1x.com/2021/09/17/4MmWLT.png" alt=""></p>
+<p>  其中，输入为 $x$，输出为 $r$ ，$S$ 代表所有的输入数据向量，$h=f(x)$ 表示编码器，$r=g(h)$ 表示解码器，自编码器的目标便是优化损失函数：</p>
+<script type="math/tex; mode=display">
+min \mathop{\sum}\limits_{r \in S} ||r-g(h)||^2_2</script><p>也就是令图中红色部分的Error值最小。</p>
 <blockquote>
 <p>Q1：输出向量与输入向量误差最小有什么意义？直接使用原始输入向量不行吗？为什么需要编码和解码这些操作？</p>
 <p>A1：比如协同过滤中，每个用户对每个物品不可能都评过分，即当数据规模较大时，共现矩阵是一个巨大的稀疏矩阵，该矩阵存在大量的缺失值。故将初始向量通过已训练好的AutoEncoder模型得到的输出向量会因为网络权重的作用而自动填补一些缺失值，与输入向量有所区别。</p>
@@ -352,10 +353,12 @@
 <h3 id="二、AutoRec"><a href="#二、AutoRec" class="headerlink" title="二、AutoRec"></a>二、AutoRec</h3><p>$AutoRec$ 模型跟多层感知机类似，是一个标准的3层全连接神经网络，只不过它结合了自编码器和协同过滤的思想。再确切一点说，$AutoRec$ 模型就是一个标准的自编码器结构，它的基本原理是利用协同过滤中的共现矩阵，完成物品向量或者用户向量的自编码，再利用自编码结果得到用户对所有物品的评分，结果通过排序之后就可以用于物品推荐。</p>
 <h4 id="2-1-模型结构"><a href="#2-1-模型结构" class="headerlink" title="2.1 模型结构"></a>2.1 模型结构</h4><p>在基于评分数据的协同过滤算法中，假设我们有 $m$ 个用户，$n$ 个物品，则有用户-物品评分矩阵 $R \in  {\Bbb R}^{m×n}$ 。对于一个用户 $u$ 来说，他对所有 $n$ 个物品的评分数据可以形成一个 $n$ 维的向量 $r^{(u)}=(R_{u1},\cdots,R_{un})$。同理，对于一个物品 $i$ 而言，所有 $m$ 个用户对它的评分可以构成一个 $m$ 维的向量 $r^{(i)}=(R_{1i},\cdots,R_{mi})$  。其中 $R_{ui}$ 代表的是用户 $u$ 对 物品 $i$ 的评分。</p>
 <p>下面是 $AutoRec$ 的整体模型框图：</p>
-<p><img src="https://z3.ax1x.com/2021/09/17/4MlL6A.png"></p>
-<p>可以看到整个模型只有3层，蓝色的圆点代表的是隐层神经元，红色方框代表的是模型的输入，经过权重矩阵 $V$ 到达隐藏层，再经过权重矩阵 $W$ 到达输出层，我们的目的是通过训练模型，找到合适的权重矩阵 $V$ 和 $W$，以及偏置 $\mu$ 和 $b$，使得输入和输出的误差最小。令模型的重建函数为 $h(r;\theta)$，其中 $r \in {\Bbb R}^d$，其定义如下：<br>$$<br>h(r;\theta) = f(W·g(Vr+\mu)+b)<br>$$<br>其中， $f(·)$ 代表的是输出层的神经元激活函数，$g(·)$ 代表的是隐层神经元的激活函数。$\theta={W,V,\mu,b}$，$V$ 和 $W$ 分别是隐层和输出层的权重矩阵，$\mu$ 和 $b$ 分别是隐层和输出层的偏置。</p>
-<h4 id="2-2-损失函数"><a href="#2-2-损失函数" class="headerlink" title="2.2 损失函数"></a>2.2 损失函数</h4><p>$$<br>\mathop{min}\limits_{\theta}\sum^n_{i=1}||r^{(i)}-h(r^{(i)};\theta)||^2_2+\frac{\lambda}{2}(||W||^2_2+||V||^2_2)<br>$$</p>
-<h4 id="2-3-基于AutoRec的推荐过程"><a href="#2-3-基于AutoRec的推荐过程" class="headerlink" title="2.3 基于AutoRec的推荐过程"></a>2.3 基于AutoRec的推荐过程</h4><h5 id="Item-AutoRec"><a href="#Item-AutoRec" class="headerlink" title="Item-AutoRec"></a>Item-AutoRec</h5><ul>
+<p><img src="https://z3.ax1x.com/2021/09/17/4MlL6A.png" alt=""></p>
+<p>可以看到整个模型只有3层，蓝色的圆点代表的是隐层神经元，红色方框代表的是模型的输入，经过权重矩阵 $V$ 到达隐藏层，再经过权重矩阵 $W$ 到达输出层，我们的目的是通过训练模型，找到合适的权重矩阵 $V$ 和 $W$，以及偏置 $\mu$ 和 $b$，使得输入和输出的误差最小。令模型的重建函数为 $h(r;\theta)$，其中 $r \in {\Bbb R}^d$，其定义如下：</p>
+<script type="math/tex; mode=display">
+h(r;\theta) = f(W·g(Vr+\mu)+b)</script><p>其中， $f(·)$ 代表的是输出层的神经元激活函数，$g(·)$ 代表的是隐层神经元的激活函数。$\theta=\{W,V,\mu,b\}$，$V$ 和 $W$ 分别是隐层和输出层的权重矩阵，$\mu$ 和 $b$ 分别是隐层和输出层的偏置。</p>
+<h4 id="2-2-损失函数"><a href="#2-2-损失函数" class="headerlink" title="2.2 损失函数"></a>2.2 损失函数</h4><script type="math/tex; mode=display">
+\mathop{min}\limits_{\theta}\sum^n_{i=1}||r^{(i)}-h(r^{(i)};\theta)||^2_2+\frac{\lambda}{2}(||W||^2_2+||V||^2_2)</script><h4 id="2-3-基于AutoRec的推荐过程"><a href="#2-3-基于AutoRec的推荐过程" class="headerlink" title="2.3 基于AutoRec的推荐过程"></a>2.3 基于AutoRec的推荐过程</h4><h5 id="Item-AutoRec"><a href="#Item-AutoRec" class="headerlink" title="Item-AutoRec"></a>Item-AutoRec</h5><ul>
 <li>依次输入物品 $i$ 的评分向量 $r^{(i)}$，得到模型输出的预测评分向量 $h(r^{(i)};\theta)$；</li>
 <li>遍历所有物品预测评分向量的第 $u$ 维，得到用户 $u$ 对所有物品的评分，进行排序之后得到用户 $u$ 的推荐列表。</li>
 </ul>
@@ -364,9 +367,6 @@
 <li>进行排序得到用户 $u$ 的推荐列表。</li>
 </ul>
 <h3 id="三、代码演示"><a href="#三、代码演示" class="headerlink" title="三、代码演示"></a>三、代码演示</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> moviesData <span class="keyword">import</span> readRatings</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> torch.utils <span class="keyword">import</span> data</span><br><span class="line"></span><br><span class="line"><span class="comment"># AutoRec_user_based</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AutoRec</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_users, num_items, hidden_nodes=<span class="number">1000</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.num_users = num_users</span><br><span class="line">        self.num_items = num_items</span><br><span class="line">        self.hidden_nodes = hidden_nodes</span><br><span class="line"></span><br><span class="line">        self.encoder = nn.Sequential(</span><br><span class="line">            nn.Linear(self.num_items, self.hidden_nodes),</span><br><span class="line">            nn.ReLU()</span><br><span class="line">        )</span><br><span class="line">        self.decoder = nn.Sequential(</span><br><span class="line">            nn.Linear(self.hidden_nodes, self.num_items),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, X</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.decoder(self.encoder(X))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">epochs, data_iter</span>):</span></span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        epochloss = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_iter):</span><br><span class="line">            loss = lossF(net(x), x)</span><br><span class="line">            epochloss += loss.item()</span><br><span class="line">            optimizer.zero_grad()</span><br><span class="line">            loss.backward()</span><br><span class="line">            optimizer.step()</span><br><span class="line">        losslist.append(epochloss/(i+<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 共现矩阵</span></span><br><span class="line">    comatrix = torch.tensor(np.load(<span class="string">&#x27;./comatrix.npy&#x27;</span>), dtype=torch.float32)</span><br><span class="line">    trainX, testX = comatrix[:<span class="built_in">int</span>(<span class="number">0.7</span>*comatrix.shape[<span class="number">0</span>])], comatrix[<span class="built_in">int</span>(<span class="number">0.7</span>*comatrix.shape[<span class="number">0</span>]):]</span><br><span class="line">    data_iter = data.DataLoader(trainX, batch_size=<span class="number">4</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    net = AutoRec(trainX.shape[<span class="number">0</span>], trainX.shape[<span class="number">1</span>])</span><br><span class="line">    lossF = nn.MSELoss()</span><br><span class="line">    optimizer = torch.optim.Adam(net.parameters(), lr=<span class="number">1e-4</span>, weight_decay=<span class="number">1e-3</span>)</span><br><span class="line"></span><br><span class="line">    losslist = []</span><br><span class="line">    train(<span class="number">1000</span>, data_iter)</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h3><p>$AutoRec$ 模型是深度学习方法用于推荐系统中的开山之作，它仅仅使用了一个单隐层的自编码器来泛化用户和物品评分，使模型具有一定的泛化和表达能力。但是由于模型过于简单，也让它在实际使用中显得表征能力不足。</p>
 
     </div>
@@ -469,14 +469,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

@@ -330,14 +330,13 @@
     
     <div class="post-body" itemprop="articleBody">
         <h3 id="一、Domain-Adaptation"><a href="#一、Domain-Adaptation" class="headerlink" title="一、Domain Adaptation"></a>一、Domain Adaptation</h3><p>想象一个分类任务，假设现在我们手里有源域数据和目标域数据，其中源域数据是丰富并且有标记的，而目标域数据是充足但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以轻松的利用源域数据为源域建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候Domain adaptation 就可以发挥作用了。</p>
-<p>从下图中可以看到（图片来自<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51499968">知乎</a>），源域和目标域的特征都是 ${x_1,x_2}$，并且有相同的标记 ${-1，+1}$，但是在目标域数据的标记是不可获得的。此外，虽然源域和目标域的特征空间相同，但是两者的特征分布却不同。那么我们如何做到利用源域数据来帮助目标域进行分类呢？</p>
+<p>从下图中可以看到（图片来自<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/51499968">知乎</a>），源域和目标域的特征都是 $\{x_1,x_2\}$，并且有相同的标记 $\{-1，+1\}$，但是在目标域数据的标记是不可获得的。此外，虽然源域和目标域的特征空间相同，但是两者的特征分布却不同。那么我们如何做到利用源域数据来帮助目标域进行分类呢？</p>
 <p>这里最关键的一点就是在同一个特征空间中源域和目标域的分布不同，假设两者分布相同，那么我们就可以直接利用源域分类器对目标域数据进行分类了。因此，Domain adaptation的思想就是通过消除源域和目标域的分布差异，使得源域数据和目标域数据能同时被分开。在图中，通过映射函数 $\phi$ 将源域数据和目标域数据映射到某个空间中，并且将属于 +1 的样本混合在一起，属于 -1 的样本混合在一起。由于源域数据有标记，所以可以利用源域数据建立分类器。又因为源域数据和目标域数据混合在一起了，所以在分开源域样本的同时目标域样本也被分开了，这样任务就完成了。</p>
 <span id="more"></span>
-
-<p><img src="https://pic2.zhimg.com/v2-0975878ddcedfaf101b10358317b8691_r.jpg"></p>
+<p><img src="https://pic2.zhimg.com/v2-0975878ddcedfaf101b10358317b8691_r.jpg" alt=""></p>
 <h3 id="二、Domain-Adversarial-Training-of-Neural-Networks-DANN"><a href="#二、Domain-Adversarial-Training-of-Neural-Networks-DANN" class="headerlink" title="二、Domain-Adversarial Training of Neural Networks(DANN)"></a>二、Domain-Adversarial Training of Neural Networks(DANN)</h3><p>在上面的 Domain Adaptation 过程中最关键的一点就是如何做到将源域样本和目标域样本混合在一起，并且还能保证被同时分开，DANN的主要任务也是做到这一点。</p>
 <p>首先介绍一下DANN的应用背景：源域数据充足并且有标记，目标域数据充足但是无标记，源域和目标域的特征空间和标记空间相同，任务是借助源域数据对目标域数据进行分类。</p>
-<p><img src="https://s4.ax1x.com/2022/01/16/7tbkgx.png"></p>
+<p><img src="https://s4.ax1x.com/2022/01/16/7tbkgx.png" alt=""></p>
 <p>网络分为三部分： </p>
 <ul>
 <li>Feature extractor(特征提取器)：提取后续网络完成任务所需要的特征；将源域样本和目标域样本进行映射和混合。</li>
@@ -350,7 +349,7 @@
 <p>这时就要靠Label predictor (类别预测器)了，因为源域样本是有标记的，所以在提取特征时不仅仅要考虑后面的域分类器的情况，还要利用源域的带标记样本进行有监督训练从而兼顾分类的准确性。</p>
 <p>综上所述，当把特征提取器、域分类器和类别预测器都训练完成后，就可以做到把源域和目标域混合在一起并且进行分类了。</p>
 <h3 id="三、DRAec"><a href="#三、DRAec" class="headerlink" title="三、DRAec"></a>三、DRAec</h3><p>DRAec假设源域和目标域有相同的用户集合，items则是不同的。其模型结构如下所示：</p>
-<p><img src="https://s4.ax1x.com/2022/01/16/7tqf0S.png"></p>
+<p><img src="https://s4.ax1x.com/2022/01/16/7tqf0S.png" alt=""></p>
 <p>DRAec主要用到了user-items-ratings评分矩阵，因为其是稀疏的，因此首先将其通过自动编码器AutoEncoder进行降维处理，取中间隐藏层作为embeddings向量；接着，对源域和目标域的embeddings向量进行交错排列，并将它们通过DANN网络进行训练，最终训练完成的Rating Pattern Extractor就可以将源域和目标域的特征向量映射到同一特征空间，这样，我们就可以进行跨域推荐了。</p>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1905.10760.pdf">Deep Domain Adaptation for Cross-Domain Recommendation via Transferring Rating Patterns</a></p>
 <h3 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h3><ul>
@@ -457,14 +456,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

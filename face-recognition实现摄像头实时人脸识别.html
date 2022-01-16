@@ -335,7 +335,7 @@
 <p><a target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition document</a></p>
 </blockquote>
 <p>本篇博客使用 <code>OpenCV + face_recognition</code> 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
-<h4 id="face-recognition简介"><a href="#face-recognition简介" class="headerlink" title="face_recognition简介"></a>face_recognition简介</h4><p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别**准确率在《Labled Faces in the world》测试基准下达到了99.38%**。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。</p>
+<h4 id="face-recognition简介"><a href="#face-recognition简介" class="headerlink" title="face_recognition简介"></a>face_recognition简介</h4><p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别<strong>准确率在《Labled Faces in the world》测试基准下达到了99.38%</strong>。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。</p>
 <hr>
 <span id="more"></span>
 <h3 id="一、face-recognition详解"><a href="#一、face-recognition详解" class="headerlink" title="一、face_recognition详解"></a>一、face_recognition详解</h3><p><strong>（以下内容翻译自官方文档）</strong></p>
@@ -436,14 +436,13 @@
 </ul>
 </blockquote>
 <hr>
-<h3 id="二、face-recognition代码阐述"><a href="#二、face-recognition代码阐述" class="headerlink" title="二、face_recognition代码阐述"></a>二、face_recognition代码阐述</h3><h4 id="2-1-在图片中识别人脸"><a href="#2-1-在图片中识别人脸" class="headerlink" title="2.1 在图片中识别人脸"></a>2.1 在图片中识别人脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3h0P.png"></p>
+<h3 id="二、face-recognition代码阐述"><a href="#二、face-recognition代码阐述" class="headerlink" title="二、face_recognition代码阐述"></a>二、face_recognition代码阐述</h3><h4 id="2-1-在图片中识别人脸"><a href="#2-1-在图片中识别人脸" class="headerlink" title="2.1 在图片中识别人脸"></a>2.1 在图片中识别人脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3h0P.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image=face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_locations=face_recognition.face_locations(image)</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-2-找到并操作图片中的脸部特征"><a href="#2-2-找到并操作图片中的脸部特征" class="headerlink" title="2.2 找到并操作图片中的脸部特征"></a>2.2 找到并操作图片中的脸部特征</h4><p>获得图片中人类眼睛、鼻子、嘴、下巴的位置和轮廓：</p>
-<p><img src="https://s2.ax1x.com/2019/04/15/Aj34Tf.png"></p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aj34Tf.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image = face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_landmarks_list = face_recognition.face_landmarks(image)</span><br></pre></td></tr></table></figure>
 <p>找到脸部特征有很多超级有用的应用场景，当然你也可以把它用在最显而易见的功能上：美颜功能，就像美图秀秀那样。</p>
-<h4 id="2-3-鉴定图片中的脸"><a href="#2-3-鉴定图片中的脸" class="headerlink" title="2.3 鉴定图片中的脸"></a>2.3 鉴定图片中的脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3fmt.png"></p>
+<h4 id="2-3-鉴定图片中的脸"><a href="#2-3-鉴定图片中的脸" class="headerlink" title="2.3 鉴定图片中的脸"></a>2.3 鉴定图片中的脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3fmt.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">known_image=face_recognition.load_image_file(<span class="string">&quot;biden.jpg&quot;</span>)</span><br><span class="line">unknown_image=face_recognition.load_image_file(<span class="string">&quot;unknown.jpg&quot;</span>)</span><br><span class="line">biden_encoding=face_recognition.face_encodings(known_image)[<span class="number">0</span></span><br><span class="line">]unknown_encoding=face_recognition.face_encodings(unknown_image)[<span class="number">0</span>]</span><br><span class="line">results=face_recognition.compare_faces([biden_encoding],unknown_encoding)</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="三、OpenCV-face-recognition-摄像头实时人脸识别"><a href="#三、OpenCV-face-recognition-摄像头实时人脸识别" class="headerlink" title="三、OpenCV+face_recognition 摄像头实时人脸识别"></a>三、OpenCV+face_recognition 摄像头实时人脸识别</h3><blockquote>
@@ -563,14 +562,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

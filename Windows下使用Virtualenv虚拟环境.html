@@ -337,26 +337,27 @@
         <h4 id="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："><a href="#Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：" class="headerlink" title="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："></a><b>Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：</b></h4><ul>
 <li>解决库之间的版本依赖，比如同一系统上不同应用依赖同一个库的不同版本。</li>
 <li>解决权限限制，比如你没有root权限。</li>
-<li>尝试新的工具，而不用担心污染系统环境。<span id="more"></span></li>
+<li>尝试新的工具，而不用担心污染系统环境。<span id="more"></span>
+</li>
 </ul>
 <hr>
 <h4 id="下面是一个在Windows下使用Virtualenv的范例和步骤："><a href="#下面是一个在Windows下使用Virtualenv的范例和步骤：" class="headerlink" title="下面是一个在Windows下使用Virtualenv的范例和步骤："></a><b>下面是一个在Windows下使用Virtualenv的范例和步骤：</b></h4><h5 id="1-Python3-安装Virtualenv"><a href="#1-Python3-安装Virtualenv" class="headerlink" title="1. Python3 安装Virtualenv"></a><b>1. Python3 安装Virtualenv</b></h5><blockquote>
 <p> <b>pip install virtualenv</b></p>
 </blockquote>
 <h5 id="2-建立文件夹目录，作为Python的工作环境"><a href="#2-建立文件夹目录，作为Python的工作环境" class="headerlink" title="2. 建立文件夹目录，作为Python的工作环境"></a><b>2. 建立文件夹目录，作为Python的工作环境</b></h5><p>例如我在电脑上新建了一个名为<code>Python_Virtual</code>的目录。</p>
-<h5 id="3-创建虚拟环境"><a href="#3-创建虚拟环境" class="headerlink" title="3. 创建虚拟环境"></a><b>3. 创建虚拟环境</b></h5><p>在cmd控制台中cd到新建的文件夹<code>Python_Virtual</code>，输入命令<code>virtualenv venv</code>，虚拟环境的名字可以是任意的，这里是<code>venv</code>。<br><img src="https://s1.ax1x.com/2018/11/07/i7ETAO.png"><br>virtualenv venv 将会在当前的目录中创建一个文件夹，包含了Python可执行文件，以及 pip 库的一份拷贝，这样就能安装其它包了。若省略名字将会把文件均放在当前目录。</p>
+<h5 id="3-创建虚拟环境"><a href="#3-创建虚拟环境" class="headerlink" title="3. 创建虚拟环境"></a><b>3. 创建虚拟环境</b></h5><p>在cmd控制台中cd到新建的文件夹<code>Python_Virtual</code>，输入命令<code>virtualenv venv</code>，虚拟环境的名字可以是任意的，这里是<code>venv</code>。<br><img src="https://s1.ax1x.com/2018/11/07/i7ETAO.png" alt=""><br>virtualenv venv 将会在当前的目录中创建一个文件夹，包含了Python可执行文件，以及 pip 库的一份拷贝，这样就能安装其它包了。若省略名字将会把文件均放在当前目录。</p>
 <p>　　在任何你运行命令的目录中，这会创建Python的拷贝，并将之放在叫做 venv 的文件中。</p>
 <p>　　你可以选择使用一个Python解释器：</p>
 <blockquote>
 <p><b>virtualenv  -p /usr/bin/python2.7 venv</b>　　　　# -p参数指定Python解释器程序路径</p>
 </blockquote>
 <p>这将会使用 /usr/bin/python2.7 中的Python解释器。</p>
-<h5 id="4-到虚拟环境下工作"><a href="#4-到虚拟环境下工作" class="headerlink" title="4. 到虚拟环境下工作"></a><b>4. 到虚拟环境下工作</b></h5><p>(1) 切换到Scripts路径（激活、关闭虚拟环境的工具在这里）<br><img src="https://s1.ax1x.com/2018/11/07/i7EIHK.png"></p>
+<h5 id="4-到虚拟环境下工作"><a href="#4-到虚拟环境下工作" class="headerlink" title="4. 到虚拟环境下工作"></a><b>4. 到虚拟环境下工作</b></h5><p>(1) 切换到Scripts路径（激活、关闭虚拟环境的工具在这里）<br><img src="https://s1.ax1x.com/2018/11/07/i7EIHK.png" alt=""></p>
 <hr>
-<p><img src="https://s1.ax1x.com/2018/11/07/i7E7ND.png"></p>
-<p>(2) 执行activate，激活虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7ZgyR.png"></p>
+<p><img src="https://s1.ax1x.com/2018/11/07/i7E7ND.png" alt=""></p>
+<p>(2) 执行activate，激活虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7ZgyR.png" alt=""></p>
 <p>(3) 在虚拟环境下执行python命令</p>
-<p>(4) 用pip为该虚拟环境安装特定版本的依赖库<br><img src="https://s1.ax1x.com/2018/11/07/i7E5B6.png"><br>(5) 执行deactivate退出虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7eSfg.png"></p>
+<p>(4) 用pip为该虚拟环境安装特定版本的依赖库<br><img src="https://s1.ax1x.com/2018/11/07/i7E5B6.png" alt=""><br>(5) 执行deactivate退出虚拟环境<br><img src="https://s1.ax1x.com/2018/11/07/i7eSfg.png" alt=""></p>
 <hr>
 <h4 id="如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。"><a href="#如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。" class="headerlink" title=" 如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。"></a><b> 如上所述，激活不同的虚拟环境，就能在虚拟环境中使用不同版本的Python和不同的依赖，且不同虚拟环境之间是互相独立的。</b></h4>
     </div>
@@ -461,14 +462,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

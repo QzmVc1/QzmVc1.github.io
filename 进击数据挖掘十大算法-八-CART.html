@@ -338,74 +338,84 @@
 <li>CART<strong>是一棵二叉树</strong>。</li>
 </ol>
 <span id="more"></span>
-
-<h3 id="一、实例"><a href="#一、实例" class="headerlink" title="一、实例"></a>一、实例</h3><table>
+<h3 id="一、实例"><a href="#一、实例" class="headerlink" title="一、实例"></a>一、实例</h3><div class="table-container">
+<table>
 <thead>
 <tr>
-<th align="center">看电视时间</th>
-<th align="center">婚姻情况</th>
-<th align="center">职业</th>
-<th align="center">年龄</th>
+<th style="text-align:center">看电视时间</th>
+<th style="text-align:center">婚姻情况</th>
+<th style="text-align:center">职业</th>
+<th style="text-align:center">年龄</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">3</td>
-<td align="center">未婚</td>
-<td align="center">学生</td>
-<td align="center">12</td>
+<tbody>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">未婚</td>
+<td style="text-align:center">学生</td>
+<td style="text-align:center">12</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center">未婚</td>
-<td align="center">学生</td>
-<td align="center">18</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">未婚</td>
+<td style="text-align:center">学生</td>
+<td style="text-align:center">18</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td align="center">已婚</td>
-<td align="center">老师</td>
-<td align="center">26</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">已婚</td>
+<td style="text-align:center">老师</td>
+<td style="text-align:center">26</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td align="center">已婚</td>
-<td align="center">上班族</td>
-<td align="center">47</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">已婚</td>
+<td style="text-align:center">上班族</td>
+<td style="text-align:center">47</td>
 </tr>
 <tr>
-<td align="center">2.5</td>
-<td align="center">已婚</td>
-<td align="center">上班族</td>
-<td align="center">36</td>
+<td style="text-align:center">2.5</td>
+<td style="text-align:center">已婚</td>
+<td style="text-align:center">上班族</td>
+<td style="text-align:center">36</td>
 </tr>
 <tr>
-<td align="center">3.5</td>
-<td align="center">未婚</td>
-<td align="center">老师</td>
-<td align="center">29</td>
+<td style="text-align:center">3.5</td>
+<td style="text-align:center">未婚</td>
+<td style="text-align:center">老师</td>
+<td style="text-align:center">29</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center">已婚</td>
-<td align="center">学生</td>
-<td align="center">21</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">已婚</td>
+<td style="text-align:center">学生</td>
+<td style="text-align:center">21</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="二、分类树？回归树？"><a href="#二、分类树？回归树？" class="headerlink" title="二、分类树？回归树？"></a>二、分类树？回归树？</h3><p>　　分类树的作用是通过一个对象的特征来预测该对象所属的类别，而回归树的目的是根据一个对象的信息预测该对象的属性，并以数值表示。</p>
 <p>​      CART既能是分类树，又能是决策树，如上表所示，如果我们想预测一个人是否已婚，那么构建的CART将是分类树；如果想预测一个人的年龄，那么构建的将是回归树。</p>
-<h3 id="三、CART如何选择分裂的属性？"><a href="#三、CART如何选择分裂的属性？" class="headerlink" title="三、CART如何选择分裂的属性？"></a>三、CART如何选择分裂的属性？</h3><p>　　分裂的目的是为了能够让数据变纯，使决策树输出的结果更接近真实值。那么CART是如何评价节点的纯度呢？<em><strong>如果是分类树</strong></em>，CART采用<strong>Gini</strong>值衡量节点纯度；<em><strong>如果是回归树</strong></em>，采用<strong>样本方差</strong>衡量节点纯度。节点越不纯，节点分类或者预测的效果就越差。</p>
-<p>　　<strong>Gini</strong>值的计算公式：<br>$$<br>Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}<br>$$<br>　　 节点越不纯，Gini值越大。以二分类为例，如果节点的所有数据只有一个类别，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=0$, 如果两类数量相同，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=\frac{1}{2}$。</p>
-<p>　　<strong>样本方差</strong>计算公式：<br>$$<br>\sigma=\sqrt{\mathop{\sum}\limits_{i \in I}(x_i-\mu)^2}<br>$$<br>　　方差越大，表示该节点的数据越分散，预测的效果就越差。如果一个节点的所有数据都相同，那么方差就为0，此时可以很肯定得认为该节点的输出值；如果节点的数据相差很大，那么输出的值有很大的可能与实际值相差较大。</p>
-<p>　　因此，无论是分类树还是回归树，CART都要选择使子节点的GINI值或者回归方差最小的属性作为分裂的方案。即最小化（分类树）：<br>$$<br>Gain=\mathop{\sum}\limits_{i \in I}P_i*Gini<br>$$<br>或者（回归树）：<br>$$<br>Gain=\mathop{\sum}\limits_{i \in I}\sigma_i<br>$$</p>
-<h3 id="四、CART如何分裂成一棵二叉树？"><a href="#四、CART如何分裂成一棵二叉树？" class="headerlink" title="四、CART如何分裂成一棵二叉树？"></a>四、CART如何分裂成一棵二叉树？</h3><p>　　节点的分裂分为两种情况，连续型的数据和离散型的数据。   　　</p>
+<h3 id="三、CART如何选择分裂的属性？"><a href="#三、CART如何选择分裂的属性？" class="headerlink" title="三、CART如何选择分裂的属性？"></a>三、CART如何选择分裂的属性？</h3><p>　　分裂的目的是为了能够让数据变纯，使决策树输出的结果更接近真实值。那么CART是如何评价节点的纯度呢？<strong><em>如果是分类树</em></strong>，CART采用<strong>Gini</strong>值衡量节点纯度；<strong><em>如果是回归树</em></strong>，采用<strong>样本方差</strong>衡量节点纯度。节点越不纯，节点分类或者预测的效果就越差。</p>
+<p>　　<strong>Gini</strong>值的计算公式：</p>
+<script type="math/tex; mode=display">
+Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}</script><p>　　 节点越不纯，Gini值越大。以二分类为例，如果节点的所有数据只有一个类别，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=0$, 如果两类数量相同，则$Gini=1-\mathop{\sum}\limits_{i \in I}{p_i^2}=\frac{1}{2}$。</p>
+<p>　　<strong>样本方差</strong>计算公式：</p>
+<script type="math/tex; mode=display">
+\sigma=\sqrt{\mathop{\sum}\limits_{i \in I}(x_i-\mu)^2}</script><p>　　方差越大，表示该节点的数据越分散，预测的效果就越差。如果一个节点的所有数据都相同，那么方差就为0，此时可以很肯定得认为该节点的输出值；如果节点的数据相差很大，那么输出的值有很大的可能与实际值相差较大。</p>
+<p>　　因此，无论是分类树还是回归树，CART都要选择使子节点的GINI值或者回归方差最小的属性作为分裂的方案。即最小化（分类树）：</p>
+<script type="math/tex; mode=display">
+Gain=\mathop{\sum}\limits_{i \in I}P_i*Gini</script><p>或者（回归树）：</p>
+<script type="math/tex; mode=display">
+Gain=\mathop{\sum}\limits_{i \in I}\sigma_i</script><h3 id="四、CART如何分裂成一棵二叉树？"><a href="#四、CART如何分裂成一棵二叉树？" class="headerlink" title="四、CART如何分裂成一棵二叉树？"></a>四、CART如何分裂成一棵二叉树？</h3><p>　　节点的分裂分为两种情况，连续型的数据和离散型的数据。   　　</p>
 <p>　　CART对连续型属性的处理与C4.5差不多，通过最小化分裂后的 $Gini$值 或者 样本方差 寻找最优分割点，将数据一分为二。（对连续值的属性进行排序，$N$个数据共$N-1$个分裂点，每个分裂点计算$Gini$或者样本方差，找使其值最小的分裂点进行二分）</p>
 <p>　　对于离散型属性，理论上有多少个离散值就应该分裂成多少个节点。但CART是一棵二叉树，每一次分裂只会产生两个节点，怎么办呢？很简单，只要将其中一个离散值独立作为一个节点，其他的离散值生成另外一个节点即可。这种分裂方案有多少个离散值就有多少种划分的方法，举一个简单的例子：如果某离散属性一个有三个离散值X，Y，Z，则该属性的分裂方法有{X}、{Y，Z}; {Y}、{X，Z};{Z}、{X，Y}，分别计算每种划分方法的 $Gini$值 或者 样本方差 确定最优的方法。</p>
 <p><strong>划分方法举例：{“学生”}、{“老师”、“上班族”}</strong></p>
-<p><img src="https://z3.ax1x.com/2021/07/24/W6AJXR.png"></p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6AJXR.png" alt=""></p>
 <p>预测是否已婚（分类）：</p>
-<p><img src="https://z3.ax1x.com/2021/07/24/W6Atn1.png"></p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6Atn1.png" alt=""></p>
 <p>预测年龄（回归）：</p>
-<p><img src="https://z3.ax1x.com/2021/07/24/W6AN0x.png"></p>
+<p><img src="https://z3.ax1x.com/2021/07/24/W6AN0x.png" alt=""></p>
 <h3 id="五、停止分裂的条件"><a href="#五、停止分裂的条件" class="headerlink" title="五、停止分裂的条件"></a>五、停止分裂的条件</h3><p>​     （1）最小节点数</p>
 <p>　　当节点的数据量小于一个指定的数量时，不继续分裂。两个原因：一是数据量较少时，再做分裂容易强化噪声数据的作用；二是降低树生长的复杂性。提前结束分裂一定程度上有利于降低过拟合的影响。</p>
 <p>　　（2）熵或者基尼值小于阀值。</p>
@@ -518,14 +528,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

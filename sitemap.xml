@@ -634,6 +634,13 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/Linux/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/hexo/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
@@ -648,21 +655,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Linux/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -704,6 +697,13 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/Requests/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/Selenium/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
@@ -725,14 +725,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Requests/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Numpy/</loc>
+    <loc>http://qzmvc1.top/tags/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -753,7 +746,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
+    <loc>http://qzmvc1.top/tags/Numpy/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -761,6 +754,13 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/geopy/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -788,6 +788,13 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/Virtualenv/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/Pymongo/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
@@ -796,13 +803,6 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/XPath/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -823,7 +823,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Virtualenv/</loc>
+    <loc>http://qzmvc1.top/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -872,14 +872,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</loc>
+    <loc>http://qzmvc1.top/tags/Json/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Json/</loc>
+    <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

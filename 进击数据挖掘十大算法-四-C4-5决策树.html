@@ -334,13 +334,12 @@
     <div class="post-body" itemprop="articleBody">
         <h3 id="一、从分类问题开始"><a href="#一、从分类问题开始" class="headerlink" title="一、从分类问题开始"></a>一、从分类问题开始</h3><p><strong>分类（Classification）任务就是确定对象属于哪个预定义的目标类。</strong> 分类问题不仅是一个普遍存在的问题，而且是其他更加复杂的决策问题的基础，更是机器学习和数据挖掘技术中最庞大的一类算法家族。我们前面介绍过的朴素贝叶斯就可以用来解决分类问题。作为本文的开始，我们首先来简单回顾一下什么是分类。</p>
 <p>分类问题的本质就是当给定这样一个数据集后，要求我们训练出（或建立）一个模型$f$。当出现一组新的特征向量时，要求我们预测（或判断）拥有这样一组特征向量的对象应当属于哪个类别。</p>
-<p>分类问题的类别数目可以是两类也可以是多类。二分类问题是最简单的分类问题，而多分类问题模型可以在二分类模型的基础上进行构建。我们在前面文章中一直使用的鸢尾花数据集就是一个典型的多分类问题，问题的最终目标是判断给定一朵花，它应该属于setosa、versicolor和virginica中的哪一类。</p>
-<span id="more"></span>
+<p>分类问题的类别数目可以是两类也可以是多类。二分类问题是最简单的分类问题，而多分类问题模型可以在二分类模型的基础上进行构建。我们在前面文章中一直使用的鸢尾花数据集就是一个典型的多分类问题，问题的最终目标是判断给定一朵花，它应该属于setosa、versicolor和virginica中的哪一类。<br><span id="more"></span></p>
 <hr>
 <h3 id="二、决策树基础"><a href="#二、决策树基础" class="headerlink" title="二、决策树基础"></a>二、决策树基础</h3><h4 id="2-1-什么是决策树"><a href="#2-1-什么是决策树" class="headerlink" title="2.1 什么是决策树"></a>2.1 什么是决策树</h4><p>决策树是一种用于对实例进行分类的树形结构。决策树由节点（node）和有向边（directed edge）组成。节点的类型有两种：内部节点和叶子节点。其中，内部节点表示一个特征或属性的测试条件（用于分开具有不同特性的记录），叶子节点表示一个分类。</p>
 <p>一旦我们构造了一个决策树模型，以它为基础来进行分类将是非常容易的。具体做法是，从根节点开始，对实例的某一特征进行测试，根据测试结构将实例分配到其子节点（也就是选择适当的分支）；沿着该分支可能达到叶子节点或者到达另一个内部节点。如果到达内部节点，那么就使用新的测试条件递归执行下去，直到抵达一个叶子节点。当到达叶子节点时，我们便得到了最终的分类结果。</p>
 <p>下图是一个决策树的示例（注意我们仅用了两个feature就对数据集中的5个记录实现了准确的分类）：</p>
-<p><img src="https://s2.ax1x.com/2019/02/17/kyJdAO.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/17/kyJdAO.png" alt=""></p>
 <p>我们可以把决策树看作是一个if-then规则的集合。将决策树转换成if-then规则的过程是这样的：</p>
 <ul>
 <li>由决策树的根节点到叶节点的每一条路径构建一条规则</li>
@@ -351,17 +350,18 @@
 <h5 id="2-2-1-特征选择"><a href="#2-2-1-特征选择" class="headerlink" title="2.2.1 特征选择"></a>2.2.1 特征选择</h5><p>特征选择就是决定用哪个特征来划分特征空间，其目的在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随机分类的结果没有很大的差别，则称这个特征是没有分类能力的，经验上扔掉这些特征对决策树学习的精度影响不会很大。<br>那如何来选择最优的特征来划分呢？一般而言，随着划分过程不断进行，我们希望决策树的分支节点所包含的样本尽可能属于同一类别，也就是节点的纯度（purity）越来越高。</p>
 <p>在实际使用中，我们衡量的常常是不纯度。度量不纯度的指标有很多种，比如：熵、增益率、基尼值数。这里我们使用的是熵，也叫作香农熵，这个名字来源于信息论之父：克劳德·香农。</p>
 <h6 id="1-香浓熵"><a href="#1-香浓熵" class="headerlink" title="(1) 香浓熵"></a>(1) 香浓熵</h6><p>熵定义为信息的期望值。在信息论与概率统计中，熵是表示随机变量不确定性的度量。<br>假定当前样本集合D中一共有n类样本，第i类样本为$x_i$，那么$x_i$的信息定义为：</p>
-<p>$$l(x_i)=-log_2{p(x_i)}$$<br>其中 $p(x_i)$ 是选择该分类的概率。</p>
-<p>通过上式，我们可以得到所有类别的信息。为了计算熵，我们需要计算所有类别所有可能值包含的信息期望值(数学期望)，通过下面的公式得到：<br>$$Ent(D)=-\sum_{i=1}^{n}p(x_i)log_2p(x_i)$$</p>
-<p>$Ent(D)$ 的值越小，则D的不纯度就越低。</p>
+<script type="math/tex; mode=display">l(x_i)=-log_2{p(x_i)}</script><p>其中 $p(x_i)$ 是选择该分类的概率。</p>
+<p>通过上式，我们可以得到所有类别的信息。为了计算熵，我们需要计算所有类别所有可能值包含的信息期望值(数学期望)，通过下面的公式得到：</p>
+<script type="math/tex; mode=display">Ent(D)=-\sum_{i=1}^{n}p(x_i)log_2p(x_i)</script><p>$Ent(D)$ 的值越小，则D的不纯度就越低。</p>
 <h6 id="2-信息增益"><a href="#2-信息增益" class="headerlink" title="(2) 信息增益"></a>(2) 信息增益</h6><p><strong>信息增益（Information Gain）的计算公式其实就是父节点的信息熵与其下所有子节点总信息熵之差</strong>。但这里要注意的是，此时计算子节点的总信息熵不能简单求和，而要求在求和汇总之前进行修正。</p>
-<p>假设离散属性A有V个可能的取值 ${A^1,A^2,\ldots,A^V}$，若使用A对样本数据集D进行划分，则会产生V个分支节点，其中第v个分支节点包含了D中所有在属性A上取值为$A^v$的样本，记为$D^v$.我们可根据信息熵的计算公式计算出$D^v$的信息熵，再考虑到不同的分支节点所包含的样本数不同，给分支节点赋予权重 $|D^v|/D$ ，这就是所谓的的修正。</p>
-<p>所以信息增益的计算公式为：<br>$$Gain(D,A)=Ent(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$</p>
-<h6 id="3-信息增益率"><a href="#3-信息增益率" class="headerlink" title="(3) 信息增益率"></a>(3) 信息增益率</h6><p>信息增益率 = 惩罚参数 * 信息增益<br>公式：<br>$$IGR(D,A)=\frac{Gain(D,A)}{H_A(D)}$$<br>$$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}$$<br><strong>信息增益率本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。</strong></p>
+<p>假设离散属性A有V个可能的取值 $\{A^1,A^2,\ldots,A^V\}$，若使用A对样本数据集D进行划分，则会产生V个分支节点，其中第v个分支节点包含了D中所有在属性A上取值为$A^v$的样本，记为$D^v$.我们可根据信息熵的计算公式计算出$D^v$的信息熵，再考虑到不同的分支节点所包含的样本数不同，给分支节点赋予权重 $|D^v|/D$ ，这就是所谓的的修正。</p>
+<p>所以信息增益的计算公式为：</p>
+<script type="math/tex; mode=display">Gain(D,A)=Ent(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)</script><h6 id="3-信息增益率"><a href="#3-信息增益率" class="headerlink" title="(3) 信息增益率"></a>(3) 信息增益率</h6><p>信息增益率 = 惩罚参数 * 信息增益<br>公式：</p>
+<script type="math/tex; mode=display">IGR(D,A)=\frac{Gain(D,A)}{H_A(D)}</script><script type="math/tex; mode=display">H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}</script><p><strong>信息增益率本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。</strong></p>
 <p>使用信息增益率：并不是直接选择信息增益率最大的特征，而是先在候选特征中找出信息增益高于平均水平的特征，然后在这些特征中再选择信息增益率最高的特征。</p>
 <hr>
 <h3 id="三、C4-5决策树基本思想"><a href="#三、C4-5决策树基本思想" class="headerlink" title="三、C4.5决策树基本思想"></a>三、C4.5决策树基本思想</h3><p>下面以一个例子来详细说明C4.5的基本思想</p>
-<p><img src="https://s2.ax1x.com/2019/02/18/k66Ar8.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/18/k66Ar8.png" alt=""></p>
 <p>上述数据集有四个属性，属性集合A={天气，温度，湿度，风速}， 类别标签有两个，类别集合L={进行，取消}。</p>
 <h4 id="3-1-计算类别信息熵"><a href="#3-1-计算类别信息熵" class="headerlink" title="3.1 计算类别信息熵"></a>3.1 计算类别信息熵</h4><p>类别信息熵表示的是所有样本中各种类别出现的不确定性之和。根据熵的概念，熵越大，不确定性就越大，把事情搞清楚所需要的信息量就越多。</p>
 <p><code>Ent(D) = -9/14 * log2(9/14)-5/14 * log2(5/14) = 0.940</code></p>
@@ -378,13 +378,13 @@
 <p><code>H(天气) = -5/14 * log2(5/14) - 5/14 * log2(5/14) - 4/14 * log2(4/14) = 1.577</code><br><code>H(温度) = -4/14 * log2(4/14) - 6/14 * log2(6/14) - 4/14 * log2(4/14) = 1.556</code><br><code>H(湿度) = -7/14 * log2(7/14) - 7/14 * log2(7/14) = 1.0</code><br><code>H(风速) = -6/14 * log2(6/14) - 8/14 * log2(8/14) = 0.985</code></p>
 <h4 id="3-5-计算信息增益率"><a href="#3-5-计算信息增益率" class="headerlink" title="3.5 计算信息增益率"></a>3.5 计算信息增益率</h4><p><code>IGR(天气) = Gain(天气) / H(天气) = 0.246/1.577 = 0.155</code><br><code>IGR(温度) = Gain(温度) / H(温度) = 0.029/1.556 = 0.0186</code><br><code>IGR(湿度) = Gain(湿度) / H(湿度) = 0.151/1.000 = 0.151</code><br><code>IGR(风速) = Gain(风速) / H(风速) = 0.048/0.985 = 0.048</code></p>
 <p>天气的信息增益率最高，选择天气为分裂属性。发现分裂了之后，天气是“阴”的条件下，类别是”纯“的，所以把它定义为叶子节点，选择不“纯”的结点继续分裂。</p>
-<p><img src="https://s2.ax1x.com/2019/02/18/k66kKf.png"></p>
+<p><img src="https://s2.ax1x.com/2019/02/18/k66kKf.png" alt=""></p>
 <p><strong>在子结点当中重复过程1~5。</strong><br>至此，这个数据集上C4.5的计算过程就算完成了，一棵树也构建出来了。</p>
 <h4 id="3-6-算法流程"><a href="#3-6-算法流程" class="headerlink" title="3.6 算法流程"></a>3.6 算法流程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">while (当前节点”不纯“)</span><br><span class="line">	(1)计算当前节点的类别信息熵Ent(D) （以类别取值计算）</span><br><span class="line">	(2)计算当前节点各个属性的信息熵Ent(Ai) （以属性取值下的类别取值计算）</span><br><span class="line">	(3)计算各个属性的信息增益Gain(Ai)=Ent(D)-Ent(Ai)</span><br><span class="line">	(4)计算各个属性的分类信息度量H(Ai) （以属性取值计算）</span><br><span class="line">	(5)计算各个属性的信息增益率IGR(Ai)=Gain(Ai)/H(Ai)</span><br><span class="line">end while</span><br><span class="line">当前节点设置为叶子节点</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="四、Python代码"><a href="#四、Python代码" class="headerlink" title="四、Python代码"></a>四、Python代码</h3><p>完整源码: <a target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/C4.5%E5%86%B3%E7%AD%96%E6%A0%91">QzmVc1/Data-Mining/C4.5决策树/</a></p>
 <p>这个程序还是有些瑕疵的，比如什么<code>RuntimeWarning: invalid value encountered in double_scalars</code>，看了很久也没发现程序哪里错了，也没找到相应的解决方法…暂且先鸽着吧…但还是可以跑起来的emmm…</p>
-<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://s2.ax1x.com/2019/02/18/kcwLOe.png"></p>
+<h4 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://s2.ax1x.com/2019/02/18/kcwLOe.png" alt=""></p>
 <hr>
 <h3 id="五、优点与缺点"><a href="#五、优点与缺点" class="headerlink" title="五、优点与缺点"></a>五、优点与缺点</h3><p>优点：产生的分类规则易于理解，准确率较高。<br>缺点：在构造树的过程中，需要对数据集进行多次的顺序扫描和排序，因而导致算法的低效。</p>
 <hr>
@@ -492,14 +492,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

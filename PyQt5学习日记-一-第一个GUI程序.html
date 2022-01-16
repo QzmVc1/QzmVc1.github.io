@@ -376,7 +376,6 @@
 </li>
 </ul>
 <span id="more"></span>
-
 <p><strong>QtCore模块</strong>涵盖了包的核心的非GUI功能，此模块被用于处理程序中涉及到的 time、文件、目录、数据类型、文本流、链接、mime、线程或进程等对象。</p>
 <p><strong>QtGui模块</strong>涵盖多种基本图形功能的类; 包括但不限于：窗口集、事件处理、2D图形、基本的图像和界面 和字体文本。</p>
 <p><strong>QtWidgets模块</strong>包含了一整套UI元素组件，用于建立符合系统风格的classic界面，非常方便，可以在安装时选择是否使用此功能。</p>
@@ -398,34 +397,30 @@
 <p>一些新的模块会推出，如：QtBluetooth，QtPositioning或Enginio。</p>
 <p><strong>PyQt5仅支持新型信号和插槽</strong>。对SIGNAL（）或SLOT（）的调用不再支持（这点很重要哦！）。</p>
 <p>PyQt5不支持在Qt v5.0中标记为已弃用或过时的Qt API的任何部分。</p>
-</blockquote>
 <hr>
 <h3 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h3><p><strong>1. 首先在控制台输入如下命令</strong></p>
+</blockquote>
 <p>pyqt5是Python中实现GUI的一个模块，而pyqt5-tools包含了Qt designer这样的绘图软件。</p>
 <blockquote>
 <p>pip install pyqt5</p>
-</blockquote>
-<blockquote>
 <p>pip install pyqt5-tools</p>
 </blockquote>
 <p><strong>2. 配置PyCharm</strong></p>
 <p>1）打开PyCharm，执行快捷键ctrl+alt+s打开设置界面，输入tool，点开external tools，配置qtdesigner。</p>
 <p>点击左上角的加号，作如下配置：</p>
-<p>在Qt Designer的设置中，Program选择PyQt安装目录中 <strong>designer.exe</strong> 的路径</p>
-<p>Work directory 使用变量 <strong>$FileDir$</strong> （点击后面的 Insert macro 按钮可以不用输入双击上屏）</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl5l7V.png"></p>
-<p>2）设置“PyUIC” – 这个主要是用来将 Qt界面 转换成 py代码</p>
-<p>在PyUIC的设置中，其他的都差不多，Program 写入Python的地址，Parameters写入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br></pre></td></tr></table></figure>
-<p>把上面的Python路径修改成自己的即可！</p>
+<p>在Qt Designer的设置中，Program选择PyQt安装目录中 <strong>designer.exe</strong> 的路径</p>
+<p>Work directory 使用变量 <strong>$FileDir$</strong> （点击后面的 Insert macro 按钮可以不用输入双击上屏）</p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl5l7V.png" alt=""></p>
+<p>2）设置“PyUIC” — 这个主要是用来将 Qt界面 转换成 py代码</p>
+<p>在PyUIC的设置中，其他的都差不多，Program 写入Python的地址，Parameters写入<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br></pre></td></tr></table></figure><br>把上面的Python路径修改成自己的即可！</p>
 <p>Work directory 使用变量 <strong>$FileDir$</strong></p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl5Q00.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl5Q00.png" alt=""></p>
 <h3 id="三、第一个PyQt5程序"><a href="#三、第一个PyQt5程序" class="headerlink" title="三、第一个PyQt5程序"></a>三、第一个PyQt5程序</h3><p>利用PyQt5写界面的话，可以通过手动代码实现；也可以先通过Qt designer生成.ui文件，然后利用PyUIC将.ui文件转成.py文件。我主要介绍手动代码实现(<del>因为ui我学不会！emmmm</del>)。所以不懂刚才的环境配置也没关系，只要你装了PyQt5这个库就可以啦！</p>
 <p>老规矩，先上代码~</p>
 <hr>
 <h4 id="3-1-第一个窗口"><a href="#3-1-第一个窗口" class="headerlink" title="3.1 第一个窗口"></a>3.1 第一个窗口</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QWidget</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">    app = QApplication(sys.argv)</span><br><span class="line"></span><br><span class="line">    w = QWidget()</span><br><span class="line">    w.resize(<span class="number">600</span>,<span class="number">300</span>)</span><br><span class="line">    w.move(<span class="number">600</span>,<span class="number">600</span>)</span><br><span class="line">    w.setWindowTitle(<span class="string">&#x27;QzmVc1&#x27;</span>)</span><br><span class="line">    w.show()</span><br><span class="line"></span><br><span class="line">    sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
 <p>执行的结果如下图：</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl52jA.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl52jA.png" alt=""></p>
 <p>我想这个大概就是最简单的图形界面程序了，虽然简单但是确实现了图形界面程序均有的功能。</p>
 <blockquote>
 <p>import sys<br>from PyQt5.QtWidgets import QApplication, QWidget</p>
@@ -447,7 +442,7 @@
 <p>w.move(600,600)</p>
 </blockquote>
 <p>move（）方法将小部件移动到屏幕上x = 600，y = 600坐标处的位置。这里我们来看一下屏幕坐标是怎么设定的，来看看下图。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-5d0b81b07074fde612b64ce9f0d62809_hd.jpg"></p>
+<p><img src="https://pic2.zhimg.com/80/v2-5d0b81b07074fde612b64ce9f0d62809_hd.jpg" alt=""></p>
 <p>通过上图我们可以知晓，坐标原点是从哪里开始计算的，我们要是将程序中的（600,600）这个坐标改成（0，0），窗口就会跑到左上角去了，大家可以试试。</p>
 <blockquote>
 <p>w.setWindowTitle(‘QzmVc1’)</p>
@@ -465,9 +460,7 @@
 <p>exec_（）方法有一个下划线。 这是因为exec是一个Python关键字。 因此，使用exec_（）。</p>
 <p><strong>注意：为了便于初学者理解，我们把主循环(main loop)简单的谈一下。GUI应用程序都是事件驱动的。比如键盘事件、鼠标事件等等。还有一些事件来自于系统内部，比如定时事件、其它文件事件等等。在没有任何事件的情况下，应用程序处于睡眠状态。这种事件驱动机制，GUI应用程序都需要一个主循环(main loop)。主循环(main loop)控制应用程序什么时候进入睡眠状态，什么时候被唤醒。所以主循环(main loop)就是干这个的。</strong></p>
 <hr>
-<h4 id="3-2-为窗口设置图标"><a href="#3-2-为窗口设置图标" class="headerlink" title="3.2 为窗口设置图标"></a>3.2 为窗口设置图标</h4><p>接下来呢，我们把这个窗口美化一下，增加一个图标。当然写法上调整一下，上面的代码基本上是按照面向过程来写的，下面开始我们采用面向对象的方式进行编码。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QWidget</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> QIcon</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ico</span>(<span class="params">QWidget</span>):</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">       <span class="built_in">super</span>().__init__()</span><br><span class="line">       self.initUI()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">initUI</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">       self.setGeometry(<span class="number">600</span>, <span class="number">600</span>, <span class="number">600</span>, <span class="number">300</span>)</span><br><span class="line">       self.setWindowTitle(<span class="string">&#x27;QzmVc1&#x27;</span>)</span><br><span class="line">       self.setWindowIcon(QIcon(path)) <span class="comment"># path填图片路径名</span></span><br><span class="line">       self.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">app = QApplication(sys.argv)</span><br><span class="line">ex = Ico()</span><br><span class="line">sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
-<p>下面我们对新出现的代码进行相应的解析。</p>
+<h4 id="3-2-为窗口设置图标"><a href="#3-2-为窗口设置图标" class="headerlink" title="3.2 为窗口设置图标"></a>3.2 为窗口设置图标</h4><p>接下来呢，我们把这个窗口美化一下，增加一个图标。当然写法上调整一下，上面的代码基本上是按照面向过程来写的，下面开始我们采用面向对象的方式进行编码。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding = utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QWidget</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> QIcon</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ico</span>(<span class="params">QWidget</span>):</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">       <span class="built_in">super</span>().__init__()</span><br><span class="line">       self.initUI()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">initUI</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">       self.setGeometry(<span class="number">600</span>, <span class="number">600</span>, <span class="number">600</span>, <span class="number">300</span>)</span><br><span class="line">       self.setWindowTitle(<span class="string">&#x27;QzmVc1&#x27;</span>)</span><br><span class="line">       self.setWindowIcon(QIcon(path)) <span class="comment"># path填图片路径名</span></span><br><span class="line">       self.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">app = QApplication(sys.argv)</span><br><span class="line">ex = Ico()</span><br><span class="line">sys.exit(app.exec_())</span><br></pre></td></tr></table></figure><br>下面我们对新出现的代码进行相应的解析。</p>
 <blockquote>
 <p>from PyQt5.QtGui import QIcon</p>
 </blockquote>
@@ -483,9 +476,7 @@
 </blockquote>
 <p>上面的三种方法都已经从QWidget类中继承的。 setGeometry（）做了两件事情：它在屏幕上定位窗口并设置它的大小；前两个参数是窗口的x和y位置；第三个是宽度；第四个是窗口的高度。实际上，它在一个方法中组合了resize（）和move（）方法。 最后一个方法设置应用程序图标。 为此，我们创建了一个QIcon对象。 QIcon接收到我们要显示的图标的路径。</p>
 <hr>
-<h4 id="3-3-关闭窗口"><a href="#3-3-关闭窗口" class="headerlink" title="3.3 关闭窗口"></a>3.3 关闭窗口</h4><p>接下我们再这个窗口增加一个关闭按钮并实现关闭窗口的功能。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QWidget, QPushButton</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> QIcon</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtCore <span class="keyword">import</span> QCoreApplication</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ico</span>(<span class="params">QWidget</span>):</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">       <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">       self.initUI()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">initUI</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">       self.setGeometry(<span class="number">600</span>, <span class="number">600</span>, <span class="number">600</span>, <span class="number">300</span>)</span><br><span class="line">       self.setWindowTitle(<span class="string">&#x27;QzmVc1&#x27;</span>)</span><br><span class="line">       self.setWindowIcon(QIcon(path)) <span class="comment"># path填图片路径名</span></span><br><span class="line"></span><br><span class="line">       qbtn = QPushButton(<span class="string">&#x27;退出&#x27;</span>, self)</span><br><span class="line">       qbtn.clicked.connect(QCoreApplication.instance().quit)</span><br><span class="line">       qbtn.resize(<span class="number">70</span>,<span class="number">30</span>)</span><br><span class="line">       qbtn.move(<span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">       self.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">   app = QApplication(sys.argv)</span><br><span class="line">   ex = Ico()</span><br><span class="line">   sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
-<p>我们来解析一下代码。</p>
+<h4 id="3-3-关闭窗口"><a href="#3-3-关闭窗口" class="headerlink" title="3.3 关闭窗口"></a>3.3 关闭窗口</h4><p>接下我们再这个窗口增加一个关闭按钮并实现关闭窗口的功能。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtWidgets <span class="keyword">import</span> QApplication, QWidget, QPushButton</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtGui <span class="keyword">import</span> QIcon</span><br><span class="line"><span class="keyword">from</span> PyQt5.QtCore <span class="keyword">import</span> QCoreApplication</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ico</span>(<span class="params">QWidget</span>):</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span></span><br><span class="line">       <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">       self.initUI()</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">initUI</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">       self.setGeometry(<span class="number">600</span>, <span class="number">600</span>, <span class="number">600</span>, <span class="number">300</span>)</span><br><span class="line">       self.setWindowTitle(<span class="string">&#x27;QzmVc1&#x27;</span>)</span><br><span class="line">       self.setWindowIcon(QIcon(path)) <span class="comment"># path填图片路径名</span></span><br><span class="line"></span><br><span class="line">       qbtn = QPushButton(<span class="string">&#x27;退出&#x27;</span>, self)</span><br><span class="line">       qbtn.clicked.connect(QCoreApplication.instance().quit)</span><br><span class="line">       qbtn.resize(<span class="number">70</span>,<span class="number">30</span>)</span><br><span class="line">       qbtn.move(<span class="number">50</span>, <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">       self.show()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line"></span><br><span class="line">   app = QApplication(sys.argv)</span><br><span class="line">   ex = Ico()</span><br><span class="line">   sys.exit(app.exec_())</span><br></pre></td></tr></table></figure><br>我们来解析一下代码。</p>
 <blockquote>
 <p>from PyQt5.QtWidgets import QPushButton<br>from PyQt5.QtCore import QCoreApplication</p>
 </blockquote>
@@ -527,7 +518,7 @@
 <p>self.bt1.setToolTip(‘点击这里猜数字’)</p>
 </blockquote>
 <p>要创建一个工具提示，我们调用setTooltip()方法。 我们可以使用富文本格式。鼠标停留在按钮上就会出现，如下图：</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FlIvMd.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FlIvMd.jpg" alt=""></p>
 <blockquote>
 <p>self.bt1.clicked.connect(self.showMessage)</p>
 </blockquote>
@@ -539,26 +530,24 @@
 <p>self.text.setGeometry(350,100,150,30)</p>
 </blockquote>
 <p>这里建立一个QLineEdit对象，用于让玩家输入数字。“在这里输入数字”是当窗口出现时出现的默认字符；selectAll()方法则是可以理解为将“在这里输入数字”进行全选，方便输入数字，否则你还得手动全选删除默认字符，如下图：</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FlIxsA.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FlIxsA.jpg" alt=""></p>
 <p>setFocus()就是让焦点置于文本栏中，方便用户输入，不然还得手动在文本栏中单击一下，很是麻烦。没有焦点的效果如下：</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FlIzqI.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FlIzqI.jpg" alt=""></p>
 <p>setGeometry()就是设置小部件的摆放坐标以及大小。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">showMessage</span>(<span class="params">self</span>):</span></span><br><span class="line">    guessnumber = <span class="built_in">int</span>(self.text.text())</span><br><span class="line">    <span class="built_in">print</span>(self.num)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> guessnumber &gt; self.num:</span><br><span class="line">        QMessageBox.about(self,<span class="string">&#x27;看结果&#x27;</span>,<span class="string">&#x27;猜大了&#x27;</span>)</span><br><span class="line">        self.text.setFocus()</span><br><span class="line">    <span class="keyword">elif</span> guessnumber &lt; self.num:</span><br><span class="line">        QMessageBox.about(self,<span class="string">&#x27;看结果&#x27;</span>,<span class="string">&#x27;猜小了&#x27;</span>)</span><br><span class="line">        self.text.setFocus()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        QMessageBox.about(self,<span class="string">&#x27;看结果&#x27;</span>,<span class="string">&#x27;答对了！进入下一轮！&#x27;</span>)</span><br><span class="line">        self.num = randint(<span class="number">1</span>,<span class="number">100</span>)</span><br><span class="line">        self.text.clear()</span><br><span class="line">        self.text.setFocus()</span><br></pre></td></tr></table></figure>
 <p>这里就是对猜测的数字和系统随机生成的数字就行判断了。因为QLineEdit输入的内容是str类型的，所有我们要进行类型转换。</p>
 <p>QMessageBox.about就是弹出一个对话框，告诉你结果是什么样的。如下图：</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FloKoV.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FloKoV.jpg" alt=""></p>
 <p>事实上QMessageBox除了有about外，还有我们程序中用到的QMessageBox.question</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FlolJU.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FlolJU.jpg" alt=""></p>
 <p>QMessageBox.critical</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FloQiT.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FloQiT.jpg" alt=""></p>
 <p>QMessageBox.warning</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Floud0.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Floud0.jpg" alt=""></p>
 <p>QMessageBox.information</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/FlonZq.jpg"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/FlonZq.jpg" alt=""></p>
 <p>QMessageBox对话框包含类型只是图标不同其他无太大差别。</p>
-<p>这里在说明一下，当我们回答正确的时候，调用clear()方法，将文本栏里面的内容清除，同时重新生成一个随机数，并将焦点置于文本栏中。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">closeEvent</span>(<span class="params">self, event</span>):</span></span><br><span class="line"></span><br><span class="line">       reply = QMessageBox.question(self, <span class="string">&#x27;确认&#x27;</span>, <span class="string">&#x27;确认退出吗&#x27;</span>, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> reply == QMessageBox.Yes:</span><br><span class="line"></span><br><span class="line">           event.accept()</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">           event.ignore()</span><br></pre></td></tr></table></figure>
-<p>如果关闭QWidget，则生成QCloseEvent。 要修改widget的行为，我们需要重新实现closeEvent（）事件处理程序。</p>
+<p>这里在说明一下，当我们回答正确的时候，调用clear()方法，将文本栏里面的内容清除，同时重新生成一个随机数，并将焦点置于文本栏中。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">closeEvent</span>(<span class="params">self, event</span>):</span></span><br><span class="line"></span><br><span class="line">       reply = QMessageBox.question(self, <span class="string">&#x27;确认&#x27;</span>, <span class="string">&#x27;确认退出吗&#x27;</span>, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> reply == QMessageBox.Yes:</span><br><span class="line"></span><br><span class="line">           event.accept()</span><br><span class="line"></span><br><span class="line">       <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">           event.ignore()</span><br></pre></td></tr></table></figure><br>如果关闭QWidget，则生成QCloseEvent。 要修改widget的行为，我们需要重新实现closeEvent（）事件处理程序。</p>
 <p>我们显示一个带有两个按钮的消息框：Yes和No。第一个字符串出现在标题栏上。 第二个字符串是对话框显示的消息文本。 第三个参数指定出现在对话框中的按钮的组合。 最后一个参数是默认按钮。 它是初始键盘焦点的按钮。 返回值存储在答复变量中。</p>
 <p>这里我们根据返回值进行判断。 如果我们单击Yes按钮，我们接受导致关闭窗口小部件并终止应用程序的事件。 否则我们忽略关闭事件。</p>
 <hr>
@@ -666,14 +655,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

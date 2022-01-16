@@ -328,51 +328,34 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1">https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1</a></p>
-<h3 id="一、OS模块概述"><a href="#一、OS模块概述" class="headerlink" title="一、OS模块概述"></a><b>一、OS模块概述</b></h3><p>Python3 OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的(一语中的）。</p>
-<span id="more"></span>
+<h3 id="一、OS模块概述"><a href="#一、OS模块概述" class="headerlink" title="一、OS模块概述"></a><b>一、OS模块概述</b></h3><p>Python3 OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的(一语中的）。<br><span id="more"></span></p>
 <h3 id="二、OS模块常用方法"><a href="#二、OS模块常用方法" class="headerlink" title="二、OS模块常用方法"></a><b>二、OS模块常用方法</b></h3><p><b>1、os.name</b><br>输出字符串指示正在使用的平台。如果是window 则用’nt’表示，对于Linux/Unix用户，它是’posix’。</p>
 <p><b>2、os.getcwd()</b><br>函数得到当前工作目录，即当前Python脚本工作的目录路径。</p>
-<p><b>3、os.listdir()</b><br>返回指定目录下的所有文件和目录名。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.listdir(os.getcwd())</span><br><span class="line">[<span class="string">&#x27;Django&#x27;</span>, <span class="string">&#x27;DLLs&#x27;</span>, <span class="string">&#x27;Doc&#x27;</span>, <span class="string">&#x27;include&#x27;</span>, <span class="string">&#x27;Lib&#x27;</span>, <span class="string">&#x27;libs&#x27;</span>, <span class="string">&#x27;LICENSE.txt&#x27;</span>, <span class="string">&#x27;MySQL-python-wininst.log&#x27;</span>, <span class="string">&#x27;NEWS.txt&#x27;</span>, <span class="string">&#x27;PIL-wininst.log&#x27;</span>, <span class="string">&#x27;python.exe&#x27;</span>, <span class="string">&#x27;pythonw.exe&#x27;</span>, <span class="string">&#x27;README.txt&#x27;</span>, <span class="string">&#x27;RemoveMySQL-python.exe&#x27;</span>, <span class="string">&#x27;RemovePIL.exe&#x27;</span>, <span class="string">&#x27;Removesetuptools.exe&#x27;</span>, <span class="string">&#x27;Scripts&#x27;</span>, <span class="string">&#x27;setuptools-wininst.log&#x27;</span>, <span class="string">&#x27;tcl&#x27;</span>, <span class="string">&#x27;Tools&#x27;</span>, <span class="string">&#x27;w9xpopen.exe&#x27;</span>]</span><br></pre></td></tr></table></figure>
-
+<p><b>3、os.listdir()</b><br>返回指定目录下的所有文件和目录名。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.listdir(os.getcwd())</span><br><span class="line">[<span class="string">&#x27;Django&#x27;</span>, <span class="string">&#x27;DLLs&#x27;</span>, <span class="string">&#x27;Doc&#x27;</span>, <span class="string">&#x27;include&#x27;</span>, <span class="string">&#x27;Lib&#x27;</span>, <span class="string">&#x27;libs&#x27;</span>, <span class="string">&#x27;LICENSE.txt&#x27;</span>, <span class="string">&#x27;MySQL-python-wininst.log&#x27;</span>, <span class="string">&#x27;NEWS.txt&#x27;</span>, <span class="string">&#x27;PIL-wininst.log&#x27;</span>, <span class="string">&#x27;python.exe&#x27;</span>, <span class="string">&#x27;pythonw.exe&#x27;</span>, <span class="string">&#x27;README.txt&#x27;</span>, <span class="string">&#x27;RemoveMySQL-python.exe&#x27;</span>, <span class="string">&#x27;RemovePIL.exe&#x27;</span>, <span class="string">&#x27;Removesetuptools.exe&#x27;</span>, <span class="string">&#x27;Scripts&#x27;</span>, <span class="string">&#x27;setuptools-wininst.log&#x27;</span>, <span class="string">&#x27;tcl&#x27;</span>, <span class="string">&#x27;Tools&#x27;</span>, <span class="string">&#x27;w9xpopen.exe&#x27;</span>]</span><br></pre></td></tr></table></figure></p>
 <p><b>4、os.remove()</b><br>删除一个文件。</p>
 <p><b>5、os.system()</b><br>运行shell命令。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.system(<span class="string">&#x27;dir&#x27;</span>)</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.system(<span class="string">&#x27;cmd&#x27;</span>) <span class="comment">#启动dos</span></span><br></pre></td></tr></table></figure>
-
 <p><b>6、os.sep </b><br>可以取代操作系统特定的路径分割符。</p>
-<p><b>7、os.linesep</b><br>字符串给出当前平台使用的行终止符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.linesep</span><br><span class="line"><span class="string">&#x27;\r\n&#x27;</span>            <span class="comment">#Windows使用&#x27;\r\n&#x27;，Linux使用&#x27;\n&#x27;而Mac使用&#x27;\r&#x27;。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.sep</span><br><span class="line"><span class="string">&#x27;\\&#x27;</span>              <span class="comment">#Windows</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
-
-<p><b>8、os.path.split()</b><br>函数返回一个路径的目录名和文件名</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(<span class="string">&#x27;C:\\Python25\\abc.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;C:\\Python25&#x27;</span>, <span class="string">&#x27;abc.txt&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
+<p><b>7、os.linesep</b><br>字符串给出当前平台使用的行终止符<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.linesep</span><br><span class="line"><span class="string">&#x27;\r\n&#x27;</span>            <span class="comment">#Windows使用&#x27;\r\n&#x27;，Linux使用&#x27;\n&#x27;而Mac使用&#x27;\r&#x27;。</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.sep</span><br><span class="line"><span class="string">&#x27;\\&#x27;</span>              <span class="comment">#Windows</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure></p>
+<p><b>8、os.path.split()</b><br>函数返回一个路径的目录名和文件名<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.split(<span class="string">&#x27;C:\\Python25\\abc.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;C:\\Python25&#x27;</span>, <span class="string">&#x27;abc.txt&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
 <p><b>9、os.path.isfile()和os.path.isdir()函数分别检验给出的路径是一个文件还是目录。</b></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isdir(os.getcwd())</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="string">&#x27;a.txt&#x27;</span>)</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
 <p><b>10、os.path.exists()</b><br>用来检验给出的路径是否真实存在</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">&#x27;C:\\Python25\\abc.txt&#x27;</span>)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.exists(<span class="string">&#x27;C:\\Python25&#x27;</span>)</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
-
 <p><b>11、os.path.abspath(name)</b><br>获得绝对路径</p>
 <p><b>12、os.path.normpath(path)</b><br>规范path字符串形式</p>
 <p><b>13、os.path.getsize(name)</b><br>获得文件大小，如果name是目录返回0L</p>
-<p><b>14、os.path.splitext()</b><br>分离文件名与扩展名</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="string">&#x27;a.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;.txt&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
+<p><b>14、os.path.splitext()</b><br>分离文件名与扩展名<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="string">&#x27;a.txt&#x27;</span>)</span><br><span class="line">(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;.txt&#x27;</span>)</span><br></pre></td></tr></table></figure></p>
 <p><b>15、os.path.join(path,name)</b><br>连接目录与文件名或目录</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">&#x27;c:\\Python&#x27;</span>,<span class="string">&#x27;a.txt&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;c:\\Python\\a.txt&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.join(<span class="string">&#x27;c:\\Python&#x27;</span>,<span class="string">&#x27;f1&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;c:\\Python\\f1&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
-
 <p><b>16、os.path.basename(path)</b><br>返回文件名</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(<span class="string">&#x27;a.txt&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;a.txt&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.basename(<span class="string">&#x27;c:\\Python\\a.txt&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;a.txt&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br></pre></td></tr></table></figure>
-
 <p><b>17、os.path.dirname(path)</b><br>返回文件路径</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="string">&#x27;c:\\Python\\a.txt&#x27;</span>)</span><br><span class="line"><span class="string">&#x27;c:\\Python&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p><b>18、os.mkdir(path) </b><br>创建一级目录<br>例如要在D盘下创建hello的目录</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.mkdir(<span class="string">&#x27;d:\hello&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p><b>19、os.makedirs(path)  </b><br>创建多级目录<br>例如在D盘下创建books的目录，books目录下在创建book目录</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.makedirs(<span class="string">&#x27;d:\\books\\book&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
 <h3 id="先学这么多吧，以后边遇到再边记录…"><a href="#先学这么多吧，以后边遇到再边记录…" class="headerlink" title="先学这么多吧，以后边遇到再边记录…"></a>先学这么多吧，以后边遇到再边记录…</h3>
     </div>
 
@@ -476,14 +459,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

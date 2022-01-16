@@ -334,17 +334,18 @@
 <li>Xpath 是 XSLT 中的主要元素</li>
 <li>Xpath 是一个 W3C 标准</li>
 </ul>
-<h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a><b>节点</b></h5><p>在 Xpath 中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML 文档是被作为节点树来对待的。</p>
-<span id="more"></span>
+<h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a><b>节点</b></h5><p>在 Xpath 中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML 文档是被作为节点树来对待的。<br><span id="more"></span></p>
 <hr>
-<h3 id="二、Xpath语法"><a href="#二、Xpath语法" class="headerlink" title="二、Xpath语法"></a><b>二、Xpath语法</b></h3><table>
+<h3 id="二、Xpath语法"><a href="#二、Xpath语法" class="headerlink" title="二、Xpath语法"></a><b>二、Xpath语法</b></h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>表达式</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>nodename</td>
 <td>选取此节点的所有子节点。</td>
 </tr>
@@ -368,9 +369,10 @@
 <td>@</td>
 <td>选取属性。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a><b>例子</b></h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">&quot;eng&quot;</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">&quot;eng&quot;</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><b>xml.xpath(“bookstore”) </b>表示选取 bookstore 元素的所有子节点</li>
 <li><b>xml.xpath(“/bookstore”)</b> 表示选取根元素 bookstore。</li>
@@ -380,14 +382,16 @@
 <li><b>xml.xpath(“//@lang”)</b> 选取名为 lang 的所有属性。</li>
 </ul>
 <hr>
-<h4 id="谓语"><a href="#谓语" class="headerlink" title="谓语"></a><b>谓语</b></h4><table>
+<h4 id="谓语"><a href="#谓语" class="headerlink" title="谓语"></a><b>谓语</b></h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>路径表达式</th>
 <th>结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>/bookstore/book[1]</td>
 <td>选取属于 bookstore 子元素的第一个 book 元素。</td>
 </tr>
@@ -419,15 +423,19 @@
 <td>/bookstore/book[price&gt;35.00]/title</td>
 <td>选取 bookstore 元素中的 book 元素的所有 title 元素，且其中的 price 元素的值须大于 35.00。</td>
 </tr>
-</tbody></table>
-<h4 id="选取未知节点"><a href="#选取未知节点" class="headerlink" title="选取未知节点"></a><b>选取未知节点</b></h4><table>
+</tbody>
+</table>
+</div>
+<h4 id="选取未知节点"><a href="#选取未知节点" class="headerlink" title="选取未知节点"></a><b>选取未知节点</b></h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>通配符</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>*</td>
 <td>匹配任何元素节点。</td>
 </tr>
@@ -439,9 +447,12 @@
 <td>node()</td>
 <td>匹配任何类型的节点。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>例子：
 　　　　　　　　　　　　　　　　　　　　　　　</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -449,7 +460,8 @@
 <th>结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>/bookstore/*</td>
 <td>选取 bookstore 元素的所有子元素。</td>
 </tr>
@@ -461,7 +473,9 @@
 <td>//title[@*]</td>
 <td>选取所有带有属性的 title 元素。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h4 id="选取若干路径"><a href="#选取若干路径" class="headerlink" title="选取若干路径"></a><b>选取若干路径</b></h4><p>通过在路径表达式中使用“|”运算符，您可以选取若干个路径。</p>
 <ul>
 <li><b>//book/title | //book/price</b> 选取 book 元素的所有 title 和 price 元素。</li>
@@ -471,6 +485,7 @@
 <hr>
 <h3 id="三、轴"><a href="#三、轴" class="headerlink" title="三、轴"></a><b>三、轴</b></h3><p>轴可定义相对于当前节点的节点集。
 　　　　　　　　　　　　　　　　　　　　　　　</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -478,7 +493,8 @@
 <th>结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ancestor</td>
 <td>选取当前节点的所有先辈（父、祖父等）。</td>
 </tr>
@@ -526,13 +542,16 @@
 <td>self</td>
 <td>选取当前节点。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><b>步的语法： </b></p>
 <blockquote>
 <p>轴名称::节点测试[谓语]</p>
 </blockquote>
 <p>例子：
 　　　　　　　　　　　　　　　　　　　　　　　</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -540,7 +559,8 @@
 <th>结果</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>child::book</td>
 <td>选取所有属于当前节点的子元素的 book 节点。</td>
 </tr>
@@ -580,7 +600,9 @@
 <td>child:: */child::price</td>
 <td>选取当前节点的所有 price 孙节点。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <hr>
 <h3 id="四、一些函数"><a href="#四、一些函数" class="headerlink" title="四、一些函数"></a><b>四、一些函数</b></h3><p><b>1. starts-with函数</b><br>获取以xxx开头的元素<br>例子：xpath(‘//div[starts-with(@class,”test”)]’)</p>
 <p><b>2.contains函数</b><br>获取包含xxx的元素<br>例子：xpath(‘//div[contains(@id,”test”)]’)</p>
@@ -588,11 +610,10 @@
 <p><b>4.text()函数</b><br>例子1：xpath(‘//div[contains(text(),”test”)]’)<br>例子2：xpath(‘//div[@id=”test”]/text()’)</p>
 <hr>
 <h3 id="五、一个lxml的Xpath示例"><a href="#五、一个lxml的Xpath示例" class="headerlink" title="五、一个lxml的Xpath示例"></a><b>五、一个lxml的Xpath示例</b></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">html = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">　　&lt;head&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;meta name=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;title&gt;友情链接查询 - 站长工具&lt;/title&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;!-- uRj0Ak8VLEPhjWhg3m9z4EjXJwc --&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;meta name=&quot;Keywords&quot; content=&quot;友情链接查询&quot; /&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;meta name=&quot;Description&quot; content=&quot;友情链接查询&quot; /&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　&lt;/head&gt;</span></span><br><span class="line"><span class="string">　　&lt;body&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;h1 class=&quot;heading&quot;&gt;Top News&lt;/h1&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;p style=&quot;font-size: 200%&quot;&gt;World News only on this page&lt;/p&gt;</span></span><br><span class="line"><span class="string">　　　　Ah, and here&#x27;s some more text, by the way.</span></span><br><span class="line"><span class="string">　　　　&lt;p&gt;... and this is a parsed fragment ...&lt;/p&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://www.cydf.org.cn/&quot; rel=&quot;nofollow&quot; target=&quot;_blank&quot;&gt;青少年发展基金会&lt;/a&gt; </span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://www.4399.com/flash/32979.htm&quot; target=&quot;_blank&quot;&gt;洛克王国&lt;/a&gt; </span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://www.4399.com/flash/35538.htm&quot; target=&quot;_blank&quot;&gt;奥拉星&lt;/a&gt; </span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://game.3533.com/game/&quot; target=&quot;_blank&quot;&gt;手机游戏&lt;/a&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://game.3533.com/tupian/&quot; target=&quot;_blank&quot;&gt;手机壁纸&lt;/a&gt;</span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://www.4399.com/&quot; target=&quot;_blank&quot;&gt;4399小游戏&lt;/a&gt; </span></span><br><span class="line"><span class="string">　　　　&lt;a href=&quot;http://www.91wan.com/&quot; target=&quot;_blank&quot;&gt;91wan游戏&lt;/a&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">page = etree.HTML(html.lower().decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">hrefs = page.xpath(<span class="string">u&quot;//a&quot;</span>)</span><br><span class="line"><span class="keyword">for</span> href <span class="keyword">in</span> hrefs:</span><br><span class="line">    <span class="built_in">print</span>(href.attrib)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>打印出的结果为：</p>
 </blockquote>
-<p>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.cydf.org.cn/%E2%80%98">http://www.cydf.org.cn/‘</a>, ‘target’: ‘_blank’, ‘rel’: ‘nofollow’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/flash/32979.htm%E2%80%98">http://www.4399.com/flash/32979.htm‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/flash/35538.htm%E2%80%98">http://www.4399.com/flash/35538.htm‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://game.3533.com/game/%E2%80%98">http://game.3533.com/game/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://game.3533.com/tupian/%E2%80%98">http://game.3533.com/tupian/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/%E2%80%98">http://www.4399.com/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.91wan.com/%E2%80%98">http://www.91wan.com/‘</a>, ‘target’: ‘_blank’}<br>　　　　　　　　　　　　　　　　　　<br>如果要获取标签a之间的内容，就可以用<code>print href.text</code>输出</p>
+<p>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.cydf.org.cn/‘">http://www.cydf.org.cn/‘</a>, ‘target’: ‘_blank’, ‘rel’: ‘nofollow’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/flash/32979.htm‘">http://www.4399.com/flash/32979.htm‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/flash/35538.htm‘">http://www.4399.com/flash/35538.htm‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://game.3533.com/game/‘">http://game.3533.com/game/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://game.3533.com/tupian/‘">http://game.3533.com/tupian/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.4399.com/‘">http://www.4399.com/‘</a>, ‘target’: ‘_blank’}<br>{‘href’: ‘<a target="_blank" rel="noopener" href="http://www.91wan.com/‘">http://www.91wan.com/‘</a>, ‘target’: ‘_blank’}<br>　　　　　　　　　　　　　　　　　　<br>如果要获取标签a之间的内容，就可以用<code>print href.text</code>输出</p>
 <hr>
 <h3 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a><b>六、总结</b></h3><p>上面的内容大多都是抄自网上的一些资料,这里只是做了一个大概的总结，后面如果有漏的还会补充。</p>
 <hr>
@@ -699,14 +720,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

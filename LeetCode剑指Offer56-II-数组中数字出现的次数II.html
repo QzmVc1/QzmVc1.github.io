@@ -330,18 +330,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、题目描述"><a href="#一、题目描述" class="headerlink" title="一、题目描述"></a>一、题目描述</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx46HK.png"></p>
+        <h3 id="一、题目描述"><a href="#一、题目描述" class="headerlink" title="一、题目描述"></a>一、题目描述</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx46HK.png" alt=""></p>
 <span id="more"></span>
-
-<h3 id="二、示例"><a href="#二、示例" class="headerlink" title="二、示例"></a>二、示例</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx4R4e.png"></p>
-<h3 id="三、条件限制"><a href="#三、条件限制" class="headerlink" title="三、条件限制"></a>三、条件限制</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx5yxs.png"></p>
+<h3 id="二、示例"><a href="#二、示例" class="headerlink" title="二、示例"></a>二、示例</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx4R4e.png" alt=""></p>
+<h3 id="三、条件限制"><a href="#三、条件限制" class="headerlink" title="三、条件限制"></a>三、条件限制</h3><p><img src="https://z3.ax1x.com/2021/09/11/hx5yxs.png" alt=""></p>
 <h4 id="四、解题思路及代码"><a href="#四、解题思路及代码" class="headerlink" title="四、解题思路及代码"></a>四、解题思路及代码</h4><h4 id="4-1-遍历"><a href="#4-1-遍历" class="headerlink" title="4.1 遍历"></a>4.1 遍历</h4><p>比较容易想到的思路是<strong>对数组排序后遍历数组，从索引1开始，如果当前元素和前一个元素相同，则索引指针往后跳三个，否则return前一个元素的值，当然考虑索引指针的边界情况。</strong>详见代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        nums = <span class="built_in">sorted</span>(nums)</span><br><span class="line">        i = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> i &lt;= <span class="built_in">len</span>(nums):</span><br><span class="line">            <span class="keyword">if</span> nums[i] == nums[i-<span class="number">1</span>] <span class="keyword">and</span> i + <span class="number">3</span> &lt; <span class="built_in">len</span>(nums):</span><br><span class="line">                i = i + <span class="number">3</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">elif</span> nums[i] == nums[i-<span class="number">1</span>]:</span><br><span class="line">                <span class="keyword">return</span> nums[i+<span class="number">2</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> nums[i-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-
 <h4 id="4-2-进制位法"><a href="#4-2-进制位法" class="headerlink" title="4.2 进制位法"></a>4.2 进制位法</h4><p>如下图所示，考虑数字的二进制形式。<strong>对于出现三次的数字，各二进制位出现的次数都是3的倍数。因此，统计所有数字的各二进制位中1的出现次数，并对3求余，结果则为只出现一次的数字。</strong></p>
-<p><img src="https://z3.ax1x.com/2021/09/11/hx53Pe.png"></p>
+<p><img src="https://z3.ax1x.com/2021/09/11/hx53Pe.png" alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span></span><br><span class="line">        count = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>)]</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>):</span><br><span class="line">                count[j] += num &amp; <span class="number">1</span></span><br><span class="line">                num &gt;&gt;= <span class="number">1</span></span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>):</span><br><span class="line">            ans &lt;&lt;= <span class="number">1</span></span><br><span class="line">            ans |= count[<span class="number">30</span>-k] % <span class="number">3</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -443,14 +440,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

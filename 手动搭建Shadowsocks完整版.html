@@ -333,51 +333,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、-Vultr购买VPS"><a href="#一、-Vultr购买VPS" class="headerlink" title="一、 Vultr购买VPS"></a>一、 Vultr购买VPS</h3><p><img src="https://s2.ax1x.com/2020/02/11/1TdHaD.png"></p>
+        <h3 id="一、-Vultr购买VPS"><a href="#一、-Vultr购买VPS" class="headerlink" title="一、 Vultr购买VPS"></a>一、 Vultr购买VPS</h3><p><img src="https://s2.ax1x.com/2020/02/11/1TdHaD.png" alt=""></p>
 <span id="more"></span>
-
-<p><img src="https://s2.ax1x.com/2020/02/11/1TdbIe.png"></p>
-<p><img src="https://s2.ax1x.com/2020/02/11/1Td7VO.png"></p>
-<p>**最后选择价格就ok~**，然后就会变成下面这样：</p>
-<p><img src="https://s2.ax1x.com/2020/02/11/1Tw6yt.png"></p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1TdbIe.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1Td7VO.png" alt=""></p>
+<p><strong>最后选择价格就ok~</strong>，然后就会变成下面这样：</p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1Tw6yt.png" alt=""></p>
 <p><strong>点击国旗旁的蓝色图标可以查看服务器的具体信息：</strong></p>
-<p><img src="https://s2.ax1x.com/2020/02/11/1TwcOP.png"></p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1TwcOP.png" alt=""></p>
 <h3 id="二、手动搭建Shadowsocks"><a href="#二、手动搭建Shadowsocks" class="headerlink" title="二、手动搭建Shadowsocks"></a>二、手动搭建Shadowsocks</h3><h4 id="1-通过Putty-Xshell连接服务器"><a href="#1-通过Putty-Xshell连接服务器" class="headerlink" title="1. 通过Putty/Xshell连接服务器"></a>1. 通过Putty/Xshell连接服务器</h4><p><strong>输入服务器IP地址：</strong></p>
-<p><img src="https://s2.ax1x.com/2020/02/11/1T0tpj.png"></p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1T0tpj.png" alt=""></p>
 <p><strong>输入用户名密码：</strong></p>
-<p><img src="https://s2.ax1x.com/2020/02/11/1T0JhQ.png"></p>
+<p><img src="https://s2.ax1x.com/2020/02/11/1T0JhQ.png" alt=""></p>
 <p><strong>之后成功进入后依次输入如下命令：</strong></p>
 <p><strong>通过安装锐速脚本进行加速</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N — no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh </span><br></pre></td></tr></table></figure>
-
 <p><strong>下载Shadowsocks</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget — no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
 <p><strong>更改权限</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
 <p><strong>安装Shadowsocks</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
-
 <p><strong>之后它会让你依次输入连接密码，端口和加密方式。依次输入就可以， 加密方式选择</strong> <strong>7（AES-256-CFB）</strong>。安装完之后就会出现一块红色的区域，那就是连接时使用的类似账号密码的东西，这样就ok啦~</p>
 <h3 id="三、多用户使用"><a href="#三、多用户使用" class="headerlink" title="三、多用户使用"></a>三、多用户使用</h3><p>有时候需要多个人使用一台服务器，因此我们需要增加端口：</p>
 <p><strong>检测CentOS7是否安装vim，之后要用，没有的话直接安装：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y vim</span><br></pre></td></tr></table></figure>
-
 <p><strong>修改Shadowsocks文件，修改成如下形式（”端口”:”密码”）:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;::&quot;,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">         &quot;9000&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9001&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9002&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9003&quot;:&quot;12345&quot;,</span><br><span class="line">         &quot;9004&quot;:&quot;12345&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>打开防火墙，开放对应端口</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/firewalld/zones/public.xml </span><br></pre></td></tr></table></figure>
-
 <p><strong>重启Shadowsocks</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/shadowsocks restart</span><br></pre></td></tr></table></figure>
-
 <p><strong>重启防火墙</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service firewalld restart</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -479,14 +468,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

@@ -333,8 +333,7 @@
     <div class="post-body" itemprop="articleBody">
         <h3 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号和槽是一种高级接口，应用于对象之间的通信，它是 QT 的核心特性，也是 QT 区别于其它工具包的重要地方。它为高层次的事件处理自动生成所需要的附加代码。在我们所熟知的很多 GUI 工具包中，窗口小部件 (widget) 都有一个回调函数用于响应它们能触发的每个动作，这个回调函数通常是一个指向某个函数的指针。但是，在 QT 中信号和槽取代了这些凌乱的函数指针，使得我们编写这些通信程序更为简洁明了。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有从 QObject 或其子类 ( 例如 Qwidget) 派生的类都能够包含信号和槽。当对象改变其状态时，信号就由该对象发射 (emit) 出去，这就是对象所要做的全部事情，它不知道另一端是谁在接收这个信号。这就是真正的信息封装，它确保对象被当作一个真正的软件组件来使用。槽用于接收信号，但它们是普通的对象成员函数。一个槽并不知道是否有任何信号与自己相连接。而且，对象并不了解具体的通信机制。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以将很多信号与单个的槽进行连接，也可以将单个的信号与很多的槽进行连接，甚至于将一个信号与另外一个信号相连接也是可能的，这时无论第一个信号什么时候发射系统都将立刻发射第二个信号。总之，信号与槽构造了一个强大的部件编程机制。</p>
-<span id="more"></span>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以将很多信号与单个的槽进行连接，也可以将单个的信号与很多的槽进行连接，甚至于将一个信号与另外一个信号相连接也是可能的，这时无论第一个信号什么时候发射系统都将立刻发射第二个信号。总之，信号与槽构造了一个强大的部件编程机制。<br><span id="more"></span></p>
 <hr>
 <h3 id="二、信号与槽"><a href="#二、信号与槽" class="headerlink" title="二、信号与槽"></a>二、信号与槽</h3><h4 id="2-1-信号"><a href="#2-1-信号" class="headerlink" title="2.1 信号"></a>2.1 信号</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当对象的状态发生改变的时候，信号就由该对象发射 (emit) 出去。当一个信号被发射(emit)时候，与其关联的槽函数被立刻执行。其中该对象只负责发送信号，发射该信号的对象并不知道是那个对象在接收这个信号。这样保证了对象与对象之间的低耦合。<br>如果存在信号和多个槽函数相关联的时候，当信号被发射时，这些槽的执行顺序将会是随机的、不确定的。</p>
 <h4 id="2-2-槽"><a href="#2-2-槽" class="headerlink" title="2.2 槽"></a>2.2 槽</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于接受信号，而且槽只是普通的对象成员函数。当和槽连接的信号被发射时，槽会被调用。一个槽并不知道是否有任何信号与自己相连接。</p>
@@ -371,24 +370,22 @@
 <p>所有QObject类都可以使用信号槽，换句话来说继承自PyQt5中的类基本上都可以使用信号槽机制。当然非QObject也是可以通过其他一些办法来使用信号槽的。</p>
 <p>仅仅有了信号和槽是不行的，我们还需要了解：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号(Signal)、槽(slot)、连接(connect)、动作事件(action)、发射(emit)、发送者、接受者等等一些列的知识。好吧，别搞的那么复杂行不行，我们还是学学该怎么用吧。</p>
 <p>在Qt Designer中为我们提供了一些基本的信号槽方法，我们来看看：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击工具栏上的“编辑信号/槽”，进入信号槽编辑模式，我们可以直接在发送者（button）上按住鼠标左键不放，拖动到接收者（Form窗体）上。这样就建立起了连接。</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl4lJe.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl4lJe.png" alt=""></p>
 <p>接着，会弹出配置连接对话框。</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl41RH.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl41RH.png" alt=""></p>
 <p>左边是发送者（按钮）的信号（动作事件），右边是接收者（窗体）的槽（动作事件）。</p>
 <p>如图所示，我信号选择的是clicked,槽选择的是close:</p>
-<p><img src="https://s1.ax1x.com/2018/12/05/Fl4QiD.png"></p>
+<p><img src="https://s1.ax1x.com/2018/12/05/Fl4QiD.png" alt=""></p>
 <p>我们看一下编译后生成的代码：</p>
 <blockquote>
 <p>self.quitButton.clicked.connect(Form.close)</p>
-</blockquote>
 <p>实现的功能是：当按钮点击之后关闭窗体。</p>
-<blockquote>
 <p>流程：<br>按钮是信号发送者，当点击按钮之后会发送一个信号出去，通过这段代码程序内部的通讯机制知道这个按钮的点击事情被连接到窗体的关闭事件上去了，然后通知接受者窗体，你该运行槽函数close了！</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PyQt5 <span class="keyword">import</span> QtWidgets  </span><br><span class="line"><span class="keyword">from</span> untitled <span class="keyword">import</span> Ui_Form  </span><br><span class="line"><span class="string">&quot;&quot;&quot;点击按钮，在控制台输出helloworld&quot;&quot;&quot;</span>  </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">mywindow</span>(<span class="params">QtWidgets.QWidget,Ui_Form</span>):</span>  </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self</span>):</span>  </span><br><span class="line">        <span class="built_in">super</span>(mywindow,self).__init__()  </span><br><span class="line">        self.setupUi(self)</span><br><span class="line">        self.myButton.clicked.connect(self.myPrint)   <span class="comment">#槽函数不用加括号</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myPrint</span>(<span class="params">self</span>):</span>                                <span class="comment">#定义槽</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;helloWorld&quot;</span>)</span><br><span class="line">  </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&quot;__main__&quot;</span>:  </span><br><span class="line">    <span class="keyword">import</span> sys  </span><br><span class="line">  </span><br><span class="line">    app=QtWidgets.QApplication(sys.argv)  </span><br><span class="line">    myshow=mywindow()  </span><br><span class="line">    myshow.show()  </span><br><span class="line">    sys.exit(app.exec_())  </span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="五、小提示"><a href="#五、小提示" class="headerlink" title="五、小提示"></a>五、小提示</h3><p>槽其实就个函数（方法），Qt5中的槽函数不在限定必须是slot，可以是普通的函数、类的普通成员函数、lambda函数等。编译期间就会检查信号与槽是否存在！</p>
-<p>信号的connect连接最好放在__init__析构函数里面，这样只会声明一次连接，如果在类方法（函数中）使用的话，要记得disconnect，否则connect会连接多次，导致程序异常。</p>
+<p>信号的connect连接最好放在<strong>init</strong>析构函数里面，这样只会声明一次连接，如果在类方法（函数中）使用的话，要记得disconnect，否则connect会连接多次，导致程序异常。</p>
 <p>信号槽函数不用加 ()，否则可能会导致连接异常。</p>
 <hr>
 <p>参考链接1：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhulove86/article/details/52530214">https://blog.csdn.net/zhulove86/article/details/52530214</a><br>参考链接2：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a359680405/article/details/45148717">https://blog.csdn.net/a359680405/article/details/45148717</a></p>
@@ -495,14 +492,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 

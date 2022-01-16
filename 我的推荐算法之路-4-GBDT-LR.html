@@ -333,12 +333,11 @@
 <p>LR模型中的特征组合很关键， 但又无法直接通过特征笛卡尔积解决，只能依靠人工经验，耗时耗力同时并不一定会带来效果提升。如何自动发现有效的特征、特征组合，弥补人工经验不足，缩短LR特征实验周期，是亟需解决的问题。Facebook　2014年的文章介绍了通过GBDT（Gradient Boost Decision Tree）解决LR的特征组合问题，随后Kaggle竞赛也有实践此思路，GBDT与LR融合开始引起了业界关注。</p>
 <p>GBDT（Gradient Boost Decision Tree）是一种常用的非线性模型，它基于集成学习中的boosting思想，每次迭代都在减少残差的梯度方向新建立一颗决策树，迭代多少次就会生成多少颗决策树。GBDT的思想使其具有天然优势可以发现多种有区分性的特征以及特征组合，决策树的路径可以直接作为LR输入特征使用，省去了人工寻找特征、特征组合的步骤。这种通过GBDT生成LR特征的方式（GBDT+LR），业界已有实践（Facebook，Kaggle-2014），且效果不错，是非常值得尝试的思路。</p>
 <span id="more"></span>
-
-<h3 id="一、GBDT"><a href="#一、GBDT" class="headerlink" title="一、GBDT"></a>一、GBDT</h3><p><img src="https://z3.ax1x.com/2021/09/05/hR77VO.png"></p>
+<h3 id="一、GBDT"><a href="#一、GBDT" class="headerlink" title="一、GBDT"></a>一、GBDT</h3><p><img src="https://z3.ax1x.com/2021/09/05/hR77VO.png" alt=""></p>
 <h3 id="二、LR"><a href="#二、LR" class="headerlink" title="二、LR"></a>二、LR</h3><p><a href="https://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html">机器学习日记(一):从零认识逻辑回归</a></p>
-<p><img src="https://z3.ax1x.com/2021/09/05/hRbGtg.png"></p>
+<p><img src="https://z3.ax1x.com/2021/09/05/hRbGtg.png" alt=""></p>
 <h3 id="三、GBDT-LR模型结构"><a href="#三、GBDT-LR模型结构" class="headerlink" title="三、GBDT+LR模型结构"></a>三、GBDT+LR模型结构</h3><p>一个训练样本在输入GBDT的某一子树后，会根据每个节点的规则最终落入某一叶子节点，把该叶子节点设置为1，其它叶子节点设置为0，所有叶子节点组成的向量即形成了该棵树的特征向量，把GBDT所有子树的特征向量连接起来，即形成了后续LR模型输入的离散型特征向量。</p>
-<p><img src="https://z3.ax1x.com/2021/09/05/hRH6yt.png"></p>
+<p><img src="https://z3.ax1x.com/2021/09/05/hRH6yt.png" alt=""></p>
 
     </div>
 
@@ -440,14 +439,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">353k</span>
+    <span title="站点总字数">351k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:21</span>
+    <span title="站点阅读时长">5:19</span>
   </span>
 </div>
 
