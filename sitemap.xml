@@ -683,7 +683,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Pandas/</loc>
+    <loc>http://qzmvc1.top/tags/OS/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -697,35 +697,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/OS/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Selenium/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Modules/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Random/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Numpy/</loc>
+    <loc>http://qzmvc1.top/tags/Pandas/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -733,6 +705,13 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/Requests/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/Random/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -753,14 +732,21 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
+    <loc>http://qzmvc1.top/tags/Modules/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/geopy/</loc>
+    <loc>http://qzmvc1.top/tags/Numpy/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/Selenium/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -775,6 +761,20 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/geopy/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -802,20 +802,6 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/XPath/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://qzmvc1.top/tags/face-recognition/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
@@ -824,6 +810,20 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/XPath/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -865,13 +865,6 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Matplotlib/</loc>
-    <lastmod>2022-01-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://qzmvc1.top/tags/Json/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
@@ -880,6 +873,13 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</loc>
+    <lastmod>2022-01-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/Matplotlib/</loc>
     <lastmod>2022-01-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
