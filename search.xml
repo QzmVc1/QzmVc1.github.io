@@ -4,6 +4,131 @@
   
     
     <entry>
+      <title>我的推荐算法之路(12):TDAR</title>
+      <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-12-TDAR.html"/>
+      <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-12-TDAR.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>由于在电子商务和视频网站等各种在线平台上的普遍应用，推荐系统获得了广泛的研究关注。在实际应用中，隐式反馈数据（一类数据，如点击和购买等）被广泛使用，因为它易于收集且普遍适用。实际应用中的推荐通常存在严重的稀疏性问题，这会导致两个困难：</p><ul><li>没有足够的交互来为模型学习提供信息。此外，数据高度不平衡：大多数用户和物品与系统只有很少的交互，这使得推荐任务更加困难。</li><li>由于我们在隐式反馈中只观察到一小部分正样本，现有的负采样策略是将未观察到的样本视为负样本。然而，通过这种方式，许多潜在的正样本被错误地标记为负样本，并且模型被标签噪声严重误导，尤其是在稀疏数据上。</li></ul><p>为了解决上述挑战，我们采用迁移学习来丰富稀疏数据集上的信息，并且我们专注于没有用户和物品重叠的跨域推荐。具体来说，我们分别在稠密和稀疏数据上训练源模型和目标模型，并探索域自适应以对齐embeddings（即隐向量 latent factors），这是协同过滤 (CF) 模型中对用户偏好进行编码的关键组成部分。然而，在基本的 CF 模型中，没有具有特定语义的数据（例如图像和文本），我们通过将用户和物品嵌入（embedding）到潜在空间中来提取高级的密集特征。通过这种方式，我们将来自不同领域的用户和物品映射到不同的潜在空间。为了对齐潜在空间，我们探索域不变特征作为锚点。在本文中，我们利用了可以从用户评论（review）中轻松提取的文本特征。将文本特征与embeddings拼接起来，从而将空间扩展为文本潜在空间。对于域自适应，我们使用连接的embeddings和文本特征作为域分类器的输入。embeddings使用分类器进行对抗训练，而文本特征则固定。</p><p>正如我们所见，在我们的策略中，文本特征应该是域不变的，例如，来自所有域的恐怖电影都映射到文本空间的负半轴。现有的许多模型 提取文本特征用于推荐，而这些特征不是域不变的。为了缩小这一差距，首先，我们提出了一种称为文本记忆网络 ( Text Memory Network，TMN) 的记忆结构，通过将每个用户和物品映射到单词语义空间（word semantic space）来提取文本特征；然后，我们将这些特征注入 CF 模型以生成预测，这个由文本特征和CF模块组成的模型被命名为文本协同过滤（Text Collaborative Filtering，TCF）模型；最后，我们在源域和目标域上同步训练两个 TCF 模型，并通过自适应网络将它们连接起来。这个迁移学习模型被命名为文本增强域自适应推荐 (Text-enhanced Domain Adaptation Recommendation，TDAR) 方法。</p><p>原文链接：<a href="https://dl.acm.org/doi/pdf/10.1145/3394486.3403264">Semi-supervised Collaborative Filtering by Text-enhanced Domain Adaptation</a></p><span id="more"></span><h3 id="二、Text-Memory-Network-TMN"><a href="#二、Text-Memory-Network-TMN" class="headerlink" title="二、Text Memory Network(TMN)"></a>二、Text Memory Network(TMN)</h3><p>在本文中，粗体大写字母表示矩阵。假设总共有 $M$ 个用户和 $N$ 个物品，我们使用矩阵 $R$ 来表示用户和物品之间的交互。如果用户 $u$ 投票给物品 $i$，则 $R_{ui}=1$ ，否则 $R_{ui}=0$。我们的任务是对缺失值（ $R$ 中的 0 ）进行预测（表示为 $\hat{R}$ )。在本节中，我们<strong>根据评论构建特定用户和特定物品的文本表示</strong>，我们分别提取源域和目标域的文本特征。</p><p>以用户 $u$ 为例，我们构造了一个评论集$R_u=\mathop{\cup}\limits_{i=1}^{N}r_{ui}$ ，其中 $r_{ui}$ 是一个包含 $u$ 对 $i$ 的评论的词的集合。如果 $u$ 与 $i$ 没有交互，则 $r_{ui}=0$。类似地，物品 $i$ 的评论集是 $R_i=\mathop{\cup}\limits_{u=1}^{M}r_{ui}$。我们用 $W$ 来表示词集：$W=\mathop{\cup}\limits_{u=1}^M\mathop{\cup}\limits_{i=1}^Nr_{ui}$  ，用 $H$ 来表示词的总数：$H=|W|$ 。由于我们想要提取域不变的文本特征（即来自所有域的特征都在同一空间中），我们通过<strong>线性组合</strong>评论的词语义(word semantic)向量将所有用户和物品映射到词语义空间。</p><p> $S$ 是word2vec在GoogleNews语料库上预训练的词语义矩阵，  $S_w$ 表示词 $w$ 的语义特征。我们使用 $E$ 和 $F$ 分别表示我们为用户和物品构建的文本特征。以用户 <img src="https://www.zhihu.com/equation?tex=u" alt="[公式]"> 为例，$E_u=\mathop{\sum}\limits_{w\in R_u}a_{uw}S_w$ ，其中 $a_{uw}$ 是词 $w$ 基于 $u$ 的语义偏好的权重。我们提出了一个文本记忆网络 (TMN) 来计算用户 $a_{uw}$ 和物品 $a_{iv}$ 的权重，以根据单词语义构建文本特征。</p><p>对一个喜欢恐怖电影的用户 $u$ ，$u$ 可能更喜欢相关的词（比如“horrible”、“frightened”、“terrifying”），对不相关的词（比如“this”、“is”、“a ”）和相反的词（如“funny”、“relaxing”、“comical”）没兴趣。 对于 $u$ 偏爱的词 $w$，我们需要为 $w$ 设置一个很大的权重 $a_{uw}$。在物品方面，对于恐怖片 $i$，$i$ 的评论中的相关词提供了很多关于 $i$ 的信息，而不相关或相反的词提供的信息很少。针对对 $i$ 很重要的词 $v$，我们需要设置一个很大的权重 $a_{iv}$。容易看出，在这个任务中，我们的目标是向用户和物品推荐偏好词 (preferred words)。</p><p>受矩阵分解的启发，我们分别为用户、物品和单词声明了三个矩阵 $P,Q,T$。 以用户为例，我们使用 $e_{uw}=P_uT^T_w$  来建模 $u$ 对单词 $w$ 的偏好。 为了进一步强调重要的词，我们将 $e_{uw}$ 输入到 softmax 函数中以获得 $a_{uw}$，$a_{uw}=\frac{exp(e_{uw})}{\mathop{\sum}\limits_{w’\in R_u}exp(e_{uw’})}$ 。 针对物品 $a_{iv}$ 的权重以相同的方式构造。 我们最终通过 $\hat{R}=\sigma(EF^T)$ 来预测用户对物品的偏好，我们使用交叉熵损失作为我们的损失函数：<br>$$<br>L=-\mathop{\sum}\limits_{u,i}R_{ui}log\hat{R}<em>{ui}+(1-R</em>{ui})log(1-\hat{R}_{ui})<br>$$</p><p>$$<br>\hat{R}<em>{ui}=\sigma[(\mathop{\sum}\limits</em>{w\in R_u}\frac{exp(P_uT_w^T)}{\mathop{\sum}\limits_{w’\in R_u}exp(P_uT_{w’}^T)})(\mathop{\sum}\limits_{v\in R_i}\frac{exp(Q_iT_v^T)}{\mathop{\sum}\limits_{v’\in R_i}exp(Q_iT_{v’}^T)})]<br>$$</p><h3 id="三、文本增强跨域推荐"><a href="#三、文本增强跨域推荐" class="headerlink" title="三、文本增强跨域推荐"></a>三、文本增强跨域推荐</h3><p>在通过 TMN 提取文本特征后，我们将在本节中介绍我们的文本增强域自适应推荐 (TDAR) 模型。 首先，我们将文本特征注入到 CF 模型中以提出基本的 TCF 模型。 然后，我们同时在目标域和源域上训练两个 TCF 模型，并通过域自适应对齐用户和物品嵌入。</p><h4 id="3-1-文本协同过滤TCF"><a href="#3-1-文本协同过滤TCF" class="headerlink" title="3.1 文本协同过滤TCF"></a>3.1 文本协同过滤TCF</h4><p>记 $U,V$ 分别是用户和物品的embedding向量构成的矩阵。我们连接embedding和文本特征，因此用户和物品的表示是 $[U,E]$ 和 $[V,F]$。我们用以下公式预测用户偏好：<br>$$<br>\hat{R}_{ui}=f([U,E]_u,[V,F]_i,\Theta)<br>$$<br>其中，$f(\cdot,\Theta)$ 是结合用户和物品 embedding 并返回偏好预测的<strong>交互函数</strong>，$\Theta$ 表示参数。 我们通过最小化交叉熵来学习模型。在这个模型中，$U,V,\Theta$ 是可训练的参数， 而 $E$ 和 $F$ 是固定的。</p><h4 id="3-2-文本增强域自适应推荐"><a href="#3-2-文本增强域自适应推荐" class="headerlink" title="3.2 文本增强域自适应推荐"></a>3.2 文本增强域自适应推荐</h4><p>在本小节中，我们使用上标 $s,t,u,i$ 分别表示源域、目标域、用户和物品。$R_s$ 和 $R_t$ 表示源域和目标域上的交互。 我们在两个域上训练两个 TCF，同时共享相同的交互函数，因此对两个域中数据集的预测由下式给出：<br>$$<br>\hat{R}<em>{u^si^s}^s=f([U^s,E^s]</em>{u^s},[V^s,F^s]_{i^s},\Theta)<br>$$</p><p>$$<br>\hat{R}<em>{u^ti^t}^t=f([U^t,E^t]</em>{u^t},[V^t,F^t]_{i^t},\Theta)<br>$$</p><p>然后我们在两个 TCF 上添加自适应网络以实现迁移学习。 考虑到用户和物品 embedding 的分布模式可能不同，我们<strong>分别对用户和物品通过DANN模型的思想进行域自适应</strong>(有关DANN的介绍参见)。TDAR模型结构如下图所示：</p><p><img src="https://s4.ax1x.com/2022/01/16/7NKH3j.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 推荐算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 推荐算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的推荐算法之路(11):DANN与DARec</title>
+      <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-11-DANN%E4%B8%8EDARec.html"/>
+      <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-11-DANN%E4%B8%8EDARec.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、Domain-Adaptation"><a href="#一、Domain-Adaptation" class="headerlink" title="一、Domain Adaptation"></a>一、Domain Adaptation</h3><p>想象一个分类任务，假设现在我们手里有源域数据和目标域数据，其中源域数据是丰富并且有标记的，而目标域数据是充足但是没有标记的，但是源域和目标域的特征空间和标记空间相同。很显然，我们可以轻松的利用源域数据为源域建立一个分类器，但是由于目标域数据本身没有标记，那么我们无法通过常规方法为目标域构建分类器，这时候Domain adaptation 就可以发挥作用了。</p><p>从下图中可以看到（图片来自<a href="https://zhuanlan.zhihu.com/p/51499968">知乎</a>），源域和目标域的特征都是 ${x_1,x_2}$，并且有相同的标记 ${-1，+1}$，但是在目标域数据的标记是不可获得的。此外，虽然源域和目标域的特征空间相同，但是两者的特征分布却不同。那么我们如何做到利用源域数据来帮助目标域进行分类呢？</p><p>这里最关键的一点就是在同一个特征空间中源域和目标域的分布不同，假设两者分布相同，那么我们就可以直接利用源域分类器对目标域数据进行分类了。因此，Domain adaptation的思想就是通过消除源域和目标域的分布差异，使得源域数据和目标域数据能同时被分开。在图中，通过映射函数 $\phi$ 将源域数据和目标域数据映射到某个空间中，并且将属于 +1 的样本混合在一起，属于 -1 的样本混合在一起。由于源域数据有标记，所以可以利用源域数据建立分类器。又因为源域数据和目标域数据混合在一起了，所以在分开源域样本的同时目标域样本也被分开了，这样任务就完成了。</p><span id="more"></span><p><img src="https://pic2.zhimg.com/v2-0975878ddcedfaf101b10358317b8691_r.jpg"></p><h3 id="二、Domain-Adversarial-Training-of-Neural-Networks-DANN"><a href="#二、Domain-Adversarial-Training-of-Neural-Networks-DANN" class="headerlink" title="二、Domain-Adversarial Training of Neural Networks(DANN)"></a>二、Domain-Adversarial Training of Neural Networks(DANN)</h3><p>在上面的 Domain Adaptation 过程中最关键的一点就是如何做到将源域样本和目标域样本混合在一起，并且还能保证被同时分开，DANN的主要任务也是做到这一点。</p><p>首先介绍一下DANN的应用背景：源域数据充足并且有标记，目标域数据充足但是无标记，源域和目标域的特征空间和标记空间相同，任务是借助源域数据对目标域数据进行分类。</p><p><img src="https://s4.ax1x.com/2022/01/16/7tbkgx.png"></p><p>网络分为三部分： </p><ul><li>Feature extractor(特征提取器)：提取后续网络完成任务所需要的特征；将源域样本和目标域样本进行映射和混合。</li><li>Label predictor (类别预测器)：利用Feature extractor提取的信息对样本进行分类。</li><li>Domain classifier(域分类器)：判断Feature extractor提取的信息来自源域还是目标域。</li></ul><p>可见，DANN中的对抗思想蕴含在特征提取器和域分类器中。其中特征提取器的作用就像是第一张图中的映射函数 $\phi$ 。但是我们并不知道  $\phi$ 的具体形式，也就是说<strong>我们不知道特征提取器的训练目标是什么</strong>，无法用一个网络来拟合函数 $\phi$。因此后面添加了域分类器，用来和特征提取器进行<strong>对抗训练</strong>。</p><p>特征提取器提取的信息会传入域分类器，之后域分类器会判断传入的信息到底是来自源域还是目标域，并计算损失。在反向传播更新参数的过程中，域分类器和特征提取器中间有一个<strong>梯度反转层</strong>（Gradient reversal layer），也就是说域分类器的训练目标是尽量将输入的信息分到正确的域类别（源域还是目标域），而特征提取器的训练目标却恰恰相反（由于梯度反转层的存在），特征提取器所提取的特征（或者说映射的结果）目的是域分类器不能正确的判断出信息来自哪一个域，因此形成一种对抗关系。可见，<strong>当域分类器不能将接收的信息正确分为源域样本还是目标域样本时</strong>，特征提取器的任务就圆满完成了，因为此时<strong>源域样本和目标域样本在某个空间中已经被混合在一起不能分开了。</strong></p><p>然而上述过程存在一个问题，我们最终的目的是对目标域样本进行分类，那么我们如何<strong>保证特征提取器提取的信息是能够用来分类</strong>的呢？假如无论输入什么样本给特征提取器，它都输出一个单位向量，这样依旧可以“骗过”域分类器，但是却无法完成后续的分类工作。</p><p>这时就要靠Label predictor (类别预测器)了，因为源域样本是有标记的，所以在提取特征时不仅仅要考虑后面的域分类器的情况，还要利用源域的带标记样本进行有监督训练从而兼顾分类的准确性。</p><p>综上所述，当把特征提取器、域分类器和类别预测器都训练完成后，就可以做到把源域和目标域混合在一起并且进行分类了。</p><h3 id="三、DRAec"><a href="#三、DRAec" class="headerlink" title="三、DRAec"></a>三、DRAec</h3><p>DRAec假设源域和目标域有相同的用户集合，items则是不同的。其模型结构如下所示：</p><p><img src="https://s4.ax1x.com/2022/01/16/7tqf0S.png"></p><p>DRAec主要用到了user-items-ratings评分矩阵，因为其是稀疏的，因此首先将其通过自动编码器AutoEncoder进行降维处理，取中间隐藏层作为embeddings向量；接着，对源域和目标域的embeddings向量进行交错排列，并将它们通过DANN网络进行训练，最终训练完成的Rating Pattern Extractor就可以将源域和目标域的特征向量映射到同一特征空间，这样，我们就可以进行跨域推荐了。</p><h3 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/51499968">https://zhuanlan.zhihu.com/p/51499968</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 推荐算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 推荐算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的推荐算法之路(10):Cross-domain Recommendation via Deep Domain Adaptation</title>
+      <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-10-Cross-domain%20Recommendation%20via%20Deep%20Domain%20Adaptation.html"/>
+      <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-10-Cross-domain%20Recommendation%20via%20Deep%20Domain%20Adaptation.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>传统的推荐系统通常对用户过去的交互（例如评分或点击）做出假设来做出有意义的推荐。虽然这看起来很自然，但是，当假设不成立时，例如当新用户到达或我们的目标是对未使用的产品进行交叉销售时，这种系统的实用性就会降低。另一方面，随着网络服务种类的增加，冷启动用户的信息可以从他们在其他服务中的活动中获得。因此，利用来自其他相关领域的此类附加信息的跨域推荐系统近年来作为解决用户冷启动问题的有希望的解决方案获得了研究的关注 。</p><p>针对处理冷启动用户的跨域推荐，特别是在没有共同用户和item的情况。尽管可以推荐item并从目标用户那里获得反馈，但我们的目标是构建一个推荐系统，即使在这种替代方案不可用的情况下也可以工作。在这种情况下，一个主要的挑战是由于缺乏共同的用户，传统的方法不能用于两个服务之间的关系的引出。</p><p>该文研究了基于内容的方法，特别是，研究了一种跨域推荐的深度学习方法。深度学习已成功应用于推荐系统，除了在推荐系统应用中的成功之外，深度学习方法在迁移学习领域表现出更好的性能，因为它能够从数据中学习可迁移的特征。事实上，在领域自适应领域，深度神经网络在计算机视觉和自然语言处理任务中表现出最先进的性能。基于这一观察，该文假设深度神经网络的域适应也可以应用于跨域推荐。</p><p>领域自适应（Domain Adaptation）是一种使用从具有标记数据的一个域（源域）获得的知识来学习具有少量或没有标记训练数据的新域（目标域）的技术。通过域适应，可以将在源域中训练的分类器应用于目标域。为了实现领域自适应，该文使用了一种用于无监督域适应的神经网络架构，即 Bousmalis 等人提出的域分离网络（DSN）。此外，为了降低极端分类的难度和处理新item，该文通过堆叠去噪自动编码器（SDAE）来结合item特征。</p><p>原文链接：<a href="https://arxiv.org/pdf/1803.03018.pdf">Cross-domain Recommendation via Deep Domain Adaptation</a></p><span id="more"></span><h3 id="二、模型架构"><a href="#二、模型架构" class="headerlink" title="二、模型架构"></a>二、模型架构</h3><p>在该文中，假设输入数据采用隐式反馈的形式，例如点击日志。令 $Y={1,2,\cdots,L}$ 是我们希望推荐的源域中的item集合。从用户对这些items的日志信息中，我们可以得到一个有标记的数据集 $X_S={x_i^S,y_i^S}<em>{i=1}^{N_s}$。这里 $y_i^S$ 表示一个标签，$x_i^S$ 表示item的原始特征。在目标域中，由于两个域之间缺乏共同用户，我们只有一个未标记的数据集 ${x_i^T}</em>{i=1}^{N_T}$。<strong>我们的目标是向目标域中的用户推荐源域中的item。</strong>更正式地说，通过利用标记数据 $X_S$ 和未标记数据 $X_T$，我们的目标是构建一个分类器 $\eta(x^T)$，它定义了给定目标域中用户历史 $X^T$ 关于源域item集合 $Y$ 的概率分布。我们使用域分离网络 $DSN$ 对这个分类器进行建模。</p><p>例如，假设我们的任务是向使用新闻浏览服务的用户推荐视频。我们有源域中的视频服务和目标域中的新闻服务的用户日志。视频可以包含有关其自身的文本信息，例如演员或情节的描述。有了这些内容信息，我们可以使用 Bag of Words 或 TF-IDF 方案从视频列表中构建原始用户表示。与视频一样，我们可以使用新闻文章的文本信息为新闻用户构建表示。使用内容信息，我们获得源域（视频服务）的标记数据集和目标域（新闻服务）的未标记数据集。在这种情况下，任务是建立一个分类器，将新闻浏览历史作为输入，并为视频分配概率。</p><p>同时，我们也使用到了堆叠去噪自动编码器 (SDAE)。 它是一个前馈神经网络，可以学习输入数据的稳健表示。 </p><p>该文模型架构如下图所示，接下来，将对DSN和SDAE做一个详细介绍。</p><p><img src="https://s4.ax1x.com/2022/01/16/7tautI.png"></p><h3 id="三、Domain-Separation-Networks-DSNs"><a href="#三、Domain-Separation-Networks-DSNs" class="headerlink" title="三、Domain Separation Networks(DSNs)"></a>三、Domain Separation Networks(DSNs)</h3><h4 id="3-1-简介"><a href="#3-1-简介" class="headerlink" title="3.1 简介"></a>3.1 简介</h4><p>DSNs模型的作者是来自谷歌的研究者，该文发表在2016年的NIPS会议上，在这篇论文中，作者的工作重心放在了迁移学习三个核心问题之一：<strong>what to transfer</strong>，以及<strong>如何有效避免negative transfer上</strong>。在论文伊始，作者就提出之前已有的深度迁移学习算法都将注意力放在消除不同域之间的特征分布差异，但是Konstantinos Bousmalis（作者）等人从另一个角度来考虑了迁移学习问题，他们认为**所有的域之间有着公有的特征(Shared)和私有的特征(Private)**，如果将各个域的私有特征也进行迁移的话就会造成负迁移(negative transfer)。基于这一理念，他们提出了Domain Separation Networks(DSNs)。同时，作者为问题假设的前提是无监督迁移学习，也就是说目标域数据是没有标记的，源域数据有标记。因此，DSNs的主要工作分为两部分：</p><ul><li>提取不同域之间的公有特征</li><li>利用公有特征进行迁移</li></ul><h4 id="3-2-DSNs模型"><a href="#3-2-DSNs模型" class="headerlink" title="3.2 DSNs模型"></a>3.2 DSNs模型</h4><p><img src="https://s4.ax1x.com/2022/01/16/7tDwOf.png"></p><p>DSNs的主体结构是一个类似于自编码器的结构。整个结构可以分为如下五部分：</p><ul><li>Private Target Encoder $E_p^t(x^t)$ : 目标域私有编码器，用来提取目标域的私有特征。</li><li>Private Source Encoder $E_p^s(x^s)$ : 源域私有编码器，用来提取源域的私有特征。</li><li>Shared Encoder $E_c(x)$ : 共享编码器，用来提取源域和目标域的公有特征。</li><li>Shared Decoder $D(E_c(x)+E_p(x))$ : 共享解码器，用来将私有特征和公有特征组成的样本进行解码。</li><li>Classifier $G(E_c(x^s))$ : 分类器，在训练时用来对源域样本进行分类，在训练完成时就可以直接用在目标域数据上进行分类。</li></ul><p>看过每个部分的功能之后其实整个结构的原理就很明了了，首先我们忽略右下角的分类器，那么剩下的部分就是自编码器的结构。源域样本 $x^s$ 首先进入 $E_p^s(x^s)$ 和 $E_c(x)$，之后两个编码器分别输出 $h_p^s$ 和 $h_c^s$。 $h_p^s$ 和 $h_c^s$ 分别对应着源域数据中的私有特征和公有特征，同理， $h_p^t$ 和 $h_c^t$ 分别对应着目标域数据中的私有特征和公有特征。从上述的原理介绍我们可以知道，如果DSNs想要取得较好的效果，那么公有部分必须是真实的源域和目标域共有的特征，同时公有部分和私有部分必须完全分开，才能有效的避免负迁移，所以作者提出了以下两种损失函数来约束 $E_p^t(x^t)$，$E_p^s(x^s)$ 和 $E_c(x)$ ，首先是差异损失 $L_{difference}$：<br>$$<br>L_{difference}=||{H_c^s}^TH_p^s||^2_F+||{H_c^t}^TH_p^t||^2_F<br>$$<br>$L_{difference}$ 其实计算的是 $h_p^s$ 和 $h_c^s$ 以及 $h_p^t$ 和 $h_c^t$ 的相似度大小，当 $h_p^s=h_c^s$ 以及 $h_p^t=h_c^t$ 时最大，当 $h_p^s$ 和 $h_c^s$ 正交（完全不同）以及  $h_p^t$ 和 $h_c^t$ 正交时 $L_{difference}$ 最小。所以通过最小化 $L_{difference}$ 可以达到 $h_p^s$ 和 $h_c^s$ 以及 $h_p^t$ 和 $h_c^t$ 完全分开的目的。</p><p>完全分开 $h_p^s$ 和 $h_c^s$ 以及 $h_p^t$ 和 $h_c^t$ 是不够的，因为我们还要保证 $h_c^s$ 和 $h_c^t$ 是可以进行迁移的，也就是要将两者进行适配，直观体现就是提高两者的相似度，因此作者提出了两种相似损失 $L_{similarity}$：<br>$$<br>L_{similarity}^{DANN}=\mathop{\sum}\limits_{i=0}^{N_s+N_t}{d_ilog\hat{d}_i+(1-d_i)log(1-\hat{d}_i)}<br>$$</p><p>$$<br>L_{similarity}^{MMD}=\frac{1}{(N_s)^2}\mathop{\sum}\limits_{i,j=0}^{N_s}k(h_{ci}^s,h_{cj}^s)-\frac{2}{N_sN_t}\mathop{\sum}\limits_{i,j=0}^{N_s,N_t}k(h_{ci}^s,h_{cj}^t)+\frac{1}{(N_t)^2}\mathop{\sum}\limits_{i,j=0}^{N_t}k(h_{ci}^t,h_{cj}^t)<br>$$</p><p>第一种相似损失是借用DANN算法中的损失函数，使用了对抗网络的思想，第二种损失函数则是迁移学习中经常用到的MMD损失。这两种损失都衡量了 $h_c^s$ 和 $h_c^t$ 差异的大小，因此当 $L_{similarity}$ 最小时可以使 $h_c^s$ 和 $h_c^t$ 最相似甚至变为同一种分布。当 $h_c^s$ 和 $h_c^t$ 的分布近似相等时，在 $h_c^s$ 上有效的分类器同样也可以在 $h_c^t$ 上工作了。</p><p>到这里工作还远远没有结束，因为我们虽然保证了 $h_p^s$ 和 $h_c^s$ 以及 $h_p^t$ 和 $h_c^t$ 完全分开同时 $h_c^s$ 和 $h_c^t$ 的分布近似相等，但是我们没有保证源域数据和目标域数据的完整性。举一个极端的例子，假如无论什么数据进来都有 $h_p^s=h_p^t=0,h_c^s=h_c^t=1$，那么上面的损失函数都是可以达到最小的，但是学到的东西却毫无意义。这时候作者采用的这种‘编码-解码’结构就起作用了，这种结构不仅能够保证提取公有、私有特征，还能够保证特征的完整性和有效性。具体的，作者为Shared Decoder提出了重构损失 $L_{recon}$：<br>$$<br>L_{recon}=\mathop{\sum}\limits_{i=1}^{N_s}||x_i^s-\hat{x}<em>i^s||^2+\mathop{\sum}\limits</em>{i=1}^{N_t}||x_i^t-\hat{x}<em>i^t||^2<br>$$<br>到此，源域样本进入编码器到从解码器出来的过程中，两个解码器分别提取了私有和公有特征，同时又因为解码器要求公有特征和私有特征组合在一起要能够构成完整的源域样本，所以又保证了特征的完整性。同理，当目标域样本进入时也是同样的操作。但是，通过‘编码-解码’这种无监督方法提取出来了源域和目标域的公有特征以及各自的私有特征，我们还无法对样本进行分类，所以作者在整个结构中加入了分类器 $G(E_c(x^s))$，其损失函数为：<br>$$<br>L</em>{class}=-\mathop{\sum}\limits_{i=1}^{N_s}y_i^s\cdot log\hat{y}<em>i^s<br>$$<br>这一步骤在迁移学习中就很常见了，在前面的过程中，自编码器已经提取出来了源域和目标域的公有部分，并且通过最小化 $L</em>{similarity}$ 使两者在分布上进行了逼近。那么可以说<strong>如果一个分类器在源域的公有部分上有效的话那么在目标域的公有部分上同样有效</strong>，因此在训练时只需要使用带标记的源域数据对分类器进行训练，在训练完成时分类器就可以直接应用在目标域上了。至此，整个DSNs的各个部分都已经向大家介绍完成。</p><h3 id="四、Stacked-Denoising-Autoencoder-SDAE"><a href="#四、Stacked-Denoising-Autoencoder-SDAE" class="headerlink" title="四、Stacked Denoising Autoencoder(SDAE)"></a>四、Stacked Denoising Autoencoder(SDAE)</h3><p>论文中使用到了堆叠去噪自动编码器 (SDAE)。 它是一个前馈神经网络，可以学习输入数据的稳健表示。记 $X_I={x_i}_{i=1}^n$ 原始输入向量的集合，$\tilde{X}_I={\tilde{x}<em>i}</em>{i=1}^n$ 是含噪声的向量集合。SDAE以 $\tilde{X}<em>I$ 作为输入，并通过它的编码器 $E_\theta$ 将其转化为隐层中间向量 $h$。接着通过解码器 $D</em>{\theta’}$ 将 $h$ 重构，原始输入向量 $X_I$ 即重构结果，损失函数即二者的均方损失。</p><h3 id="五、Proposed-Method"><a href="#五、Proposed-Method" class="headerlink" title="五、Proposed Method"></a>五、Proposed Method</h3><p>我们的目的是向目标域的用户推荐源域中的item，如前文所示，我们使用DSNs基于源域的有标签数据构建了一个分类器。对于DSNs的输出层，我们使用softmax层，该层第k个元素的值如下所示：<br>$$<br>(G(E_c(x^s))<em>k=p(y=k|x^s)=\frac{exp(v_k^Tu)}{\mathop{\sum}\limits</em>{k’\in Y}exp(v_{k’}^Tu)}<br>$$<br>$v_k$ 是softmax层的权重向量，向量 $u$ 是前一层经过激活后的结果。</p><p>由于items的数量通常很大，因此仅使用用户特征进行预测将是一项艰巨的任务。在实践中，输入数据是不平衡的，有些标签只能观察几次。此外，目标域中用户偏好的item类型可能与训练数据中的不同。因此，分类器应该能够预测训练数据中未观察到的新item。从这些观察中，我们相信结合item特征将有助于预测。事实上，在我们用于实验的视频服务中，大部分用户观看的视频都是几十秒长的短片。因此，结合视频播放时间使模型能够识别哪些视频是短视频。为此，除了使用 DSNs 之外，我们还建议结合去噪自动编码器SDAE来合并item特征。我们在softmax权重 $v_k$ 和由去噪自动编码器计算的item的隐藏表示 $h$ 之间施加均方误差。</p><p>整个模型的损失函数如下所示（$L_{IR}$ 是自动编码器的损失函数）：<br>$$<br>E=L_{DSN}+\lambda_{item}L_{item}+\lambda_{IR}L_{IR}<br>$$</p><p>$$<br>L_{DSN}=L_{class}+\alpha L_{recon}+\beta L_{difference}+\gamma L_{similarity}<br>$$</p><p>$$<br>L_{item}=\mathop{\sum}\limits_{i=1}^{N_s}||v_{yi}-h_i||^2<br>$$</p><h3 id="六、参考链接"><a href="#六、参考链接" class="headerlink" title="六、参考链接"></a>六、参考链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/49479734">https://zhuanlan.zhihu.com/p/49479734</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 推荐算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 推荐算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的推荐算法之路(9):TMCDR</title>
+      <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-9-TMCDR.html"/>
+      <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-9-TMCDR.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>EMCDR将源域和目标域的用户偏好编码为向量，然后学习一个映射函数，该映射函数将源域中的用户向量映射为目标领域上的用户向量，基于两个领域重叠的用户，使用 MSE 损失来进行学习。这类方法往往存在如下问题：</p><ul><li>通常两个领域重叠的用户只是一小部分用户，这样学习到的映射函数会在重叠用户上过拟合，降低模型的泛化能力；</li><li>使用映射导向的损失函数（MSE），对目标向量的质量有很高的要求。然而在冷启动场景中，目标向量的质量往往不尽人意，这样会导致向量表示学习中被噪声影响；</li></ul><p>论文将跨域推荐和元学习思想结合起来，提出了一种Transfer-Meta的框架来构建用户的embedding向量，该框架分为两个阶段：Transfer阶段、Meta阶段。</p><p>原文链接：<a href="https://arxiv.org/pdf/2105.04785.pdf">Transfer-Meta Framework for Cross-domain Recommendation to Cold-Start Users</a></p><span id="more"></span><h3 id="二、TMCDR"><a href="#二、TMCDR" class="headerlink" title="二、TMCDR"></a>二、TMCDR</h3><h4 id="2-1-meta-learning简介"><a href="#2-1-meta-learning简介" class="headerlink" title="2.1 meta learning简介"></a>2.1 meta learning简介</h4><p>meta-learning即元学习，也可以称为“<strong>learning to learn</strong>”。常见的深度学习模型，目的是学习一个用于预测的数学模型。而元学习面向的不是学习的结果，而是学习的过程。其学习的不是一个直接用于预测的数学模型，而是学习“如何更快更好地学习一个数学模型”。</p><p>举一个现实生活的例子。我们教小朋友读英语时，可以直接让他们模仿apple、banana的发音。但是他们很快又会遇到新的单词，例如strawberry，这是小朋友就需要重新听你的发音，才能正确地读出这个新单词。我们换一种方式，这一次我们不教每个单词的发音，而是教音标的发音。从此小朋友再遇见新单词，他们只要根据音标，就可以正确地读出这个单词。学习音标的过程，正是一个元学习的过程。</p><h4 id="2-2-Transfer阶段"><a href="#2-2-Transfer阶段" class="headerlink" title="2.2 Transfer阶段"></a>2.2 Transfer阶段</h4><p>Transfer阶段类似EMCDR中生成U/I embedding向量的步骤。不同的是这里使用所有的数据（而不仅是交叉域）在源域和目标域进行预训练，得到源域和目标域的U/I的embedding表示 $u^s,v^s,u^t,v^t$。为了验证Transfer-Meta框架的兼容性，论文中使用了MF、BPR、ListRank-MF、CML四种向量生成方法。</p><p>之后，将训练好的模型作为预训练模型，固定不动，再学习meta network。</p><h4 id="2-3-Meta阶段"><a href="#2-3-Meta阶段" class="headerlink" title="2.3 Meta阶段"></a>2.3 Meta阶段</h4><p>Meta阶段借鉴了元学习（<a href="https://zhuanlan.zhihu.com/p/395138650">meta-learning</a>）的思想，并<strong>提出了一种Task-oriented（面向任务）的优化方法</strong>，直接使用任务标签来优化meta network。</p><p>从交叉域中的用户集抽取部分用户的数据作为task，反复在训练数据分布中抽取若干个这样的task，组成一个batch进行训练。在每个task中，将用户分为不重叠的两部分 $U_a, U_b$ ，并得到对应的数据 $D_a, D_b$。这两部分用户数据分别来模拟<strong>在交叉域用户上学习知识</strong>和<strong>在冷启动用户上测试</strong>这两个阶段（真正的冷启用户只有源域的信息，没有目标域的信息，不能用于做测试集，所以测试集也使用交叉域用户)。</p><p>将meta network（即与Transfer阶段相同的MF、BPR、ListRank-MF、CML四种向量生成方法）用 $f_{\theta}(\cdot)$ 表示， $\theta$ 表示参数。$f_{\theta}(u_i^s)$ 表示 $u_i^s$ 的向量（$u_i^s$ 表示第 $i$ 个用户源域的向量表示）。Task-oriented的损失函数优化的是 $f_{\theta}(u_i^s)$ 而不是Transfer阶段得到的 $u_i^s$。Task-oriented的损失函数可以表示为（即：将Transfer阶段得到的 $u_i^s$ 用元网络映射后与目标域的 $v_t$ 计算loss)：<br>$$<br>\mho_\theta=\mathop{\sum}\limits_{x\in D_a}L_{task}(x)<br>$$<br>其中，$task\in {MF,BPR,ListRank-MF,CML}$，$x\in D_a$。另外注意的是，这里使用的U/I embedding为源域的 $u_s$ 和目标域的 $v_t$。之后就可以按照元学习的双重梯度方式训练模型。task内通过交叉域用户上学习知识和在冷启动用户上测试这两个阶段学习得到每个task的 $\theta’$；对于全部task，通过 $\theta’$ 更新 $\theta$。</p><h3 id="三、参考链接"><a href="#三、参考链接" class="headerlink" title="三、参考链接"></a>三、参考链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/395211316">https://zhuanlan.zhihu.com/p/395211316</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 推荐算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 推荐算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>我的推荐算法之路(8):EMCDR</title>
+      <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-8-EMCDR.html"/>
+      <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-8-EMCDR.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、跨域推荐概述"><a href="#一、跨域推荐概述" class="headerlink" title="一、跨域推荐概述"></a>一、跨域推荐概述</h3><p>为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。</p><p>跨域推荐分为两种类型：</p><ol><li>非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的知识。然而因为没有完全利用源域和目标域的数据，所以是有很大局限的。</li><li>对称的方式，假设源域和目标域都有数据稀疏的问题，并且它们可以互相应用对方的数据知识。以这种方式来看，这两个域是可以同等对待的，两个域都以协同的方式应对数据稀疏问题。通常这种方式会在域之间学习一个map函数，把域独有的因子和域间共享的因子明确区分开来，主要的缺点是学习域独有的因子和域间共享的因子本身就放大了数据的稀疏性问题。</li></ol><p>两种类型的区别在于：非对称方式中源域用于判断label的知识足够多而目标域用于判断label知识相对少，源域需要的知识目标域无法提供，而目标域需要源域的知识，源域知识与目标域知识的交集为目标域知识，这样目标域的知识没必要迁移或迁移过去没多大作用；而对称方式中源域和目标域知识都不太多，有一定交集，也有各自的部分，需要互为补充提高精度。</p><p>本篇博客对跨域推荐模型EMCDR做一个详细介绍，原文地址： <a href="https://static.aminer.cn/upload/pdf/program/59ae3c262bbe271c4c71f007_0.pdf">Cross-Domain Recommendation: An Embedding and Mapping Approach</a></p><span id="more"></span><h3 id="二、EMCDR模型"><a href="#二、EMCDR模型" class="headerlink" title="二、EMCDR模型"></a>二、EMCDR模型</h3><h4 id="2-1-模型总览"><a href="#2-1-模型总览" class="headerlink" title="2.1 模型总览"></a>2.1 模型总览</h4><p>EMCDR属于非对称的方式进行跨域推荐，推荐的目标是针对目标域中有很少信息的用户或者物品，例如对于一个新来的用户或者物品，在目标域中并不能找到它的embedding，但是在源域中它比较活跃，可以找到它的embedding，这时通过目标域和源域的map函数（map可以认为是从源域的embedding到目标域embedding的一种映射，所以训练map函数<strong>使用的embedding只能是源域和目标域的交叉部分</strong>）可以得到目标域的embedding，之后再做推荐。</p><p>EMCDR模型如下图所示，其将跨域推荐分为三个步骤：</p><ul><li>Latent Factor Modeling（生成U/I的隐式向量）</li><li>Latent Space Mapping（源域-&gt;目标域 U/I隐式向量的映射）</li><li>Cross-domain Recommendation（跨域推荐）</li></ul><p><img src="https://s4.ax1x.com/2022/01/15/7JMmwD.png"></p><h4 id="2-2-Latent-Factor-Modeling"><a href="#2-2-Latent-Factor-Modeling" class="headerlink" title="2.2 Latent Factor Modeling"></a>2.2 Latent Factor Modeling</h4><p>论文中介绍了两种生成隐向量的方式，分别是矩阵分解<a href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-2-%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3.html">(MF)</a>和贝叶斯个性化排序<a href="https://www.cnblogs.com/pinard/p/9128682.html">(BPR)</a>。</p><ul><li>MF通过构建user-item的二元组，并对其进行矩阵分解生成两个低秩矩阵的乘积。其中，user表示为 $K \times U$ 的矩阵，item表示为 $K \times V$ 的矩阵，最终损失函数为：</li></ul><p>$$<br>\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{i}\mathop{\sum}\limits_{j}||I_{ij}\cdot(R_{ij}-U_i^TV_j)||^2_F+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F)<br>$$</p><ul><li>BPR通过构建user-item1-item2（user对item1的偏好大于item2）的三元组生成user对应的所有商品的全序关系，并通过使用与funkSVD类似的矩阵分解模型生成K维向量，最终的损失函数为：</li></ul><p>$$<br>\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{(u_i,v_j,v_l)\in D}-ln\sigma(U_i^TV_j-U_i^TV_l)+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F))<br>$$</p><h4 id="2-3-Latent-Space-Mapping"><a href="#2-3-Latent-Space-Mapping" class="headerlink" title="2.3 Latent Space Mapping"></a>2.3 Latent Space Mapping</h4><p>在得到源域和目标域U/I的K维embedding表示后，就可以构建一个map映射关系，完成从源域到目标域的映射。论文中介绍了Linear Mapping、MLP-based Nonlinear Mapping两种映射方法。</p><ul><li>Linear Mapping为线性映射，通过线性变换实现。损失函数表示为：</li></ul><p>$$<br>\mathop{min}\limits_{M}\mathop{\sum}\limits_{u_i\in U}L(M\times U_i^s,U_i^t)+\Omega(M)<br>$$</p><p>其中，$U_i^s,U_i^t$ 分别是源域和目标域的隐因子向量，$M$ 是待学习的线性变换矩阵，$\Omega(M)$ 是正则项。</p><ul><li>MLP-based Nonlinear Mapping为非线性映射，通过MLP实现。损失函数表示为：</li></ul><p>$$<br>\mathop{min}\limits_{\theta}\mathop{\sum}\limits_{u_i\in U}L(f_{mlp}(U_i^s;\theta),U_i^t)<br>$$</p><p>其中，$\theta$ 是MLP的参数。</p><h4 id="2-4-Cross-domain-Recommendation"><a href="#2-4-Cross-domain-Recommendation" class="headerlink" title="2.4 Cross-domain Recommendation"></a>2.4 Cross-domain Recommendation</h4><p>对于目标域中信息很少的用户和物品，直接使用MF或者BPR建模出的隐向量是不准确的，有很大偏差。这时可以使用源域建模出的隐向量以及map函数对user建模：<br>$$<br>\hat{U}_i^t=f(U_i^s;\theta)<br>$$</p><h3 id="3、参考链接"><a href="#3、参考链接" class="headerlink" title="3、参考链接"></a>3、参考链接</h3><ul><li><a href="https://zhuanlan.zhihu.com/p/395211316">https://zhuanlan.zhihu.com/p/395211316</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 推荐算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 推荐算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>我的推荐算法之路(7):MiNet</title>
       <link href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html"/>
       <url>/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html</url>
