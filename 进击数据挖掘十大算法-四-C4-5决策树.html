@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/18/k66kKf.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/18/kcwLOe.png">
 <meta property="article:published_time" content="2019-02-17T10:14:53.000Z">
-<meta property="article:modified_time" content="2021-10-06T11:56:42.000Z">
+<meta property="article:modified_time" content="2022-01-31T11:07:27.913Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="算法">
@@ -288,7 +288,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-06 19:56:42" itemprop="dateModified" datetime="2021-10-06T19:56:42+08:00">2021-10-06</time>
+        <time title="修改时间：2022-01-31 19:07:27" itemprop="dateModified" datetime="2022-01-31T19:07:27+08:00">2022-01-31</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -350,14 +350,22 @@
 <h5 id="2-2-1-特征选择"><a href="#2-2-1-特征选择" class="headerlink" title="2.2.1 特征选择"></a>2.2.1 特征选择</h5><p>特征选择就是决定用哪个特征来划分特征空间，其目的在于选取对训练数据具有分类能力的特征。这样可以提高决策树学习的效率。如果利用一个特征进行分类的结果与随机分类的结果没有很大的差别，则称这个特征是没有分类能力的，经验上扔掉这些特征对决策树学习的精度影响不会很大。<br>那如何来选择最优的特征来划分呢？一般而言，随着划分过程不断进行，我们希望决策树的分支节点所包含的样本尽可能属于同一类别，也就是节点的纯度（purity）越来越高。</p>
 <p>在实际使用中，我们衡量的常常是不纯度。度量不纯度的指标有很多种，比如：熵、增益率、基尼值数。这里我们使用的是熵，也叫作香农熵，这个名字来源于信息论之父：克劳德·香农。</p>
 <h6 id="1-香浓熵"><a href="#1-香浓熵" class="headerlink" title="(1) 香浓熵"></a>(1) 香浓熵</h6><p>熵定义为信息的期望值。在信息论与概率统计中，熵是表示随机变量不确定性的度量。<br>假定当前样本集合D中一共有n类样本，第i类样本为$x_i$，那么$x_i$的信息定义为：</p>
-<script type="math/tex; mode=display">l(x_i)=-log_2{p(x_i)}</script><p>其中 $p(x_i)$ 是选择该分类的概率。</p>
-<p>通过上式，我们可以得到所有类别的信息。为了计算熵，我们需要计算所有类别所有可能值包含的信息期望值(数学期望)，通过下面的公式得到：</p>
-<script type="math/tex; mode=display">Ent(D)=-\sum_{i=1}^{n}p(x_i)log_2p(x_i)</script><p>$Ent(D)$ 的值越小，则D的不纯度就越低。</p>
+<p>$$l(x_i)=-log_2{p(x_i)}$$</p>
+其中 $p(x_i)$ 是选择该分类的概率。
+
+通过上式，我们可以得到所有类别的信息。为了计算熵，我们需要计算所有类别所有可能值包含的信息期望值(数学期望)，通过下面的公式得到：
+
+<p>$$Ent(D)=-\sum_{i=1}^{n}p(x_i)log_2p(x_i)$$</p>
+
+<p>$Ent(D)$ 的值越小，则D的不纯度就越低。</p>
 <h6 id="2-信息增益"><a href="#2-信息增益" class="headerlink" title="(2) 信息增益"></a>(2) 信息增益</h6><p><strong>信息增益（Information Gain）的计算公式其实就是父节点的信息熵与其下所有子节点总信息熵之差</strong>。但这里要注意的是，此时计算子节点的总信息熵不能简单求和，而要求在求和汇总之前进行修正。</p>
 <p>假设离散属性A有V个可能的取值 $\{A^1,A^2,\ldots,A^V\}$，若使用A对样本数据集D进行划分，则会产生V个分支节点，其中第v个分支节点包含了D中所有在属性A上取值为$A^v$的样本，记为$D^v$.我们可根据信息熵的计算公式计算出$D^v$的信息熵，再考虑到不同的分支节点所包含的样本数不同，给分支节点赋予权重 $|D^v|/D$ ，这就是所谓的的修正。</p>
 <p>所以信息增益的计算公式为：</p>
-<script type="math/tex; mode=display">Gain(D,A)=Ent(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)</script><h6 id="3-信息增益率"><a href="#3-信息增益率" class="headerlink" title="(3) 信息增益率"></a>(3) 信息增益率</h6><p>信息增益率 = 惩罚参数 * 信息增益<br>公式：</p>
-<script type="math/tex; mode=display">IGR(D,A)=\frac{Gain(D,A)}{H_A(D)}</script><script type="math/tex; mode=display">H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}</script><p><strong>信息增益率本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。</strong></p>
+<p>$$Gain(D,A)=Ent(D)-\sum_{v=1}^{V}\frac{|D^v|}{|D|}Ent(D^v)$$</p>
+
+<h6 id="3-信息增益率"><a href="#3-信息增益率" class="headerlink" title="(3) 信息增益率"></a>(3) 信息增益率</h6><p>信息增益率 = 惩罚参数 * 信息增益<br>公式：</p>
+<p><p>$$IGR(D,A)=\frac{Gain(D,A)}{H_A(D)}$$</p></p>
+<p><p>$$H_A(D)=-\sum_{i=1}^{n}\frac{|D_i|}{|D|}log_2\frac{|D_i|}{|D|}$$</p><br><strong>信息增益率本质： 是在信息增益的基础之上乘上一个惩罚参数。特征个数较多时，惩罚参数较小；特征个数较少时，惩罚参数较大。</strong></p>
 <p>使用信息增益率：并不是直接选择信息增益率最大的特征，而是先在候选特征中找出信息增益高于平均水平的特征，然后在这些特征中再选择信息增益率最高的特征。</p>
 <hr>
 <h3 id="三、C4-5决策树基本思想"><a href="#三、C4-5决策树基本思想" class="headerlink" title="三、C4.5决策树基本思想"></a>三、C4.5决策树基本思想</h3><p>下面以一个例子来详细说明C4.5的基本思想</p>
@@ -492,14 +500,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">364k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:31</span>
   </span>
 </div>
 

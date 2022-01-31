@@ -33,7 +33,7 @@
 <meta property="og:description" content="引言历史上，PageRank算法作为计算互联网网页重要度的算法被提出。PageRank是定义在网页集合上的一个函数，它对每个网页给出一个正实数，表示网页的重要程度，PageRank值越高，网页就越重要，在互联网搜索的排序中可能就被排在前面。 假设互联网是一个有向图，在其基础上定义随机游走模型，即一阶马尔可夫链，表示网页浏览者在互联网上随机浏览网页的过程。假设浏览者在每个网页依照连接出去的超链接以等">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-04T08:37:28.000Z">
-<meta property="article:modified_time" content="2021-10-06T11:54:04.000Z">
+<meta property="article:modified_time" content="2022-01-31T11:26:46.906Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="算法">
@@ -283,7 +283,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-06 19:54:04" itemprop="dateModified" datetime="2021-10-06T19:54:04+08:00">2021-10-06</time>
+        <time title="修改时间：2022-01-31 19:26:46" itemprop="dateModified" datetime="2022-01-31T19:26:46+08:00">2022-01-31</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -309,7 +309,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.1k</span>
+      <span>5.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -332,28 +332,58 @@
 <p><strong>直观上，一个网页，如果指向该网页的超链接越多，随即跳转到该网页的概率也就越高，该网页的PageRank值就越高，这个网页也就越重要。</strong>PageRank值依赖于网络的拓扑结构，一旦网络的拓扑确定，PageRank值就确定。</p>
 <span id="more"></span>
 <h3 id="一、随机游走模型"><a href="#一、随机游走模型" class="headerlink" title="一、随机游走模型"></a>一、随机游走模型</h3><p>给定一个含有 $n$ 个结点的有向图，在有向图上定义随机游走模型，即一阶马尔可夫链，其中节点表示状态，有向边表示状态之间的转移，假设从一个结点到通过有向边相连的所有结点的转移概率相等。具体的，转移矩阵是一个 $n$ 阶矩阵 $M$ </p>
-<script type="math/tex; mode=display">M=[m_{ij}]_{n×n}</script><p>第 $i$ 行第 $j$ 列的元素 $m_{ij}$ 取值规则如下：如果结点 $j$ 有 $k$ 个有向边连出，并且结点 $i$ 是其连出的一个结点，则 $m_{ij} = \frac{1}{k}$ ；否则 $m_{ij}=0(i,j=1,2,\cdots,n)$ </p>
+<p>$$M=[m_{ij}]_{n×n}$$</p>
+
+<p>第 $i$ 行第 $j$ 列的元素 $m_{ij}$ 取值规则如下：如果结点 $j$ 有 $k$ 个有向边连出，并且结点 $i$ 是其连出的一个结点，则 $m_{ij} = \frac{1}{k}$ ；否则 $m_{ij}=0(i,j=1,2,\cdots,n)$ </p>
 <p>注意转移矩阵具有性质：</p>
-<script type="math/tex; mode=display">m_{ij}\geq 0　 且 　\mathop{\sum}\limits_{i=1}^{n}m_{ij}=1</script><p>在有向图上的随机游走形成马尔可夫链。也就是说，随机游走者没经一个单位时间转移一个状态，如果当前时刻在第 $j$ 个结点，那么下一个时刻在第 $i$ 个结点的概率是 $m_{ij}$ ，这一概率只依赖于当前的状态，与过去无关，具有马尔可夫性。</p>
+<p>$$m_{ij}\geq 0　 且 　\mathop{\sum}\limits_{i=1}^{n}m_{ij}=1$$</p>
+
+<p>在有向图上的随机游走形成马尔可夫链。也就是说，随机游走者没经一个单位时间转移一个状态，如果当前时刻在第 $j$ 个结点，那么下一个时刻在第 $i$ 个结点的概率是 $m_{ij}$ ，这一概率只依赖于当前的状态，与过去无关，具有马尔可夫性。</p>
 <p>随机游走在某个时刻 $t$ 访问各个结点的概率分布就是马尔可夫链在时刻 $t$ 的状态分布，可以用一个 $n$ 维列向量 $R_t$ 表示，那么在时刻 $t+1$ 访问各个结点的概率分布 $R_{t+1}$ 满足</p>
-<script type="math/tex; mode=display">R_{t+1}=MR_t</script><h3 id="二、PageRank的基本定义"><a href="#二、PageRank的基本定义" class="headerlink" title="二、PageRank的基本定义"></a>二、PageRank的基本定义</h3><p>给定一个包含 $n$ 个结点的<strong>强连通且非周期性</strong>的有向图，在其基础上定义随机游走模型。假设转移矩阵为 $M$，在时刻 $0,1,2,\cdots,t,\cdots$ 访问各个结点的概率分布为</p>
-<script type="math/tex; mode=display">R_0,MR_0,M^2R_0,\cdots,M^tR_0,\cdots</script><p>则<strong>极限</strong></p>
-<script type="math/tex; mode=display">\mathop{\lim}\limits_{t\rightarrow \infty} M^tR_0=R</script><p>存在，<strong>极限向量 $R$ 表示马尔可夫链的平稳分布</strong>，满足</p>
-<script type="math/tex; mode=display">MR=R</script><p><strong>定义 $1$ ($PageRank$ 的基本定义)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 给定一个包含 $n$ 个结点 $v_1,v_2,\cdots,v_n$ 的<strong>强连通且非周期性</strong>的有向图，在有向图上定义随机游走模型，即一阶马尔可夫链。随机游走的特点是从一个结点到有有向边连出的所有结点的<strong>转移概率相等</strong>，转移矩阵为 $M$ 。这个马尔可夫链具有平稳分布 $R$ </p>
-<script type="math/tex; mode=display">MR=R</script><p>平稳分布 $R$ 称为这个有向图的 $PageRank$。 $R$ 的各个分量称为各个结点的 $PageRank$ 值。</p>
-<script type="math/tex; mode=display">R= \left[\begin{matrix}PR(v_1) \\ PR(v_2) \\ \cdots \\ PR(v_n) \end{matrix}\right]</script><p>其中，$PR(v_i)，i=1,2,\cdots,n$， 表示结点 $v_i$ 的 $PageRank$ 值</p>
+<p>$$R_{t+1}=MR_t$$</p>
+
+<h3 id="二、PageRank的基本定义"><a href="#二、PageRank的基本定义" class="headerlink" title="二、PageRank的基本定义"></a>二、PageRank的基本定义</h3><p>给定一个包含 $n$ 个结点的<strong>强连通且非周期性</strong>的有向图，在其基础上定义随机游走模型。假设转移矩阵为 $M$，在时刻 $0,1,2,\cdots,t,\cdots$ 访问各个结点的概率分布为</p>
+<p>$$R_0,MR_0,M^2R_0,\cdots,M^tR_0,\cdots$$</p>
+
+<p>则<strong>极限</strong></p>
+<p>$$\mathop{\lim}\limits_{t\rightarrow \infty} M^tR_0=R$$</p>
+
+<p>存在，<strong>极限向量 $R$ 表示马尔可夫链的平稳分布</strong>，满足</p>
+<p>$$MR=R$$</p>
+
+<p><strong>定义 $1$ ($PageRank$ 的基本定义)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 给定一个包含 $n$ 个结点 $v_1,v_2,\cdots,v_n$ 的<strong>强连通且非周期性</strong>的有向图，在有向图上定义随机游走模型，即一阶马尔可夫链。随机游走的特点是从一个结点到有有向边连出的所有结点的<strong>转移概率相等</strong>，转移矩阵为 $M$ 。这个马尔可夫链具有平稳分布 $R$ </p>
+<p>$$MR=R$$</p>
+
+<p>平稳分布 $R$ 称为这个有向图的 $PageRank$。 $R$ 的各个分量称为各个结点的 $PageRank$ 值。</p>
+<p>$$ R= \left[\begin{matrix}PR(v_1) \\ PR(v_2) \\ \cdots \\ PR(v_n) \end{matrix}\right]$$</p>
+
+<p>其中，$PR(v_i)，i=1,2,\cdots,n$， 表示结点 $v_i$ 的 $PageRank$ 值</p>
 <p>显然有</p>
-<script type="math/tex; mode=display">PR(v_i) \geq 0， i=1,2,\cdots,n</script><script type="math/tex; mode=display">\mathop{\sum}\limits_{i=1}^{n}PR(v_i)=1</script><script type="math/tex; mode=display">PR(v_i)=\mathop{\sum}\limits_{v_j\in M(v_i)}\frac{PR(v_j)}{L(v_j)}，i=1,2,\cdots, n</script><p>这里 $M(v_i)$ 表示指向结点 $v_i$ 的结点集合，$L(v_j)$ 表示结点 $v_j$ 连出的有向边的个数。</p>
+<p>$$PR(v_i) \geq 0， i=1,2,\cdots,n$$</p>
+
+<p>$$\mathop{\sum}\limits_{i=1}^{n}PR(v_i)=1$$</p>
+
+<p>$$PR(v_i)=\mathop{\sum}\limits_{v_j\in M(v_i)}\frac{PR(v_j)}{L(v_j)}，i=1,2,\cdots, n$$</p>
+
+<p>这里 $M(v_i)$ 表示指向结点 $v_i$ 的结点集合，$L(v_j)$ 表示结点 $v_j$ 连出的有向边的个数。</p>
 <p><strong>定理1</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>不可约且非周期的有限状态马尔可夫链，有唯一平稳分布存在，并且当时间趋于无穷时状态分布收敛于唯一的平稳分布。</strong></p>
 <h3 id="三、PageRank的一般定义"><a href="#三、PageRank的一般定义" class="headerlink" title="三、PageRank的一般定义"></a>三、PageRank的一般定义</h3><p>一般的有向图<strong>未必满足强连通且非周期性的条件</strong>。比如在互联网，<strong>大部分网页没有连接出去的超链接</strong>，也就是说<strong>从这些网页无法跳转到其他网页</strong>，所以<strong>$PageRank$ 的基本定义不适用</strong>（因为<strong>这种情况下某结点状态转移全为0</strong>，导致收敛结果全是0）。</p>
 <p><strong>$PageRank$ 一般定义的想法是在基本定义的基础上导入平滑项。</strong></p>
 <p>给定一个含有 $n$ 个结点 $v_i$ 的任意有向图，假设考虑一个在图上随机游走模型，即一阶马尔可夫链，其转移矩阵是 $M$，<strong>从一个结点到其连出的所有结点的转移概率相等</strong>，这个马尔可夫链未必具有平稳分布。假设考虑另一个完全随机游走的模型，其转移矩阵的元素全部为 $1\over n$，也就是说<strong>从任意一个结点到任意一个结点的转移概率都是 $1\over n$</strong>。<strong>两个转移矩阵的线性组合有构成一个新的转移矩阵，在其上可以定义一个新的马尔可夫链。</strong>容易证明这个马尔可夫链一定具有平稳分布，且平稳分布满足</p>
-<script type="math/tex; mode=display">R=dMR+\frac{1-d}{n}1</script><p>式中 $d(0\leq d \leq 1)$ 是系数，称为<strong>阻尼因子</strong>，$R$ 是 $n$ 维向量，$\large 1$ 是所有分量为1的 $n$ 维向量。$R$ 表示的就是有向图的一般 $PageRank$。 </p>
+<p>$$R=dMR+\frac{1-d}{n}1$$</p>
+
+<p>式中 $d(0\leq d \leq 1)$ 是系数，称为<strong>阻尼因子</strong>，$R$ 是 $n$ 维向量，$\large 1$ 是所有分量为1的 $n$ 维向量。$R$ 表示的就是有向图的一般 $PageRank$。 </p>
 <p><strong>上式第一项表示（状态分布是平稳分布时）依照状态转移矩阵 $M$ 访问各个结点的概率，第二项表示完全随机访问各个结点的概率。 阻尼因子 $d$ 取值由经验决定。当 $d$ 接近 $1$ 时，随机游走主要依照状态转移矩阵 $M$ 进行；当 $d$ 接近 $0$ 时，随机游走主要以等概率随机访问各个结点。</strong></p>
 <p>$PageRank$ 的一般定义由于采用平滑项，<strong>所有结点的PageRank值都不会为0</strong>，具有以下性质：</p>
-<script type="math/tex; mode=display">PR(v_i)>0，i=1,2,\cdots,n</script><script type="math/tex; mode=display">\mathop{\sum}\limits_{i=1}^{n}PR(v_i)=1</script><h3 id="四、PageRank的计算"><a href="#四、PageRank的计算" class="headerlink" title="四、PageRank的计算"></a>四、PageRank的计算</h3><p>$PageRank$ 的定义是构造性的，即定义本身就给出了算法。<strong>$PageRank$ 的计算方法包括迭代算法、幂法、代数算法</strong>，常用的方法是幂法。</p>
+<p>$$PR(v_i)>0，i=1,2,\cdots,n$$</p>
+
+<p>$$\mathop{\sum}\limits_{i=1}^{n}PR(v_i)=1$$</p>
+
+<h3 id="四、PageRank的计算"><a href="#四、PageRank的计算" class="headerlink" title="四、PageRank的计算"></a>四、PageRank的计算</h3><p>$PageRank$ 的定义是构造性的，即定义本身就给出了算法。<strong>$PageRank$ 的计算方法包括迭代算法、幂法、代数算法</strong>，常用的方法是幂法。</p>
 <h4 id="4-1-迭代算法"><a href="#4-1-迭代算法" class="headerlink" title="4.1 迭代算法"></a>4.1 迭代算法</h4><p>给定一个含有 $n$ 个结点的有向图，转移矩阵为 $M$，有向图的一般 $PageRank$ 由迭代公式</p>
-<script type="math/tex; mode=display">R_{t+1}=dMR_t+\frac{1-d}{n}1</script><p>的极限向量 $R$ 确定。</p>
+<p>$$R_{t+1}=dMR_t+\frac{1-d}{n}1$$</p>
+
+<p>的极限向量 $R$ 确定。</p>
 <p>$PageRank$ 的迭代算法，就是按照这个一般定义进行迭代，直至收敛。</p>
 <p><strong>算法4.1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;($PageRank$ 的迭代算法)</strong></p>
 <blockquote>
@@ -364,7 +394,8 @@
 <li><p>(a) 令 $t=0$ </p>
 </li>
 <li><p>(b) 计算</p>
-<script type="math/tex; mode=display">R_{t+1}=dMR_t+\frac{1-d}{n}1</script></li>
+<p>$$R_{t+1}=dMR_t+\frac{1-d}{n}1$$</p>
+</li>
 <li><p>(c) 如果$R_{t+1}$ 与 $R_t$ 充分接近，令 $R=R_{t+1}$，停止迭代。</p>
 </li>
 <li><p>(d) 否则，令 $t=t+1$，执行步骤(2)。</p>
@@ -374,21 +405,55 @@
 <p><strong>幂法主要用于近似计算矩阵的主特征值和主特征向量</strong>。<strong>主特征值是指绝对值最大的特征值</strong>，主特征向量是其对应的特征向量。注意特征向量不是唯一的，只是其方向是确定的，乘上任意系数还是特征向量。</p>
 <p>假设要求 $n$ 阶矩阵 $A$ 的主特征值和主特征向量，采用下面的步骤。</p>
 <p>首先，任取一个初始的 $n$ 维向量 $x_0$，构造如下的一个 $n$ 维向量序列</p>
-<script type="math/tex; mode=display">x_0,\quad x1=Ax_0,\quad x2=Ax_1,\quad \cdots,\quad x_k=Ax_{k-1}</script><p>然后，假设矩阵 $A$ 有 $n$ 个特征值，<strong>按照绝对值大小排列</strong></p>
-<script type="math/tex; mode=display">|\lambda_1|\geq|\lambda_2|\geq\cdots\geq|\lambda_n|</script><p>对应的 $n$ 个线性无关的特征向量为</p>
-<script type="math/tex; mode=display">u_1,u_2,\cdots,u_n</script><p>这 $n$ 个特征向量构成 $n$ 维空间的一组基。</p>
+<p>$$x_0,\quad x1=Ax_0,\quad x2=Ax_1,\quad \cdots,\quad x_k=Ax_{k-1}$$</p>
+
+<p>然后，假设矩阵 $A$ 有 $n$ 个特征值，<strong>按照绝对值大小排列</strong></p>
+<p>$$|\lambda_1|\geq|\lambda_2|\geq\cdots\geq|\lambda_n|$$</p>
+
+<p>对应的 $n$ 个线性无关的特征向量为</p>
+<p>$$u_1,u_2,\cdots,u_n$$</p>
+
+<p>这 $n$ 个特征向量构成 $n$ 维空间的一组基。</p>
 <p>于是，可以将初始向量 $x_0$ 表示为 $u_1,u_2,\cdots,u_n$ 的线性组合</p>
-<script type="math/tex; mode=display">x_0=a_1u_1+a_2u_2+\cdots+a_nu_n</script><p>得到</p>
-<script type="math/tex; mode=display">x_1 = Ax_0 = a_1Au_1+a_2Au_2+\cdots+a_nAu_n</script><script type="math/tex; mode=display">\vdots</script><script type="math/tex; mode=display">x_k = A^kx_0=a_1A^ku_1+a_2A^ku_2+\cdots+a_nA^ku_n</script><script type="math/tex; mode=display">=a_1\lambda_1^ku_1+a_2\lambda_2^ku_2+\cdots+a_n\lambda_n^ku_n</script><p>接着，假设矩阵 $A$ 的主特征值 $\lambda_1$ 是特征方程的单根，由上式得</p>
-<script type="math/tex; mode=display">x_k=a_1\lambda_1^k\left[u_1+\frac{a_2}{a_1}(\frac{\lambda_2}{\lambda_1})^ku_2+\cdots+\frac{a_n}{a_1}(\frac{\lambda_n}{\lambda_1})^ku_n\right]</script><p>由于 $|\lambda_1|&gt;|\lambda_j|,j=2,\cdots,n$，当 $k$ 充分大时有</p>
-<script type="math/tex; mode=display">x_k=a_1\lambda_1^k[u_1+\epsilon_k]</script><p>这里 $\epsilon_k$ 是当 $k\rightarrow\infty$ 时的无穷小量， $\epsilon_k \rightarrow 0(k\rightarrow\infty)$。即</p>
-<script type="math/tex; mode=display">x_k\rightarrow a_1\lambda_1^ku_1(k\rightarrow\infty)</script><p>说明当 $k$ 充分大时向量 $x_k$ 与特征向量 $u_1$ 只相差一个系数。由上式可知</p>
-<script type="math/tex; mode=display">x_k\approx a_1\lambda_1^ku_1</script><script type="math/tex; mode=display">x_{k+1}\approx a_1\lambda_1^{k+1}u_1</script><p>于是主特征值 $\lambda_1$ 可表示为</p>
-<script type="math/tex; mode=display">\lambda_1\approx \frac{x_{k+1,j}}{x_{k,j}}</script><p>其中 $x_{k,j}$ 和 $x_{k+1,j}$分别是 $x_k$ 和 $x_{k+1}$ 的第 $j$ 个分量。</p>
+<p>$$x_0=a_1u_1+a_2u_2+\cdots+a_nu_n$$</p>
+
+<p>得到</p>
+<p>$$x_1 = Ax_0 = a_1Au_1+a_2Au_2+\cdots+a_nAu_n$$</p>
+
+<p>$$\vdots$$</p>
+
+<p>$$x_k = A^kx_0=a_1A^ku_1+a_2A^ku_2+\cdots+a_nA^ku_n$$</p>
+
+<p>$$=a_1\lambda_1^ku_1+a_2\lambda_2^ku_2+\cdots+a_n\lambda_n^ku_n$$</p>
+
+<p>接着，假设矩阵 $A$ 的主特征值 $\lambda_1$ 是特征方程的单根，由上式得</p>
+<p>$$x_k=a_1\lambda_1^k\left[u_1+\frac{a_2}{a_1}(\frac{\lambda_2}{\lambda_1})^ku_2+\cdots+\frac{a_n}{a_1}(\frac{\lambda_n}{\lambda_1})^ku_n\right]$$</p>
+
+<p>由于 $|\lambda_1|&gt;|\lambda_j|,j=2,\cdots,n$，当 $k$ 充分大时有</p>
+<p>$$x_k=a_1\lambda_1^k[u_1+\epsilon_k]$$</p>
+
+<p>这里 $\epsilon_k$ 是当 $k\rightarrow\infty$ 时的无穷小量， $\epsilon_k \rightarrow 0(k\rightarrow\infty)$。即</p>
+<p>$$x_k\rightarrow a_1\lambda_1^ku_1(k\rightarrow\infty)$$</p>
+
+<p>说明当 $k$ 充分大时向量 $x_k$ 与特征向量 $u_1$ 只相差一个系数。由上式可知</p>
+<p>$$x_k\approx a_1\lambda_1^ku_1$$</p>
+
+<p>$$x_{k+1}\approx a_1\lambda_1^{k+1}u_1$$</p>
+
+<p>于是主特征值 $\lambda_1$ 可表示为</p>
+<p>$$\lambda_1\approx \frac{x_{k+1,j}}{x_{k,j}}$$</p>
+
+<p>其中 $x_{k,j}$ 和 $x_{k+1,j}$分别是 $x_k$ 和 $x_{k+1}$ 的第 $j$ 个分量。</p>
 <p>在实际计算时，为了避免出现绝对值过大或过小的情况，<strong>通常在每步迭代后即进行规范化</strong>，将向量除以范数，即</p>
-<script type="math/tex; mode=display">y_{t+1}=Ax_t</script><script type="math/tex; mode=display">x_{t+1}=\frac{y_{t+1}}{||y_{t+1}||}</script><p>现在回到计算一般 $PageRank$。</p>
+<p>$$y_{t+1}=Ax_t $$</p>
+
+<p>$$x_{t+1}=\frac{y_{t+1}}{||y_{t+1}||}$$</p>
+
+<p>现在回到计算一般 $PageRank$。</p>
 <p>转移矩阵可以写作</p>
-<script type="math/tex; mode=display">R=\left(dM+\frac{1-d}{n}E\right)R=AR</script><p>其中 $d$ 是阻尼因子，E是所有元素为1的 $n$ 阶方阵。根据 <code>Perron-Frobenius</code> 定理，<strong>一般 $PageRank$ 的向量 $R$ 是矩阵 $A$ 的主特征向量，主特征值是1</strong>。所以可以使用幂法近似计算一般 $PageRank$。</p>
+<p>$$R=\left(dM+\frac{1-d}{n}E\right)R=AR$$</p>
+
+<p>其中 $d$ 是阻尼因子，E是所有元素为1的 $n$ 阶方阵。根据 <code>Perron-Frobenius</code> 定理，<strong>一般 $PageRank$ 的向量 $R$ 是矩阵 $A$ 的主特征向量，主特征值是1</strong>。所以可以使用幂法近似计算一般 $PageRank$。</p>
 <p><strong>算法4.2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(计算一般$PageRank$ 的幂法)</strong></p>
 <blockquote>
 <p>输入：含有 $n$ 个结点的有向图，有向图的转移矩阵 $M$，系数 $d$，初始向量 $x_0$，计算精度 $\epsilon$；</p>
@@ -398,9 +463,13 @@
 <li><p>(a) 令 $t=0$，选择初始向量 $x_0$</p>
 </li>
 <li><p>(b) 计算有向图的一般转移矩阵 $A$</p>
-<script type="math/tex; mode=display">A=dM+\frac{1-d}{n}E</script></li>
+<p>$$A=dM+\frac{1-d}{n}E$$</p>
+</li>
 <li><p>(c) 迭代并规范化结果向量</p>
-<script type="math/tex; mode=display">y_{t+1}=Ax_t</script><script type="math/tex; mode=display">x_{t+1}=\frac{y_{t+1}}{||y_{t+1}||}</script></li>
+<p>$$y_{t+1}=Ax_t$$</p>
+
+<p>$$x_{t+1}=\frac{y_{t+1}}{||y_{t+1}||}$$</p>
+</li>
 <li><p>(d) 当 $||x_{t+1}-x_t||&lt;\epsilon$时，令 $R=x_t$，停止迭代</p>
 </li>
 <li><p>(e) 否则，令 $t=t+1$，执行步(c)</p>
@@ -410,8 +479,14 @@
 </ul>
 <h4 id="4-3-代数算法"><a href="#4-3-代数算法" class="headerlink" title="4.3 代数算法"></a>4.3 代数算法</h4><p>代数算法通过一般转移矩阵的逆矩阵计算求有向图的一般 $PageRank$。</p>
 <p>按照一般 $PageRank$ 的定义式</p>
-<script type="math/tex; mode=display">R=dMR+\frac{1-d}{n}1</script><p>于是，</p>
-<script type="math/tex; mode=display">(I-dM)R=\frac{1-d}{n}1</script><script type="math/tex; mode=display">R=(I-dM)^{-1}\frac{1-d}{n}1</script><p>这里 $I$ 是单位矩阵。当 $0&lt;d&lt;1$时，线性方程组的解存在且唯一。这样，可以通过求逆矩阵 $(I-dM)^{-1}$ 得到有向图的一般 $PageRank$。</p>
+<p>$$R=dMR+\frac{1-d}{n}1$$</p>
+
+<p>于是，</p>
+<p>$$(I-dM)R=\frac{1-d}{n}1$$</p>
+
+<p>$$R=(I-dM)^{-1}\frac{1-d}{n}1$$</p>
+
+<p>这里 $I$ 是单位矩阵。当 $0&lt;d&lt;1$时，线性方程组的解存在且唯一。这样，可以通过求逆矩阵 $(I-dM)^{-1}$ 得到有向图的一般 $PageRank$。</p>
 <h3 id="五、Reference"><a href="#五、Reference" class="headerlink" title="五、Reference"></a>五、Reference</h3><ul>
 <li>李航《统计学习方法》</li>
 </ul>
@@ -518,14 +593,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">364k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:31</span>
   </span>
 </div>
 

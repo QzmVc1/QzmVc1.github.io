@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://z3.ax1x.com/2021/10/05/4jo3LD.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/10/05/4joxOO.png">
 <meta property="article:published_time" content="2021-10-04T05:29:12.000Z">
-<meta property="article:modified_time" content="2021-12-09T09:03:32.127Z">
+<meta property="article:modified_time" content="2022-01-31T10:54:56.324Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="推荐算法">
 <meta name="twitter:card" content="summary">
@@ -288,7 +288,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-09 17:03:32" itemprop="dateModified" datetime="2021-12-09T17:03:32+08:00">2021-12-09</time>
+        <time title="修改时间：2022-01-31 18:54:56" itemprop="dateModified" datetime="2022-01-31T18:54:56+08:00">2022-01-31</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -342,8 +342,9 @@
 <h4 id="2-3-Multiple-Residual-Units"><a href="#2-3-Multiple-Residual-Units" class="headerlink" title="2.3 Multiple Residual Units"></a>2.3 Multiple Residual Units</h4><p>$Deep　Crossing$ 模型中的 $Crossing$ 就是<strong>多个残差单元</strong>层来实现。该层使用了残差网络的基本单元，单个残差单元如下所示：</p>
 <p><img src="https://z3.ax1x.com/2021/10/04/4OWrss.png" alt=""></p>
 <p>公式定义为：</p>
-<script type="math/tex; mode=display">
-X^O = ReLU(W_1·ReLU(W_0X^I+b_0)+b_1)+X^I</script><p>$Deep　Crossing$ 模型使用稍微修改过的残余单元，它不使用卷积内核，改为两层神经网络。可以看到，残差单元是通过两层 $ReLU$ 变换再将原输入特征加回来。</p>
+<p>$$X^O = ReLU(W_1·ReLU(W_0X^I+b_0)+b_1)+X^I$$</p>
+
+<p>$Deep　Crossing$ 模型使用稍微修改过的残余单元，它不使用卷积内核，改为两层神经网络。可以看到，残差单元是通过两层 $ReLU$ 变换再将原输入特征加回来。</p>
 <p>将 $X^I$ 移到等式左侧，可以发现左侧变为 $X^O-X^I$，可见右侧拟合的是输出与输入之间的残差。有分析说明，残差结构能更敏感的捕获输入输出之间的信息差。</p>
 <p>多个残差单元层是 $MLP$ 的具体实现，该层通过多个残差单元，对特征向量各个维度进行交叉组合，使模型获得了更多的非线性特征和组合特征信息，进而提高了模型的表达能力。</p>
 <h4 id="2-4-Scoring-Layer"><a href="#2-4-Scoring-Layer" class="headerlink" title="2.4 Scoring Layer"></a>2.4 Scoring Layer</h4><p>$Scoring$ 层就是输出层。对于CTR预估模型，往往是一个二分类问题，因此采用逻辑回归来对点击进行预测，损失函数采用交叉熵，激活函数采用 $Sigmoid$。</p>
@@ -471,14 +472,14 @@ X^O = ReLU(W_1·ReLU(W_0X^I+b_0)+b_1)+X^I</script><p>$Deep　Crossing$ 模型使
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">364k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:31</span>
   </span>
 </div>
 
