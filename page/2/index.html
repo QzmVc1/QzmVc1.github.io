@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -231,6 +231,121 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="QzmVc1">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="QzmVc1">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html" class="post-title-link" itemprop="url">我的推荐算法之路(7):MiNet</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          <div class="post-meta">
+  
+	
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-07 19:51:08" itemprop="dateCreated datePublished" datetime="2022-01-07T19:51:08+08:00">2022-01-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-01-31 18:54:27" itemprop="dateModified" datetime="2022-01-31T18:54:27+08:00">2022-01-31</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><h4 id="1-1-跨域推荐的概念"><a href="#1-1-跨域推荐的概念" class="headerlink" title="1.1 跨域推荐的概念"></a>1.1 跨域推荐的概念</h4><p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
+<p>那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的东西，它基于的数据也都是游戏用户本身的东西。但什么是”跨域推荐“呢？比如，我要给“鬼畜区”推荐东西，但是使用的数据不只是鬼畜区自己的，它还包括了”舞蹈区“，”数码区“，”游戏区“等其他域产生的数据。</p>
+<p>对于此，我们要定义两个”域“的概念：”源域“和”目标域“，我们要优化、提升的目标叫做”目标域“，比如我们要优化”鬼畜区“的CTR，那么“鬼畜区”就是“目标域”。而”源域“相当于是辅助的部分，我们会把“舞蹈区”，“数码区”等看做是“源域”。</p>
+<h4 id="1-2-跨域推荐的细节"><a href="#1-2-跨域推荐的细节" class="headerlink" title="1.2 跨域推荐的细节"></a>1.2 跨域推荐的细节</h4><p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
+<ul>
+<li>用户与物品之间没有都没有交集；</li>
+<li>两个域的用户有部分交集，但是物品没有交集。这种情况可以理解成鬼畜用户和舞蹈用户会有部分交集，这部分用户他们既访问了鬼畜区的视频又去舞蹈区看了小姐姐；</li>
+<li>两个域的用户没有交集，但是物品有部分重合。一种可能的情况：youtube和b站的用户在法定情况下是不一样的，但是b站的部分内容又是从youtube上搬运过来的；</li>
+<li>这个场景的重合度就比较高了，不论是用户还是物品都有一定程度上的重叠，这在b站上也是很常见的，比如自制区的视频同时也是数码区的视频。</li>
+</ul>
+<p>原文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2008.02974">MiNet:Mixed Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -971,113 +1086,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-      <meta itemprop="name" content="QzmVc1">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="QzmVc1">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html" class="post-title-link" itemprop="url">我的推荐算法之路(3):从FM到FFM</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          <div class="post-meta">
-  
-	
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-08-07 09:24:43" itemprop="dateCreated datePublished" datetime="2021-08-07T09:24:43+08:00">2021-08-07</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-01-31 18:56:38" itemprop="dateModified" datetime="2022-01-31T18:56:38+08:00">2022-01-31</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">推荐算法</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="一、为什么需要特征组合？"><a href="#一、为什么需要特征组合？" class="headerlink" title="一、为什么需要特征组合？"></a>一、为什么需要特征组合？</h3><p>在仅利用单一特征而非交叉特征进行判断的情况下，有时不仅是信息损失的问题，甚至会得出错误的结论。著名的“辛普森悖论”用一个非常简单的例子，说明了进行多维度特征交叉的重要性。</p>
-<h4 id="辛普森悖论"><a href="#辛普森悖论" class="headerlink" title="辛普森悖论"></a>辛普森悖论</h4><p>在对样本集合进行分组研究时，在分组比较中都占优势的一方，在总评中有时反而是失势的一方，这种有悖常理的现象，被称为“辛普森悖论”。</p>
-<p>假设表2-1和表2-2所示为某视频应用中男性用户和女性用户点击视频的数据。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-3-%E4%BB%8EFM%E5%88%B0FFM.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1103,14 +1111,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">384k</span>
+    <span title="站点总字数">406k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:49</span>
+    <span title="站点阅读时长">6:09</span>
   </span>
 </div>
 
