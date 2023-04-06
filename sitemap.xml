@@ -877,14 +877,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>http://qzmvc1.top/tags/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/%E6%9D%82%E8%B0%88/</loc>
+    <loc>http://qzmvc1.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -905,7 +905,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Pandas/</loc>
+    <loc>http://qzmvc1.top/tags/OS/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -933,14 +933,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/OS/</loc>
+    <loc>http://qzmvc1.top/tags/Pandas/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/Random/</loc>
+    <loc>http://qzmvc1.top/tags/Numpy/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -968,7 +968,7 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/tags/geopy/</loc>
+    <loc>http://qzmvc1.top/tags/Random/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -976,6 +976,13 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/</loc>
+    <lastmod>2023-04-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://qzmvc1.top/tags/geopy/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -990,13 +997,6 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2023-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/Numpy/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1059,6 +1059,13 @@
   </url>
   
   <url>
+    <loc>http://qzmvc1.top/tags/javascript/</loc>
+    <lastmod>2023-04-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://qzmvc1.top/tags/selenium/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -1067,13 +1074,6 @@
   
   <url>
     <loc>http://qzmvc1.top/tags/%E8%84%9A%E6%9C%AC/</loc>
-    <lastmod>2023-04-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://qzmvc1.top/tags/javascript/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1152,14 +1152,14 @@
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <loc>http://qzmvc1.top/categories/Python%E5%BA%93/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://qzmvc1.top/categories/Python%E5%BA%93/</loc>
+    <loc>http://qzmvc1.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2023-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
