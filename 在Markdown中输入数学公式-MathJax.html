@@ -25,14 +25,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="简介Markdown编辑器支持基于MathJax编写LaTeX数学公式。 MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。">
+<meta name="description" content="简介 Markdown编辑器支持基于MathJax编写LaTeX数学公式。 MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Markdown中输入数学公式(MathJax)">
 <meta property="og:url" content="http://qzmvc1.top/%E5%9C%A8Markdown%E4%B8%AD%E8%BE%93%E5%85%A5%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F-MathJax.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="简介Markdown编辑器支持基于MathJax编写LaTeX数学公式。 MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。">
+<meta property="og:description" content="简介 Markdown编辑器支持基于MathJax编写LaTeX数学公式。 MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/02/04/kJwVJK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/22/Ekq1XD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/22/EkqQ1K.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/22/EkqMp6.png">
@@ -42,7 +41,7 @@
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="杂谈">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/02/04/kJwVJK.png">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/22/Ekq1XD.png">
 
 
 <link rel="canonical" href="http://qzmvc1.top/%E5%9C%A8Markdown%E4%B8%AD%E8%BE%93%E5%85%A5%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F-MathJax.html">
@@ -168,7 +167,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%87%E8%AE%B0%E5%85%AC%E5%BC%8F"><span class="nav-text">一、标记公式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F"><span class="nav-text">1.1 行内公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E5%9D%97%E7%BA%A7%E5%85%AC%E5%BC%8F"><span class="nav-text">1.2 块级公式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%8A%E6%A0%87%E5%92%8C%E4%B8%8B%E6%A0%87"><span class="nav-text">二、上标和下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="nav-text">三、分数表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%90%84%E7%A7%8D%E6%8B%AC%E5%8F%B7"><span class="nav-text">四、各种括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%A0%B9%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="nav-text">五、根号表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%9C%81%E7%95%A5%E5%8F%B7"><span class="nav-text">六、省略号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E7%9F%A2%E9%87%8F%E8%A1%A8%E7%A4%BA"><span class="nav-text">七、矢量表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E9%97%B4%E9%9A%94%E7%A9%BA%E9%97%B4"><span class="nav-text">八、间隔空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D"><span class="nav-text">九、希腊字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-text">十、特殊字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#10-1-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.1 关系运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-2-%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.2 集合运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-3-%E5%AF%B9%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.3 对数运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-4-%E4%B8%89%E8%A7%92%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.4 三角运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-5-%E5%BE%AE%E7%A7%AF%E5%88%86%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.5 微积分运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-6-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.6 逻辑运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-7-%E6%88%B4%E5%B8%BD%E7%AC%A6%E5%8F%B7"><span class="nav-text">10.7 戴帽符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-8-%E7%AE%AD%E5%A4%B4%E7%AC%A6%E5%8F%B7"><span class="nav-text">10.8 箭头符号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%AD%97%E4%BD%93%E7%A7%8D%E7%B1%BB"><span class="nav-text">十一、字体种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E5%85%B6%E4%BB%96"><span class="nav-text">十二、其他</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2019-04-22%E6%9B%B4%E6%96%B0"><span class="nav-text">2019&#x2F;04&#x2F;22更新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2019-09-04%E6%9B%B4%E6%96%B0"><span class="nav-text">2019&#x2F;09&#x2F;04更新</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%97%E7%BA%A7%E5%85%AC%E5%BC%8F"><span class="nav-text">1.2 块级公式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E4%B8%8A%E6%A0%87%E5%92%8C%E4%B8%8B%E6%A0%87"><span class="nav-text">二、上标和下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%88%86%E6%95%B0%E8%A1%A8%E7%A4%BA"><span class="nav-text">三、分数表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%90%84%E7%A7%8D%E6%8B%AC%E5%8F%B7"><span class="nav-text">四、各种括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E6%A0%B9%E5%8F%B7%E8%A1%A8%E7%A4%BA"><span class="nav-text">五、根号表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E7%9C%81%E7%95%A5%E5%8F%B7"><span class="nav-text">六、省略号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E7%9F%A2%E9%87%8F%E8%A1%A8%E7%A4%BA"><span class="nav-text">七、矢量表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AB%E9%97%B4%E9%9A%94%E7%A9%BA%E9%97%B4"><span class="nav-text">八、间隔空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B9%9D%E5%B8%8C%E8%85%8A%E5%AD%97%E6%AF%8D"><span class="nav-text">九、希腊字母</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="nav-text">十、特殊字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.1 关系运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.2 集合运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.3 对数运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E8%A7%92%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.4 三角运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E7%A7%AF%E5%88%86%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.5 微积分运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">10.6 逻辑运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%B4%E5%B8%BD%E7%AC%A6%E5%8F%B7"><span class="nav-text">10.7 戴帽符号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E7%AC%A6%E5%8F%B7"><span class="nav-text">10.8 箭头符号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E5%AD%97%E4%BD%93%E7%A7%8D%E7%B1%BB"><span class="nav-text">十一、字体种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E5%85%B6%E4%BB%96"><span class="nav-text">十二、其他</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-text">2019&#x2F;04&#x2F;22更新</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-1"><span class="nav-text">2019&#x2F;09&#x2F;04更新</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -313,7 +312,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -331,509 +330,550 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Markdown编辑器支持基于MathJax编写LaTeX数学公式。</p>
-<p>MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。<br><span id="more"></span></p>
-<hr>
-<h3 id="一、标记公式"><a href="#一、标记公式" class="headerlink" title="一、标记公式"></a>一、标记公式</h3><p>LaTeX的数学公式有两种：行内公式和块级公式。行内公式放在文中与其它文字混编，块级公式单独成行。都使用美元符号进行标记显示。</p>
-<h4 id="1-1-行内公式"><a href="#1-1-行内公式" class="headerlink" title="1.1 行内公式"></a>1.1 行内公式</h4><p><strong>标记方法：使用一个美元符号包围起来</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$数学公式$</span><br></pre></td></tr></table></figure><br><strong>例子：</strong></p>
+        <h3 id="简介">简介</h3>
+<p>Markdown编辑器支持基于MathJax编写LaTeX数学公式。</p>
+<p>MathJax是一款运行在浏览器中的开源的数学符号渲染引擎，使用MathJax可以方便的在浏览器中显示数学公式，不需要使用图片。这篇文章介绍如何使用LaTeX语法编写数学公式。
+<span id="more"></span> ****** ### 一、标记公式
+LaTeX的数学公式有两种：行内公式和块级公式。行内公式放在文中与其它文字混编，块级公式单独成行。都使用美元符号进行标记显示。
+#### 1.1 行内公式 <strong>标记方法：使用一个美元符号包围起来</strong>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$数学公式$</span><br></pre></td></tr></table></figure> <strong>例子：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是行内公式：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$</span><br></pre></td></tr></table></figure>
 <p><strong>效果：</strong></p>
-<p>这是行内公式：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$</p>
-<h4 id="1-2-块级公式"><a href="#1-2-块级公式" class="headerlink" title="1.2 块级公式"></a>1.2 块级公式</h4><p><strong>标记方法：使用两个美元符号包围起来</strong><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$数学公式$$</span><br></pre></td></tr></table></figure><br><strong>例子：</strong></p>
+<p>这是行内公式：<span class="math inline">\(\Gamma(n) =
+(n-1)!\quad\forall n\in\mathbb N\)</span></p>
+<h4 id="块级公式">1.2 块级公式</h4>
+<p><strong>标记方法：使用两个美元符号包围起来</strong> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$数学公式$$</span><br></pre></td></tr></table></figure>
+<strong>例子：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$ x = \dfrac&#123;-b \pm \sqrt&#123;b^2 - 4ac&#125;&#125;&#123;2a&#125; $$</span><br></pre></td></tr></table></figure>
-<p><strong>效果：</strong></p>
-<script type="math/tex; mode=display">x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}</script><h3 id="二、上标和下标"><a href="#二、上标和下标" class="headerlink" title="二、上标和下标"></a>二、上标和下标</h3><p>^ 表示上标，_ 表示下标。如果上下标的内容多于一个字符，要用 <strong>{}</strong> 把这些内容括起来当成一个整体。<strong>上下标是可以嵌套的，也可以同时使用。</strong></p>
-<p><strong>例子：</strong> <code>$x\^&#123;y\^z&#125;=(1+e\^x)\^&#123;-2xy\^w&#125;$</code></p>
-<p><strong>效果：</strong> $x^{y^z}=(1+e^x)^{-2xy^w}$</p>
-<p>另外，如果要在左右两边都有上下标，可以用<code>\sideset</code>命令。</p>
-<p><strong>例子：</strong> <code>$\\sideset&#123;\^1_2&#125;&#123;\^3_4&#125;\\bigotimes$</code></p>
-<p><strong>效果：</strong> $\sideset{^1_2}{^3_4}\bigotimes$</p>
-<h3 id="三、分数表示"><a href="#三、分数表示" class="headerlink" title="三、分数表示"></a>三、分数表示</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">方法1： \frac&#123;分子&#125;&#123;分母&#125;</span><br><span class="line">方法2： 分子 \over 分母</span><br></pre></td></tr></table></figure>
-<p><strong>例子：</strong> <code>$\\frac&#123;a+b&#125;&#123;c+d&#125;$</code>　或　<code>$1 \\over 3$</code></p>
-<p><strong>效果：</strong> $\frac{a+b}{c+d}$　或　$1 \over 3$</p>
-<p><strong>注意：</strong> 对于<code>\\frac</code>的方法，如果分子分母都是单个数，那么大括号{}可以省略，如：<code>$\\frac12$</code> 表示 $\frac12$。</p>
-<h3 id="四、各种括号"><a href="#四、各种括号" class="headerlink" title="四、各种括号"></a>四、各种括号</h3><p><code>()</code>、<code>[]</code>和<code>|</code>可以直接表示自己，而<code>&#123;&#125;</code>本来用于分组，因此需要用<code>\&#123;\&#125;</code>来表示自身，也可以使用<code>\lbrace</code>和<code>\rbrace</code>来表示，其它括号见下面那个表。</p>
-<p><strong>例子：<code>$\&#123;[z-(1+\\frac23x)y]\\div 4\&#125;$</code></strong></p>
-<p><strong>效果：$\{[z-(1+\frac23x)y]\div 4\}$</strong></p>
-<p>注意原始符号并不会随着公式大小缩放。有时候我们想要括号和分隔符显示的大点，比如上面例子中希望括号能把整个分数都包住，那么可以用<code>\left</code>和<code>\right</code>标记，实现自适应调整。</p>
-<p><strong>例子：<code>$\\left(1+\\frac23x\\right)$</code></strong></p>
-<p><strong>效果：$\left(1+\frac23x\right)$</strong></p>
-<p><strong><code>\\left</code> 和 <code>\\right</code> 标记能应用的括号很多：</strong></p>
-<div class="table-container">
+<p><strong>效果：</strong> <span class="math display">\[ x = \dfrac{-b
+\pm \sqrt{b^2 - 4ac}}{2a} \]</span></p>
+<h3 id="二上标和下标">二、上标和下标</h3>
+<p>^ 表示上标，_ 表示下标。如果上下标的内容多于一个字符，要用
+<strong>{}</strong>
+把这些内容括起来当成一个整体。<strong>上下标是可以嵌套的，也可以同时使用。</strong></p>
+<p><strong>例子：</strong> <code>$x^&#123;y^z&#125;=(1+e^x)^&#123;-2xy^w&#125;$</code></p>
+<p><strong>效果：</strong> <span
+class="math inline">\(x^{y^z}=(1+e^x)^{-2xy^w}\)</span></p>
+<p>另外，如果要在左右两边都有上下标，可以用<code></code>命令。</p>
+<p><strong>例子：</strong>
+<code>$\sideset&#123;^1_2&#125;&#123;^3_4&#125;\bigotimes$</code></p>
+<p><strong>效果：</strong> <span
+class="math inline">\(\sideset{^1_2}{^3_4}\bigotimes\)</span></p>
+<h3 id="三分数表示">三、分数表示</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">方法1： \frac&#123;分子&#125;&#123;分母&#125;</span><br><span class="line">方法2： 分子 \over 分母</span><br></pre></td></tr></table></figure>
+<p><strong>例子：</strong> <code>$\frac&#123;a+b&#125;&#123;c+d&#125;$</code>　或　<code>$1
+\over 3$</code></p>
+<p><strong>效果：</strong> <span
+class="math inline">\(\frac{a+b}{c+d}\)</span>　或　<span
+class="math inline">\(1 \over 3\)</span></p>
+<p><strong>注意：</strong>
+对于<code>\frac</code>的方法，如果分子分母都是单个数，那么大括号{}可以省略，如：<code>$\frac12$</code>
+表示 <span class="math inline">\(\frac12\)</span>。</p>
+<h3 id="四各种括号">四、各种括号</h3>
+<p><code>()</code>、<code>[]</code>和<code>|</code>可以直接表示自己，而<code>&#123;&#125;</code>本来用于分组，因此需要用<code>&#123;&#125;</code>来表示自身，也可以使用<code></code>和<code></code>来表示，其它括号见下面那个表。</p>
+<p><strong>例子：<code>$&#123;[z-(1+\frac23x)y]\div 4&#125;$</code></strong></p>
+<p><strong>效果：<span class="math inline">\(\{[z-(1+\frac23x)y]\div
+4\}\)</span></strong></p>
+<p>注意原始符号并不会随着公式大小缩放。有时候我们想要括号和分隔符显示的大点，比如上面例子中希望括号能把整个分数都包住，那么可以用<code></code>和<code></code>标记，实现自适应调整。</p>
+<p><strong>例子：<code>$\left(1+\frac23x\right)$</code></strong></p>
+<p><strong>效果：<span
+class="math inline">\(\left(1+\frac23x\right)\)</span></strong></p>
+<p><strong><code>\left</code> 和 <code>\right</code>
+标记能应用的括号很多：</strong></p>
 <table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>符号名称</th>
 <th>LaTex代码</th>
 <th>例子</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>小括号</td>
 <td>( 和 )</td>
-<td>\\left(x\\right)</td>
+<td>\left(x\right)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>中括号</td>
 <td>[ 和 ]</td>
-<td>\\left[\\frac12\\right]</td>
+<td>\left[\frac12\right]</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>大括号</td>
 <td>{ 和 }</td>
-<td>\\left{\\frac12\\right}</td>
+<td>\left{\frac12\right}</td>
 </tr>
-<tr>
+<tr class="even">
 <td>取绝对值</td>
 <td>丨</td>
-<td>\\left丨\\frac12\\right丨</td>
+<td>\left丨\frac12\right丨</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>尖括号</td>
-<td>\\langle 和 \\rangle</td>
-<td>\\left\\langle\\frac12\\right\\rangle</td>
+<td>\langle 和 \rangle</td>
+<td>\left\langle\frac12\right\rangle</td>
 </tr>
-<tr>
+<tr class="even">
 <td>向上取整</td>
-<td>\\lceil 和 \\rceil</td>
-<td>\\left\\lceil\\frac12\\right\\rceil</td>
+<td>\lceil 和 \rceil</td>
+<td>\left\lceil\frac12\right\rceil</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>向下取整</td>
-<td>\\lfloor 和 \\rfloor</td>
-<td>\\left\\lfloor\\frac12\\right\\rfloor</td>
+<td>\lfloor 和 \rfloor</td>
+<td>\left\lfloor\frac12\right\rfloor</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p><strong>注意：</strong></p>
-<blockquote>
-<p><code>\left</code> 和 <code>\right</code> 标记必须是成对出现的，但有时候我们只用到其中一个，比如只用一个|当作分割线，这时候可以通过.来表示空的那一方，即用 <code>\left.</code> 表达左边空的情况，用 <code>\right.</code> 表达右边空的情况。</p>
-</blockquote>
-<p>例子：<code>$\\left. \\frac&#123;du&#125;&#123;dx&#125; \\right|_&#123;x=0&#125;$</code></p>
-<p><strong>效果：$\left. \frac{du}{dx} \right| _{x=0}$</strong></p>
-<h3 id="五、根号表示"><a href="#五、根号表示" class="headerlink" title="五、根号表示"></a>五、根号表示</h3><p>根号开方使用 <code>\sqrt</code> 标记，语法格式如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\sqrt[开方次数，默认为2]&#123;开方因子&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>例子：<code>$\\sqrt&#123;x\^3&#125;$</code>　和　<code>$\\sqrt[3]&#123;\\frac xy&#125;$</code></strong></p>
-<p><strong>效果：$\sqrt{x^3}$ 和 $\sqrt[3]{\frac xy}$&lt;/code&gt;</strong></p>
-<h3 id="六、省略号"><a href="#六、省略号" class="headerlink" title="六、省略号"></a>六、省略号</h3><p>数学公式中常见的省略号有两种，<code>\ldots</code> 表示与文本底线对齐的省略号，<code>\cdots</code> 表示与文本中线对齐的省略号。</p>
-<p><strong>例子：<code>$f(x_1,x_2,\\ldots,x_n) = x_1^2 + x_2^2 + \\cdots + x_n^2$</code></strong></p>
-<p><strong>效果：$f(x_1,x_2,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$</strong></p>
-<p><strong>注意：</strong> <code>\\ldot</code> 和<code>\\cdot</code> 可以表示与文本底线和中线对齐的单个点。</p>
-<h3 id="七、矢量表示"><a href="#七、矢量表示" class="headerlink" title="七、矢量表示"></a>七、矢量表示</h3><p>矢量用<code>\vect</code> 标记实现，语法格式如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\vec&#123;矢量值&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>例子：<code>$\\vec&#123;a&#125; \\cdot \\vec&#123;b&#125;=0$</code></strong></p>
-<p><strong>效果：$\vec{a} \cdot \vec{b}=0$</strong></p>
-<h3 id="八、间隔空间"><a href="#八、间隔空间" class="headerlink" title="八、间隔空间"></a>八、间隔空间</h3><p>通常MathJax通过内部策略自己管理公式内部的空间，因此<code>a︹︹b</code>与<code>a︹︹︹︹︹b</code>（︹表示空格）都会显示为ab。可以通过在ab间加入<code>\空格</code>或<code>\;</code>增加些许间隙，<code>\quad</code> 与 <code>\qquad</code> 会增加更大的间隙。</p>
-<p><strong>例子：<code>$\\vec&#123;a&#125; \\cdot \\vec&#123;b&#125;=0$</code></strong></p>
-<p><strong>效果：$\vec{a} \cdot \vec{b}=0$</strong></p>
-<h3 id="九、希腊字母"><a href="#九、希腊字母" class="headerlink" title="九、希腊字母"></a>九、希腊字母</h3><p>下面的表格用于查询和对比。<br><img src="https://s2.ax1x.com/2019/02/04/kJwVJK.png" alt=""></p>
-<h3 id="十、特殊字符"><a href="#十、特殊字符" class="headerlink" title="十、特殊字符"></a>十、特殊字符</h3><h4 id="10-1-关系运算符"><a href="#10-1-关系运算符" class="headerlink" title="10.1 关系运算符"></a>10.1 关系运算符</h4><div class="table-container">
+<p><strong>注意：</strong> &gt; <code></code> 和 <code></code>
+标记必须是成对出现的，但有时候我们只用到其中一个，比如只用一个|当作分割线，这时候可以通过.来表示空的那一方，即用
+<code>.</code> 表达左边空的情况，用 <code>.</code>
+表达右边空的情况。</p>
+<p>例子：<code>$\left. \frac&#123;du&#125;&#123;dx&#125; \right|_&#123;x=0&#125;$</code></p>
+<p><strong>效果：<span class="math inline">\(\left. \frac{du}{dx}
+\right| _{x=0}\)</span></strong></p>
+<h3 id="五根号表示">五、根号表示</h3>
+<p>根号开方使用 <code></code> 标记，语法格式如下： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\sqrt[开方次数，默认为2]&#123;开方因子&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>例子：<code>$\sqrt&#123;x^3&#125;$</code>　和　<code>$\sqrt[3]&#123;\frac
+xy&#125;$</code></strong></p>
+<p><strong>效果：<span class="math inline">\(\sqrt{x^3}\)</span> 和
+<span class="math inline">\(\sqrt[3]{\frac
+xy}\)</span></code></strong></p>
+<h3 id="六省略号">六、省略号</h3>
+<p>数学公式中常见的省略号有两种，<code></code>
+表示与文本底线对齐的省略号，<code></code>
+表示与文本中线对齐的省略号。</p>
+<p><strong>例子：<code>$f(x_1,x_2,\ldots,x_n) = x_1^2 + x_2^2 + \cdots +
+x_n^2$</code></strong></p>
+<p><strong>效果：<span class="math inline">\(f(x_1,x_2,\ldots,x_n) =
+x_1^2 + x_2^2 + \cdots + x_n^2\)</span></strong></p>
+<p><strong>注意：</strong> <code>\ldot</code> 和<code>\cdot</code>
+可以表示与文本底线和中线对齐的单个点。</p>
+<h3 id="七矢量表示">七、矢量表示</h3>
+<p>矢量用<code></code> 标记实现，语法格式如下： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\vec&#123;矢量值&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>例子：<code>$\vec&#123;a&#125; \cdot \vec&#123;b&#125;=0$</code></strong></p>
+<p><strong>效果：<span class="math inline">\(\vec{a} \cdot
+\vec{b}=0\)</span></strong></p>
+<h3 id="八间隔空间">八、间隔空间</h3>
+<p>通常MathJax通过内部策略自己管理公式内部的空间，因此<code>a︹︹b</code>与<code>a︹︹︹︹︹b</code>（︹表示空格）都会显示为ab。可以通过在ab间加入<code></code>或<code>;</code>增加些许间隙，<code></code>
+与 <code></code> 会增加更大的间隙。</p>
+<p><strong>例子：<code>$\vec&#123;a&#125; \cdot \vec&#123;b&#125;=0$</code></strong></p>
+<p><strong>效果：<span class="math inline">\(\vec{a} \cdot
+\vec{b}=0\)</span></strong></p>
+<h3 id="九希腊字母">九、希腊字母</h3>
+<p>下面的表格用于查询和对比。 <img
+src="https://s2.ax1x.com/2019/02/04/kJwVJK.png" /></p>
+<h3 id="十特殊字符">十、特殊字符</h3>
+<h4 id="关系运算符">10.1 关系运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>±</td>
-<td>\\pm</td>
+<td>\pm</td>
 </tr>
-<tr>
+<tr class="even">
 <td>×</td>
-<td>\\times</td>
+<td>\times</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>÷</td>
-<td>\\div</td>
+<td>\div</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∣</td>
-<td>\\mid</td>
+<td>\mid</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∤</td>
-<td>\\nmid</td>
+<td>\nmid</td>
 </tr>
-<tr>
+<tr class="even">
 <td>·⋅</td>
-<td>\\cdot</td>
+<td>\cdot</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∘</td>
-<td>\\circ</td>
+<td>\circ</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∗</td>
-<td>\\ast</td>
+<td>\ast</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⨀</td>
-<td>\\bigodot</td>
+<td>\bigodot</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⨂</td>
-<td>\\bigotimes</td>
+<td>\bigotimes</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⨁</td>
-<td>\\bigoplus</td>
+<td>\bigoplus</td>
 </tr>
-<tr>
+<tr class="even">
 <td>≤</td>
-<td>\\leq</td>
+<td>\leq</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>≥</td>
-<td>\\geq</td>
+<td>\geq</td>
 </tr>
-<tr>
+<tr class="even">
 <td>≠</td>
-<td>\\neq</td>
+<td>\neq</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>≈</td>
-<td>\\approx</td>
+<td>\approx</td>
 </tr>
-<tr>
+<tr class="even">
 <td>≡</td>
-<td>\\equiv</td>
+<td>\equiv</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∑</td>
-<td>\\sum</td>
+<td>\sum</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∏</td>
-<td>\\prod</td>
+<td>\prod</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∐</td>
-<td>\\coprod</td>
+<td>\coprod</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-2-集合运算符"><a href="#10-2-集合运算符" class="headerlink" title="10.2 集合运算符"></a>10.2 集合运算符</h4><div class="table-container">
+<h4 id="集合运算符">10.2 集合运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>∅</td>
-<td>\\emptyset</td>
+<td>\emptyset</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∈</td>
-<td>\\in</td>
+<td>\in</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∉</td>
-<td>\\notin</td>
+<td>\notin</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⊂</td>
-<td>\\subset</td>
+<td>\subset</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⊃</td>
-<td>\\supset</td>
+<td>\supset</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⊆</td>
-<td>\\subseteq</td>
+<td>\subseteq</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⊇</td>
-<td>\\supseteq</td>
+<td>\supseteq</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⋂</td>
-<td>\\bigcap</td>
+<td>\bigcap</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⋃</td>
-<td>\\bigcup</td>
+<td>\bigcup</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⋁</td>
-<td>\\bigvee</td>
+<td>\bigvee</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⋀</td>
-<td>\\bigwedge</td>
+<td>\bigwedge</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⨄</td>
-<td>\\biguplus</td>
+<td>\biguplus</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⨆</td>
-<td>\\bigsqcup</td>
+<td>\bigsqcup</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-3-对数运算符"><a href="#10-3-对数运算符" class="headerlink" title="10.3 对数运算符"></a>10.3 对数运算符</h4><div class="table-container">
+<h4 id="对数运算符">10.3 对数运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>log</td>
-<td>\\log</td>
+<td>\log</td>
 </tr>
-<tr>
+<tr class="even">
 <td>lg</td>
-<td>\\lg</td>
+<td>\lg</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>ln</td>
-<td>\\ln</td>
+<td>\ln</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-4-三角运算符"><a href="#10-4-三角运算符" class="headerlink" title="10.4 三角运算符"></a>10.4 三角运算符</h4><div class="table-container">
+<h4 id="三角运算符">10.4 三角运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>⊥</td>
-<td>\\bot</td>
+<td>\bot</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∠</td>
-<td>\\angle</td>
+<td>\angle</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>30∘</td>
-<td>30^\\circ</td>
+<td>30^\circ</td>
 </tr>
-<tr>
+<tr class="even">
 <td>sin</td>
-<td>\\sin</td>
+<td>\sin</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>cos</td>
-<td>\\cos</td>
+<td>\cos</td>
 </tr>
-<tr>
+<tr class="even">
 <td>tan</td>
-<td>\\tan</td>
+<td>\tan</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>cot</td>
-<td>\\cot</td>
+<td>\cot</td>
 </tr>
-<tr>
+<tr class="even">
 <td>sec</td>
-<td>\\sec</td>
+<td>\sec</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>csc</td>
-<td>\\csc</td>
+<td>\csc</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-5-微积分运算符"><a href="#10-5-微积分运算符" class="headerlink" title="10.5 微积分运算符"></a>10.5 微积分运算符</h4><div class="table-container">
+<h4 id="微积分运算符">10.5 微积分运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>′</td>
-<td>\\prime</td>
+<td>\prime</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∫</td>
-<td>\\int</td>
+<td>\int</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∬</td>
-<td>\\iint</td>
+<td>\iint</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∭</td>
-<td>\\iiint</td>
+<td>\iiint</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⨌</td>
-<td>\\iiiint</td>
+<td>\iiiint</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∮</td>
-<td>\\oint</td>
+<td>\oint</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>lim</td>
-<td>\\lim</td>
+<td>\lim</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∞</td>
-<td>\\infty</td>
+<td>\infty</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∇</td>
-<td>\\nabla</td>
+<td>\nabla</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-6-逻辑运算符"><a href="#10-6-逻辑运算符" class="headerlink" title="10.6 逻辑运算符"></a>10.6 逻辑运算符</h4><div class="table-container">
+<h4 id="逻辑运算符">10.6 逻辑运算符</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>∵</td>
-<td>\\because</td>
+<td>\because</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∴</td>
-<td>\\therefore</td>
+<td>\therefore</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>∀</td>
-<td>\\forall</td>
+<td>\forall</td>
 </tr>
-<tr>
+<tr class="even">
 <td>∃</td>
-<td>\\exists</td>
+<td>\exists</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>≠</td>
-<td>\\not=</td>
+<td>\not=</td>
 </tr>
-<tr>
+<tr class="even">
 <td>≯</td>
-<td>\\not&gt;</td>
+<td>\not&gt;</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⊄</td>
-<td>\\not\\subset</td>
+<td>\not\subset</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-7-戴帽符号"><a href="#10-7-戴帽符号" class="headerlink" title="10.7 戴帽符号"></a>10.7 戴帽符号</h4><div class="table-container">
+<h4 id="戴帽符号">10.7 戴帽符号</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>y^</td>
-<td>\\hat{y}</td>
+<td>\hat{y}</td>
 </tr>
-<tr>
+<tr class="even">
 <td>yˇ</td>
-<td>\\check{y}</td>
+<td>\check{y}</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>y˘</td>
-<td>\\breve{y}</td>
+<td>\breve{y}</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h4 id="10-8-箭头符号"><a href="#10-8-箭头符号" class="headerlink" title="10.8 箭头符号"></a>10.8 箭头符号</h4><div class="table-container">
+<h4 id="箭头符号">10.8 箭头符号</h4>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>符号</th>
 <th>LaTex</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>↑</td>
-<td>\\uparrow</td>
+<td>\uparrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>↓</td>
-<td>\\downarrow</td>
+<td>\downarrow</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⇑</td>
-<td>\\Uparrow</td>
+<td>\Uparrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⇓</td>
-<td>\\Downarrow</td>
+<td>\Downarrow</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>→</td>
-<td>\\rightarrow</td>
+<td>\rightarrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>←</td>
-<td>\\leftarrow</td>
+<td>\leftarrow</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⇒</td>
-<td>\\Rightarrow</td>
+<td>\Rightarrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⇐</td>
-<td>\\Leftarrow</td>
+<td>\Leftarrow</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⟶</td>
-<td>\\longrightarrow</td>
+<td>\longrightarrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⟵</td>
-<td>\\longleftarrow</td>
+<td>\longleftarrow</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>⟹</td>
-<td>\\Longrightarrow</td>
+<td>\Longrightarrow</td>
 </tr>
-<tr>
+<tr class="even">
 <td>⟸</td>
-<td>\\Longleftarrow</td>
+<td>\Longleftarrow</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="十一、字体种类"><a href="#十一、字体种类" class="headerlink" title="十一、字体种类"></a>十一、字体种类</h3><p><img src="https://s2.ax1x.com/2019/04/22/Ekq1XD.png" alt=""></p>
-<h3 id="十二、其他"><a href="#十二、其他" class="headerlink" title="十二、其他"></a>十二、其他</h3><h6 id="2019-04-22更新"><a href="#2019-04-22更新" class="headerlink" title="2019/04/22更新"></a>2019/04/22更新</h6><p><strong>①分段函数</strong></p>
-<p><img src="https://s2.ax1x.com/2019/04/22/EkqQ1K.png" alt=""></p>
+<h3 id="十一字体种类">十一、字体种类</h3>
+<p><img src="https://s2.ax1x.com/2019/04/22/Ekq1XD.png" /></p>
+<h3 id="十二其他">十二、其他</h3>
+<h6 id="更新">2019/04/22更新</h6>
+<p><strong>①分段函数</strong></p>
+<p><img src="https://s2.ax1x.com/2019/04/22/EkqQ1K.png" /></p>
 <p><strong>②正下方角标</strong></p>
-<p><img src="https://s2.ax1x.com/2019/04/22/EkqMp6.png" alt=""></p>
-<h6 id="2019-09-04更新"><a href="#2019-09-04更新" class="headerlink" title="2019/09/04更新"></a>2019/09/04更新</h6><p><strong>① Latex 设置字体大小命令由小到大依次为：</strong></p>
+<p><img src="https://s2.ax1x.com/2019/04/22/EkqMp6.png" /></p>
+<h6 id="更新-1">2019/09/04更新</h6>
+<p><strong>① Latex 设置字体大小命令由小到大依次为：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\tiny</span><br><span class="line">\scriptsize</span><br><span class="line">\footnotesize</span><br><span class="line">\small</span><br><span class="line">\normalsize</span><br><span class="line">\large</span><br><span class="line">\Large</span><br><span class="line">\LARGE</span><br><span class="line">\huge</span><br><span class="line">\Huge</span><br></pre></td></tr></table></figure>
 <p><strong>② LaTex输入矩阵</strong></p>
-<p><img src="https://s2.ax1x.com/2019/09/04/nVSMt0.png" alt=""></p>
-<hr>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lanxuezaipiao/article/details/44341645">CSDN-markdown语法之如何使用LaTeX语法编写数学公式</a></p>
+<p><img src="https://s2.ax1x.com/2019/09/04/nVSMt0.png" /></p>
+<hr />
+<p>参考链接：<a
+target="_blank" rel="noopener" href="https://blog.csdn.net/lanxuezaipiao/article/details/44341645">CSDN-markdown语法之如何使用LaTeX语法编写数学公式</a></p>
 
     </div>
 
@@ -935,14 +975,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="一、Web框架概述Web框架(web framework)或者叫做Web应用框架(web application framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。 Web框架使得在进行Web应用开发的时候，减少了">
+<meta name="description" content="一、Web框架概述 Web框架(web framework)或者叫做Web应用框架(web application framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。 Web框架使得在进行Web应用开发的时候，减少">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django框架入门笔记(一):基础总结">
 <meta property="og:url" content="http://qzmvc1.top/Django%E6%A1%86%E6%9E%B6%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0-%E4%B8%80-%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、Web框架概述Web框架(web framework)或者叫做Web应用框架(web application framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。 Web框架使得在进行Web应用开发的时候，减少了">
+<meta property="og:description" content="一、Web框架概述 Web框架(web framework)或者叫做Web应用框架(web application framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。 Web框架使得在进行Web应用开发的时候，减少">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLIHBQ.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/03/kLIb7j.png">
@@ -169,7 +169,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Web%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Web框架概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81MVC%E4%B8%8EMTV%E6%A8%A1%E5%9E%8B"><span class="nav-text">二、MVC与MTV模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-MVC"><span class="nav-text">2.1 MVC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-MTV"><span class="nav-text">2.2 MTV</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Django%E5%9F%BA%E7%A1%80"><span class="nav-text">三、Django基础</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80web%E6%A1%86%E6%9E%B6%E6%A6%82%E8%BF%B0"><span class="nav-text">一、Web框架概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cmvc%E4%B8%8Emtv%E6%A8%A1%E5%9E%8B"><span class="nav-text">二、MVC与MTV模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mtv"><span class="nav-text">2.2 MTV</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -332,41 +332,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、Web框架概述"><a href="#一、Web框架概述" class="headerlink" title="一、Web框架概述"></a>一、Web框架概述</h3><p>Web框架(web framework)或者叫做Web应用框架(web application framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。</p>
+        <h3 id="一web框架概述">一、Web框架概述</h3>
+<p>Web框架(web framework)或者叫做Web应用框架(web application
+framework)，是用于进行Web开发的一套软件架构。大多数的Web框架提供了一套开发和部署网站的方式。为Web的行为提供了一套支持支持的方法。使用Web框架，很多的业务逻辑外的功能不需要自己再去完善，而是使用框架已有的功能就可以。</p>
 <p>Web框架使得在进行Web应用开发的时候，减少了工作量。Web框架主要用于动态网络开发，动态网络主要是指现在的主要的页面，可以实现数据的交互和业务功能的完善。使用Web框架进行Web开发的时候，在进行数据缓存、数据库访问、数据安全校验等方面，不需要自己再重新实现，而是将业务逻辑相关的代码写入框架就可以。也就是说，通过对Web框架进行主观上的“缝缝补补”，就可以实现自己进行Web开发的需求了。</p>
-<h3 id="二、MVC与MTV模型"><a href="#二、MVC与MTV模型" class="headerlink" title="二、MVC与MTV模型"></a>二、MVC与MTV模型</h3><p>MVC(Model View Controller)：是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。</p>
-<p>MTV: 有些WEB框架觉得MVC的字面意思很别扭，就给它改了一下。view不再是HTML相关，而是主业务逻辑了，相当于控制器。html被放在Templates中，称作模板，于是MVC就变成了MTV。这其实就是一个文字游戏，和MVC本质上是一样的，换了个名字和叫法而已，换汤不换药。<br><span id="more"></span></p>
-<h4 id="2-1-MVC"><a href="#2-1-MVC" class="headerlink" title="2.1 MVC"></a>2.1 MVC</h4><ul>
-<li>Web服务器开发领域里著名的MVC模式，将web应用分为以下三层：<ul>
-<li>模型(Model)</li>
-<li>视图(View)</li>
-<li>控制器(Controller)</li>
-</ul>
-</li>
-<li>以上三层之间以一种插件式的、松耦合的方式连接在一起：<ul>
-<li>模型负责业务对象与数据库的映射(ORM)</li>
-<li>视图负责与用户的交互(页面)</li>
-<li>控制器接受用户的输入调用模型和视图完成用户的请求。</li>
-</ul>
-</li>
-<li>其示意图如下所示：</li>
-</ul>
-<p><img src="https://s2.ax1x.com/2019/03/03/kLIHBQ.png" alt=""></p>
-<h4 id="2-2-MTV"><a href="#2-2-MTV" class="headerlink" title="2.2 MTV"></a>2.2 MTV</h4><p>Django的MTV模式本质上和MVC是一样的，也是为了各组件间保持松耦合关系，只是定义上有些许不同，Django的MTV分别是指：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">M 代表模型（Model）： 负责业务对象和数据库的关系映射(ORM)。</span><br><span class="line">T 代表模板 (Template)：负责如何把页面展示给用户(html)。</span><br><span class="line">V 代表视图（View）：   负责业务逻辑，并在适当时候调用Model和Template。</span><br></pre></td></tr></table></figure><br>除了以上三层之外，还需要一个URL分发器，它的作用是将一个个URL的页面请求分发给不同的View处理，View再调用相应的Model和Template，MTV的响应模式如下所示：</p>
-<p><img src="https://s2.ax1x.com/2019/03/03/kLIb7j.png" alt=""></p>
+<h3 id="二mvc与mtv模型">二、MVC与MTV模型</h3>
+<p>MVC(Model View
+Controller)：是模型(model)－视图(view)－控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里面，在改进和个性化定制界面及用户交互的同时，不需要重新编写业务逻辑。</p>
+<p>MTV:
+有些WEB框架觉得MVC的字面意思很别扭，就给它改了一下。view不再是HTML相关，而是主业务逻辑了，相当于控制器。html被放在Templates中，称作模板，于是MVC就变成了MTV。这其实就是一个文字游戏，和MVC本质上是一样的，换了个名字和叫法而已，换汤不换药。
+<span id="more"></span> #### 2.1 MVC +
+Web服务器开发领域里著名的MVC模式，将web应用分为以下三层： - 模型(Model)
+- 视图(View) - 控制器(Controller) +
+以上三层之间以一种插件式的、松耦合的方式连接在一起： -
+模型负责业务对象与数据库的映射(ORM) - 视图负责与用户的交互(页面) -
+控制器接受用户的输入调用模型和视图完成用户的请求。 +
+其示意图如下所示：</p>
+<p><img src="https://s2.ax1x.com/2019/03/03/kLIHBQ.png" /></p>
+<h4 id="mtv">2.2 MTV</h4>
+<p>Django的MTV模式本质上和MVC是一样的，也是为了各组件间保持松耦合关系，只是定义上有些许不同，Django的MTV分别是指：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">M 代表模型（Model）： 负责业务对象和数据库的关系映射(ORM)。</span><br><span class="line">T 代表模板 (Template)：负责如何把页面展示给用户(html)。</span><br><span class="line">V 代表视图（View）：   负责业务逻辑，并在适当时候调用Model和Template。</span><br></pre></td></tr></table></figure>
+除了以上三层之外，还需要一个URL分发器，它的作用是将一个个URL的页面请求分发给不同的View处理，View再调用相应的Model和Template，MTV的响应模式如下所示：</p>
+<p><img src="https://s2.ax1x.com/2019/03/03/kLIb7j.png" /></p>
 <p>用户通过浏览器向我们的服务器发起一个请求(request)，这个请求会去访问视图函数，，视图函数调用模型，模型去数据库查找数据，然后逐级返回，视图函数把返回的数据填充到模板中，最后返回网页给用户。</p>
 <ul>
 <li>Django 的MTV模型组织</li>
 </ul>
-<p><img src="https://s2.ax1x.com/2019/03/03/kLI7ng.jpg" alt=""></p>
-<hr>
-<h3 id="三、Django基础"><a href="#三、Django基础" class="headerlink" title="三、Django基础"></a>三、Django基础</h3><p><img src="https://s2.ax1x.com/2019/03/03/kLOJoD.png" alt=""></p>
-<hr>
-<p>参考链接：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/fengbo1113/p/8547302.html">https://www.cnblogs.com/fengbo1113/p/8547302.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av17879644?from=search&amp;seid=3050711219062248607">Django基础到实战讲解（精华版）</a></li>
-</ul>
+<p><img src="https://s2.ax1x.com/2019/03/03/kLI7ng.jpg" /> ****** ###
+三、Django基础 <img src="https://s2.ax1x.com/2019/03/03/kLOJoD.png" />
+****** 参考链接： + https://www.cnblogs.com/fengbo1113/p/8547302.html +
+<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/av17879644?from=search&amp;seid=3050711219062248607">Django基础到实战讲解（精华版）</a></p>
 
     </div>
 
@@ -470,14 +466,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

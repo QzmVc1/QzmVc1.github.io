@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="一、跨域推荐概述为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。 跨域推荐分为两种类型：  非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的知">
+<meta name="description" content="一、跨域推荐概述 为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。 跨域推荐分为两种类型：  非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的推荐算法之路(8):EMCDR">
 <meta property="og:url" content="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-8-EMCDR.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、跨域推荐概述为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。 跨域推荐分为两种类型：  非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的知">
+<meta property="og:description" content="一、跨域推荐概述 为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。 跨域推荐分为两种类型：  非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s4.ax1x.com/2022/01/15/7JMmwD.png">
 <meta property="article:published_time" content="2022-01-12T06:18:52.000Z">
@@ -164,7 +164,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E6%A6%82%E8%BF%B0"><span class="nav-text">一、跨域推荐概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81EMCDR%E6%A8%A1%E5%9E%8B"><span class="nav-text">二、EMCDR模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E6%80%BB%E8%A7%88"><span class="nav-text">2.1 模型总览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Latent-Factor-Modeling"><span class="nav-text">2.2 Latent Factor Modeling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-Latent-Space-Mapping"><span class="nav-text">2.3 Latent Space Mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-Cross-domain-Recommendation"><span class="nav-text">2.4 Cross-domain Recommendation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">3、参考链接</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E6%A6%82%E8%BF%B0"><span class="nav-text">一、跨域推荐概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cemcdr%E6%A8%A1%E5%9E%8B"><span class="nav-text">二、EMCDR模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%80%BB%E8%A7%88"><span class="nav-text">2.1 模型总览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#latent-factor-modeling"><span class="nav-text">2.2 Latent Factor Modeling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#latent-space-mapping"><span class="nav-text">2.3 Latent Space Mapping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cross-domain-recommendation"><span class="nav-text">2.4 Cross-domain
+Recommendation</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">3、参考链接</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -327,52 +328,83 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、跨域推荐概述"><a href="#一、跨域推荐概述" class="headerlink" title="一、跨域推荐概述"></a>一、跨域推荐概述</h3><p>为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。</p>
+        <h3 id="一跨域推荐概述">一、跨域推荐概述</h3>
+<p>为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。</p>
 <p>跨域推荐分为两种类型：</p>
-<ol>
+<ol type="1">
 <li>非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的知识。然而因为没有完全利用源域和目标域的数据，所以是有很大局限的。</li>
 <li>对称的方式，假设源域和目标域都有数据稀疏的问题，并且它们可以互相应用对方的数据知识。以这种方式来看，这两个域是可以同等对待的，两个域都以协同的方式应对数据稀疏问题。通常这种方式会在域之间学习一个map函数，把域独有的因子和域间共享的因子明确区分开来，主要的缺点是学习域独有的因子和域间共享的因子本身就放大了数据的稀疏性问题。</li>
 </ol>
 <p>两种类型的区别在于：非对称方式中源域用于判断label的知识足够多而目标域用于判断label知识相对少，源域需要的知识目标域无法提供，而目标域需要源域的知识，源域知识与目标域知识的交集为目标域知识，这样目标域的知识没必要迁移或迁移过去没多大作用；而对称方式中源域和目标域知识都不太多，有一定交集，也有各自的部分，需要互为补充提高精度。</p>
-<p>本篇博客对跨域推荐模型EMCDR做一个详细介绍，原文地址： <a target="_blank" rel="noopener" href="https://static.aminer.cn/upload/pdf/program/59ae3c262bbe271c4c71f007_0.pdf">Cross-Domain Recommendation: An Embedding and Mapping Approach</a></p>
+<p>本篇博客对跨域推荐模型EMCDR做一个详细介绍，原文地址： <a
+target="_blank" rel="noopener" href="https://static.aminer.cn/upload/pdf/program/59ae3c262bbe271c4c71f007_0.pdf">Cross-Domain
+Recommendation: An Embedding and Mapping Approach</a></p>
 <span id="more"></span>
-<h3 id="二、EMCDR模型"><a href="#二、EMCDR模型" class="headerlink" title="二、EMCDR模型"></a>二、EMCDR模型</h3><h4 id="2-1-模型总览"><a href="#2-1-模型总览" class="headerlink" title="2.1 模型总览"></a>2.1 模型总览</h4><p>EMCDR属于非对称的方式进行跨域推荐，推荐的目标是针对目标域中有很少信息的用户或者物品，例如对于一个新来的用户或者物品，在目标域中并不能找到它的embedding，但是在源域中它比较活跃，可以找到它的embedding，这时通过目标域和源域的map函数（map可以认为是从源域的embedding到目标域embedding的一种映射，所以训练map函数<strong>使用的embedding只能是源域和目标域的交叉部分</strong>）可以得到目标域的embedding，之后再做推荐。</p>
+<h3 id="二emcdr模型">二、EMCDR模型</h3>
+<h4 id="模型总览">2.1 模型总览</h4>
+<p>EMCDR属于非对称的方式进行跨域推荐，推荐的目标是针对目标域中有很少信息的用户或者物品，例如对于一个新来的用户或者物品，在目标域中并不能找到它的embedding，但是在源域中它比较活跃，可以找到它的embedding，这时通过目标域和源域的map函数（map可以认为是从源域的embedding到目标域embedding的一种映射，所以训练map函数<strong>使用的embedding只能是源域和目标域的交叉部分</strong>）可以得到目标域的embedding，之后再做推荐。</p>
 <p>EMCDR模型如下图所示，其将跨域推荐分为三个步骤：</p>
 <ul>
 <li>Latent Factor Modeling（生成U/I的隐式向量）</li>
 <li>Latent Space Mapping（源域-&gt;目标域 U/I隐式向量的映射）</li>
 <li>Cross-domain Recommendation（跨域推荐）</li>
 </ul>
-<p><img src="https://s4.ax1x.com/2022/01/15/7JMmwD.png" alt=""></p>
-<h4 id="2-2-Latent-Factor-Modeling"><a href="#2-2-Latent-Factor-Modeling" class="headerlink" title="2.2 Latent Factor Modeling"></a>2.2 Latent Factor Modeling</h4><p>论文中介绍了两种生成隐向量的方式，分别是矩阵分解<a href="http://qzmvc1.top/我的推荐算法之路-2-矩阵分解.html">(MF)</a>和贝叶斯个性化排序<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/9128682.html">(BPR)</a>。</p>
+<p><img src="https://s4.ax1x.com/2022/01/15/7JMmwD.png" /></p>
+<h4 id="latent-factor-modeling">2.2 Latent Factor Modeling</h4>
+<p>论文中介绍了两种生成隐向量的方式，分别是矩阵分解<a
+href="http://qzmvc1.top/我的推荐算法之路-2-矩阵分解.html">(MF)</a>和贝叶斯个性化排序<a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/9128682.html">(BPR)</a>。</p>
 <ul>
-<li>MF通过构建user-item的二元组，并对其进行矩阵分解生成两个低秩矩阵的乘积。其中，user表示为 $K \times U$ 的矩阵，item表示为 $K \times V$ 的矩阵，最终损失函数为：</li>
+<li>MF通过构建user-item的二元组，并对其进行矩阵分解生成两个低秩矩阵的乘积。其中，user表示为
+<span class="math inline">\(K \times U\)</span> 的矩阵，item表示为 <span
+class="math inline">\(K \times V\)</span> 的矩阵，最终损失函数为：</li>
 </ul>
-<p>$$\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{i}\mathop{\sum}\limits_{j}||I_{ij}\cdot(R_{ij}-U_i^TV_j)||^2_F+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F)$$</p>
-
+<p>
+<span
+class="math display">\[\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{i}\mathop{\sum}\limits_{j}||I_{ij}\cdot(R_{ij}-U_i^TV_j)||^2_F+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F)\]</span>
+</p>
 <ul>
 <li>BPR通过构建user-item1-item2（user对item1的偏好大于item2）的三元组生成user对应的所有商品的全序关系，并通过使用与funkSVD类似的矩阵分解模型生成K维向量，最终的损失函数为：</li>
 </ul>
-<p>$$\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{(u_i,v_j,v_l)\in D}-ln\sigma(U_i^TV_j-U_i^TV_l)+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F))$$</p>
-
-<h4 id="2-3-Latent-Space-Mapping"><a href="#2-3-Latent-Space-Mapping" class="headerlink" title="2.3 Latent Space Mapping"></a>2.3 Latent Space Mapping</h4><p>在得到源域和目标域U/I的K维embedding表示后，就可以构建一个map映射关系，完成从源域到目标域的映射。论文中介绍了Linear Mapping、MLP-based Nonlinear Mapping两种映射方法。</p>
+<p>
+<span
+class="math display">\[\mathop{min}\limits_{U,V}(\mathop{\sum}\limits_{(u_i,v_j,v_l)\in
+D}-ln\sigma(U_i^TV_j-U_i^TV_l)+\lambda_U\mathop{\sum}\limits_{i}||U_i||^2_F+\lambda_V\mathop{\sum}\limits_{j}||V_j||^2_F))\]</span>
+</p>
+<h4 id="latent-space-mapping">2.3 Latent Space Mapping</h4>
+<p>在得到源域和目标域U/I的K维embedding表示后，就可以构建一个map映射关系，完成从源域到目标域的映射。论文中介绍了Linear
+Mapping、MLP-based Nonlinear Mapping两种映射方法。</p>
 <ul>
 <li>Linear Mapping为线性映射，通过线性变换实现。损失函数表示为：</li>
 </ul>
-<p>$$\mathop{min}\limits_{M}\mathop{\sum}\limits_{u_i\in U}L(M\times U_i^s,U_i^t)+\Omega(M)$$</p>
-
-<p>其中，$U_i^s,U_i^t$ 分别是源域和目标域的隐因子向量，$M$ 是待学习的线性变换矩阵，$\Omega(M)$ 是正则项。</p>
+<p>
+<span
+class="math display">\[\mathop{min}\limits_{M}\mathop{\sum}\limits_{u_i\in
+U}L(M\times U_i^s,U_i^t)+\Omega(M)\]</span>
+</p>
+<p>其中，<span class="math inline">\(U_i^s,U_i^t\)</span>
+分别是源域和目标域的隐因子向量，<span class="math inline">\(M\)</span>
+是待学习的线性变换矩阵，<span class="math inline">\(\Omega(M)\)</span>
+是正则项。</p>
 <ul>
-<li>MLP-based Nonlinear Mapping为非线性映射，通过MLP实现。损失函数表示为：</li>
+<li>MLP-based Nonlinear
+Mapping为非线性映射，通过MLP实现。损失函数表示为：</li>
 </ul>
-<p>$$\mathop{min}\limits_{\theta}\mathop{\sum}\limits_{u_i\in U}L(f_{mlp}(U_i^s;\theta),U_i^t)$$</p>
-
-<p>其中，$\theta$ 是MLP的参数。</p>
-<h4 id="2-4-Cross-domain-Recommendation"><a href="#2-4-Cross-domain-Recommendation" class="headerlink" title="2.4 Cross-domain Recommendation"></a>2.4 Cross-domain Recommendation</h4><p>对于目标域中信息很少的用户和物品，直接使用MF或者BPR建模出的隐向量是不准确的，有很大偏差。这时可以使用源域建模出的隐向量以及map函数对user建模：</p>
-<p>$$\hat{U}_i^t=f(U_i^s;\theta)$$</p>
-
-<h3 id="3、参考链接"><a href="#3、参考链接" class="headerlink" title="3、参考链接"></a>3、参考链接</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/395211316">https://zhuanlan.zhihu.com/p/395211316</a></li>
+<p>
+<span
+class="math display">\[\mathop{min}\limits_{\theta}\mathop{\sum}\limits_{u_i\in
+U}L(f_{mlp}(U_i^s;\theta),U_i^t)\]</span>
+</p>
+<p>其中，<span class="math inline">\(\theta\)</span> 是MLP的参数。</p>
+<h4 id="cross-domain-recommendation">2.4 Cross-domain
+Recommendation</h4>
+<p>对于目标域中信息很少的用户和物品，直接使用MF或者BPR建模出的隐向量是不准确的，有很大偏差。这时可以使用源域建模出的隐向量以及map函数对user建模：</p>
+<p>
+<span class="math display">\[\hat{U}_i^t=f(U_i^s;\theta)\]</span>
+</p>
+<h3 id="参考链接">3、参考链接</h3>
+<ul>
+<li>https://zhuanlan.zhihu.com/p/395211316</li>
 </ul>
 
     </div>
@@ -475,14 +507,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

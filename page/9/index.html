@@ -311,8 +311,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>这几天，南邮正方开放了教学质量评价的接口，苦于一个一个选择很麻烦，花了点时间写了个脚本进行自动填写。主要利用了Python的selenium库模拟浏览器进行自动填写。</strong></p>
-<p><strong>转载请注明出处</strong><br>
+          <h3 id="前言">前言</h3>
+<p><strong>这几天，南邮正方开放了教学质量评价的接口，苦于一个一个选择很麻烦，花了点时间写了个脚本进行自动填写。主要利用了Python的selenium库模拟浏览器进行自动填写。</strong></p>
+<p><strong>转载请注明出处</strong>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E5%88%A9%E7%94%A8selenium%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%86%99%E5%8D%97%E9%82%AE%E6%AD%A3%E6%96%B9%E7%9A%84%E6%95%99%E5%AD%A6%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BB%B7.html#more" rel="contents">
@@ -417,7 +418,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，<del>我就是这么热爱学习！</del> 哈哈哈哈hahahah。<br>虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~<br>
+          <h3 id="前言">前言</h3>
+<p>偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，<del>我就是这么热爱学习！</del>
+哈哈哈哈hahahah。
+虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AB-%E5%88%A9%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE%E7%BB%98%E5%88%B6%E8%AF%8D%E4%BA%91%E5%9B%BE%E7%89%87.html#more" rel="contents">
@@ -504,14 +508,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -522,8 +526,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动输入验证，或者直接用云打码平台，这里我们介绍一个利用Scrapy进行模拟登录的用法。</p>
-<p><strong>本片博客是对豆瓣进行模拟登陆，包括验证码的简单处理，不涉及爬取信息。</strong><br>
+          <h3 id="前言">前言</h3>
+<p>　　初来乍到的crawler，刚开始的时候觉得所有的网站无非就是分析HTML、json数据，但是忽略了很多的一个问题，有很多的网站为了反爬虫，除了需要高可用代理IP地址池外，还需要登录。例如知乎、豆瓣等等。很多信息都是需要登录以后才能爬取，但是频繁登录后就会出现验证码（有些网站直接就让你输入验证码），这就坑了，毕竟运维同学很辛苦，该反的还得反，那我们怎么办呢？这不说验证码的事儿，你可以自己手动输入验证，或者直接用云打码平台，这里我们介绍一个利用Scrapy进行模拟登录的用法。</p>
+<p><strong>本片博客是对豆瓣进行模拟登陆，包括验证码的简单处理，不涉及爬取信息。</strong>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%83-%E5%88%A9%E7%94%A8Scrapy%E8%BF%9B%E8%A1%8C%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86.html#more" rel="contents">
@@ -628,7 +633,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><h4 id="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"><a href="#相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！" class="headerlink" title="相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！"></a>相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4><h4 id="注：本章爬取的网页是我的博客-http-qzmvc1-top"><a href="#注：本章爬取的网页是我的博客-http-qzmvc1-top" class="headerlink" title="注：本章爬取的网页是我的博客: http://qzmvc1.top/"></a>注：本章爬取的网页是我的博客: <a href="http://qzmvc1.top/">http://qzmvc1.top/</a></h4>
+          <h3 id="引言">引言</h3>
+<h4
+id="相信大家学了这么长时间的爬虫后都想干点什么这章的主要任务是抓取网页上的图片并把它们下载到本地听起来不太容易实现但其实这很简单">相信大家学了这么长时间的爬虫后都想干点什么。这章的主要任务是抓取网页上的图片并把它们下载到本地，听起来不太容易实现，但其实这很简单！</h4>
+<h4
+id="注本章爬取的网页是我的博客-httpqzmvc1.top">注：本章爬取的网页是我的博客:
+http://qzmvc1.top/</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AD-%E9%80%9A%E8%BF%87Scrapy%E5%86%85%E7%BD%AE%E7%9A%84ImagePipeline%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.html#more" rel="contents">
@@ -715,14 +725,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.1k</span>
+      <span>7.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -733,25 +743,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>这章作为我最感兴趣的一章，当然要好好大写特写一番了！</p>
+          <h3 id="一前言">一、前言</h3>
+<p>这章作为我最感兴趣的一章，当然要好好大写特写一番了！</p>
 <p>因为本人对Mysql比较熟悉，Python也有Pymysql这个库可以和Mysql进行交互，所以这章主要就是介绍将数据存储到Mysql数据库的Pipeline。之前也听说过Scrapy和Mongodb数据库结合起来也很方便，有空的话以后学了再补上叭~</p>
-<p>注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！</p>
-<hr>
-<h3 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h3><p>我们首先需要创建或安装一些东西：</p>
+<p>注：以下的演示都是基于本机上的操作，一些库名，表名，项目名什么的各位看官自己写就好啦！
+****** ### 二、准备工作 我们首先需要创建或安装一些东西： + <strong>Mysql
+localhost新建数据库pysqltest，在该数据库下创建表单名为blog</strong></p>
 <ul>
-<li><p><strong>Mysql localhost新建数据库pysqltest，在该数据库下创建表单名为blog</strong></p>
-</li>
-<li><p><strong>安装pymysql用于连接Mysql服务器</strong></p>
-</li>
+<li><strong>安装pymysql用于连接Mysql服务器</strong></li>
 </ul>
-<p>如果对Mysql不熟悉或者需要补一下Pymysql操作的可以参考我的以下博客：</p>
-<ol>
-<li><p><a href="http://qzmvc1.top/2018/10/28/MySQL%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">Mysql之增删改查</a></p>
-</li>
-<li><p><a href="http://qzmvc1.top/2018/10/29/PyMySQL%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BA%A4%E4%BA%92/">Pymysql实现与数据库的交互</a></p>
-</li>
-</ol>
-<hr>
+<p>如果对Mysql不熟悉或者需要补一下Pymysql操作的可以参考我的以下博客： 1.
+<a
+href="http://qzmvc1.top/2018/10/28/MySQL%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/">Mysql之增删改查</a></p>
+<ol start="2" type="1">
+<li><a
+href="http://qzmvc1.top/2018/10/29/PyMySQL%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BA%A4%E4%BA%92/">Pymysql实现与数据库的交互</a>
+******
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%94-%E5%B0%86%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%88%B0Mysql%E6%95%B0%E6%8D%AE%E5%BA%93.html#more" rel="contents">
@@ -856,15 +863,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、Item-Pipeline简介"><a href="#一、Item-Pipeline简介" class="headerlink" title="一、Item Pipeline简介"></a>一、Item Pipeline简介</h3><p><strong>Item Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。</strong><br>当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。<br>每个初始Item管道的组件都是由一个简单的方法组成的Python类。<br>如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure><br>但是我们没有具体定义，因此执行爬虫并不会输出结果。<br>他们获取了Item并执行他们的方法，同时他们还需要确定的是是否需要在Item管道中继续执行下一步或是直接丢弃掉不处理。</p>
-<hr>
-<h3 id="二、Item管道的通常执行过程"><a href="#二、Item管道的通常执行过程" class="headerlink" title="二、Item管道的通常执行过程"></a>二、Item管道的通常执行过程</h3><ul>
-<li>清理HTML数据  　</li>
-<li>验证解析到的数据（检查Item是否包含必要的字段）　　</li>
-<li>检查是否是重复数据（如果重复就删除）　　</li>
-<li>将解析到的数据存储到数据库中　　</li>
-</ul>
-<hr>
+          <h3 id="一item-pipeline简介">一、Item Pipeline简介</h3>
+<p><strong>Item
+Pipeline的主要责任是负责处理爬虫从网页中抽取的Item，它的主要任务是清晰、验证和存储数据。</strong>
+当页面被爬虫解析后，将被发送到Item管道，并经过几个特定的次序处理数据。
+每个初始Item管道的组件都是由一个简单的方法组成的Python类。 如下所示：
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoPipeline</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span>(<span class="params">self, item, spider</span>):</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure> 但是我们没有具体定义，因此执行爬虫并不会输出结果。
+他们获取了Item并执行他们的方法，同时他们还需要确定的是是否需要在Item管道中继续执行下一步或是直接丢弃掉不处理。
+****** ### 二、Item管道的通常执行过程 + 清理HTML数据 　 +
+验证解析到的数据（检查Item是否包含必要的字段）　　 +
+检查是否是重复数据（如果重复就删除）　　 +
+将解析到的数据存储到数据库中　　 ******
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E5%9B%9B-%E4%BD%BF%E7%94%A8Pipeline%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE(%E4%B8%80).html#more" rel="contents">
@@ -969,8 +978,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a><b>引言</b></h3><p>大多数情况下，每个源网站只会有一个爬虫；不过在某些情况下，你想要抓取的数据来自多个网站，此时唯一变化的东西就是所使用的XPath表达式。对于此类情况，如果为每个网站都设置一个爬虫则显得有些小题大做。那么可以只使用一个爬虫来爬取所有这些网站吗？答案是肯定的。</p>
-<hr>
+          <h3 id="引言"><b>引言</b></h3>
+<p>大多数情况下，每个源网站只会有一个爬虫；不过在某些情况下，你想要抓取的数据来自多个网站，此时唯一变化的东西就是所使用的XPath表达式。对于此类情况，如果为每个网站都设置一个爬虫则显得有些小题大做。那么可以只使用一个爬虫来爬取所有这些网站吗？答案是肯定的。
+******
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%89-%E5%9F%BA%E4%BA%8EExcel%E6%96%87%E4%BB%B6%E7%88%AC%E5%8F%96%E7%9A%84%E7%88%AC%E8%99%AB.html#more" rel="contents">
@@ -1075,10 +1085,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
-<hr>
-<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
-<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br>
+          <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b>
+****** <b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b>
+答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import
+manhole ”而且提示符 ‘^’
+指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开
+<em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有
+“async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b>
+答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of
+range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91.html#more" rel="contents">
@@ -1129,14 +1145,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="一、概述k-近邻算法（k-Nearest Neighbour algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN 的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。 GitHub源码：">
+<meta name="description" content="一、概述 k-近邻算法（k-Nearest Neighbour algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN 的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。 GitHub源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="进击数据挖掘十大算法(二):KNN">
 <meta property="og:url" content="http://qzmvc1.top/%E8%BF%9B%E5%87%BB%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%8D%81%E5%A4%A7%E7%AE%97%E6%B3%95-%E4%BA%8C-%EF%BC%9AKNN.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、概述k-近邻算法（k-Nearest Neighbour algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN 的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。 GitHub源码：">
+<meta property="og:description" content="一、概述 k-近邻算法（k-Nearest Neighbour algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN 的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。 GitHub源码">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/01/k3tjRs.jpg">
 <meta property="og:image" content="https://s2.ax1x.com/2019/02/01/k3UMXq.png">
@@ -171,7 +171,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A6%82%E8%BF%B0"><span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81KNN%E7%AE%97%E6%B3%95%E7%9A%84%E7%AE%80%E5%8D%95%E7%90%86%E8%A7%A3"><span class="nav-text">二、KNN算法的简单理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81KNN%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0"><span class="nav-text">三、KNN算法的Python实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-Python%E4%BB%A3%E7%A0%81"><span class="nav-text">3.1 Python代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">3.2 数据集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-text">四、算法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E4%BC%98%E7%82%B9"><span class="nav-text">4.1 优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-%E7%BC%BA%E7%82%B9"><span class="nav-text">4.2 缺点</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%A6%82%E8%BF%B0"><span class="nav-text">一、概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-text">4.1 优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-text">4.2 缺点</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -316,7 +316,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -334,72 +334,63 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><p>k-近邻算法（k-Nearest Neighbour algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN 的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。</p>
-<p>GitHub源码：<a target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/KNN">QzmVc1/Data-Mining/KNN/</a></p>
-<p>参考链接：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av38115160?from=search&amp;seid=15385102981487130077">【智源学院】30分钟KNN算法-有意思专题系列(K-Nearest Neighbor, KNN)</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/av35390140?from=search&amp;seid=2014456835238388101">【菊安酱的机器学习】第1期 k-近邻算法</a></p>
-<hr>
-<span id="more"></span>
-<h3 id="二、KNN算法的简单理解"><a href="#二、KNN算法的简单理解" class="headerlink" title="二、KNN算法的简单理解"></a>二、KNN算法的简单理解</h3><p><img src="https://s2.ax1x.com/2019/02/01/k3tjRs.jpg" alt=""></p>
-<p>图中有红色三角和蓝色方块两种类别，我们现在需要判断绿色圆点属于哪种类别。<br>当k=3时，绿色圆点属于红色三角这种类别；<br>当k=5时，绿色圆点属于蓝色方块这种类别。</p>
+        <h3 id="一概述">一、概述</h3>
+<p>k-近邻算法（k-Nearest Neighbour
+algorithm），又称为KNN算法，是数据挖掘技术中原理最简单的算法。KNN
+的工作原理：给定一个已知标签类别的训练数据集，输入没有标签的新数据后，在训练数据集中找到与新数据最邻近的k个实例，如果这k个实例的多数属于某个类别，那么新数据就属于这个类别。可以简单理解为：由那些离X最近的k个点来投票决定X归为哪一类。</p>
+<p>GitHub源码：<a
+target="_blank" rel="noopener" href="https://github.com/QzmVc1/Data-Mining/tree/master/KNN">QzmVc1/Data-Mining/KNN/</a></p>
+<p>参考链接： <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/av38115160?from=search&amp;seid=15385102981487130077">【智源学院】30分钟KNN算法-有意思专题系列(K-Nearest
+Neighbor, KNN)</a> <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/av35390140?from=search&amp;seid=2014456835238388101">【菊安酱的机器学习】第1期
+k-近邻算法</a> ****** <span id="more"></span> ### 二、KNN算法的简单理解</p>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3tjRs.jpg" /></p>
+<p>图中有红色三角和蓝色方块两种类别，我们现在需要判断绿色圆点属于哪种类别。
+当k=3时，绿色圆点属于红色三角这种类别；
+当k=5时，绿色圆点属于蓝色方块这种类别。</p>
 <p>举个简单的例子，可以用k-近邻算法分类一个电影是爱情片还是动作片。（打斗镜头和接吻镜头数量为虚构）</p>
-<p><img src="https://s2.ax1x.com/2019/02/01/k3UMXq.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3UMXq.png" /></p>
 <p>上表就是我们已有的数据集合，也就是训练样本集。这个数据集有两个特征——打斗镜头数和接吻镜头数。除此之外，我们也知道每部电影的所属类型，即分类标签。粗略看来，接吻镜头多的就是爱情片，打斗镜头多的就是动作片。以我们多年的经验来看，这个分类还算合理。如果现在给我一部新的电影，告诉我电影中的打斗镜头和接吻镜头分别是多少，那么我可以根据你给出的信息进行判断，这部电影是属于爱情片还是动作片。</p>
 <p>而k-近邻算法也可以像我们人一样做到这一点。但是，这仅仅是两个特征，如果把特征扩大到N个呢？我们人类还能凭经验“一眼看出”电影的所属类别吗？想想就知道这是一个非常困难的事情，但算法可以，这就是算法的魅力所在。</p>
-<p>我们已经知道k-近邻算法的工作原理，根据特征比较，然后提取样本集中特征最相似数据（最近邻）的分类标签。 那么如何进行比较呢？比如表1中新出的电影，我们该如何判断他所属的电影类别呢？如下图所示:</p>
-<p><img src="https://s2.ax1x.com/2019/02/01/k3UKcn.png" alt=""></p>
+<p>我们已经知道k-近邻算法的工作原理，根据特征比较，然后提取样本集中特征最相似数据（最近邻）的分类标签。
+那么如何进行比较呢？比如表1中新出的电影，我们该如何判断他所属的电影类别呢？如下图所示:</p>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3UKcn.png" /></p>
 <p>我们可以从散点图中大致推断，这个未知电影有可能是爱情片，因为看起来距离已知的三个爱情片更近一点。k-近邻算法是用什么方法进行判断呢？没错，就是距离度量。这个电影分类例子中有两个特征，也就是在二维平面中计算两点之间的距离，就可以用我们高中学过的距离计算公式：</p>
-<p><img src="https://s2.ax1x.com/2019/02/01/k3UOvn.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3UOvn.png" /></p>
 <p>如果是多个特征扩展到N维空间，怎么计算？没错，我们可以使用欧氏距离（也称欧几里得度量），如下所示：</p>
-<p><img src="https://s2.ax1x.com/2019/02/01/k3ULgs.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3ULgs.png" /></p>
 <p>通过计算可以得到训练集中所有电影与未知电影的距离，如下表所示：</p>
-<p><img src="https://s2.ax1x.com/2019/02/01/k3Uu1s.png" alt=""></p>
-<p>通过表2的计算结果，我们可以知道绿点标记的电影到爱情片《后来的我们》距离最近，为29.1。如果仅仅根据这个结果，判定绿点电影的类别为爱情片，这个算法叫做最近邻算法，而非k-近邻算法。k-近邻算法步骤如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(1) 计算已知类别数据集中的点与当前点之间的距离；</span><br><span class="line">(2) 按照距离递增次序排序；</span><br><span class="line">(3) 选取与当前点距离最小的k个点；</span><br><span class="line">(4) 确定前k个点所在类别的出现频率；</span><br><span class="line">(5) 返回前k个点出现频率最高的类别作为当前点的预测类别。</span><br></pre></td></tr></table></figure></p>
-<p>比如，现在K=4，那么在这个电影例子中，把距离按照升序排列，距离绿点电影最近的前4个的电影分别是《后来的我们》、《前任3》、《无问西东》和《红海行动》，这四部电影的类别统计为爱情片:动作片=3:1，出现频率最<br>高的类别为爱情片，所以在k=4时，绿点电影的类别为爱情片。这个判别过程就是k-近邻算法。</p>
-<hr>
-<h3 id="三、KNN算法的Python实现"><a href="#三、KNN算法的Python实现" class="headerlink" title="三、KNN算法的Python实现"></a>三、KNN算法的Python实现</h3><h4 id="3-1-Python代码"><a href="#3-1-Python代码" class="headerlink" title="3.1 Python代码"></a>3.1 Python代码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="comment"># 读取数据集</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;iris.csv&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    reader = csv.DictReader(fp)</span><br><span class="line">    datas = [row <span class="keyword">for</span> row <span class="keyword">in</span> reader]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数据分成训练集和测试集</span></span><br><span class="line">random.shuffle(datas)</span><br><span class="line">n = <span class="built_in">len</span>(datas) // <span class="number">3</span></span><br><span class="line">test_set = datas[<span class="number">0</span>:n]</span><br><span class="line">train_set = datas[n:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算欧几里得距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distance</span>(<span class="params">d1,d2</span>):</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> (<span class="string">&quot;Sepal.Length&quot;</span>,<span class="string">&quot;Sepal.Width&quot;</span>,<span class="string">&quot;Petal.Length&quot;</span>,<span class="string">&quot;Petal.Width&quot;</span>):</span><br><span class="line">        res += (<span class="built_in">float</span>(d1[key])-<span class="built_in">float</span>(d2[key]))**<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> res**<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">K = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">KNN</span>(<span class="params">data</span>):</span></span><br><span class="line">    <span class="comment"># 1.计算距离</span></span><br><span class="line">    res = [</span><br><span class="line">        &#123;<span class="string">&#x27;result&#x27;</span>:train[<span class="string">&#x27;Species&#x27;</span>],<span class="string">&#x27;distance&#x27;</span>:distance(data,train)&#125;</span><br><span class="line">        <span class="keyword">for</span> train <span class="keyword">in</span> train_set</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2.升序排序</span></span><br><span class="line">    res = <span class="built_in">sorted</span>(res,key=<span class="keyword">lambda</span> item:item[<span class="string">&#x27;distance&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3.取前K个数据</span></span><br><span class="line">    res2 = res[<span class="number">0</span>:K]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4.加权平均</span></span><br><span class="line">    result = &#123;<span class="string">&#x27;versicolor&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;setosa&#x27;</span>:<span class="number">0</span>&#125;</span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> res2:</span><br><span class="line">        <span class="built_in">sum</span> += r[<span class="string">&#x27;distance&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> res2:</span><br><span class="line">        result[r[<span class="string">&#x27;result&#x27;</span>]] += <span class="number">1</span>-r[<span class="string">&#x27;distance&#x27;</span>]/<span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> result[<span class="string">&#x27;versicolor&#x27;</span>] &gt; result[<span class="string">&#x27;setosa&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;versicolor&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;setosa&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试阶段</span></span><br><span class="line">correct = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> test <span class="keyword">in</span> test_set:</span><br><span class="line">    result1 = test[<span class="string">&#x27;Species&#x27;</span>]</span><br><span class="line">    result2 = KNN(test)</span><br><span class="line">    <span class="keyword">if</span> result1 == result2:</span><br><span class="line">        correct += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&#123;:.2f&#125;%&quot;</span>.<span class="built_in">format</span>(correct*<span class="number">100</span>/<span class="built_in">len</span>(test_set)))</span><br></pre></td></tr></table></figure>
-<h4 id="3-2-数据集"><a href="#3-2-数据集" class="headerlink" title="3.2 数据集"></a>3.2 数据集</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ID	Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	 Species</span><br><span class="line">1	      5.1	          3.5	        1.4	          0.2	     setosa</span><br><span class="line">2	      4.9	          3	          1.4	          0.2	     setosa</span><br><span class="line">3	      4.7	          3.2	        1.3	          0.2	     setosa</span><br><span class="line">4	      4.6	          3.1	        1.5	          0.2	     setosa</span><br><span class="line">5	      5	            3.6	        1.4	          0.2	     setosa</span><br><span class="line">6	      5.4	          3.9	        1.7	          0.4	     setosa</span><br><span class="line">...     ...           ...         ...           ...      ...</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="四、算法总结"><a href="#四、算法总结" class="headerlink" title="四、算法总结"></a>四、算法总结</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>KNN</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>算法功能</td>
-<td>分类（核心），回归</td>
-</tr>
-<tr>
-<td>算法类型</td>
-<td>有监督学习 - 惰性学习，距离类模型</td>
-</tr>
-<tr>
-<td>数据输入</td>
-<td>包含数据标签y，且特征空间中至少包含k个训练样本（k&gt;=1) 特征空间中各个特征的量纲需统一，若不统一则需要进行归一化处理自定义的超参数k (k&gt;=1)</td>
-</tr>
-<tr>
-<td>模型输出</td>
-<td>包含数据标签y，且特征空间中至少包含k个训练样本（k&gt;=1) 特征空间中各个特征的量纲需统一，若不统一则需要进行归一化处理自定义的超参数k (k&gt;=1)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h4 id="4-1-优点"><a href="#4-1-优点" class="headerlink" title="4.1 优点"></a>4.1 优点</h4><ul>
+<p><img src="https://s2.ax1x.com/2019/02/01/k3Uu1s.png" /></p>
+<p>通过表2的计算结果，我们可以知道绿点标记的电影到爱情片《后来的我们》距离最近，为29.1。如果仅仅根据这个结果，判定绿点电影的类别为爱情片，这个算法叫做最近邻算法，而非k-近邻算法。k-近邻算法步骤如下：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(1) 计算已知类别数据集中的点与当前点之间的距离；</span><br><span class="line">(2) 按照距离递增次序排序；</span><br><span class="line">(3) 选取与当前点距离最小的k个点；</span><br><span class="line">(4) 确定前k个点所在类别的出现频率；</span><br><span class="line">(5) 返回前k个点出现频率最高的类别作为当前点的预测类别。</span><br></pre></td></tr></table></figure></p>
+<p>比如，现在K=4，那么在这个电影例子中，把距离按照升序排列，距离绿点电影最近的前4个的电影分别是《后来的我们》、《前任3》、《无问西东》和《红海行动》，这四部电影的类别统计为爱情片:动作片=3:1，出现频率最
+高的类别为爱情片，所以在k=4时，绿点电影的类别为爱情片。这个判别过程就是k-近邻算法。
+****** ### 三、KNN算法的Python实现 #### 3.1 Python代码 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="comment"># 读取数据集</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;iris.csv&#x27;</span>,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> fp:</span><br><span class="line">    reader = csv.DictReader(fp)</span><br><span class="line">    datas = [row <span class="keyword">for</span> row <span class="keyword">in</span> reader]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数据分成训练集和测试集</span></span><br><span class="line">random.shuffle(datas)</span><br><span class="line">n = <span class="built_in">len</span>(datas) // <span class="number">3</span></span><br><span class="line">test_set = datas[<span class="number">0</span>:n]</span><br><span class="line">train_set = datas[n:]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算欧几里得距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distance</span>(<span class="params">d1,d2</span>):</span></span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> (<span class="string">&quot;Sepal.Length&quot;</span>,<span class="string">&quot;Sepal.Width&quot;</span>,<span class="string">&quot;Petal.Length&quot;</span>,<span class="string">&quot;Petal.Width&quot;</span>):</span><br><span class="line">        res += (<span class="built_in">float</span>(d1[key])-<span class="built_in">float</span>(d2[key]))**<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> res**<span class="number">0.5</span></span><br><span class="line"></span><br><span class="line">K = <span class="number">3</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">KNN</span>(<span class="params">data</span>):</span></span><br><span class="line">    <span class="comment"># 1.计算距离</span></span><br><span class="line">    res = [</span><br><span class="line">        &#123;<span class="string">&#x27;result&#x27;</span>:train[<span class="string">&#x27;Species&#x27;</span>],<span class="string">&#x27;distance&#x27;</span>:distance(data,train)&#125;</span><br><span class="line">        <span class="keyword">for</span> train <span class="keyword">in</span> train_set</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2.升序排序</span></span><br><span class="line">    res = <span class="built_in">sorted</span>(res,key=<span class="keyword">lambda</span> item:item[<span class="string">&#x27;distance&#x27;</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3.取前K个数据</span></span><br><span class="line">    res2 = res[<span class="number">0</span>:K]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 4.加权平均</span></span><br><span class="line">    result = &#123;<span class="string">&#x27;versicolor&#x27;</span>:<span class="number">0</span>,<span class="string">&#x27;setosa&#x27;</span>:<span class="number">0</span>&#125;</span><br><span class="line">    <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> res2:</span><br><span class="line">        <span class="built_in">sum</span> += r[<span class="string">&#x27;distance&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> r <span class="keyword">in</span> res2:</span><br><span class="line">        result[r[<span class="string">&#x27;result&#x27;</span>]] += <span class="number">1</span>-r[<span class="string">&#x27;distance&#x27;</span>]/<span class="built_in">sum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> result[<span class="string">&#x27;versicolor&#x27;</span>] &gt; result[<span class="string">&#x27;setosa&#x27;</span>]:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;versicolor&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;setosa&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试阶段</span></span><br><span class="line">correct = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> test <span class="keyword">in</span> test_set:</span><br><span class="line">    result1 = test[<span class="string">&#x27;Species&#x27;</span>]</span><br><span class="line">    result2 = KNN(test)</span><br><span class="line">    <span class="keyword">if</span> result1 == result2:</span><br><span class="line">        correct += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;&#123;:.2f&#125;%&quot;</span>.<span class="built_in">format</span>(correct*<span class="number">100</span>/<span class="built_in">len</span>(test_set)))</span><br></pre></td></tr></table></figure>
+#### 3.2 数据集 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ID	Sepal.Length	Sepal.Width	Petal.Length	Petal.Width	 Species</span><br><span class="line">1	      5.1	          3.5	        1.4	          0.2	     setosa</span><br><span class="line">2	      4.9	          3	          1.4	          0.2	     setosa</span><br><span class="line">3	      4.7	          3.2	        1.3	          0.2	     setosa</span><br><span class="line">4	      4.6	          3.1	        1.5	          0.2	     setosa</span><br><span class="line">5	      5	            3.6	        1.4	          0.2	     setosa</span><br><span class="line">6	      5.4	          3.9	        1.7	          0.4	     setosa</span><br><span class="line">...     ...           ...         ...           ...      ...</span><br></pre></td></tr></table></figure> ****** ### 四、算法总结 |KNN | | | —— | ——
+| | 算法功能 | 分类（核心），回归 | | 算法类型 | 有监督学习 -
+惰性学习，距离类模型 | | 数据输入 |
+包含数据标签y，且特征空间中至少包含k个训练样本（k&gt;=1)
+特征空间中各个特征的量纲需统一，若不统一则需要进行归一化处理自定义的超参数k
+(k&gt;=1) | | 模型输出 |
+包含数据标签y，且特征空间中至少包含k个训练样本（k&gt;=1)
+特征空间中各个特征的量纲需统一，若不统一则需要进行归一化处理自定义的超参数k
+(k&gt;=1) |</p>
+<h4 id="优点">4.1 优点</h4>
+<ul>
 <li>简单好用，容易理解，精度高，理论成熟，既可以用来做分类也可以用来做回归</li>
 <li>可用于数值型数据和离散型数据</li>
 <li>无数据输入假定</li>
 <li>适合对稀有事件进行分类</li>
 </ul>
-<h4 id="4-2-缺点"><a href="#4-2-缺点" class="headerlink" title="4.2 缺点"></a>4.2 缺点</h4><ul>
+<h4 id="缺点">4.2 缺点</h4>
+<ul>
 <li>计算复杂性高；空间复杂性高；</li>
 <li>计算量太大，所以一般数值很大的时候不用这个，但是单个样本又不能太少，否则容易发生误分。</li>
 <li>样本不平衡问题（即有些类别的样本数量很多，而其它样本的数量很少）</li>
 <li>可理解性比较差，无法给出数据的内在含义</li>
 </ul>
-<hr>
+<hr />
 
     </div>
 
@@ -503,14 +494,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

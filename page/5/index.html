@@ -293,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,15 +311,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。</p>
+          <h3 id="一前言">一、前言</h3>
+<p>最近在使用人脸识别FaceNet碰到了些训练上的速度问题，特来此记录下配置Tensorflow-GPU环境的过程，防止以后还需要用到。</p>
 <blockquote>
 <p><strong>自己的环境：</strong></p>
 <p>操作系统： Windows 10</p>
-<p>GPU:           GTX1050+CUDA9.0+cuDNN</p>
-<p>Python：   Version 3.7</p>
+<p>GPU: GTX1050+CUDA9.0+cuDNN</p>
+<p>Python： Version 3.7</p>
 <p>深度学习框架：tensorflow-gpu</p>
 </blockquote>
-<p><strong>注意：CUDA 选择安装的版本一定要和你电脑上的显卡信息相匹配，否则tensorflow-gpu会报错！！！</strong></p>
+<p><strong>注意：CUDA
+选择安装的版本一定要和你电脑上的显卡信息相匹配，否则tensorflow-gpu会报错！！！</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Win10%E6%90%AD%E5%BB%BATensorflow-GPU%E7%8E%AF%E5%A2%83.html#more" rel="contents">
@@ -424,21 +426,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、常用的线性规划求解器"><a href="#一、常用的线性规划求解器" class="headerlink" title="一、常用的线性规划求解器"></a>一、常用的线性规划求解器</h3><ul>
+          <h3 id="一常用的线性规划求解器">一、常用的线性规划求解器</h3>
+<ul>
 <li>Excel</li>
 <li>Lingo</li>
 <li>Matlab</li>
 </ul>
-<h3 id="二、Python-interface-for-optimization"><a href="#二、Python-interface-for-optimization" class="headerlink" title="二、Python interface for optimization"></a>二、Python interface for optimization</h3><ul>
-<li>Pulp<ul>
+<h3 id="二python-interface-for-optimization">二、Python interface for
+optimization</h3>
+<ul>
+<li>Pulp
+<ul>
 <li>LP Modules</li>
-</ul>
-</li>
-<li>OpenOpt<ul>
+</ul></li>
+<li>OpenOpt
+<ul>
 <li>LP Modules</li>
 <li>non-LP Modules</li>
-</ul>
-</li>
+</ul></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -544,7 +549,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="Seaborn简介"><a href="#Seaborn简介" class="headerlink" title="Seaborn简介"></a>Seaborn简介</h3><p>Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。</p>
+          <h3 id="seaborn简介">Seaborn简介</h3>
+<p>Seaborn是一个用Python制作统计图形的库。它建立在matplotlib之上，并与pandas数据结构紧密集成。</p>
 <p>以下是seaborn提供的一些功能：</p>
 <ul>
 <li>面向数据集的API，用于检查多个变量之间的关系</li>
@@ -558,9 +564,9 @@
 <li>Seaborn旨在使可视化成为探索和理解数据的核心部分。其面向数据集的绘图功能对包含整个数据集的数据框和数组进行操作，并在内部执行必要的语义映射和统计聚合，以生成信息图。</li>
 </ul>
 <blockquote>
-<p>Seaborn官方文档：&lt;<a target="_blank" rel="noopener" href="http://seaborn.pydata.org/">http://seaborn.pydata.org/</a></p>
+<p>Seaborn官方文档：&lt;http://seaborn.pydata.org/</p>
 </blockquote>
-<hr>
+<hr />
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Seaborn-statistical-data-visualization.html#more" rel="contents">
@@ -665,7 +671,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。</strong> 因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这样得到的参数才具有较好的泛化性能，而模型“简单”就是通过规则函数来实现的。另外，规则项的使用还可以约束我们的模型的特性。这样就可以将人对这个模型的先验知识融入到模型的学习当中，强行地让学习到的模型具有人想要的特性，例如稀疏、低秩、平滑等等。要知道，有时候人的先验是非常重要的。前人的经验会让你少走很多弯路，这就是为什么我们平时学习最好找个大牛带带的原因，一句点拨可以为我们拨开眼前乌云，还我们一片晴空万里，醍醐灌顶。对机器学习也是一样，如果被我们人稍微点拨一下，它肯定能更快的学习相应的任务。只是由于人和机器的交流目前还没有那么直接的方法，目前这个媒介只能由规则项来担当了。</p>
+          <h3 id="前言">前言</h3>
+<p><strong>监督学习问题无非就是在规则化参数的同时最小化误差。最小化误差是为了让我们的模型拟合我们的训练数据，而规则化参数是为了防止我们的模型过分拟合我们的训练数据。</strong>
+因为参数太多，会导致我们的模型复杂度上升，容易产生过拟合，也就是我们的训练误差会很小。但训练误差小并不是我们的最终目标，我们的目标是希望模型的测试误差小，也就是能准确的预测新的样本。所以，我们需要保证模型在“简单”的基础上最小化训练误差，这样得到的参数才具有较好的泛化性能，而模型“简单”就是通过规则函数来实现的。另外，规则项的使用还可以约束我们的模型的特性。这样就可以将人对这个模型的先验知识融入到模型的学习当中，强行地让学习到的模型具有人想要的特性，例如稀疏、低秩、平滑等等。要知道，有时候人的先验是非常重要的。前人的经验会让你少走很多弯路，这就是为什么我们平时学习最好找个大牛带带的原因，一句点拨可以为我们拨开眼前乌云，还我们一片晴空万里，醍醐灌顶。对机器学习也是一样，如果被我们人稍微点拨一下，它肯定能更快的学习相应的任务。只是由于人和机器的交流目前还没有那么直接的方法，目前这个媒介只能由规则项来担当了。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%89-%E6%B5%85%E8%B0%88L1%E6%AD%A3%E5%88%99%E5%8C%96%E4%B8%8EL2%E6%AD%A3%E5%88%99%E5%8C%96.html#more" rel="contents">
@@ -733,7 +741,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-01-31 19:27:48" itemprop="dateModified" datetime="2022-01-31T19:27:48+08:00">2022-01-31</time>
+        <time title="修改时间：2023-04-06 22:01:49" itemprop="dateModified" datetime="2023-04-06T22:01:49+08:00">2023-04-06</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -752,7 +760,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -770,14 +778,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>梯度下降法作为机器学习中较常使用的优化算法，其有着三种不同的形式：<strong>批量梯度下降（Batch Gradient Descent）、随机梯度下降（Stochastic Gradient Descent）以及小批量梯度下降（Mini-Batch Gradient Descent）</strong>。其中小批量梯度下降法也常用在深度学习中进行模型的训练。接下来，我们将对这三种不同的梯度下降法进行理解。</p>
-<p>为了便于理解，这里我们将使用只含有<strong>一个特征</strong>的线性回归来展开。此时线性回归的<strong>假设函数</strong>为：</p>
-<p>$$h_{\theta}(x^{(i)})=\theta_1x^{(i)}+\theta_0$$</p>
-其中，$i=1,2,\ldots,m$ 表示样本数。
-
-对应的**目标函数（代价函数）** 即为：
-
-<p>$$J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^m(h_{\theta}(x^{(i)})-y^{(i)})^2$$</p>
+          <h3 id="前言">前言</h3>
+<p>梯度下降法作为机器学习中较常使用的优化算法，其有着三种不同的形式：<strong>批量梯度下降（Batch
+Gradient Descent）、随机梯度下降（Stochastic Gradient
+Descent）以及小批量梯度下降（Mini-Batch Gradient
+Descent）</strong>。其中小批量梯度下降法也常用在深度学习中进行模型的训练。接下来，我们将对这三种不同的梯度下降法进行理解。</p>
+为了便于理解，这里我们将使用只含有<strong>一个特征</strong>的线性回归来展开。此时线性回归的<strong>假设函数</strong>为：
+<p>
+<span
+class="math display">\[h_{\theta}(x^{(i)})=\theta_1x^{(i)}+\theta_0\]</span>
+</p>
+<p>其中，<span class="math inline">\(i=1,2,\ldots,m\)</span>
+表示样本数。</p>
+<p>对应的<strong>目标函数（代价函数）</strong> 即为：</p>
+<p>
+<span
+class="math display">\[J(\theta_0,\theta_1)=\frac{1}{2m}\sum_{i=1}^m(h_{\theta}(x^{(i)})-y^{(i)})^2\]</span>
+</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%BA%8C-%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-BGD-%E3%80%81%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-SGD-%E3%80%81%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D-MBGD.html#more" rel="contents">
@@ -864,7 +881,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.8k</span>
+      <span>7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -882,8 +899,11 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。<strong>本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。</strong></p>
-<p><strong>逻辑回归(Logistic Regression,简称LR)，虽然它的名字中带有“回归”两个字，但是它最擅长处理的却是分类问题。</strong> LR分类器适用于各项广义上的分类任务，例如：评论信息的正负情感分析（二分类）、用户点击率（二分类）、用户违约信息预测（二分类）、垃圾邮件检测（二分类）、疾病预测（二分类）、用户等级分类（多分类）等场景。我们这里主要讨论的是二分类问题，<strong>解决了二分类自然就解决了多分类，因为N分类问题可以转化成N个二分类问题。</strong></p>
+          <h3 id="引言">引言</h3>
+<p>分类技术是机器学习和数据挖掘应用中的重要组成部分。在数据科学中，大约70%的问题属于分类问题。解决分类问题的算法也有很多种，比如：KNN算法，使用距离计算来实现分类；决策树，通过构建直观易懂的树来实现分类；朴素贝叶斯，使用概率论构建分类器。<strong>本篇谈到的是Logistic回归，它是一种很常见的用来解决二元分类问题的方法。</strong></p>
+<p><strong>逻辑回归(Logistic
+Regression,简称LR)，虽然它的名字中带有“回归”两个字，但是它最擅长处理的却是分类问题。</strong>
+LR分类器适用于各项广义上的分类任务，例如：评论信息的正负情感分析（二分类）、用户点击率（二分类）、用户违约信息预测（二分类）、垃圾邮件检测（二分类）、疾病预测（二分类）、用户等级分类（多分类）等场景。我们这里主要讨论的是二分类问题，<strong>解决了二分类自然就解决了多分类，因为N分类问题可以转化成N个二分类问题。</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E4%B8%80-%E4%BB%8E%E9%9B%B6%E8%AE%A4%E8%AF%86%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html#more" rel="contents">
@@ -988,9 +1008,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>首先强烈推荐《Python神经网络编程》这本书！！通俗易懂而且两天左右就能看完！！</p>
+          <h3 id="前言">前言</h3>
+<p>首先强烈推荐《Python神经网络编程》这本书！！通俗易懂而且两天左右就能看完！！</p>
 <p>—————————————— 分割线 ——————————————</p>
-<p><strong>激活函数是用来加入非线性因素的，提高神经网络对模型的表达能力，解决线性模型所不能解决的问题。</strong><br>
+<p><strong>激活函数是用来加入非线性因素的，提高神经网络对模型的表达能力，解决线性模型所不能解决的问题。</strong>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%B8%B8%E8%A7%81%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E7%AE%80%E4%BB%8B.html#more" rel="contents">
@@ -1095,12 +1116,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition document</a></p>
+          <h3 id="前言">前言</h3>
+<blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition
+document</a></p>
 </blockquote>
-<p>本篇博客使用 <code>OpenCV + face_recognition</code> 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
-<h4 id="face-recognition简介"><a href="#face-recognition简介" class="headerlink" title="face_recognition简介"></a>face_recognition简介</h4><p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别<strong>准确率在《Labled Faces in the world》测试基准下达到了99.38%</strong>。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。</p>
-<hr>
+<p>本篇博客使用 <code>OpenCV + face_recognition</code>
+实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a
+href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
+<h4 id="face_recognition简介">face_recognition简介</h4>
+<p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别<strong>准确率在《Labled
+Faces in the
+world》测试基准下达到了99.38%</strong>。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。
+******
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html#more" rel="contents">
@@ -1151,14 +1180,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

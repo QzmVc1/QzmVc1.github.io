@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="前言 face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它">
+<meta name="description" content="前言  face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介 face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使">
 <meta property="og:type" content="article">
 <meta property="og:title" content="face_recognition实现摄像头实时人脸识别">
 <meta property="og:url" content="http://qzmvc1.top/face-recognition%E5%AE%9E%E7%8E%B0%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言 face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它">
+<meta property="og:description" content="前言  face_recognition document  本篇博客使用 OpenCV + face_recognition 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：Python人脸识别模块face_recognition之环境配置 face_recognition简介 face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aj3h0P.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/15/Aj34Tf.png">
@@ -168,7 +168,18 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#face-recognition%E7%AE%80%E4%BB%8B"><span class="nav-text">face_recognition简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81face-recognition%E8%AF%A6%E8%A7%A3"><span class="nav-text">一、face_recognition详解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-face-recognition-load-image-file%EF%BC%88file%EF%BC%8Cmode-%E2%80%99RGB%E2%80%99-%EF%BC%89"><span class="nav-text">1.1 face_recognition.load_image_file（file，mode &#x3D;’RGB’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-face-recognition-face-locations%EF%BC%88img%EF%BC%8Cnumber-of-times-to-upsample-1%EF%BC%8Cmodel-%E2%80%99hog%E2%80%99-%EF%BC%89"><span class="nav-text">1.2 face_recognition.face_locations（img，number_of_times_to_upsample &#x3D; 1，model &#x3D;’hog’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-face-recognition-face-landmarks%EF%BC%88face-image%EF%BC%8Cface-locations-None%EF%BC%8Cmodel-%E2%80%99large%E2%80%99-%EF%BC%89"><span class="nav-text">1.3 face_recognition.face_landmarks（face_image，face_locations &#x3D; None，model &#x3D;’large’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-face-recognition-face-encodings%EF%BC%88face-image%EF%BC%8Cknown-face-locations-None%EF%BC%8Cnum-jitters-1-%EF%BC%89"><span class="nav-text">1.4 face_recognition.face_encodings（face_image，known_face_locations &#x3D; None，num_jitters &#x3D; 1 ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-5-face-recognition-api-face-distance%EF%BC%88face-encodings%EF%BC%8Cface-to-compare-%EF%BC%89"><span class="nav-text">1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-6-face-recognition-api-compare-faces%EF%BC%88known-face-encodings%EF%BC%8Cface-encoding-to-check%EF%BC%8Ctolerance-0-6-%EF%BC%89"><span class="nav-text">1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance &#x3D; 0.6 ）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81face-recognition%E4%BB%A3%E7%A0%81%E9%98%90%E8%BF%B0"><span class="nav-text">二、face_recognition代码阐述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%AD%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8"><span class="nav-text">2.1 在图片中识别人脸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E6%89%BE%E5%88%B0%E5%B9%B6%E6%93%8D%E4%BD%9C%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8%E9%83%A8%E7%89%B9%E5%BE%81"><span class="nav-text">2.2 找到并操作图片中的脸部特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E9%89%B4%E5%AE%9A%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8"><span class="nav-text">2.3 鉴定图片中的脸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81OpenCV-face-recognition-%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB"><span class="nav-text">三、OpenCV+face_recognition 摄像头实时人脸识别</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#face_recognition%E7%AE%80%E4%BB%8B"><span class="nav-text">face_recognition简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#face_recognition.face_locationsimgnumber_of_times_to_upsample-1model-hog"><span class="nav-text">1.2
+face_recognition.face_locations（img，number_of_times_to_upsample &#x3D;
+1，model &#x3D;‘hog’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#face_recognition.face_landmarksface_imageface_locations-nonemodel-large"><span class="nav-text">1.3
+face_recognition.face_landmarks（face_image，face_locations &#x3D;
+None，model &#x3D;‘large’ ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#face_recognition.face_encodingsface_imageknown_face_locations-nonenum_jitters-1"><span class="nav-text">1.4
+face_recognition.face_encodings（face_image，known_face_locations &#x3D;
+None，num_jitters &#x3D; 1 ）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#face_recognition.api.face_distanceface_encodingsface_to_compare"><span class="nav-text">1.5
+face_recognition.api.face_distance（face_encodings，face_to_compare
+）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#face_recognition.api.compare_facesknown_face_encodingsface_encoding_to_checktolerance-0.6"><span class="nav-text">1.6
+face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance
+&#x3D; 0.6 ）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cface_recognition%E4%BB%A3%E7%A0%81%E9%98%90%E8%BF%B0"><span class="nav-text">二、face_recognition代码阐述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%AD%E8%AF%86%E5%88%AB%E4%BA%BA%E8%84%B8"><span class="nav-text">2.1 在图片中识别人脸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E5%B9%B6%E6%93%8D%E4%BD%9C%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8%E9%83%A8%E7%89%B9%E5%BE%81"><span class="nav-text">2.2 找到并操作图片中的脸部特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%89%B4%E5%AE%9A%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E8%84%B8"><span class="nav-text">2.3 鉴定图片中的脸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89opencvface_recognition-%E6%91%84%E5%83%8F%E5%A4%B4%E5%AE%9E%E6%97%B6%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB"><span class="nav-text">三、OpenCV+face_recognition
+摄像头实时人脸识别</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -331,121 +342,126 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p><a target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition document</a></p>
+        <h3 id="前言">前言</h3>
+<blockquote>
+<p><a
+target="_blank" rel="noopener" href="https://face-recognition.readthedocs.io/en/latest/face_recognition.html#module-face_recognition.api">face_recognition
+document</a></p>
 </blockquote>
-<p>本篇博客使用 <code>OpenCV + face_recognition</code> 实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
-<h4 id="face-recognition简介"><a href="#face-recognition简介" class="headerlink" title="face_recognition简介"></a>face_recognition简介</h4><p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别<strong>准确率在《Labled Faces in the world》测试基准下达到了99.38%</strong>。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。</p>
-<hr>
-<span id="more"></span>
-<h3 id="一、face-recognition详解"><a href="#一、face-recognition详解" class="headerlink" title="一、face_recognition详解"></a>一、face_recognition详解</h3><p><strong>（以下内容翻译自官方文档）</strong></p>
-<h5 id="1-1-face-recognition-load-image-file（file，mode-’RGB’-）"><a href="#1-1-face-recognition-load-image-file（file，mode-’RGB’-）" class="headerlink" title="1.1 face_recognition.load_image_file（file，mode =’RGB’ ）"></a>1.1 face_recognition.load_image_file（file，mode =’RGB’ ）</h5><blockquote>
-<p>解释:</p>
+<p>本篇博客使用 <code>OpenCV + face_recognition</code>
+实现摄像头的实时人脸识别。有关环境配置请参考我的上一篇博客：<a
+href="http://qzmvc1.top/2019/04/15/Python%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E6%A8%A1%E5%9D%97face-recognition%E4%B9%8B%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Python人脸识别模块face_recognition之环境配置</a></p>
+<h4 id="face_recognition简介">face_recognition简介</h4>
+<p>face_recognition是世界上最简单的人脸识别库了。你可以通过Python引用或者命令行的形式使用它，来管理和识别人脸。该软件包使用dlib中最先进的人脸识别深度学习算法，使得识别<strong>准确率在《Labled
+Faces in the
+world》测试基准下达到了99.38%</strong>。它同时提供了一个叫face_recognition的命令行工具，以便你可以用命令行对一个文件夹中的图片进行识别操作。
+****** <span id="more"></span> ### 一、face_recognition详解
+<strong>（以下内容翻译自官方文档）</strong> ##### 1.1
+face_recognition.load_image_file（file，mode =‘RGB’ ）</p>
+<blockquote>
+<p>解释: + 将图像文件（.jpg，.png等）加载到numpy数组中</p>
+<p>参数： + file - 要加载的图像文件名或文件对象</p>
 <ul>
-<li>将图像文件（.jpg，.png等）加载到numpy数组中</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li><p>file - 要加载的图像文件名或文件对象</p>
-</li>
-<li><p>mode - 将图像转换为的格式。仅支持“RGB”（8位RGB，3个通道）和“L”（黑色和白色）。</p>
-</li>
+<li>mode -
+将图像转换为的格式。仅支持“RGB”（8位RGB，3个通道）和“L”（黑色和白色）。</li>
 </ul>
 <p>返回：</p>
 <ul>
 <li>图像内容为numpy数组</li>
 </ul>
 </blockquote>
-<h5 id="1-2-face-recognition-face-locations（img，number-of-times-to-upsample-1，model-’hog’-）"><a href="#1-2-face-recognition-face-locations（img，number-of-times-to-upsample-1，model-’hog’-）" class="headerlink" title="1.2 face_recognition.face_locations（img，number_of_times_to_upsample = 1，model =’hog’ ）"></a>1.2 face_recognition.face_locations（img，number_of_times_to_upsample = 1，model =’hog’ ）</h5><blockquote>
-<p>解释：</p>
-<ul>
-<li>返回图像中人脸边界框的数组</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li>img - 一个图像（作为一个numpy数组）</li>
-<li>number_of_times_to_upsample - 对图像进行上采样以查找面部的次数。数字越大，面部越小。</li>
-<li>model - 使用哪种人脸检测模型。“hog”不太准确，但在CPU上更快。“cnn”是一种更准确的深度学习模型，它是GPU / CUDA加速（如果可用）。默认为“hog”。</li>
-</ul>
+<h5
+id="face_recognition.face_locationsimgnumber_of_times_to_upsample-1model-hog">1.2
+face_recognition.face_locations（img，number_of_times_to_upsample =
+1，model =‘hog’ ）</h5>
+<blockquote>
+<p>解释： + 返回图像中人脸边界框的数组</p>
+<p>参数： + img - 一个图像（作为一个numpy数组） +
+number_of_times_to_upsample -
+对图像进行上采样以查找面部的次数。数字越大，面部越小。 + model -
+使用哪种人脸检测模型。“hog”不太准确，但在CPU上更快。“cnn”是一种更准确的深度学习模型，它是GPU
+/ CUDA加速（如果可用）。默认为“hog”。</p>
 <p>返回：</p>
 <ul>
 <li>css（顶部，右侧，底部，左侧）顺序中找到的面部位置的元组列表</li>
 </ul>
 </blockquote>
-<h5 id="1-3-face-recognition-face-landmarks（face-image，face-locations-None，model-’large’-）"><a href="#1-3-face-recognition-face-landmarks（face-image，face-locations-None，model-’large’-）" class="headerlink" title="1.3 face_recognition.face_landmarks（face_image，face_locations = None，model =’large’ ）"></a>1.3 face_recognition.face_landmarks（face_image，face_locations = None，model =’large’ ）</h5><blockquote>
-<p>解释:</p>
-<ul>
-<li>给定图像，返回图像中每个面部的面部特征位置（眼睛，鼻子等）的字典</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li>face_image - 要搜索的图像</li>
-<li>face_locations - 可选择提供要检查的面部位置列表。</li>
-<li>model - 可选 - 要使用的模型。“大”（默认）或 “小”（速度更快）。</li>
-</ul>
+<h5
+id="face_recognition.face_landmarksface_imageface_locations-nonemodel-large">1.3
+face_recognition.face_landmarks（face_image，face_locations =
+None，model =‘large’ ）</h5>
+<blockquote>
+<p>解释: +
+给定图像，返回图像中每个面部的面部特征位置（眼睛，鼻子等）的字典</p>
+<p>参数： + face_image - 要搜索的图像 + face_locations -
+可选择提供要检查的面部位置列表。 + model - 可选 -
+要使用的模型。“大”（默认）或 “小”（速度更快）。</p>
 <p>返回：</p>
 <ul>
 <li>面部特征位置（眼睛，鼻子等）的序列表</li>
 </ul>
 </blockquote>
-<h5 id="1-4-face-recognition-face-encodings（face-image，known-face-locations-None，num-jitters-1-）"><a href="#1-4-face-recognition-face-encodings（face-image，known-face-locations-None，num-jitters-1-）" class="headerlink" title="1.4 face_recognition.face_encodings（face_image，known_face_locations = None，num_jitters = 1 ）"></a>1.4 face_recognition.face_encodings（face_image，known_face_locations = None，num_jitters = 1 ）</h5><blockquote>
-<p>解释：</p>
-<ul>
-<li>给定图像，返回图像中每个面的128维面部编码。</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li>face_image - 包含一个或多个面的图像</li>
-<li>known_face_locations - 可选 - 如果您已经知道它们，则每个面的边界框。</li>
-<li>num_jitters - 计算编码时重新采样面的次数。更高更准确，但更慢（即100慢100倍）</li>
-</ul>
+<h5
+id="face_recognition.face_encodingsface_imageknown_face_locations-nonenum_jitters-1">1.4
+face_recognition.face_encodings（face_image，known_face_locations =
+None，num_jitters = 1 ）</h5>
+<blockquote>
+<p>解释： + 给定图像，返回图像中每个面的128维面部编码。</p>
+<p>参数： + face_image - 包含一个或多个面的图像 + known_face_locations -
+可选 - 如果您已经知道它们，则每个面的边界框。 + num_jitters -
+计算编码时重新采样面的次数。更高更准确，但更慢（即100慢100倍）</p>
 <p>返回：</p>
 <ul>
 <li>128维面部编码列表（图像中每个面部一个）</li>
 </ul>
 </blockquote>
-<h5 id="1-5-face-recognition-api-face-distance（face-encodings，face-to-compare-）"><a href="#1-5-face-recognition-api-face-distance（face-encodings，face-to-compare-）" class="headerlink" title="1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）"></a>1.5 face_recognition.api.face_distance（face_encodings，face_to_compare ）</h5><blockquote>
-<p>解释：</p>
-<ul>
-<li>给定面部编码列表，将它们与已知面部编码进行比较，并获得每个比较面部的欧氏距离。距离告诉您脸部的相似程度。</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li>faces - 要比较的面部编码列表</li>
-<li>face_to_compare - 要与之进行比较的面部编码</li>
-</ul>
+<h5
+id="face_recognition.api.face_distanceface_encodingsface_to_compare">1.5
+face_recognition.api.face_distance（face_encodings，face_to_compare
+）</h5>
+<blockquote>
+<p>解释： +
+给定面部编码列表，将它们与已知面部编码进行比较，并获得每个比较面部的欧氏距离。距离告诉您脸部的相似程度。</p>
+<p>参数： + faces - 要比较的面部编码列表 + face_to_compare -
+要与之进行比较的面部编码</p>
 <p>返回：</p>
 <ul>
 <li>一个numpy ndarray，每个面的距离与’faces’数组的顺序相同</li>
 </ul>
 </blockquote>
-<h5 id="1-6-face-recognition-api-compare-faces（known-face-encodings，face-encoding-to-check，tolerance-0-6-）"><a href="#1-6-face-recognition-api-compare-faces（known-face-encodings，face-encoding-to-check，tolerance-0-6-）" class="headerlink" title="1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance = 0.6 ）"></a>1.6 face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance = 0.6 ）</h5><blockquote>
-<p>解释：</p>
-<ul>
-<li>将面部编码列表与候选编码进行比较，看它们是否匹配。</li>
-</ul>
-<p>参数：</p>
-<ul>
-<li>known_face_encodings - 已知面部编码的列表</li>
-<li>face_encoding_to_check - 用于与列表进行比较的单面编码</li>
-<li>tolerance - 面部之间的距离，将其视为匹配。越低越严格。0.6是典型的最佳性能。</li>
-</ul>
+<h5
+id="face_recognition.api.compare_facesknown_face_encodingsface_encoding_to_checktolerance-0.6">1.6
+face_recognition.api.compare_faces（known_face_encodings，face_encoding_to_check，tolerance
+= 0.6 ）</h5>
+<blockquote>
+<p>解释： + 将面部编码列表与候选编码进行比较，看它们是否匹配。</p>
+<p>参数： + known_face_encodings - 已知面部编码的列表 +
+face_encoding_to_check - 用于与列表进行比较的单面编码 + tolerance -
+面部之间的距离，将其视为匹配。越低越严格。0.6是典型的最佳性能。</p>
 <p>返回：</p>
 <ul>
-<li>True / False值的列表，指示哪个known_face_encodings与要检查的面部编码匹配</li>
+<li>True /
+False值的列表，指示哪个known_face_encodings与要检查的面部编码匹配</li>
 </ul>
 </blockquote>
-<hr>
-<h3 id="二、face-recognition代码阐述"><a href="#二、face-recognition代码阐述" class="headerlink" title="二、face_recognition代码阐述"></a>二、face_recognition代码阐述</h3><h4 id="2-1-在图片中识别人脸"><a href="#2-1-在图片中识别人脸" class="headerlink" title="2.1 在图片中识别人脸"></a>2.1 在图片中识别人脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3h0P.png" alt=""></p>
+<hr />
+<h3 id="二face_recognition代码阐述">二、face_recognition代码阐述</h3>
+<h4 id="在图片中识别人脸">2.1 在图片中识别人脸</h4>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aj3h0P.png" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image=face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_locations=face_recognition.face_locations(image)</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-找到并操作图片中的脸部特征"><a href="#2-2-找到并操作图片中的脸部特征" class="headerlink" title="2.2 找到并操作图片中的脸部特征"></a>2.2 找到并操作图片中的脸部特征</h4><p>获得图片中人类眼睛、鼻子、嘴、下巴的位置和轮廓：</p>
-<p><img src="https://s2.ax1x.com/2019/04/15/Aj34Tf.png" alt=""></p>
+<h4 id="找到并操作图片中的脸部特征">2.2 找到并操作图片中的脸部特征</h4>
+<p>获得图片中人类眼睛、鼻子、嘴、下巴的位置和轮廓：</p>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aj34Tf.png" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">image = face_recognition.load_image_file(<span class="string">&quot;your_file.jpg&quot;</span>)</span><br><span class="line">face_landmarks_list = face_recognition.face_landmarks(image)</span><br></pre></td></tr></table></figure>
 <p>找到脸部特征有很多超级有用的应用场景，当然你也可以把它用在最显而易见的功能上：美颜功能，就像美图秀秀那样。</p>
-<h4 id="2-3-鉴定图片中的脸"><a href="#2-3-鉴定图片中的脸" class="headerlink" title="2.3 鉴定图片中的脸"></a>2.3 鉴定图片中的脸</h4><p><img src="https://s2.ax1x.com/2019/04/15/Aj3fmt.png" alt=""></p>
+<h4 id="鉴定图片中的脸">2.3 鉴定图片中的脸</h4>
+<p><img src="https://s2.ax1x.com/2019/04/15/Aj3fmt.png" /></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> face_recognition</span><br><span class="line">known_image=face_recognition.load_image_file(<span class="string">&quot;biden.jpg&quot;</span>)</span><br><span class="line">unknown_image=face_recognition.load_image_file(<span class="string">&quot;unknown.jpg&quot;</span>)</span><br><span class="line">biden_encoding=face_recognition.face_encodings(known_image)[<span class="number">0</span></span><br><span class="line">]unknown_encoding=face_recognition.face_encodings(unknown_image)[<span class="number">0</span>]</span><br><span class="line">results=face_recognition.compare_faces([biden_encoding],unknown_encoding)</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="三、OpenCV-face-recognition-摄像头实时人脸识别"><a href="#三、OpenCV-face-recognition-摄像头实时人脸识别" class="headerlink" title="三、OpenCV+face_recognition 摄像头实时人脸识别"></a>三、OpenCV+face_recognition 摄像头实时人脸识别</h3><blockquote>
+<hr />
+<h3
+id="三opencvface_recognition-摄像头实时人脸识别">三、OpenCV+face_recognition
+摄像头实时人脸识别</h3>
+<blockquote>
 <p>设计思路：</p>
 <ul>
 <li>读入目标图片并对已知人脸进行编码</li>
@@ -458,7 +474,7 @@
 </blockquote>
 <p><strong>注：过程中的函数的作用及参数的设置不懂的可以参考百度</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读入相关库</span></span><br><span class="line"><span class="comment"># cv2即 OpenCV(cv和cv2 有点类似 py2和py3)，用来读取摄像头</span></span><br><span class="line"><span class="comment"># face_recognition 进行人脸识别</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> face_recognition <span class="keyword">as</span> fr</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存在本地的待比较图片</span></span><br><span class="line"><span class="comment"># image是numpy三维数组</span></span><br><span class="line">image = fr.load_image_file(<span class="string">r&#x27;C:\SecurityMonitor\FaceRecognition\img\face.jpg&#x27;</span>)</span><br><span class="line"><span class="comment"># 对已知图片进行编码，由于face_encodings是元组列表，并且我们已知的图片中只有一个人，所以获取索引0即目标编码</span></span><br><span class="line">Admin_encoding = fr.face_encodings(image)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用OpenCV获取摄像头，VideoCapture(0)是后置摄像头，VideoCapture(1)是前置摄像头</span></span><br><span class="line">cap = cv2.VideoCapture(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 让摄像头一直进行拍摄</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="comment"># 由于摄像头中会出现很多人脸，设置index为编码列表中识别成功的元素下标值</span></span><br><span class="line">    index = -<span class="number">1</span></span><br><span class="line">    <span class="comment"># 进行摄像头的拍摄，read()是按帧拍摄</span></span><br><span class="line">    <span class="comment"># 返回值1：ret是bool值，拍摄成功与否</span></span><br><span class="line">    <span class="comment"># 返回值2：frame是该帧的numpy数组</span></span><br><span class="line">    ret,frame = cap.read()</span><br><span class="line">    <span class="comment"># 对图像进行resize()缩小，提高速度</span></span><br><span class="line">    smallFrame = cv2.resize(frame,(<span class="number">0</span>,<span class="number">0</span>),fx=<span class="number">0.25</span>,fy=<span class="number">0.25</span>)</span><br><span class="line">    <span class="comment"># 定位摄像头该帧中的人脸，face_locations(top，right，bottom，left)是元组列表，可能有多个人脸</span></span><br><span class="line">    face_locations = fr.face_locations(smallFrame)</span><br><span class="line">    <span class="comment"># 在该帧图像中定位人脸位置，并进行人脸编码</span></span><br><span class="line">    face_encodings = fr.face_encodings(smallFrame,face_locations)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对每一个编码进行与已知编码进行比较，识别成功则记录下标并退出</span></span><br><span class="line">    <span class="keyword">for</span> i,face_encoding <span class="keyword">in</span> <span class="built_in">enumerate</span>(face_encodings):</span><br><span class="line">        result = fr.compare_faces([Admin_encoding],face_encoding)</span><br><span class="line">        <span class="keyword">if</span> result:</span><br><span class="line">            index = i</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 识别成功则进行矩形框标记，需要将该帧图像恢复原图，因为上面的比例因子为0.25，所以这里扩大四倍</span></span><br><span class="line">    <span class="keyword">if</span> index != -<span class="number">1</span>:</span><br><span class="line">        face_location = face_locations[index]</span><br><span class="line">        top = face_location[<span class="number">0</span>] * <span class="number">4</span></span><br><span class="line">        right = face_location[<span class="number">1</span>] * <span class="number">4</span></span><br><span class="line">        bottom = face_location[<span class="number">2</span>] * <span class="number">4</span></span><br><span class="line">        left = face_location[<span class="number">3</span>] * <span class="number">4</span></span><br><span class="line">        <span class="comment"># 矩形框标记</span></span><br><span class="line">        cv2.rectangle(frame,(left,top),(right,bottom),(<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>),<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示摄像头图像</span></span><br><span class="line">    cv2.imshow(<span class="string">&#x27;Identification&#x27;</span>,frame)</span><br><span class="line">    <span class="comment"># 按 q 退出</span></span><br><span class="line">    <span class="keyword">if</span> cv2.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 释放资源</span></span><br><span class="line">cap.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
-<hr>
+<hr />
 
     </div>
 
@@ -562,14 +578,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

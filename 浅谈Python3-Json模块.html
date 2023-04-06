@@ -25,14 +25,13 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="基础结构JSON建构于两种结构：1. “名称&#x2F;值”对的集合（A collection of name&#x2F;value pairs） 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。 2. 值的有序列表（A">
+<meta name="description" content="### 基础结构 JSON建构于两种结构： 1. “名称&#x2F;值”对的集合（A collection of name&#x2F;value pairs） 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。 2. 值的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈Python3 Json模块">
 <meta property="og:url" content="http://qzmvc1.top/%E6%B5%85%E8%B0%88Python3-Json%E6%A8%A1%E5%9D%97.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="基础结构JSON建构于两种结构：1. “名称&#x2F;值”对的集合（A collection of name&#x2F;value pairs） 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。 2. 值的有序列表（A">
+<meta property="og:description" content="### 基础结构 JSON建构于两种结构： 1. “名称&#x2F;值”对的集合（A collection of name&#x2F;value pairs） 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。 2. 值的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg">
 <meta property="article:published_time" content="2018-10-27T03:43:19.000Z">
 <meta property="article:modified_time" content="2021-10-06T11:58:30.000Z">
 <meta property="article:author" content="QzmVc1">
@@ -40,7 +39,6 @@
 <meta property="article:tag" content="Module">
 <meta property="article:tag" content="Json">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg">
 
 
 <link rel="canonical" href="http://qzmvc1.top/%E6%B5%85%E8%B0%88Python3-Json%E6%A8%A1%E5%9D%97.html">
@@ -166,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84"><span class="nav-text">基础结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JSON%E5%BB%BA%E6%9E%84%E4%BA%8E%E4%B8%A4%E7%A7%8D%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-text">JSON建构于两种结构：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%A4%BA%E4%BE%8B"><span class="nav-text">基础示例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%90%8D%E7%A7%B0-%E5%80%BC%E5%AF%B9"><span class="nav-text">表示名称 &#x2F; 值对</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python3-Json%E6%A8%A1%E5%9D%97"><span class="nav-text">Python3 Json模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#json-dumps"><span class="nav-text">json.dumps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json-loads"><span class="nav-text">json.loads</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json-dump"><span class="nav-text">json.dump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json-load"><span class="nav-text">json.load</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93%EF%BC%9A"><span class="nav-text">小结：</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#json%E5%BB%BA%E6%9E%84%E4%BA%8E%E4%B8%A4%E7%A7%8D%E7%BB%93%E6%9E%84"><span class="nav-text">JSON建构于两种结构：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E5%90%8D%E7%A7%B0-%E5%80%BC%E5%AF%B9"><span class="nav-text">表示名称 &#x2F; 值对</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python3-json%E6%A8%A1%E5%9D%97"><span class="nav-text">Python3 Json模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#json.dumps"><span class="nav-text">json.dumps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json.loads"><span class="nav-text">json.loads</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json.dump"><span class="nav-text">json.dump</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json.load"><span class="nav-text">json.load</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结：</span></a></div>
         </div>
         <!--/noindex-->
 
@@ -329,35 +327,68 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><img src="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg" alt=""></p>
-<h3 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a><b>基础结构</b></h3><h5 id="JSON建构于两种结构："><a href="#JSON建构于两种结构：" class="headerlink" title="JSON建构于两种结构："></a><b>JSON建构于两种结构：</b></h5><p><b>1. “名称/值”对的集合（A collection of name/value pairs）</b><br> 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。</p>
-<p><b>2. 值的有序列表（An ordered list of values）</b>　<br>　　　在大部分语言中，它被理解为数组（array）。<br><span id="more"></span>　　　　　　　　　</p>
-<h3 id="基础示例"><a href="#基础示例" class="headerlink" title="基础示例"></a><b>基础示例</b></h3><p>简单地说，JSON 可以将 JavaScript 对象中表示的一组数据转换为字符串，然后就可以在函数之间轻松地传递这个字符串，或者在异步应用程序中将字符串从 Web 客户机传递给服务器端程序。这个字符串看起来有点儿古怪，但是 JavaScript 很容易解释它，而且 JSON 可以表示比”名称 / 值对”更复杂的结构。例如，可以表示数组和复杂的对象，而不仅仅是键和值的简单列表。</p>
-<h5 id="表示名称-值对"><a href="#表示名称-值对" class="headerlink" title="表示名称 / 值对"></a><b>表示名称 / 值对</b></h5><p>按照最简单的形式，可以用下面这样的 JSON 表示 “名称 / 值对” ：{ “firstName”: “Brett” }<br>这个示例非常基本，而且实际上比等效的纯文本 “名称 / 值对” 占用更多的空间：firstName=Brett</p>
-<p>但是，当将多个”名称 / 值对”串在一起时，JSON 就会体现出它的价值了。首先，可以创建包含多个”名称 / 值对”的 记录，比如：</p>
-<p>{ “firstName”: “Brett”, “lastName”:”McLaughlin”, “email”: “aaaa” }</p>
-<p>从语法方面来看，这与”名称 / 值对”相比并没有很大的优势，但是在这种情况下 JSON 更容易使用，而且可读性更好。例如，它明确地表示以上三个值都是同一记录的一部分；花括号使这些值有了某种联系。</p>
-<h3 id="Python3-Json模块"><a href="#Python3-Json模块" class="headerlink" title="Python3 Json模块"></a><b>Python3 Json模块</b></h3><p><b>JSON (JavaScript Object Notation)</b>  是一种轻量级的数据交换格式。Python3 可以使用 json 模块来对 JSON 数据进行编解码。</p>
-<h4 id="json-dumps"><a href="#json-dumps" class="headerlink" title="json.dumps"></a><b>json.dumps</b></h4><p><em>将 Python 对象编码转化为 json 字符串</em></p>
+        <p><img
+src="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg" />
+### <b>基础结构</b></p>
+<h5 id="json建构于两种结构"><b>JSON建构于两种结构：</b></h5>
+<p><b>1. “名称/值”对的集合（A collection of name/value pairs）</b><br />
+　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash
+table），有键列表（keyed list），或者关联数组 （associative
+array）。</p>
+<p><b>2. 值的有序列表（An ordered list of values）</b>　
+　　　在大部分语言中，它被理解为数组（array）。
+<span id="more"></span>　　　　　　　　　 ### <b>基础示例</b></p>
+<p>简单地说，JSON 可以将 JavaScript
+对象中表示的一组数据转换为字符串，然后就可以在函数之间轻松地传递这个字符串，或者在异步应用程序中将字符串从
+Web 客户机传递给服务器端程序。这个字符串看起来有点儿古怪，但是
+JavaScript 很容易解释它，而且 JSON 可以表示比”名称 /
+值对”更复杂的结构。例如，可以表示数组和复杂的对象，而不仅仅是键和值的简单列表。</p>
+<h5 id="表示名称-值对"><b>表示名称 / 值对</b></h5>
+<p>按照最简单的形式，可以用下面这样的 JSON 表示 “名称 / 值对” ：{
+“firstName”: “Brett” } 这个示例非常基本，而且实际上比等效的纯文本 “名称
+/ 值对” 占用更多的空间：firstName=Brett</p>
+<p>但是，当将多个”名称 / 值对”串在一起时，JSON
+就会体现出它的价值了。首先，可以创建包含多个”名称 / 值对”的
+记录，比如：</p>
+<p>{ “firstName”: “Brett”, “lastName”:“McLaughlin”, “email”: “aaaa”
+}</p>
+<p>从语法方面来看，这与”名称 /
+值对”相比并没有很大的优势，但是在这种情况下 JSON
+更容易使用，而且可读性更好。例如，它明确地表示以上三个值都是同一记录的一部分；花括号使这些值有了某种联系。</p>
+<h3 id="python3-json模块"><b>Python3 Json模块</b></h3>
+<p><b>JSON (JavaScript Object Notation)</b>
+是一种轻量级的数据交换格式。Python3 可以使用 json 模块来对 JSON
+数据进行编解码。</p>
+<h4 id="json.dumps"><b>json.dumps</b></h4>
+<p><em>将 Python 对象编码转化为 json 字符串</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span> : <span class="string">&quot;QzmVc1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Age&quot;</span> : <span class="string">&quot;20&quot;</span>,</span><br><span class="line">    <span class="string">&quot;City&quot;</span> : <span class="string">&quot;NanJing&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">Json_data = json.dumps(data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Python:&quot;</span>, data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Json:&quot;</span>, Json_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(data))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(Json_data))</span><br></pre></td></tr></table></figure>
 <p>输出结果</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Python: &#123;&#x27;name&#x27;: &#x27;QzmVc1&#x27;, &#x27;Age&#x27;: &#x27;20&#x27;, &#x27;City&#x27;: &#x27;NanJing&#x27;&#125;</span><br><span class="line">Json: &#123;&quot;name&quot;: &quot;QzmVc1&quot;, &quot;Age&quot;: &quot;20&quot;, &quot;City&quot;: &quot;NanJing&quot;&#125;</span><br><span class="line">&lt;class &#x27;dict&#x27;&gt;</span><br><span class="line">&lt;class &#x27;str&#x27;&gt;</span><br></pre></td></tr></table></figure>
-<p>转化后的 Json_data 是一个字符串类型，可以使用 <strong>enumerate</strong> 来查看一下 Json_data 字符串的索引值和对应值。</p>
+<p>转化后的 Json_data 是一个字符串类型，可以使用
+<strong>enumerate</strong> 来查看一下 Json_data
+字符串的索引值和对应值。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i,v <span class="keyword">in</span> <span class="built_in">enumerate</span>(Json_data):</span><br><span class="line">    <span class="built_in">print</span>(i,v)</span><br></pre></td></tr></table></figure>
-<p>输出结果片段：</p>
-<blockquote>
-<p>0 {<br>1 “<br>2 n<br>3 a<br>4 m<br>5 e<br>6 “</p>
-</blockquote>
-<h4 id="json-loads"><a href="#json-loads" class="headerlink" title="json.loads"></a><b>json.loads</b></h4><p><em>将 json 格式转化为 Python 格式</em></p>
+<p>输出结果片段： &gt; 0 { 1 ” 2 n 3 a 4 m 5 e 6 ”</p>
+<h4 id="json.loads"><b>json.loads</b></h4>
+<p><em>将 json 格式转化为 Python 格式</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span> : <span class="string">&quot;QzmVc1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Age&quot;</span> : <span class="string">&quot;20&quot;</span>,</span><br><span class="line">    <span class="string">&quot;City&quot;</span> : <span class="string">&quot;NanJing&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">Json_data = json.dumps(data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Python:&quot;</span>, data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Json:&quot;</span>, Json_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(data))</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(Json_data))</span><br><span class="line">Python_data = json.loads(Json_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Python:&quot;</span>,Python_data)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(Python_data))</span><br></pre></td></tr></table></figure>
 <p>输出结果</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Python: &#123;&#x27;name&#x27;: &#x27;QzmVc1&#x27;, &#x27;Age&#x27;: &#x27;20&#x27;, &#x27;City&#x27;: &#x27;NanJing&#x27;&#125;</span><br><span class="line">Json: &#123;&quot;name&quot;: &quot;QzmVc1&quot;, &quot;Age&quot;: &quot;20&quot;, &quot;City&quot;: &quot;NanJing&quot;&#125;</span><br><span class="line">&lt;class &#x27;dict&#x27;&gt;</span><br><span class="line">&lt;class &#x27;str&#x27;&gt;</span><br><span class="line">Python: &#123;&#x27;name&#x27;: &#x27;QzmVc1&#x27;, &#x27;Age&#x27;: &#x27;20&#x27;, &#x27;City&#x27;: &#x27;NanJing&#x27;&#125;</span><br><span class="line">&lt;class &#x27;dict&#x27;&gt;</span><br></pre></td></tr></table></figure>
-<h4 id="json-dump"><a href="#json-dump" class="headerlink" title="json.dump"></a><b>json.dump</b></h4><p><em>dump 和 dumps 的功能一样，将 dict 转化为 str 的格式，然后<b>存入文件</b>中。</em></p>
+<h4 id="json.dump"><b>json.dump</b></h4>
+<p><em>dump 和 dumps 的功能一样，将 dict 转化为 str
+的格式，然后<b>存入文件</b>中。</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&quot;name&quot;</span> : <span class="string">&quot;QzmVc1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Age&quot;</span> : <span class="string">&quot;20&quot;</span>,</span><br><span class="line">    <span class="string">&quot;City&quot;</span> : <span class="string">&quot;NanJing&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">Json_data = json.dumps(data)</span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">&#x27;Demo.txt&#x27;</span>,<span class="string">&#x27;w&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(file))</span><br><span class="line"></span><br><span class="line">json.dump(data,file)</span><br><span class="line">json.dump(Json_data,file)</span><br><span class="line"></span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
-<h4 id="json-load"><a href="#json-load" class="headerlink" title="json.load"></a><b>json.load</b></h4><p><em>load 和 loads 的功能一样，从文件中读取 str 格式并将其转化为字符串。</em></p>
+<h4 id="json.load"><b>json.load</b></h4>
+<p><em>load 和 loads 的功能一样，从文件中读取 str
+格式并将其转化为字符串。</em></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">file = <span class="built_in">open</span>(<span class="string">&#x27;Demo.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(json.load(file))</span><br></pre></td></tr></table></figure>
-<p>load 在读取的时候，只需要文件对象一个参数即可。而 dump 在使用的时候，需要 Python 对象作为第一个传入参数，文件对象作为第二个传入参数。</p>
-<h3 id="小结："><a href="#小结：" class="headerlink" title="小结："></a><b>小结：</b></h3><p><b>dump 或 dumps， 把其他对象或者格式，转化为 json 格式，dumps 用来处理字符串，dump 用来处理文件。<br>load 或 loads ，把 json 格式转化成其他格式，loads 用来处理字符串，load 用来处理文件。</b></p>
+<p>load 在读取的时候，只需要文件对象一个参数即可。而 dump
+在使用的时候，需要 Python
+对象作为第一个传入参数，文件对象作为第二个传入参数。</p>
+<h3 id="小结"><b>小结：</b></h3>
+<p><b>dump 或 dumps， 把其他对象或者格式，转化为 json 格式，dumps
+用来处理字符串，dump 用来处理文件。 load 或 loads ，把 json
+格式转化成其他格式，loads 用来处理字符串，load 用来处理文件。</b></p>
 
     </div>
 
@@ -461,14 +492,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

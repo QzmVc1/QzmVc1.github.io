@@ -311,14 +311,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="1、什么是PyMySQL"><a href="#1、什么是PyMySQL" class="headerlink" title="1、什么是PyMySQL"></a><b>1、什么是PyMySQL</b></h3><blockquote>
-<p>为了使Python连接上数据库，你需要一个驱动，这个驱动是用于与数据库交互的库。<br>　　　　　　　　　　　　　　　　　　　　　<br>PyMySQL ： 这是一个使Python连接到MySQL的库，它是一个纯Python库。</p>
+          <h3 id="什么是pymysql"><b>1、什么是PyMySQL</b></h3>
+<blockquote>
+<p>为了使Python连接上数据库，你需要一个驱动，这个驱动是用于与数据库交互的库。
+　　　　　　　　　　　　　　　　　　　　　 PyMySQL ：
+这是一个使Python连接到MySQL的库，它是一个纯Python库。</p>
 </blockquote>
-<p><b>环境要求：</b><br>PyMySQL支持的python版本：</p>
+<p><b>环境要求：</b> PyMySQL支持的python版本：</p>
 <blockquote>
 <ul>
-<li>python2<br>python2.7</li>
-<li>python3<br>python version &gt;=3.4
+<li>python2 python2.7</li>
+<li>python3 python version &gt;=3.4
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/PyMySQL%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BA%A4%E4%BA%92.html#more" rel="contents">
@@ -405,7 +408,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -423,12 +426,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="运行MySQL"><a href="#运行MySQL" class="headerlink" title="运行MySQL"></a><b>运行MySQL</b></h3><blockquote>
+          <h3 id="运行mysql"><b>运行MySQL</b></h3>
+<blockquote>
 <p>如果没有开启Mysql服务需输入<b>net start mysql;</b>命令</p>
 </blockquote>
-<p><b>1: cd 到mysql bin目录下：</b><br><img src="https://s1.ax1x.com/2018/10/29/ig8ksf.png" alt=""></p>
-<p><b>2：链接到本地数据库：</b><br><img src="https://s1.ax1x.com/2018/10/29/ig8Pzt.png" alt=""></p>
-<p><b><em>-h localhost表示链接到本地数据库，-u表示数据库用户名（默认为root），-p表示数据库密码（默认为root）</em></b><br>
+<p><b>1: cd 到mysql bin目录下：</b> <img
+src="https://s1.ax1x.com/2018/10/29/ig8ksf.png" /></p>
+<p><b>2：链接到本地数据库：</b> <img
+src="https://s1.ax1x.com/2018/10/29/ig8Pzt.png" /></p>
+<p><b><em>-h
+localhost表示链接到本地数据库，-u表示数据库用户名（默认为root），-p表示数据库密码（默认为root）</em></b>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/MySQL%E4%B9%8B%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5.html#more" rel="contents">
@@ -533,11 +540,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言-CSV简介"><a href="#前言-CSV简介" class="headerlink" title="前言: CSV简介"></a><b>前言: CSV简介</b></h3><p><b>CSV (Comma Separated Values)</b></p>
-<p>CSV是英文Comma Separate Values（逗号分隔值）的缩写，顾名思义，文档的内容是由 “ , ” 分隔的一列列的数据构成的。CSV文档是一种编辑方便，可视化效果极佳的数据存储方式。而Python中有着非常强大的库可以处理这种文档，所以，如果你经常用Python处理数据的话，CSV文档当然是一种简单快捷的轻量级选择。下面我将以一个数据处理的例子入手，展现CSV文档的创建和编辑，以及Python是如何对CSV文档读写的。</p>
-<hr>
-<h3 id="一、CSV文档的创建和编辑"><a href="#一、CSV文档的创建和编辑" class="headerlink" title="一、CSV文档的创建和编辑 "></a><b>一、CSV文档的创建和编辑 </b></h3><p><b>1. 良好的Excel交互</b> </p>
-<p>(1) Excel创建CSV<br>说到CSV文档，大家可能不熟悉，不过Excel想必没有人不知道，我们经常使用Excel负责数据的存储，编辑以及轻量级的计算。而CSV文档最大的优点就是能和Excel进行方便的交互，我们可以很方便地通过Excel创建、查看以及编辑CSV文档。<br>
+          <h3 id="前言-csv简介"><b>前言: CSV简介</b></h3>
+<p><b>CSV (Comma Separated Values)</b></p>
+<p>CSV是英文Comma Separate
+Values（逗号分隔值）的缩写，顾名思义，文档的内容是由 “ , ”
+分隔的一列列的数据构成的。CSV文档是一种编辑方便，可视化效果极佳的数据存储方式。而Python中有着非常强大的库可以处理这种文档，所以，如果你经常用Python处理数据的话，CSV文档当然是一种简单快捷的轻量级选择。下面我将以一个数据处理的例子入手，展现CSV文档的创建和编辑，以及Python是如何对CSV文档读写的。
+****** ### <b>一、CSV文档的创建和编辑 </b> <b>1. 良好的Excel交互</b></p>
+<ol type="1">
+<li>Excel创建CSV
+说到CSV文档，大家可能不熟悉，不过Excel想必没有人不知道，我们经常使用Excel负责数据的存储，编辑以及轻量级的计算。而CSV文档最大的优点就是能和Excel进行方便的交互，我们可以很方便地通过Excel创建、查看以及编辑CSV文档。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Python3-%E7%94%A8CSV%E6%A8%A1%E5%9D%97%E8%AF%BB%E5%86%99CSV%E6%96%87%E4%BB%B6.html#more" rel="contents">
@@ -642,8 +653,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1">https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1</a></p>
-<h3 id="一、OS模块概述"><a href="#一、OS模块概述" class="headerlink" title="一、OS模块概述"></a><b>一、OS模块概述</b></h3><p>Python3 OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的(一语中的）。<br>
+          <p>参考链接：https://blog.csdn.net/lygzscnt12/article/details/52470017?utm_source=blogxgwz1</p>
+<h3 id="一os模块概述"><b>一、OS模块概述</b></h3>
+<p>Python3
+OS模块包含普遍的操作系统功能。如果你希望你的程序能够与平台无关的话，这个模块是尤为重要的(一语中的）。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Python3-OS%E6%A8%A1%E5%9D%97%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93.html#more" rel="contents">
@@ -730,7 +743,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>825</span>
+      <span>829</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -748,7 +761,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。<br>　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。<br>　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。<br>　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。<br>　　5、URL 尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。<br>　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）<br>
+          <p>　　1、网站所有URL尽量全部使用绝对地址，可以有效的防止网站被人家把恶意镜像。还有一重要的作用就是，网络中如果有人引用了你的网站内容，你会获得来自外界的导入链接。
+　　2、尽量把带www与不带www的域名区别开来，尽量使用一个为常用的URL，然后另外一个做好301重定向。
+　　3、动态URL和静态URL都差不多，正常来说影响不大,扩展名其实无关紧要。如：.html,.htm,.asp,.php等等，对搜索来说,并没有什么区别，关键一点，我们在做锚文本时，尽量选择一个常用的。
+　　4、外链与内部链接尽量做到一致，意思其实同上，也就是做外链时尽量也做与锚文本一样的URL。
+　　5、URL
+尽量用简单的英文,最好能包括关键字的，一定要记住的我们URL不要大小写混写，建议全部用小写字母。
+　　6、做内部锚文本时，一定要注意哪一个关键词指定的哪一个URL。千万不要出现同样的锚文本，而每次指向的URL不一样。（建议做一个长尾关键词记录单，这样可以一目了然，哪一个关键词对应哪一个URL）
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%B5%85%E8%B0%88URL%E6%A0%87%E5%87%86%E5%8C%96.html#more" rel="contents">
@@ -853,9 +872,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg" alt=""></p>
-<h3 id="基础结构"><a href="#基础结构" class="headerlink" title="基础结构"></a><b>基础结构</b></h3><h5 id="JSON建构于两种结构："><a href="#JSON建构于两种结构：" class="headerlink" title="JSON建构于两种结构："></a><b>JSON建构于两种结构：</b></h5><p><b>1. “名称/值”对的集合（A collection of name/value pairs）</b><br> 　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash table），有键列表（keyed list），或者关联数组 （associative array）。</p>
-<p><b>2. 值的有序列表（An ordered list of values）</b>　<br>　　　在大部分语言中，它被理解为数组（array）。<br>
+          <p><img
+src="http://f1.howzhi.com/course/2018/08-16/1536160a5350463338.jpg" />
+### <b>基础结构</b></p>
+<h5 id="json建构于两种结构"><b>JSON建构于两种结构：</b></h5>
+<p><b>1. “名称/值”对的集合（A collection of name/value pairs）</b><br />
+　　　不同的语言中，它被理解为对象（object），记录（record），结构（struct），字典（dictionary），哈希表（hash
+table），有键列表（keyed list），或者关联数组 （associative
+array）。</p>
+<p><b>2. 值的有序列表（An ordered list of values）</b>　
+　　　在大部分语言中，它被理解为数组（array）。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%B5%85%E8%B0%88Python3-Json%E6%A8%A1%E5%9D%97.html#more" rel="contents">
@@ -960,7 +986,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="从别的博客上看到一个比较好玩的JS特效，保存了！"><a href="#从别的博客上看到一个比较好玩的JS特效，保存了！" class="headerlink" title="从别的博客上看到一个比较好玩的JS特效，保存了！"></a>从别的博客上看到一个比较好玩的JS特效，保存了！</h4>
+          <h4
+id="从别的博客上看到一个比较好玩的js特效保存了">从别的博客上看到一个比较好玩的JS特效，保存了！</h4>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E5%A5%BD%E7%8E%A9%E7%9A%84JS%E7%89%B9%E6%95%88.html#more" rel="contents">
@@ -1047,7 +1074,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
+      <span>3.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1065,13 +1092,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，<del>身心疲惫，欲哭无泪</del>，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有<del>细节</del>（坑）记录下来，为有同样好奇心的小伙伴给个参考。                </p>
-<p><img src="https://s1.ax1x.com/2018/10/25/iylB38.png" alt=""></p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h3 id="搭建博客，前期需要四个工具："><a href="#搭建博客，前期需要四个工具：" class="headerlink" title="搭建博客，前期需要四个工具："></a>搭建博客，前期需要四个工具：</h3><ul>
+          <h3 id="前言"><b>前言</b></h3>
+<p>本萌新一直幻想着拥有自己的博客、自己的空间发布一些学习进度。终于腾出了时间大搞了一下，<del>身心疲惫，欲哭无泪</del>，主要还是自己真实的菜啊！下面记录的是自己搭建博客的每个步骤，尽量将所有<del>细节</del>（坑）记录下来，为有同样好奇心的小伙伴给个参考。</p>
+<p><img src="https://s1.ax1x.com/2018/10/25/iylB38.png" /></p>
+<h3 id="准备">准备</h3>
+<h3 id="搭建博客前期需要四个工具">搭建博客，前期需要四个工具：</h3>
+<ul>
 <li>Hexo: Hexo快速、简洁且高效的博客框架</li>
 <li>Git: 一款免费、开源的分布式版本控制系统</li>
 <li>Node.js: 建立在Chrome上的JavaScript运行引擎</li>
-<li>GitHub: 国内一款面向开发者的云端开发平台，提供代码托管，运行空间，质量控制，项目管理等功能
+<li>GitHub:
+国内一款面向开发者的云端开发平台，提供代码托管，运行空间，质量控制，项目管理等功能
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Hexo+Github%20%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2.html#more" rel="contents">
@@ -1122,14 +1153,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

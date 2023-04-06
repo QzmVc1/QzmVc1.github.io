@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta name="description" content="一、Scrapyd简介 Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。 Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。 在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy框架(九):使用scrapyd部署爬虫">
 <meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E4%B9%9D-%E4%BD%BF%E7%94%A8scrapyd%E9%83%A8%E7%BD%B2%E7%88%AC%E8%99%AB.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、Scrapyd简介Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapy">
+<meta property="og:description" content="一、Scrapyd简介 Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。 Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。 在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scr">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArKCex.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/31/ArNb0e.png">
@@ -171,7 +171,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81Scrapyd%E7%AE%80%E4%BB%8B"><span class="nav-text">一、Scrapyd简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Scrapyd%E5%AE%89%E8%A3%85"><span class="nav-text">二、Scrapyd安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81Scrapyd-client"><span class="nav-text">三、Scrapyd-client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%AE%89%E8%A3%85"><span class="nav-text">3.1 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E9%83%A8%E7%BD%B2"><span class="nav-text">3.2 部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E7%89%88%E6%9C%AC"><span class="nav-text">3.3 版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">四、配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81API"><span class="nav-text">五、API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-daemonstatus-json"><span class="nav-text">5.1 daemonstatus.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-addversion-json"><span class="nav-text">5.2 addversion.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-schedule-json"><span class="nav-text">5.3 schedule.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-cancel-json"><span class="nav-text">5.4 cancel.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-listprojects-json"><span class="nav-text">5.5 listprojects.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-listversions-json"><span class="nav-text">5.6 listversions.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-7-listspiders-json"><span class="nav-text">5.7 listspiders.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-8-listjobs-json"><span class="nav-text">5.8 listjobs.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-delversion-json"><span class="nav-text">5.9 delversion.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-10-delproject-json"><span class="nav-text">5.10 delproject.json</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80scrapyd%E7%AE%80%E4%BB%8B"><span class="nav-text">一、Scrapyd简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8Cscrapyd%E5%AE%89%E8%A3%85"><span class="nav-text">二、Scrapyd安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">3.1 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-text">3.2 部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-text">3.3 版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">四、配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#daemonstatus.json"><span class="nav-text">5.1 daemonstatus.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#schedule.json"><span class="nav-text">5.3 schedule.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cancel.json"><span class="nav-text">5.4 cancel.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#listprojects.json"><span class="nav-text">5.5 listprojects.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#listversions.json"><span class="nav-text">5.6 listversions.json</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delversion.json"><span class="nav-text">5.9 delversion.json</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -316,7 +316,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.6k</span>
+      <span>7.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -334,177 +334,163 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、Scrapyd简介"><a href="#一、Scrapyd简介" class="headerlink" title="一、Scrapyd简介"></a>一、Scrapyd简介</h3><p>Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json API来部署（上传）或者控制你的项目。<br>Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。<br>在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。</p>
-<hr>
-<span id="more"></span>
-<h3 id="二、Scrapyd安装"><a href="#二、Scrapyd安装" class="headerlink" title="二、Scrapyd安装"></a>二、Scrapyd安装</h3><blockquote>
+        <h3 id="一scrapyd简介">一、Scrapyd简介</h3>
+<p>Scrapyd是一个用来部署和运行Scrapy项目的应用，由Scrapy的开发者开发。其可以通过一个简单的Json
+API来部署（上传）或者控制你的项目。
+Scrapyd可以用来管理多个项目，并且每个项目还可以上传多个版本，不过只有最新的版本会被使用。
+在安装并开启Scrapyd之后，它将会挂起一个服务来监听运行爬虫的请求，并且根据请求为每一个爬虫启用一个进程来运行。Scrapyd同样支持同时运行多个进程，进程的数量由max_proc和max_proc_per_cpu选项来限制。
+****** <span id="more"></span></p>
+<h3 id="二scrapyd安装">二、Scrapyd安装</h3>
+<blockquote>
 <p>安装命令: pip install scrapyd</p>
 </blockquote>
 <p><strong>等待下载完成，下载完成后，启动scrapyd,命令即：scrapyd，启动后，有一句会显示你的端口号，如图所示:</strong></p>
-<p><img src="https://s2.ax1x.com/2019/03/31/ArKCex.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArKCex.png" /></p>
 <p><strong>然后在网页中输入你的本地ip加上端口号，即：127.0.0.1:6800。访问这个网页出现下面的页面即scrapyd的页面：</strong></p>
-<p><img src="https://s2.ax1x.com/2019/03/31/ArNb0e.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArNb0e.png" /></p>
 <p><strong>上一步中如果连接启动成功后先关闭服务，在一个地方创建一个文件夹，文件夹名字自定义，但是要见名知意。然后进入文件夹，按住shift键不松手，并右击该文件夹随意空白处，然后点击“在此处打开命令窗口”，即进入的是cmd，然后在cmd里重新启动scrapyd,即输入scrapyd。执行后文件里会多出一个空的文件夹dbs，这个文件夹是用来存放爬虫文件数据的。</strong></p>
-<p><img src="https://s2.ax1x.com/2019/03/31/ArUkkj.png" alt=""></p>
-<p><strong>接下来我们需要把我们的项目打包上传到scrapyd服务里，那么我们要下载一个包：scrapyd-client。</strong></p>
-<hr>
-<h3 id="三、Scrapyd-client"><a href="#三、Scrapyd-client" class="headerlink" title="三、Scrapyd-client"></a>三、Scrapyd-client</h3><p>将Scrapy项目部署到远程服务器，首先第一步要做的就是把项目打包成<code>egg</code>文件，然后上传到目标服务器，这个操作使用<code>setup-tools</code>也是可以完成的，但比较麻烦。</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUkkj.png" /></p>
+<p><strong>接下来我们需要把我们的项目打包上传到scrapyd服务里，那么我们要下载一个包：scrapyd-client。</strong>
+****** ### 三、Scrapyd-client
+将Scrapy项目部署到远程服务器，首先第一步要做的就是把项目打包成<code>egg</code>文件，然后上传到目标服务器，这个操作使用<code>setup-tools</code>也是可以完成的，但比较麻烦。</p>
 <p>所以我们可以使用一个第三方库<code>Scrapyd-Client</code>来帮我们一步完成这些操作。</p>
 <p><code>scrapyd-client</code>的功能主要有两个：</p>
 <ul>
-<li><p>将项目打包成<code>egg</code>文件</p>
-</li>
-<li><p>将egg文件通过Scrapyd的<code>addversion.json</code>接口上传到目标服务器。</p>
-</li>
+<li><p>将项目打包成<code>egg</code>文件</p></li>
+<li><p>将egg文件通过Scrapyd的<code>addversion.json</code>接口上传到目标服务器。</p></li>
 </ul>
-<h4 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h4><blockquote>
+<h4 id="安装">3.1 安装</h4>
+<blockquote>
 <p>pip install scrapyd-client</p>
 </blockquote>
 <p>下载完毕后，你的Python环境中的<code>Scripts</code>文件里会出现一个<code>scrapyd-deploy</code>，这个文件是启动文件，但是在windows下不能运行，只能在linux运行，所以我们要自己编写一个bat执行文件。</p>
-<p><img src="https://s2.ax1x.com/2019/03/31/ArURu8.png" alt=""></p>
-<p>创建名字为<code>scrapy.bat</code> 和 <code>scrapyd-deploy.bat</code>的文件，里面写入下面的配置:</p>
-<p><img src="https://s2.ax1x.com/2019/03/31/ArUgjf.png" alt=""></p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArURu8.png" /></p>
+<p>创建名字为<code>scrapy.bat</code> 和
+<code>scrapyd-deploy.bat</code>的文件，里面写入下面的配置:</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/ArUgjf.png" /></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.scrapy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapy %*</span><br><span class="line"></span><br><span class="line">-------------------</span><br><span class="line"></span><br><span class="line">2.scrapyd-deploy.bat</span><br><span class="line">@echo off</span><br><span class="line">C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\python.exe C:\Users\QzmVc1\AppData\Local\Programs\Python\Python37\Scripts\scrapyd-deploy %*</span><br></pre></td></tr></table></figure>
 <p><strong>第一个是python.exe路径，第二个是Scripts中对应文件的路径。</strong></p>
 <p>然后我们来测试一下<code>scrapyd-deploy</code>是否可以使用:</p>
-<p><img src="https://s2.ax1x.com/2019/03/31/AraVVe.png" alt=""></p>
-<h4 id="3-2-部署"><a href="#3-2-部署" class="headerlink" title="3.2 部署"></a>3.2 部署</h4><p>在安装<code>scrapyd-client</code>完毕之后，主要可以使用<code>scrapyd-deploy</code>命令完成项目的部署，以下是具体使用方式：</p>
+<p><img src="https://s2.ax1x.com/2019/03/31/AraVVe.png" /></p>
+<h4 id="部署">3.2 部署</h4>
+<p>在安装<code>scrapyd-client</code>完毕之后，主要可以使用<code>scrapyd-deploy</code>命令完成项目的部署，以下是具体使用方式：</p>
 <p>要部署你的项目，首先先通过cd命令进入你项目的根目录，然后输入以下命令：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapyd-deploy &lt;target&gt; -p &lt;project&gt;</span><br></pre></td></tr></table></figure>
-<p>这个命令会将你的项目打包成一个<code>egg</code>文件，然后上传到你指定的<code>target</code>，如果你的项目中有一个<code>setup.py</code>文件，那么其将会被使用，如果没有那么将会自动创建一个。如果这行代码运行成功的话，那么将会返回以下结果：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deploying myproject-1287453519 to http://localhost:6800/addversion.json</span><br><span class="line">Server response (200):</span><br><span class="line">&#123;&quot;status&quot;: &quot;ok&quot;, &quot;spiders&quot;: [&quot;spider1&quot;, &quot;spider2&quot;]&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="3-3-版本"><a href="#3-3-版本" class="headerlink" title="3.3 版本"></a>3.3 版本</h4><p>在使用以上命令部署<code>Scrapy</code>项目时，项目的版本号默认会设置为当前的时间戳，我们也可以使用<code>—version</code>参数来指定版本号。</p>
-<blockquote>
-<p>scrapyd-deploy <target> -p <project> —version <version></p>
-</blockquote>
-<p>需要注意的是，版本号只能为纯数字。在默认的情况下，<code>scrapyd</code>会使用版本号最大的版本。</p>
-<hr>
-<h3 id="四、配置文件"><a href="#四、配置文件" class="headerlink" title="四、配置文件"></a>四、配置文件</h3><p>Scrapyd将会在以下地址搜索配置文件，在解析的过程中更高的配置文件拥有更高的优先级：</p>
+<p>这个命令会将你的项目打包成一个<code>egg</code>文件，然后上传到你指定的<code>target</code>，如果你的项目中有一个<code>setup.py</code>文件，那么其将会被使用，如果没有那么将会自动创建一个。如果这行代码运行成功的话，那么将会返回以下结果：
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Deploying myproject-1287453519 to http://localhost:6800/addversion.json</span><br><span class="line">Server response (200):</span><br><span class="line">&#123;&quot;status&quot;: &quot;ok&quot;, &quot;spiders&quot;: [&quot;spider1&quot;, &quot;spider2&quot;]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="版本">3.3 版本</h4>
+<p>在使用以上命令部署<code>Scrapy</code>项目时，项目的版本号默认会设置为当前的时间戳，我们也可以使用<code>–version</code>参数来指定版本号。
+&gt; scrapyd-deploy <target> -p <project> –version <version></p>
+<p>需要注意的是，版本号只能为纯数字。在默认的情况下，<code>scrapyd</code>会使用版本号最大的版本。
+******</p>
+<h3 id="四配置文件">四、配置文件</h3>
+<p>Scrapyd将会在以下地址搜索配置文件，在解析的过程中更高的配置文件拥有更高的优先级：
++ <code>/etc/scrapyd/scrapyd.conf</code> (Unix)</p>
 <ul>
-<li><p><code>/etc/scrapyd/scrapyd.conf</code> (Unix)</p>
-</li>
-<li><p><code>c:/scrapyd/scrapyd.conf</code> (Windows)</p>
-</li>
-<li><p><code>/etc/scrapyd/conf.d/*</code> (in alphabetical order, Unix)</p>
-</li>
-<li><p><code>scrapyd.conf</code></p>
-</li>
-<li><p><code>~/.scrapyd.conf</code> (users home directory)</p>
-</li>
+<li><p><code>c:/scrapyd/scrapyd.conf</code> (Windows)</p></li>
+<li><p><code>/etc/scrapyd/conf.d/*</code> (in alphabetical order,
+Unix)</p></li>
+<li><p><code>scrapyd.conf</code></p></li>
+<li><p><code>~/.scrapyd.conf</code> (users home directory)</p></li>
 </ul>
-<p>配置文件中支持配置以下选项：</p>
+<p>配置文件中支持配置以下选项： + <code>http_port</code>
+Scrapyd的API监听的端口，默认为6800。</p>
 <ul>
-<li><p><code>http_port</code><br>Scrapyd的API监听的端口，默认为6800。</p>
-</li>
-<li><p><code>bind_address</code><br>网页和Json服务监听的IP地址，默认为127.0.0.1。</p>
-</li>
-<li><p><code>max_proc</code><br>同时启动的最大Scrapy进程数，如果没有设置或者设置为0，那么将会使用当前cpu可用的核数乘以max_proc_per_cpu的值。默认为0。</p>
-</li>
-<li><p><code>max_proc_per_cpu</code><br>每个cpu能同时启动的最大Scrapy进程数。默认为4。</p>
-</li>
-<li><p><code>debug</code><br>是否开启debug模式，默认为off。开启之后，如果在调用Scrapy的Json API的时候出错，则会返回详细的traceback信息。</p>
-</li>
-<li><p><code>eggs_dir</code><br>项目的eggs文件存储的目录。</p>
-</li>
-<li><p><code>dbs_dir</code><br>项目存储数据库的目录，也包括爬虫队列。</p>
-</li>
-<li><p><code>logs_dir</code><br>存储Scrapy日志的目录。</p>
-</li>
-<li><p><code>items_dir</code><br>存储items的目录，一般来说不需要设置这个选项，因为抓取下来的数据都会存到数据库中。如果设置这个选项，那么将会覆盖Scrapy的FEED_URL设置，将抓取下来的items保存到指定目录。</p>
-</li>
-<li><p><code>jobs_to_keep</code><br>每个spider保留多少个完成的job，默认为5。这更多指的是item和log。</p>
-</li>
-<li><p><code>finished_to_keep</code><br>启动器中保留的已完成进程的数量，默认为100。</p>
-</li>
-<li><p><code>poll_interval</code><br>轮询队列的间隔，以秒为单位，默认值为5，可以为浮点数。</p>
-</li>
-<li><p><code>runner</code><br>用来启动子进程的启动器，可以自定义启动的模块。</p>
-</li>
-<li><p><code>node_name</code><br>每个节点的节点名称，默认为${socket.gethostname()}。</p>
-</li>
+<li><p><code>bind_address</code>
+网页和Json服务监听的IP地址，默认为127.0.0.1。</p></li>
+<li><p><code>max_proc</code>
+同时启动的最大Scrapy进程数，如果没有设置或者设置为0，那么将会使用当前cpu可用的核数乘以max_proc_per_cpu的值。默认为0。</p></li>
+<li><p><code>max_proc_per_cpu</code>
+每个cpu能同时启动的最大Scrapy进程数。默认为4。</p></li>
+<li><p><code>debug</code>
+是否开启debug模式，默认为off。开启之后，如果在调用Scrapy的Json
+API的时候出错，则会返回详细的traceback信息。</p></li>
+<li><p><code>eggs_dir</code> 项目的eggs文件存储的目录。</p></li>
+<li><p><code>dbs_dir</code>
+项目存储数据库的目录，也包括爬虫队列。</p></li>
+<li><p><code>logs_dir</code> 存储Scrapy日志的目录。</p></li>
+<li><p><code>items_dir</code>
+存储items的目录，一般来说不需要设置这个选项，因为抓取下来的数据都会存到数据库中。如果设置这个选项，那么将会覆盖Scrapy的FEED_URL设置，将抓取下来的items保存到指定目录。</p></li>
+<li><p><code>jobs_to_keep</code>
+每个spider保留多少个完成的job，默认为5。这更多指的是item和log。</p></li>
+<li><p><code>finished_to_keep</code>
+启动器中保留的已完成进程的数量，默认为100。</p></li>
+<li><p><code>poll_interval</code>
+轮询队列的间隔，以秒为单位，默认值为5，可以为浮点数。</p></li>
+<li><p><code>runner</code>
+用来启动子进程的启动器，可以自定义启动的模块。</p></li>
+<li><p><code>node_name</code>
+每个节点的节点名称，默认为${socket.gethostname()}。</p></li>
 </ul>
-<p><strong>以下是一个默认的配置文件的例子：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[scrapyd]</span><br><span class="line">eggs_dir    = eggs</span><br><span class="line">logs_dir    = logs</span><br><span class="line">items_dir   =</span><br><span class="line">jobs_to_keep = <span class="number">5</span></span><br><span class="line">dbs_dir     = dbs</span><br><span class="line">max_proc    = <span class="number">0</span></span><br><span class="line">max_proc_per_cpu = <span class="number">4</span></span><br><span class="line">finished_to_keep = <span class="number">100</span></span><br><span class="line">poll_interval = <span class="number">5.0</span></span><br><span class="line">bind_address = <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">http_port   = <span class="number">6800</span></span><br><span class="line">debug       = off</span><br><span class="line">runner      = scrapyd.runner</span><br><span class="line">application = scrapyd.app.application</span><br><span class="line">launcher    = scrapyd.launcher.Launcher</span><br><span class="line">webroot     = scrapyd.website.Root</span><br><span class="line"></span><br><span class="line">[services]</span><br><span class="line">schedule.json     = scrapyd.webservice.Schedule</span><br><span class="line">cancel.json       = scrapyd.webservice.Cancel</span><br><span class="line">addversion.json   = scrapyd.webservice.AddVersion</span><br><span class="line">listprojects.json = scrapyd.webservice.ListProjects</span><br><span class="line">listversions.json = scrapyd.webservice.ListVersions</span><br><span class="line">listspiders.json  = scrapyd.webservice.ListSpiders</span><br><span class="line">delproject.json   = scrapyd.webservice.DeleteProject</span><br><span class="line">delversion.json   = scrapyd.webservice.DeleteVersion</span><br><span class="line">listjobs.json     = scrapyd.webservice.ListJobs</span><br><span class="line">daemonstatus.json = scrapyd.webservice.DaemonStatus</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h3 id="五、API"><a href="#五、API" class="headerlink" title="五、API"></a>五、API</h3><p>在开启了<code>scrapyd</code>服务之后，就可以通过<code>Scrapyd</code>提供的<code>API</code>接口来操作你的<code>Scrapy</code>项目了。</p>
-<h4 id="5-1-daemonstatus-json"><a href="#5-1-daemonstatus-json" class="headerlink" title="5.1 daemonstatus.json"></a>5.1 daemonstatus.json</h4><p>用来检查服务器的负载状态。支持的请求方法：<code>GET</code>。</p>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/daemonstatus.json</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;running&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;pending&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;finished&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;node_name&quot;</span>: <span class="string">&quot;node-name&quot;</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-2-addversion-json"><a href="#5-2-addversion-json" class="headerlink" title="5.2 addversion.json"></a>5.2 addversion.json</h4><p>给项目增加一个版本，如果项目不存在的话那么就创建一个项目。这个接口主要被用来上传项目或者更新项目版本。支持的请求方法：<code>POST</code>。</p>
-<p>参数：</p>
+<p><strong>以下是一个默认的配置文件的例子：</strong> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[scrapyd]</span><br><span class="line">eggs_dir    = eggs</span><br><span class="line">logs_dir    = logs</span><br><span class="line">items_dir   =</span><br><span class="line">jobs_to_keep = <span class="number">5</span></span><br><span class="line">dbs_dir     = dbs</span><br><span class="line">max_proc    = <span class="number">0</span></span><br><span class="line">max_proc_per_cpu = <span class="number">4</span></span><br><span class="line">finished_to_keep = <span class="number">100</span></span><br><span class="line">poll_interval = <span class="number">5.0</span></span><br><span class="line">bind_address = <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">http_port   = <span class="number">6800</span></span><br><span class="line">debug       = off</span><br><span class="line">runner      = scrapyd.runner</span><br><span class="line">application = scrapyd.app.application</span><br><span class="line">launcher    = scrapyd.launcher.Launcher</span><br><span class="line">webroot     = scrapyd.website.Root</span><br><span class="line"></span><br><span class="line">[services]</span><br><span class="line">schedule.json     = scrapyd.webservice.Schedule</span><br><span class="line">cancel.json       = scrapyd.webservice.Cancel</span><br><span class="line">addversion.json   = scrapyd.webservice.AddVersion</span><br><span class="line">listprojects.json = scrapyd.webservice.ListProjects</span><br><span class="line">listversions.json = scrapyd.webservice.ListVersions</span><br><span class="line">listspiders.json  = scrapyd.webservice.ListSpiders</span><br><span class="line">delproject.json   = scrapyd.webservice.DeleteProject</span><br><span class="line">delversion.json   = scrapyd.webservice.DeleteVersion</span><br><span class="line">listjobs.json     = scrapyd.webservice.ListJobs</span><br><span class="line">daemonstatus.json = scrapyd.webservice.DaemonStatus</span><br></pre></td></tr></table></figure>
+****** ### 五、API
+在开启了<code>scrapyd</code>服务之后，就可以通过<code>Scrapyd</code>提供的<code>API</code>接口来操作你的<code>Scrapy</code>项目了。</p>
+<h4 id="daemonstatus.json">5.1 daemonstatus.json</h4>
+<p>用来检查服务器的负载状态。支持的请求方法：<code>GET</code>。</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/daemonstatus.json</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;running&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;pending&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;finished&quot;</span>: <span class="string">&quot;0&quot;</span>, <span class="string">&quot;node_name&quot;</span>: <span class="string">&quot;node-name&quot;</span> &#125;</span><br></pre></td></tr></table></figure> #### 5.2
+addversion.json
+给项目增加一个版本，如果项目不存在的话那么就创建一个项目。这个接口主要被用来上传项目或者更新项目版本。支持的请求方法：<code>POST</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目的名称</p>
 <ul>
-<li><p><code>project</code> (string, required) - 项目的名称</p>
-</li>
-<li><p><code>version</code> (string, required) - 项目的版本</p>
-</li>
-<li><p><code>egg</code> (file, required) - 一个包含项目代码的egg文件</p>
-</li>
+<li><p><code>version</code> (string, required) - 项目的版本</p></li>
+<li><p><code>egg</code> (file, required) -
+一个包含项目代码的egg文件</p></li>
 </ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/addversion.json -F project=myproject -F version=r23 -F egg=@myproject.egg</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-3-schedule-json"><a href="#5-3-schedule-json" class="headerlink" title="5.3 schedule.json"></a>5.3 schedule.json</h4><p>调度运行一个爬虫（也成为job），并返回一个<code>jobid</code>。支持的请求方法：<code>POST</code>。</p>
-<p>参数：</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/addversion.json -F project=myproject -F version=r23 -F egg=@myproject.egg</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: <span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="schedule.json">5.3 schedule.json</h4>
+<p>调度运行一个爬虫（也成为job），并返回一个<code>jobid</code>。支持的请求方法：<code>POST</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目的名称</p>
 <ul>
-<li><p><code>project</code> (string, required) - 项目的名称</p>
-</li>
-<li><p><code>spider</code> (string, required) - 爬虫的名称</p>
-</li>
-<li><p><code>setting</code> (string, optional) - 爬虫运行时要用到的Scrapy设置</p>
-</li>
-<li><p><code>jobid</code> (string, optional) - 用来作为标识的jobid，会覆盖掉默认生成的UUID</p>
-</li>
-<li><p><code>_version</code> (string, optional) - 使用的项目版本<br>任何其他的参数将会传递作为爬虫的参数</p>
-</li>
+<li><p><code>spider</code> (string, required) - 爬虫的名称</p></li>
+<li><p><code>setting</code> (string, optional) -
+爬虫运行时要用到的Scrapy设置</p></li>
+<li><p><code>jobid</code> (string, optional) -
+用来作为标识的jobid，会覆盖掉默认生成的UUID</p></li>
+<li><p><code>_version</code> (string, optional) - 使用的项目版本
+任何其他的参数将会传递作为爬虫的参数</p></li>
 </ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;jobid&quot;</span>: <span class="string">&quot;6487ec79947edab326d6db28a2d86511e8247444&quot;</span>&#125;</span><br></pre></td></tr></table></figure><br>以下是传递spider参数和setting参数的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider -d setting=DOWNLOAD_DELAY=<span class="number">2</span> -d arg1=val1</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-4-cancel-json"><a href="#5-4-cancel-json" class="headerlink" title="5.4 cancel.json"></a>5.4 cancel.json</h4><p>取消一个<code>job</code>的运行，如果这个<code>job</code>处于等待的状态，那么将会被移除，如果这个<code>job</code>正在运行，那么它将会被终止。支持的请求方法：<code>POST</code>。</p>
-<p>参数：</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;jobid&quot;</span>: <span class="string">&quot;6487ec79947edab326d6db28a2d86511e8247444&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+以下是传递spider参数和setting参数的例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/schedule.json -d project=myproject -d spider=somespider -d setting=DOWNLOAD_DELAY=<span class="number">2</span> -d arg1=val1</span><br></pre></td></tr></table></figure></p>
+<h4 id="cancel.json">5.4 cancel.json</h4>
+<p>取消一个<code>job</code>的运行，如果这个<code>job</code>处于等待的状态，那么将会被移除，如果这个<code>job</code>正在运行，那么它将会被终止。支持的请求方法：<code>POST</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目的名称</p>
 <ul>
-<li><p><code>project</code> (string, required) - 项目的名称</p>
-</li>
-<li><p><code>job</code> (string, required) - job的id</p>
-</li>
+<li><code>job</code> (string, required) - job的id</li>
 </ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/cancel.json -d project=myproject -d job=6487ec79947edab326d6db28a2d86511e8247444</span><br></pre></td></tr></table></figure></p>
-<p>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;prevstate&quot;</span>: <span class="string">&quot;running&quot;</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-5-listprojects-json"><a href="#5-5-listprojects-json" class="headerlink" title="5.5 listprojects.json"></a>5.5 listprojects.json</h4><p>获取上传到服务器的项目列表。支持请求方法：<code>GET</code>，无参数。</p>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listprojects.json</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;projects&quot;</span>: [<span class="string">&quot;myproject&quot;</span>, <span class="string">&quot;otherproject&quot;</span>]&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-6-listversions-json"><a href="#5-6-listversions-json" class="headerlink" title="5.6 listversions.json"></a>5.6 listversions.json</h4><p>获取某个或某些项目的版本列表。返回的版本将会按顺序排列，最后的那个版本是当前正在使用的版本。支持请求参数：<code>GET</code>。</p>
-<p>参数：<br><code>project</code> (string, required) - 项目名称</p>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listversions.json?project=myproject</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;versions&quot;</span>: [<span class="string">&quot;r99&quot;</span>, <span class="string">&quot;r156&quot;</span>]&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-7-listspiders-json"><a href="#5-7-listspiders-json" class="headerlink" title="5.7 listspiders.json"></a>5.7 listspiders.json</h4><p>默认获取某个项目最新版本中的<code>spider</code>列表。支持的请求方法：<code>GET</code>。</p>
-<p>参数：</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/cancel.json -d project=myproject -d job=6487ec79947edab326d6db28a2d86511e8247444</span><br></pre></td></tr></table></figure></p>
+<p>response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;prevstate&quot;</span>: <span class="string">&quot;running&quot;</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="listprojects.json">5.5 listprojects.json</h4>
+<p>获取上传到服务器的项目列表。支持请求方法：<code>GET</code>，无参数。</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listprojects.json</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;projects&quot;</span>: [<span class="string">&quot;myproject&quot;</span>, <span class="string">&quot;otherproject&quot;</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="listversions.json">5.6 listversions.json</h4>
+<p>获取某个或某些项目的版本列表。返回的版本将会按顺序排列，最后的那个版本是当前正在使用的版本。支持请求参数：<code>GET</code>。</p>
+<p>参数： <code>project</code> (string, required) - 项目名称</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listversions.json?project=myproject</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;versions&quot;</span>: [<span class="string">&quot;r99&quot;</span>, <span class="string">&quot;r156&quot;</span>]&#125;</span><br></pre></td></tr></table></figure> #### 5.7
+listspiders.json
+默认获取某个项目最新版本中的<code>spider</code>列表。支持的请求方法：<code>GET</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目的名称</p>
 <ul>
-<li><p><code>project</code> (string, required) - 项目的名称</p>
-</li>
-<li><p><code>_version</code> (string, optional) - 检查的项目版本</p>
-</li>
+<li><code>_version</code> (string, optional) - 检查的项目版本</li>
 </ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listspiders.json?project=myproject</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: [<span class="string">&quot;spider1&quot;</span>, <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;spider3&quot;</span>]&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-8-listjobs-json"><a href="#5-8-listjobs-json" class="headerlink" title="5.8 listjobs.json"></a>5.8 listjobs.json</h4><p>获取某个项目正在等待、运行或者运行完毕的job列表。支持的请求类型：<code>GET</code>。</p>
-<p>参数：</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listspiders.json?project=myproject</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>, <span class="string">&quot;spiders&quot;</span>: [<span class="string">&quot;spider1&quot;</span>, <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;spider3&quot;</span>]&#125;</span><br></pre></td></tr></table></figure> #### 5.8
+listjobs.json
+获取某个项目正在等待、运行或者运行完毕的job列表。支持的请求类型：<code>GET</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目名称</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listjobs.json?project=myproject</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>,</span><br><span class="line"> <span class="string">&quot;pending&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;78391cc0fcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider1&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;running&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;422e608f9f28cef127b3d5ef93fe9399&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;finished&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;2f16646cfcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider3&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>, <span class="string">&quot;end_time&quot;</span>: <span class="string">&quot;2012-09-12 10:24:03.594664&quot;</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="delversion.json">5.9 delversion.json</h4>
+<p>删除某个项目的某个版本，如果这个项目不再有能用的版本，那么项目也会被删除。支持的请求方法：<code>POST</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目名称</p>
 <ul>
-<li><code>project</code> (string, required) - 项目名称</li>
+<li><code>version</code> (string, required) - 要删除的项目版本</li>
 </ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/listjobs.json?project=myproject</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>,</span><br><span class="line"> <span class="string">&quot;pending&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;78391cc0fcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider1&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;running&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;422e608f9f28cef127b3d5ef93fe9399&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider2&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>&#125;],</span><br><span class="line"> <span class="string">&quot;finished&quot;</span>: [&#123;<span class="string">&quot;id&quot;</span>: <span class="string">&quot;2f16646cfcaf11e1b0090800272a6d06&quot;</span>, <span class="string">&quot;spider&quot;</span>: <span class="string">&quot;spider3&quot;</span>, <span class="string">&quot;start_time&quot;</span>: <span class="string">&quot;2012-09-12 10:14:03.594664&quot;</span>, <span class="string">&quot;end_time&quot;</span>: <span class="string">&quot;2012-09-12 10:24:03.594664&quot;</span>&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-9-delversion-json"><a href="#5-9-delversion-json" class="headerlink" title="5.9 delversion.json"></a>5.9 delversion.json</h4><p>删除某个项目的某个版本，如果这个项目不再有能用的版本，那么项目也会被删除。支持的请求方法：<code>POST</code>。</p>
-<p>参数：</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delversion.json -d project=myproject -d version=r99</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure> #### 5.10
+delproject.json 删除指定项目。支持请求方法：<code>POST</code>。</p>
+<p>参数： + <code>project</code> (string, required) - 项目名称</p>
+<p>request例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delproject.json -d project=myproject</span><br></pre></td></tr></table></figure> response例子： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<hr />
+<p>参考链接: + https://www.jianshu.com/p/2a189127901a</p>
 <ul>
-<li><p><code>project</code> (string, required) - 项目名称</p>
-</li>
-<li><p><code>version</code> (string, required) - 要删除的项目版本</p>
-</li>
-</ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delversion.json -d project=myproject -d version=r99</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="5-10-delproject-json"><a href="#5-10-delproject-json" class="headerlink" title="5.10 delproject.json"></a>5.10 delproject.json</h4><p>删除指定项目。支持请求方法：<code>POST</code>。</p>
-<p>参数：</p>
-<ul>
-<li><code>project</code> (string, required) - 项目名称</li>
-</ul>
-<p>request例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:<span class="number">6800</span>/delproject.json -d project=myproject</span><br></pre></td></tr></table></figure><br>response例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;ok&quot;</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p>参考链接:</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2a189127901a">https://www.jianshu.com/p/2a189127901a</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://scrapyd.readthedocs.io/en/latest/api.html">https://scrapyd.readthedocs.io/en/latest/api.html</a></p>
-</li>
+<li>https://scrapyd.readthedocs.io/en/latest/api.html</li>
 </ul>
 
     </div>
@@ -609,14 +595,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

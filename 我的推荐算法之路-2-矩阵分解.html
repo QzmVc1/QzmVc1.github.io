@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="前言针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。">
+<meta name="description" content="前言 针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的推荐算法之路(2):矩阵分解">
 <meta property="og:url" content="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-2-%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。">
+<meta property="og:description" content="前言 针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://z3.ax1x.com/2021/07/31/Wj2vge.png">
 <meta property="og:image" content="https://z3.ax1x.com/2021/07/31/WjRr8O.png">
@@ -165,7 +165,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-text">一、矩阵分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">二、矩阵分解的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="nav-text">三、矩阵分解相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3SVD"><span class="nav-text">3.1 奇异值分解SVD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-Funk-SVD"><span class="nav-text">3.2 Funk-SVD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-Bias-SVD"><span class="nav-text">3.3 Bias-SVD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9F%BA%E4%BA%8EPytorch%E7%9A%84%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-text">四、基于Pytorch的矩阵分解</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-text">一、矩阵分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">二、矩阵分解的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95"><span class="nav-text">三、矩阵分解相关算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3svd"><span class="nav-text">3.1 奇异值分解SVD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#funk-svd"><span class="nav-text">3.2 Funk-SVD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bias-svd"><span class="nav-text">3.3 Bias-SVD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%9F%BA%E4%BA%8Epytorch%E7%9A%84%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-text">四、基于Pytorch的矩阵分解</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -310,7 +310,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.8k</span>
+      <span>6.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -328,21 +328,47 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。</p>
+        <h3 id="前言">前言</h3>
+<p>针对协同过滤算法的头部效应较明显、泛化能力较弱的问题，矩阵分解算法被提出。矩阵分解在协同过滤算法中“共现矩阵”的基础上，加入了隐向量的概念，加强了模型处理稀疏矩阵的能力，针对性地解决了协同过滤存在的主要问题。</p>
 <span id="more"></span>
-<h3 id="一、矩阵分解"><a href="#一、矩阵分解" class="headerlink" title="一、矩阵分解"></a>一、矩阵分解</h3><p>矩阵分解有几个明显的特点，它具有协同过滤的 “集体智慧”，隐语义的 “深层关系”，以及机器学习的 “以目标为导向的有监督学习”。在了解了基于邻域的协同过滤算法后，集体智慧自不必多说，我们依次从 “隐因子” 和 “有监督学习” 的角度来了解矩阵分解的基本思路。</p>
-<p>推荐算法中的矩阵分解最初的想法是从奇异值分解（Singular Value Decomposition，SVD）借鉴来的。以 $Netflix$ 用户对电影的评分矩阵为例，矩阵分解，直观上来说就是把原来的大矩阵，近似分解成两个小矩阵的乘积，在实际推荐计算时不再使用大矩阵，而是使用分解得到的两个小矩阵。按照矩阵分解的原理，我们会发现原来 $m×n$ 的大矩阵会分解成 $m×k$ 和 $k×n$ 的两个小矩阵，这里多出来一个 $k$ 维向量，就是隐因子向量（Latent Factor Vector）。$k$ 的大小决定了隐向量表达能力的强弱。 $k$ 的取值越小，隐向量包含的信息越少，模型的泛化程度越高；反之，$k$ 的取值越大，隐向量的表达能力越强，但泛化程度相应降低。此外，$k$ 的取值还与矩阵分解的求解复杂度直接相关。</p>
-<p><img src="https://z3.ax1x.com/2021/07/31/Wj2vge.png" alt=""></p>
-<p><strong>基于矩阵分解的推荐算法的核心假设是用隐向量来表达用户和物品，他们的乘积关系就成为了原始的元素。</strong>这种假设之所以成立，是因为我们认为实际的交互数据是由一系列的隐向量的影响下产生的，这些隐向量代表了用户和物品一部分共有的特征，在物品身上表现为属性特征，在用户身上表现为偏好特征，只不过这些因子并不具有实际意义，也不一定具有非常好的可解释性，每一个维度也没有确定的标签名字，所以才会叫做 “隐变量”。而矩阵分解后得到的两个包含隐变量的小矩阵，一个代表用户的隐含特征，一个代表物品的隐含特征，矩阵的元素值代表着相应用户或物品对各项隐因子的符合程度，有正面的也有负面的。</p>
+<h3 id="一矩阵分解">一、矩阵分解</h3>
+<p>矩阵分解有几个明显的特点，它具有协同过滤的 “集体智慧”，隐语义的
+“深层关系”，以及机器学习的
+“以目标为导向的有监督学习”。在了解了基于邻域的协同过滤算法后，集体智慧自不必多说，我们依次从
+“隐因子” 和 “有监督学习” 的角度来了解矩阵分解的基本思路。</p>
+<p>推荐算法中的矩阵分解最初的想法是从奇异值分解（Singular Value
+Decomposition，SVD）借鉴来的。以 <span
+class="math inline">\(Netflix\)</span>
+用户对电影的评分矩阵为例，矩阵分解，直观上来说就是把原来的大矩阵，近似分解成两个小矩阵的乘积，在实际推荐计算时不再使用大矩阵，而是使用分解得到的两个小矩阵。按照矩阵分解的原理，我们会发现原来
+<span class="math inline">\(m×n\)</span> 的大矩阵会分解成 <span
+class="math inline">\(m×k\)</span> 和 <span
+class="math inline">\(k×n\)</span> 的两个小矩阵，这里多出来一个 <span
+class="math inline">\(k\)</span> 维向量，就是隐因子向量（Latent Factor
+Vector）。<span class="math inline">\(k\)</span>
+的大小决定了隐向量表达能力的强弱。 <span
+class="math inline">\(k\)</span>
+的取值越小，隐向量包含的信息越少，模型的泛化程度越高；反之，<span
+class="math inline">\(k\)</span>
+的取值越大，隐向量的表达能力越强，但泛化程度相应降低。此外，<span
+class="math inline">\(k\)</span>
+的取值还与矩阵分解的求解复杂度直接相关。</p>
+<p><img src="https://z3.ax1x.com/2021/07/31/Wj2vge.png" /></p>
+<p><strong>基于矩阵分解的推荐算法的核心假设是用隐向量来表达用户和物品，他们的乘积关系就成为了原始的元素。</strong>这种假设之所以成立，是因为我们认为实际的交互数据是由一系列的隐向量的影响下产生的，这些隐向量代表了用户和物品一部分共有的特征，在物品身上表现为属性特征，在用户身上表现为偏好特征，只不过这些因子并不具有实际意义，也不一定具有非常好的可解释性，每一个维度也没有确定的标签名字，所以才会叫做
+“隐变量”。而矩阵分解后得到的两个包含隐变量的小矩阵，一个代表用户的隐含特征，一个代表物品的隐含特征，矩阵的元素值代表着相应用户或物品对各项隐因子的符合程度，有正面的也有负面的。</p>
 <p>我们再从机器学习的角度来了解矩阵分解，<strong>我们已经知道评分预测实际上是一个矩阵补全的过程，在矩阵分解的时候原来的大矩阵必然是稀疏的，即有一部分有评分，有一部分是没有评分的，不然也就没必要预测和推荐了，所以整个预测模型的最终目的是得到两个小矩阵，通过这两个小矩阵的乘积来补全大矩阵中没有评分的位置。</strong>所以对于机器学习模型来说，<strong>问题转化成了如何获得两个最优的小矩阵</strong>。因为大矩阵有一部分是有评分的，那么只要保证大矩阵有评分的位置（实际值）与两个小矩阵相乘得到的相应位置的评分（预测值）之间的误差最小即可，其实就是一个均方误差损失，这便是模型的目标函数。</p>
-<p><img src="https://z3.ax1x.com/2021/07/31/WjRr8O.png" alt=""></p>
-<h3 id="二、矩阵分解的优缺点"><a href="#二、矩阵分解的优缺点" class="headerlink" title="二、矩阵分解的优缺点"></a>二、矩阵分解的优缺点</h3><blockquote>
+<p><img src="https://z3.ax1x.com/2021/07/31/WjRr8O.png" /></p>
+<h3 id="二矩阵分解的优缺点">二、矩阵分解的优缺点</h3>
+<blockquote>
 <p><strong>矩阵分解具有以下优点：</strong></p>
 <ul>
 <li>泛化能力强。在一定程度上解决了数据稀疏的问题。</li>
-<li>空间复杂度低。不需再存储协同过滤模型所需的“庞大“用户相似性或物品相似性矩阵，只需存储用户和物品隐向量空间复杂度由 $n^2$ 级别降低到 $(n+m)*k$ 级别。</li>
+<li>空间复杂度低。不需再存储协同过滤模型所需的“庞大“用户相似性或物品相似性矩阵，只需存储用户和物品隐向量空间复杂度由
+<span class="math inline">\(n^2\)</span> 级别降低到 <span
+class="math inline">\((n+m)*k\)</span> 级别。</li>
 <li>更好的扩展性和灵活性。矩阵分解最终产出的是用户和物品隐向量，这其实与深度学习中的Embedding思想不谋而合，因此矩阵分解的结果也非常便于与其他特征进行组合和拼接，与深度学习网络进行无缝组合。</li>
 </ul>
+</blockquote>
+<blockquote>
 <p><strong>矩阵分解也有一些局限性：</strong></p>
 <ul>
 <li>矩阵分解不方便加入用户、物品、上下文相关的特征，丧失了利用很多有效信息的机会。</li>
@@ -351,52 +377,128 @@
 <li>推荐结果不具有很好的可解释性，分解出来的用户和物品矩阵的每个维度无法用现实生活中的概念来解释，只能理解为潜在语义空间。</li>
 </ul>
 </blockquote>
-<h3 id="三、矩阵分解相关算法"><a href="#三、矩阵分解相关算法" class="headerlink" title="三、矩阵分解相关算法"></a>三、矩阵分解相关算法</h3><h4 id="3-1-奇异值分解SVD"><a href="#3-1-奇异值分解SVD" class="headerlink" title="3.1 奇异值分解SVD"></a>3.1 奇异值分解SVD</h4><p>有关SVD的原理阐述请参考我的相关博客：<a href="https://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html">机器学习日记(四):奇异值分解</a></p>
+<h3 id="三矩阵分解相关算法">三、矩阵分解相关算法</h3>
+<h4 id="奇异值分解svd">3.1 奇异值分解SVD</h4>
+<p>有关SVD的原理阐述请参考我的相关博客：<a
+href="https://qzmvc1.top/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0-%E5%9B%9B-%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3.html">机器学习日记(四):奇异值分解</a></p>
 <p>虽然奇异值分解解决了矩阵分解问题，但其存在两点缺陷，使其不宜作为互联网场景下矩阵分解的主要方法：</p>
 <ul>
-<li>SVD 要求矩阵是稠密的，而现实场景中的共现矩阵是稀疏的，有大量空白，无法直接使用 SVD 分解。要想使用 SVD，必须对评分矩阵中的缺失值进行简单的补全，比如用全局平均值或者用用户物品平均值补全，得到补全后的矩阵。接着可以用 SVD 分解并降维。但填充本身会造成很多问题，其一，填充大大增加了数据量，增加了算法复杂度。其二，简单粗暴的数据填充很容易造成数据失真。</li>
-<li>传统奇异值分解的计算复杂度达到了 $O(mn^2)$ 的级别，这对于商品数量动辄上百万、用户数量往往上千万的互联网场景来说几乎是不可接受的。</li>
+<li>SVD
+要求矩阵是稠密的，而现实场景中的共现矩阵是稀疏的，有大量空白，无法直接使用
+SVD 分解。要想使用
+SVD，必须对评分矩阵中的缺失值进行简单的补全，比如用全局平均值或者用用户物品平均值补全，得到补全后的矩阵。接着可以用
+SVD
+分解并降维。但填充本身会造成很多问题，其一，填充大大增加了数据量，增加了算法复杂度。其二，简单粗暴的数据填充很容易造成数据失真。</li>
+<li>传统奇异值分解的计算复杂度达到了 <span
+class="math inline">\(O(mn^2)\)</span>
+的级别，这对于商品数量动辄上百万、用户数量往往上千万的互联网场景来说几乎是不可接受的。</li>
 </ul>
-<h4 id="3-2-Funk-SVD"><a href="#3-2-Funk-SVD" class="headerlink" title="3.2 Funk-SVD"></a>3.2 Funk-SVD</h4><p>$Simon　Funk$ 在博客上公开发表了一个只考虑已有评分记录的矩阵分解方法，称为 $Funk-SVD$，也就是被 $Yehuda Koren$ 称为隐语义模型的矩阵分解方法。它的出发点为，既然将一个矩阵做 SVD 分解成 3 个矩阵很耗时，同时还面临稀疏的问题，<strong>那么我们能不能避开稀疏问题，同时只分解成两个矩阵呢？</strong>也就是说，现在期望我们的矩阵$M$ 这样进行分解：</p>
-<p>$$M_{m×n}=P_{m×k}^TQ_{k×n}$$</p>
-
-<p><strong>这种简化的矩阵分解不再是分解为三个矩阵，而是分解为两个低秩的用户和物品矩阵，其实就是把用户和物品都映射到一个 $k$ 维空间中，</strong>这个 $k$ 维空间对应着 $k$ 个隐因子，我们认为用户对物品的评分主要是由这些隐因子影响的，所以这些隐因子代表了用户和物品一部分共有的特征，在物品身上表现为属性特征，在用户身上表现为偏好特征。只不过这些隐因子并不具有实际意义，也不一定具有非常好的可解释性，每一个维度也没有确定的标签名字，所以才会叫做 “隐因子”。</p>
-<p>我们知道 $SVD$ 分解已经很成熟了，但是 $Funk-SVD$ 如何将矩阵 $M$ 分解成为 $P$ 和 $Q$ 呢？<strong>这里采用了线性回归的思想。我们的目标是让用户的评分和用矩阵乘积得到的评分残差尽可能的小</strong>，也就是说，可以用均方差作为损失函数，来寻找最终的P和Q。即通过 User-Item 评分信息来学习到的用户特征矩阵 $P$ 和物品特征矩阵 $Q$，通过重构的低维矩阵预测用户对物品的评分。</p>
-<p>对于某一个用户评分 $m_{ij}$ 如果用 $Funk-SVD$ 进行矩阵分解，则对应的表示为 $q_j^Tp_i$，采用均方差作为损失函数，则我们期望 $(m_{ij}-q_j^Tp_i)^2$ 尽可能的小，如果考虑所有的物品和样本的组合，则我们期望最小化下式：</p>
-<p>$$\sum_{i,j}(m_{ij}-q_j^Tp_i)^2$$</p>
-
-<p>只要我们能够最小化上面的式子，并求出极值所对应的 $p_i,q_j$，则我们最终可以得到矩阵 $P$ 和 $Q$，那么对于任意矩阵 $M$ 任意一个空白评分的位置，我们可以通过 $q_j^Tp_i$ 计算预测评分，很漂亮的方法！</p>
-<p>当然，在实际应用中，为了防止过拟合，会加入一个 $L2$ 的正则化项，因此正式的 $Funk-SVD$ 的优化目标函数是这样的：</p>
-<p>$$arg\mathop{min}\limits_{p_i,q_j}\sum_{(i,j)\in K}(m_{ij}-q_j^Tp_i)^2+\lambda(||p_i||^2_2+||q_j||^2_2)$$</p>
-
-<p>其中 $K$ 为已有评分记录的 $(i,j)$ 对集合，$m_{ij}$ 为用户 $i$ 对物品 $j$ 的真实评分，$\lambda$ 是正则化系数。对于这个优化问题，一般通过<strong>梯度下降法</strong>来进行优化得到结果。</p>
-<p>将上式分别对 $p_i,q_j$ 求导：</p>
-<p>$$\frac{∂J}{∂p_i} = -2(m_{ij}-q_j^Tp_i)q_j+2\lambda p_i$$</p>
-
-<p>$$\frac{∂J}{∂q_j} = -2(m_{ij}-q_j^Tp_i)p_i+2\lambda q_j$$</p>
-
-<p>则在梯度下降法迭代时，$p_i,q_j$ 的迭代公式为：</p>
-<p>$$p_i = p_i + \alpha ((m_{ij}-q_j^Tp_i)q_j-\lambda p_i)$$</p>
-
-<p>$$q_j = q_j + \alpha ((m_{ij}-q_j^Tp_i)p_i-\lambda q_j)$$</p>
-
-
-
-<h4 id="3-3-Bias-SVD"><a href="#3-3-Bias-SVD" class="headerlink" title="3.3 Bias-SVD"></a>3.3 Bias-SVD</h4><p>在 $Funk-SVD$ 算法火爆之后，出现了很多 $Funk-SVD$ 的改进版算法。其中 $Bias$ 算是改进的比较成功的一种算法。其在 $Funk-SVD$ 的基础上加了偏置项特征。</p>
+<h4 id="funk-svd">3.2 Funk-SVD</h4>
+<span class="math inline">\(Simon　Funk\)</span>
+在博客上公开发表了一个只考虑已有评分记录的矩阵分解方法，称为 <span
+class="math inline">\(Funk-SVD\)</span>，也就是被 <span
+class="math inline">\(Yehuda Koren\)</span>
+称为隐语义模型的矩阵分解方法。它的出发点为，既然将一个矩阵做 SVD 分解成
+3
+个矩阵很耗时，同时还面临稀疏的问题，<strong>那么我们能不能避开稀疏问题，同时只分解成两个矩阵呢？</strong>也就是说，现在期望我们的矩阵<span
+class="math inline">\(M\)</span> 这样进行分解：
+<p>
+<span class="math display">\[M_{m×n}=P_{m×k}^TQ_{k×n}\]</span>
+</p>
+<p><strong>这种简化的矩阵分解不再是分解为三个矩阵，而是分解为两个低秩的用户和物品矩阵，其实就是把用户和物品都映射到一个
+<span class="math inline">\(k\)</span> 维空间中，</strong>这个 <span
+class="math inline">\(k\)</span> 维空间对应着 <span
+class="math inline">\(k\)</span>
+个隐因子，我们认为用户对物品的评分主要是由这些隐因子影响的，所以这些隐因子代表了用户和物品一部分共有的特征，在物品身上表现为属性特征，在用户身上表现为偏好特征。只不过这些隐因子并不具有实际意义，也不一定具有非常好的可解释性，每一个维度也没有确定的标签名字，所以才会叫做
+“隐因子”。</p>
+<p>我们知道 <span class="math inline">\(SVD\)</span>
+分解已经很成熟了，但是 <span class="math inline">\(Funk-SVD\)</span>
+如何将矩阵 <span class="math inline">\(M\)</span> 分解成为 <span
+class="math inline">\(P\)</span> 和 <span
+class="math inline">\(Q\)</span>
+呢？<strong>这里采用了线性回归的思想。我们的目标是让用户的评分和用矩阵乘积得到的评分残差尽可能的小</strong>，也就是说，可以用均方差作为损失函数，来寻找最终的P和Q。即通过
+User-Item 评分信息来学习到的用户特征矩阵 <span
+class="math inline">\(P\)</span> 和物品特征矩阵 <span
+class="math inline">\(Q\)</span>，通过重构的低维矩阵预测用户对物品的评分。</p>
+对于某一个用户评分 <span class="math inline">\(m_{ij}\)</span> 如果用
+<span class="math inline">\(Funk-SVD\)</span>
+进行矩阵分解，则对应的表示为 <span
+class="math inline">\(q_j^Tp_i\)</span>，采用均方差作为损失函数，则我们期望
+<span class="math inline">\((m_{ij}-q_j^Tp_i)^2\)</span>
+尽可能的小，如果考虑所有的物品和样本的组合，则我们期望最小化下式：
+<p>
+<span class="math display">\[\sum_{i,j}(m_{ij}-q_j^Tp_i)^2\]</span>
+</p>
+<p>只要我们能够最小化上面的式子，并求出极值所对应的 <span
+class="math inline">\(p_i,q_j\)</span>，则我们最终可以得到矩阵 <span
+class="math inline">\(P\)</span> 和 <span
+class="math inline">\(Q\)</span>，那么对于任意矩阵 <span
+class="math inline">\(M\)</span> 任意一个空白评分的位置，我们可以通过
+<span class="math inline">\(q_j^Tp_i\)</span>
+计算预测评分，很漂亮的方法！</p>
+<p>当然，在实际应用中，为了防止过拟合，会加入一个 <span
+class="math inline">\(L2\)</span> 的正则化项，因此正式的 <span
+class="math inline">\(Funk-SVD\)</span> 的优化目标函数是这样的：</p>
+<p>
+<span
+class="math display">\[arg\mathop{min}\limits_{p_i,q_j}\sum_{(i,j)\in
+K}(m_{ij}-q_j^Tp_i)^2+\lambda(||p_i||^2_2+||q_j||^2_2)\]</span>
+</p>
+<p>其中 <span class="math inline">\(K\)</span> 为已有评分记录的 <span
+class="math inline">\((i,j)\)</span> 对集合，<span
+class="math inline">\(m_{ij}\)</span> 为用户 <span
+class="math inline">\(i\)</span> 对物品 <span
+class="math inline">\(j\)</span> 的真实评分，<span
+class="math inline">\(\lambda\)</span>
+是正则化系数。对于这个优化问题，一般通过<strong>梯度下降法</strong>来进行优化得到结果。</p>
+将上式分别对 <span class="math inline">\(p_i,q_j\)</span> 求导：
+<p>
+<span class="math display">\[\frac{∂J}{∂p_i} =
+-2(m_{ij}-q_j^Tp_i)q_j+2\lambda p_i\]</span>
+</p>
+<p>
+<span class="math display">\[\frac{∂J}{∂q_j} =
+-2(m_{ij}-q_j^Tp_i)p_i+2\lambda q_j\]</span>
+</p>
+则在梯度下降法迭代时，<span class="math inline">\(p_i,q_j\)</span>
+的迭代公式为：
+<p>
+<span class="math display">\[p_i = p_i + \alpha
+((m_{ij}-q_j^Tp_i)q_j-\lambda p_i)\]</span>
+</p>
+<p>
+<span class="math display">\[q_j = q_j + \alpha
+((m_{ij}-q_j^Tp_i)p_i-\lambda q_j)\]</span>
+</p>
+<h4 id="bias-svd">3.3 Bias-SVD</h4>
+<p>在 <span class="math inline">\(Funk-SVD\)</span>
+算法火爆之后，出现了很多 <span class="math inline">\(Funk-SVD\)</span>
+的改进版算法。其中 <span class="math inline">\(Bias\)</span>
+算是改进的比较成功的一种算法。其在 <span
+class="math inline">\(Funk-SVD\)</span> 的基础上加了偏置项特征。</p>
 <p>由于不同用户的打分体系不同（比如在5分为满分的情况下，有的用户认为打3分已经是很低的分数了，而有的用户认为打1分才是比较差的评价），不同用户的衡量标准也有所区别（比如电子产品的平均分和日用品的平均分差异有可能比较大），为了消除用户和物品打分的偏差（Bias），常用的做法是在矩阵分解时加入用户和物品的偏差向量，如下所示：</p>
-<p>$$r_{ui} = \mu + b_i + b_u + q_j^Tp_i$$</p>
-
+<p>
+<span class="math display">\[r_{ui} = \mu + b_i + b_u +
+q_j^Tp_i\]</span>
+</p>
 <p>偏置部分主要由三个子部分组成：</p>
 <ul>
-<li>训练集中所有评分记录的全局平均数 $\mu$ ，表示了训练数据的总体评分情况，对于固定的数据集，它是一个常数。</li>
-<li>用户偏置 $b_u$，独立于物品特征的因素，表示某一特定用户的打分习惯。例如，对于批判性用户对于自己的评分比较苛刻，倾向于打低分；而乐观型用户则打分比较保守，总体打分要偏高。</li>
-<li>物品偏置 $b_i$ ，特立于用户兴趣的因素，表示某一特定物品得到的打分情况。以电影为例，好片获得的总体评分偏高，而烂片获得的评分普遍偏低，物品偏置捕获的就是这样的特征。</li>
+<li>训练集中所有评分记录的全局平均数 <span
+class="math inline">\(\mu\)</span>
+，表示了训练数据的总体评分情况，对于固定的数据集，它是一个常数。</li>
+<li>用户偏置 <span
+class="math inline">\(b_u\)</span>，独立于物品特征的因素，表示某一特定用户的打分习惯。例如，对于批判性用户对于自己的评分比较苛刻，倾向于打低分；而乐观型用户则打分比较保守，总体打分要偏高。</li>
+<li>物品偏置 <span class="math inline">\(b_i\)</span>
+，特立于用户兴趣的因素，表示某一特定物品得到的打分情况。以电影为例，好片获得的总体评分偏高，而烂片获得的评分普遍偏低，物品偏置捕获的就是这样的特征。</li>
 </ul>
 <p>加入了偏置项以后的优化目标函数如下所示：</p>
-<p>$$arg\mathop{min}\limits_{p_i,q_j}\sum_{(i,j)\in K}(m_{ij}-q_j^Tp_i-\mu-b_i-b_u)^2+\lambda(||p_i||^2_2+||q_j||^2_2+||b_i||^2_2+||b_u||^2_2)$$</p>
-
-
-<h3 id="四、基于Pytorch的矩阵分解"><a href="#四、基于Pytorch的矩阵分解" class="headerlink" title="四、基于Pytorch的矩阵分解"></a>四、基于Pytorch的矩阵分解</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bias-SVD代码实现</span></span><br><span class="line"><span class="comment"># 基于MovieLens 1M数据集</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> moviesData <span class="keyword">import</span> readRatings</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MFDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, u_id, i_id, rating</span>):</span></span><br><span class="line">        self.u_id = u_id</span><br><span class="line">        self.i_id = i_id</span><br><span class="line">        self.rating = rating</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.u_id[index], self.i_id[index], self.rating[index]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.rating)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MF</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_users, num_items, mean, embedding_size=<span class="number">100</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.user_emb = nn.Embedding(num_users, embedding_size) <span class="comment"># 隐向量</span></span><br><span class="line">        self.user_bias = nn.Embedding(num_users, <span class="number">1</span>)  <span class="comment"># 用户偏置</span></span><br><span class="line">        self.item_emb = nn.Embedding(num_items, embedding_size) <span class="comment"># 隐向量</span></span><br><span class="line">        self.item_bias = nn.Embedding(num_items, <span class="number">1</span>)  <span class="comment"># 物品偏置</span></span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 参数初始化</span></span><br><span class="line">        self.user_emb.weight.data.uniform_(<span class="number">0</span>, <span class="number">0.005</span>)  <span class="comment"># 0-0.05之间均匀分布</span></span><br><span class="line">        self.user_bias.weight.data.uniform_(-<span class="number">0.01</span>, <span class="number">0.01</span>)</span><br><span class="line">        self.item_emb.weight.data.uniform_(<span class="number">0</span>, <span class="number">0.005</span>)</span><br><span class="line">        self.item_bias.weight.data.uniform_(-<span class="number">0.01</span>, <span class="number">0.01</span>)</span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 全局偏置</span></span><br><span class="line">        <span class="comment"># 将不可训练的tensor转换成可训练的类型parameter，并绑定到module里，net.parameter()中就有了这个参数</span></span><br><span class="line">        self.mean = nn.Parameter(torch.FloatTensor([mean]), <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, u_id, i_id</span>):</span></span><br><span class="line">        U = self.user_emb(u_id)</span><br><span class="line">        b_u = self.user_bias(u_id).squeeze()</span><br><span class="line">        I = self.item_emb(i_id)</span><br><span class="line">        b_i = self.item_bias(i_id).squeeze()</span><br><span class="line">        <span class="keyword">return</span> (U * I).<span class="built_in">sum</span>(<span class="number">1</span>) + b_u + b_i + self.mean <span class="comment"># 返回预测评分</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">model, x_train, y_train, loss_func</span>):</span></span><br><span class="line">    train_ls = [] <span class="comment"># 返回训练误差</span></span><br><span class="line">    train_dataset = MFDataset(x_train[:, <span class="number">0</span>], x_train[:, <span class="number">1</span>], y_train)</span><br><span class="line">    <span class="comment"># DataLoader将一个batch_size封装成一个tensor，方便迭代</span></span><br><span class="line">    train_iter = DataLoader(train_dataset, batch_size=<span class="number">1024</span>)</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># weight_decay是正则化系数</span></span><br><span class="line">    optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">1e-4</span>, weight_decay=<span class="number">0.1</span>)</span><br><span class="line">    model = model.<span class="built_in">float</span>()</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">        model.train()  <span class="comment"># 如果模型中有Batch Normalization或Dropout层，需要在训练时添加model.train()，使起作用</span></span><br><span class="line">        total_loss, total_len = <span class="number">0.0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x_u, x_i, y <span class="keyword">in</span> train_iter:</span><br><span class="line">            y_pred = model(x_u, x_i)</span><br><span class="line">            l = loss_func(y_pred, y).<span class="built_in">sum</span>()</span><br><span class="line">            optimizer.zero_grad() <span class="comment"># 清空这一批的梯度</span></span><br><span class="line">            l.backward() <span class="comment"># 回传</span></span><br><span class="line">            optimizer.step() <span class="comment"># 参数更新</span></span><br><span class="line"></span><br><span class="line">            total_loss += l.item()</span><br><span class="line">            total_len += <span class="built_in">len</span>(y)</span><br><span class="line">        train_ls.append(total_loss / total_len)</span><br><span class="line">    <span class="keyword">return</span> train_ls</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    pd.set_option(<span class="string">&#x27;display.max_rows&#x27;</span>, <span class="number">1000</span>, <span class="string">&#x27;display.max_columns&#x27;</span>, <span class="literal">None</span>,</span><br><span class="line">                  <span class="string">&#x27;display.float_format&#x27;</span>, <span class="keyword">lambda</span> x:<span class="string">&quot;%.2f&quot;</span> % x)</span><br><span class="line">    path = <span class="string">r&#x27;C:\Users\QzmVc1\Desktop\MovieLens&#x27;</span></span><br><span class="line">    df = readRatings(path)</span><br><span class="line"></span><br><span class="line">    x, y = df.iloc[:, :<span class="number">2</span>], df.iloc[:, <span class="number">2</span>]</span><br><span class="line">    x = torch.tensor(x.values, dtype=torch.int64)</span><br><span class="line">    y = torch.tensor(y.values, dtype=torch.float32)</span><br><span class="line"></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(x.numpy(), y.numpy(), test_size=<span class="number">0.3</span>, random_state=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    mean_rating = df.iloc[:, <span class="number">2</span>].mean()</span><br><span class="line">    <span class="comment"># 虽然数据集的UserID是从1开始的，但这里还是需要+1，因为nn.Embedding是从索引0开始，而model(x_u, x_i)传的是真实的ID</span></span><br><span class="line">    num_users, num_items = df[<span class="string">&#x27;UserID&#x27;</span>].<span class="built_in">max</span>()+<span class="number">1</span>, df[<span class="string">&#x27;MovieID&#x27;</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    model = MF(num_users, num_items, mean_rating)</span><br><span class="line">    loss = nn.MSELoss(reduction=<span class="string">&#x27;sum&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    train_ls = train(model, x_train, y_train, loss)</span><br><span class="line">    <span class="built_in">print</span>(train_ls)</span><br></pre></td></tr></table></figure>
+<p>
+<span
+class="math display">\[arg\mathop{min}\limits_{p_i,q_j}\sum_{(i,j)\in
+K}(m_{ij}-q_j^Tp_i-\mu-b_i-b_u)^2+\lambda(||p_i||^2_2+||q_j||^2_2+||b_i||^2_2+||b_u||^2_2)\]</span>
+</p>
+<h3 id="四基于pytorch的矩阵分解">四、基于Pytorch的矩阵分解</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Bias-SVD代码实现</span></span><br><span class="line"><span class="comment"># 基于MovieLens 1M数据集</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> moviesData <span class="keyword">import</span> readRatings</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MFDataset</span>(<span class="params">Dataset</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, u_id, i_id, rating</span>):</span></span><br><span class="line">        self.u_id = u_id</span><br><span class="line">        self.i_id = i_id</span><br><span class="line">        self.rating = rating</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, index</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.u_id[index], self.i_id[index], self.rating[index]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.rating)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MF</span>(<span class="params">nn.Module</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, num_users, num_items, mean, embedding_size=<span class="number">100</span></span>):</span></span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        self.user_emb = nn.Embedding(num_users, embedding_size) <span class="comment"># 隐向量</span></span><br><span class="line">        self.user_bias = nn.Embedding(num_users, <span class="number">1</span>)  <span class="comment"># 用户偏置</span></span><br><span class="line">        self.item_emb = nn.Embedding(num_items, embedding_size) <span class="comment"># 隐向量</span></span><br><span class="line">        self.item_bias = nn.Embedding(num_items, <span class="number">1</span>)  <span class="comment"># 物品偏置</span></span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 参数初始化</span></span><br><span class="line">        self.user_emb.weight.data.uniform_(<span class="number">0</span>, <span class="number">0.005</span>)  <span class="comment"># 0-0.05之间均匀分布</span></span><br><span class="line">        self.user_bias.weight.data.uniform_(-<span class="number">0.01</span>, <span class="number">0.01</span>)</span><br><span class="line">        self.item_emb.weight.data.uniform_(<span class="number">0</span>, <span class="number">0.005</span>)</span><br><span class="line">        self.item_bias.weight.data.uniform_(-<span class="number">0.01</span>, <span class="number">0.01</span>)</span><br><span class="line">		</span><br><span class="line">        <span class="comment"># 全局偏置</span></span><br><span class="line">        <span class="comment"># 将不可训练的tensor转换成可训练的类型parameter，并绑定到module里，net.parameter()中就有了这个参数</span></span><br><span class="line">        self.mean = nn.Parameter(torch.FloatTensor([mean]), <span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span>(<span class="params">self, u_id, i_id</span>):</span></span><br><span class="line">        U = self.user_emb(u_id)</span><br><span class="line">        b_u = self.user_bias(u_id).squeeze()</span><br><span class="line">        I = self.item_emb(i_id)</span><br><span class="line">        b_i = self.item_bias(i_id).squeeze()</span><br><span class="line">        <span class="keyword">return</span> (U * I).<span class="built_in">sum</span>(<span class="number">1</span>) + b_u + b_i + self.mean <span class="comment"># 返回预测评分</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span>(<span class="params">model, x_train, y_train, loss_func</span>):</span></span><br><span class="line">    train_ls = [] <span class="comment"># 返回训练误差</span></span><br><span class="line">    train_dataset = MFDataset(x_train[:, <span class="number">0</span>], x_train[:, <span class="number">1</span>], y_train)</span><br><span class="line">    <span class="comment"># DataLoader将一个batch_size封装成一个tensor，方便迭代</span></span><br><span class="line">    train_iter = DataLoader(train_dataset, batch_size=<span class="number">1024</span>)</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># weight_decay是正则化系数</span></span><br><span class="line">    optimizer = torch.optim.Adam(model.parameters(), lr=<span class="number">1e-4</span>, weight_decay=<span class="number">0.1</span>)</span><br><span class="line">    model = model.<span class="built_in">float</span>()</span><br><span class="line">    <span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">        model.train()  <span class="comment"># 如果模型中有Batch Normalization或Dropout层，需要在训练时添加model.train()，使起作用</span></span><br><span class="line">        total_loss, total_len = <span class="number">0.0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x_u, x_i, y <span class="keyword">in</span> train_iter:</span><br><span class="line">            y_pred = model(x_u, x_i)</span><br><span class="line">            l = loss_func(y_pred, y).<span class="built_in">sum</span>()</span><br><span class="line">            optimizer.zero_grad() <span class="comment"># 清空这一批的梯度</span></span><br><span class="line">            l.backward() <span class="comment"># 回传</span></span><br><span class="line">            optimizer.step() <span class="comment"># 参数更新</span></span><br><span class="line"></span><br><span class="line">            total_loss += l.item()</span><br><span class="line">            total_len += <span class="built_in">len</span>(y)</span><br><span class="line">        train_ls.append(total_loss / total_len)</span><br><span class="line">    <span class="keyword">return</span> train_ls</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    pd.set_option(<span class="string">&#x27;display.max_rows&#x27;</span>, <span class="number">1000</span>, <span class="string">&#x27;display.max_columns&#x27;</span>, <span class="literal">None</span>,</span><br><span class="line">                  <span class="string">&#x27;display.float_format&#x27;</span>, <span class="keyword">lambda</span> x:<span class="string">&quot;%.2f&quot;</span> % x)</span><br><span class="line">    path = <span class="string">r&#x27;C:\Users\QzmVc1\Desktop\MovieLens&#x27;</span></span><br><span class="line">    df = readRatings(path)</span><br><span class="line"></span><br><span class="line">    x, y = df.iloc[:, :<span class="number">2</span>], df.iloc[:, <span class="number">2</span>]</span><br><span class="line">    x = torch.tensor(x.values, dtype=torch.int64)</span><br><span class="line">    y = torch.tensor(y.values, dtype=torch.float32)</span><br><span class="line"></span><br><span class="line">    x_train, x_test, y_train, y_test = train_test_split(x.numpy(), y.numpy(), test_size=<span class="number">0.3</span>, random_state=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    mean_rating = df.iloc[:, <span class="number">2</span>].mean()</span><br><span class="line">    <span class="comment"># 虽然数据集的UserID是从1开始的，但这里还是需要+1，因为nn.Embedding是从索引0开始，而model(x_u, x_i)传的是真实的ID</span></span><br><span class="line">    num_users, num_items = df[<span class="string">&#x27;UserID&#x27;</span>].<span class="built_in">max</span>()+<span class="number">1</span>, df[<span class="string">&#x27;MovieID&#x27;</span>].<span class="built_in">max</span>()+<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    model = MF(num_users, num_items, mean_rating)</span><br><span class="line">    loss = nn.MSELoss(reduction=<span class="string">&#x27;sum&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    train_ls = train(model, x_train, y_train, loss)</span><br><span class="line">    <span class="built_in">print</span>(train_ls)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -498,14 +600,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

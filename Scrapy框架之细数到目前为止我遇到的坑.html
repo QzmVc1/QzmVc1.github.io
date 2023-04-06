@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
+<meta name="description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。 ****** 问1：Python3.7版本使用Scrapy Shell遇到invalid syntax 答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy框架之细数到目前为止我遇到的坑">
 <meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6%E4%B9%8B%E7%BB%86%E6%95%B0%E5%88%B0%E7%9B%AE%E5%89%8D%E4%B8%BA%E6%AD%A2%E6%88%91%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。  问1：Python3.7版本使用Scrapy Shell遇到invalid syntax答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
+<meta property="og:description" content="本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。 ****** 问1：Python3.7版本使用Scrapy Shell遇到invalid syntax 答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Py">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-11-19T00:56:50.000Z">
 <meta property="article:modified_time" content="2021-10-06T11:55:54.000Z">
@@ -327,73 +327,90 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b></p>
-<hr>
-<p><b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b><br>答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import        manhole ”而且提示符 ‘^’ 指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开 <em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有 “async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
-<p><b>问2：Scrapy爬虫提示 list index out of range</b><br>答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。<br><span id="more"></span><br><b>问3：Scrapy爬取URL在cmd中显示url编码</b><br>答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。</p>
-<hr>
-<p>这里插着写一下windows控制台cmd乱码的解决方法（与本篇博客无关）</p>
+        <p><b>本篇博客会在我学习Scrapy的途中不断更新，记录大大小小的我遇到的坑。直接正题。</b>
+****** <b>问1：Python3.7版本使用Scrapy Shell遇到invalid syntax</b>
+答1：如果出现SyntaxError:invalid syntax,在“ from twisted.conch import
+manhole ”而且提示符 ‘^’
+指向async，那么很有可能是因为你的版本是Python3.7，这个版本把async变成了关键字，这个时候就需要自己动手去找到并打开
+<em>manhole.py</em> (在错误信息里面找)这个文件，然后找到(CTRL+F)所有
+“async” 关键字并修改成关键字无关的标识符如“async_” 。</p>
+<p><b>问2：Scrapy爬虫提示 list index out of range</b>
+答2：extract()返回信息列表，extract()[0]显示 <strong><em>index out of
+range</em></strong> 错误信息，将extract()[0]换成extract_first()即可。
+<span id="more"></span> <b>问3：Scrapy爬取URL在cmd中显示url编码</b>
+答3：cmd默认使用的gbk编码，在项目的py文件中使用urllib.parse.unquote()函数将url编码转化为gbk编码。该函数的输出是对应中文在gbk下的编码。
+******
+这里插着写一下windows控制台cmd乱码的解决方法（与本篇博客无关）</p>
 <p>有时在cmd中输出的中文乱码，解决办法如下：</p>
-<p>在cmd中输入 <b>CHCP 65001<br>CHCP是一个计算机指令，能够显示或设置活动代码页编号。</b>
+<p>在cmd中输入 <b>CHCP 65001
+CHCP是一个计算机指令，能够显示或设置活动代码页编号。</b>
 　　　　　　　　　　</p>
-<div class="table-container">
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>代码页</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>65001</td>
 <td>UTF-8</td>
 </tr>
-<tr>
+<tr class="even">
 <td>950</td>
 <td>繁体中文</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>936</td>
 <td>中国 - 简体中文(GB2312)</td>
 </tr>
-<tr>
+<tr class="even">
 <td>437</td>
 <td>MS-DOS 美国英语</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>…</td>
 <td>…</td>
 </tr>
 </tbody>
 </table>
-</div>
-<hr>
-<p><b>问4：DEBUG: Filtered offsite request to…</b><br>答4：输出crawl命令后显示 <strong>[scrapy.spidermiddlewares.offsite] DEBUG: Filtered offsite request to ‘<a target="_blank" rel="noopener" href="http://jcoffeezph.top">http://jcoffeezph.top</a>‘</strong>，原来是二次解析的域名被过滤掉了。解决办法yield scrapy.Request(url=detail_url, meta={‘item’: item}, callback=self.parse_info, <b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
-<p>这篇链接对于此问题的解释也很清楚：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c31e53fd45f6">https://www.jianshu.com/p/c31e53fd45f6</a></p>
-<p><b>问5：Scrapy 爬取顺序每次都不一样</b><br>答5：异步处理请求，也就是说Scrapy发送请求之后，不会等待这个请求的响应（也就是不会阻塞），而是可以同时发送其他请求或者做别的事情。而我们知道服务器对于请求的响应是由很多方面的因素影响的，如网络速度、解析速度、资源抢占等等，其响应的顺序是难以预测的。</p>
+<hr />
+<p><b>问4：DEBUG: Filtered offsite request to…</b>
+答4：输出crawl命令后显示 <strong>[scrapy.spidermiddlewares.offsite]
+DEBUG: Filtered offsite request to
+‘http://jcoffeezph.top’</strong>，原来是二次解析的域名被过滤掉了。解决办法yield
+scrapy.Request(url=detail_url, meta={‘item’: item},
+callback=self.parse_info,
+<b>dont_filter=True</b>)，原理是忽略allowed_domains的过滤。如果需要多次提交表单，且url一样，那么就必须加此参数dont_filter，防止被当成重复网页过滤掉。</p>
+<p>这篇链接对于此问题的解释也很清楚：https://www.jianshu.com/p/c31e53fd45f6</p>
+<p><b>问5：Scrapy 爬取顺序每次都不一样</b>
+答5：异步处理请求，也就是说Scrapy发送请求之后，不会等待这个请求的响应（也就是不会阻塞），而是可以同时发送其他请求或者做别的事情。而我们知道服务器对于请求的响应是由很多方面的因素影响的，如网络速度、解析速度、资源抢占等等，其响应的顺序是难以预测的。</p>
 <p>Scrapy异步的根源，在于它依赖于Twisted框架。Twisted框架是一个Python的event-driven的框架，这里你可以理解为是异步I/O的。</p>
-<p><b>问6：数组的索引值是从0开始的，Xpath的元素值是从几开始的</b><br>答6：1</p>
-<p><b>问7：<strong>json.dumps的参数ensure_ascii=False：</strong>  </b><br>答7：在使用json.dumps时要注意一个问题</p>
-<blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span> json.dumps(<span class="string">&#x27;中国&#x27;</span>)</span><br><span class="line"></span><br><span class="line">输出：<span class="string">&quot;\u4e2d\u56fd&quot;</span></span><br><span class="line">输出的会是</span><br><span class="line"><span class="string">&#x27;中国&#x27;</span> 中的<span class="built_in">ascii</span> 字符码，而不是真正的中文。</span><br></pre></td></tr></table></figure>
-<p>因为json.dumps 序列化时对中文默认使用的ascii编码.想输出真正的中文需要指定ensure_ascii=False;</p>
-</blockquote>
-<p><strong>问8：中文保存到json文件中产生乱码</strong><br>答8：通过str.encode转换为’UTF-8’编码，因为str.encode返回值是一个bytes对象，因此打开文件的方式要写成 ‘wb’ 。<br>也可以通过在settings.py中添加如下代码：</p>
-<blockquote>
-<p>FEED_EXPORT_ENCODING = ‘UTF-8’</p>
-</blockquote>
-<p><strong>问9：Scrapy爬取图片报错：raise ValueError(‘Missing scheme in request url: %s’ % self._url)</strong><br>答9：items.py定义的image_urls属性需要在spider.py中爬取时赋值为列表，以便在下载管道中进行迭代下载。</p>
-<p><strong>问10：Scrapy爬取图片报错：’NoneType’ object is not subscriptable</strong><br>答10：可能是管道下载获取图片URL时碰到了一些无法获取到的图片，例如本地图片等等…</p>
-<p><strong>问11：爬取豆瓣时scrapy crawl spider报错403</strong><br>答11：这是因为豆瓣有反爬机质，需要加上<code>scrapy crawl spider -s USER_AGENT=”Mozilla/5.0”</code></p>
-<p><strong>问12：xpath如何获取当前节点的兄弟标签</strong><br>答12：</p>
-<ul>
-<li>获取第三个a标签的下一个a标签：”/following-sibling::a[1]”</li>
-<li>获取第三个a标签后面的第N个标签：”/following-sibling::*[N]”</li>
-<li>获取第三个a标签的上一个a标签：”/preceding-sibling::a[1]”</li>
-<li>获取第三个a标签的前面的第N个标签：”/preceding-sibling::*[N]”</li>
-<li>获取第三个a标签的父标签：”/..”</li>
-</ul>
+<p><b>问6：数组的索引值是从0开始的，Xpath的元素值是从几开始的</b>
+答6：1</p>
+<p><b>问7：<strong>json.dumps的参数ensure_ascii=False：</strong> </b>
+答7：在使用json.dumps时要注意一个问题 &gt; <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> json</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">print</span> json.dumps(<span class="string">&#x27;中国&#x27;</span>)</span><br><span class="line"></span><br><span class="line">输出：<span class="string">&quot;\u4e2d\u56fd&quot;</span></span><br><span class="line">输出的会是</span><br><span class="line"><span class="string">&#x27;中国&#x27;</span> 中的<span class="built_in">ascii</span> 字符码，而不是真正的中文。</span><br></pre></td></tr></table></figure> 因为json.dumps
+序列化时对中文默认使用的ascii编码.想输出真正的中文需要指定ensure_ascii=False;</p>
+<p><strong>问8：中文保存到json文件中产生乱码</strong>
+答8：通过str.encode转换为’UTF-8’编码，因为str.encode返回值是一个bytes对象，因此打开文件的方式要写成
+‘wb’ 。 也可以通过在settings.py中添加如下代码： &gt;FEED_EXPORT_ENCODING
+= ‘UTF-8’</p>
+<p><strong>问9：Scrapy爬取图片报错：raise ValueError(‘Missing scheme in
+request url: %s’ % self._url)</strong>
+答9：items.py定义的image_urls属性需要在spider.py中爬取时赋值为列表，以便在下载管道中进行迭代下载。</p>
+<p><strong>问10：Scrapy爬取图片报错：‘NoneType’ object is not
+subscriptable</strong>
+答10：可能是管道下载获取图片URL时碰到了一些无法获取到的图片，例如本地图片等等…</p>
+<p><strong>问11：爬取豆瓣时scrapy crawl spider报错403</strong>
+答11：这是因为豆瓣有反爬机质，需要加上<code>scrapy crawl spider -s
+USER_AGENT=“Mozilla/5.0”</code></p>
+<p><strong>问12：xpath如何获取当前节点的兄弟标签</strong> 答12： +
+获取第三个a标签的下一个a标签：“/following-sibling::a[1]” +
+获取第三个a标签后面的第N个标签：“/following-sibling::<em>[N]” +
+获取第三个a标签的上一个a标签：”/preceding-sibling::a[1]” +
+获取第三个a标签的前面的第N个标签：”/preceding-sibling::</em>[N]” +
+获取第三个a标签的父标签：“/..”</p>
 
     </div>
 
@@ -498,14 +515,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

@@ -293,7 +293,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>1.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,13 +311,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>EMCDR将源域和目标域的用户偏好编码为向量，然后学习一个映射函数，该映射函数将源域中的用户向量映射为目标领域上的用户向量，基于两个领域重叠的用户，使用 MSE 损失来进行学习。这类方法往往存在如下问题：</p>
+          <h3 id="一前言">一、前言</h3>
+<p>EMCDR将源域和目标域的用户偏好编码为向量，然后学习一个映射函数，该映射函数将源域中的用户向量映射为目标领域上的用户向量，基于两个领域重叠的用户，使用
+MSE 损失来进行学习。这类方法往往存在如下问题：</p>
 <ul>
 <li>通常两个领域重叠的用户只是一小部分用户，这样学习到的映射函数会在重叠用户上过拟合，降低模型的泛化能力；</li>
 <li>使用映射导向的损失函数（MSE），对目标向量的质量有很高的要求。然而在冷启动场景中，目标向量的质量往往不尽人意，这样会导致向量表示学习中被噪声影响；</li>
 </ul>
 <p>论文将跨域推荐和元学习思想结合起来，提出了一种Transfer-Meta的框架来构建用户的embedding向量，该框架分为两个阶段：Transfer阶段、Meta阶段。</p>
-<p>原文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.04785.pdf">Transfer-Meta Framework for Cross-domain Recommendation to Cold-Start Users</a></p>
+<p>原文链接：<a
+target="_blank" rel="noopener" href="https://arxiv.org/pdf/2105.04785.pdf">Transfer-Meta Framework for
+Cross-domain Recommendation to Cold-Start Users</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-9-TMCDR.html#more" rel="contents">
@@ -422,14 +426,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、跨域推荐概述"><a href="#一、跨域推荐概述" class="headerlink" title="一、跨域推荐概述"></a>一、跨域推荐概述</h3><p>为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。</p>
+          <h3 id="一跨域推荐概述">一、跨域推荐概述</h3>
+<p>为了解决推荐系统冷启动中长期存在的数据稀疏问题，人们提出了跨域推荐（CDR），利用来自更丰富域（源域）的相对更丰富的信息，提高在更稀疏域（目标域）中的推荐性能。</p>
 <p>跨域推荐分为两种类型：</p>
-<ol>
+<ol type="1">
 <li>非对称的方式：利用源域中的数据来解决目标域的数据稀疏性，具体来说是把在源域中学到的知识或者某种模式直接应用到目标域中充当先验或者正则。这种方法的关键之处是需要从源域数据中识别出可以应用到目标域的知识。然而因为没有完全利用源域和目标域的数据，所以是有很大局限的。</li>
 <li>对称的方式，假设源域和目标域都有数据稀疏的问题，并且它们可以互相应用对方的数据知识。以这种方式来看，这两个域是可以同等对待的，两个域都以协同的方式应对数据稀疏问题。通常这种方式会在域之间学习一个map函数，把域独有的因子和域间共享的因子明确区分开来，主要的缺点是学习域独有的因子和域间共享的因子本身就放大了数据的稀疏性问题。</li>
 </ol>
 <p>两种类型的区别在于：非对称方式中源域用于判断label的知识足够多而目标域用于判断label知识相对少，源域需要的知识目标域无法提供，而目标域需要源域的知识，源域知识与目标域知识的交集为目标域知识，这样目标域的知识没必要迁移或迁移过去没多大作用；而对称方式中源域和目标域知识都不太多，有一定交集，也有各自的部分，需要互为补充提高精度。</p>
-<p>本篇博客对跨域推荐模型EMCDR做一个详细介绍，原文地址： <a target="_blank" rel="noopener" href="https://static.aminer.cn/upload/pdf/program/59ae3c262bbe271c4c71f007_0.pdf">Cross-Domain Recommendation: An Embedding and Mapping Approach</a></p>
+<p>本篇博客对跨域推荐模型EMCDR做一个详细介绍，原文地址： <a
+target="_blank" rel="noopener" href="https://static.aminer.cn/upload/pdf/program/59ae3c262bbe271c4c71f007_0.pdf">Cross-Domain
+Recommendation: An Embedding and Mapping Approach</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-8-EMCDR.html#more" rel="contents">
@@ -516,14 +523,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -534,17 +541,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><h4 id="1-1-跨域推荐的概念"><a href="#1-1-跨域推荐的概念" class="headerlink" title="1.1 跨域推荐的概念"></a>1.1 跨域推荐的概念</h4><p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
+          <h3 id="一引言">一、引言</h3>
+<h4 id="跨域推荐的概念">1.1 跨域推荐的概念</h4>
+<p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
 <p>那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的东西，它基于的数据也都是游戏用户本身的东西。但什么是”跨域推荐“呢？比如，我要给“鬼畜区”推荐东西，但是使用的数据不只是鬼畜区自己的，它还包括了”舞蹈区“，”数码区“，”游戏区“等其他域产生的数据。</p>
 <p>对于此，我们要定义两个”域“的概念：”源域“和”目标域“，我们要优化、提升的目标叫做”目标域“，比如我们要优化”鬼畜区“的CTR，那么“鬼畜区”就是“目标域”。而”源域“相当于是辅助的部分，我们会把“舞蹈区”，“数码区”等看做是“源域”。</p>
-<h4 id="1-2-跨域推荐的细节"><a href="#1-2-跨域推荐的细节" class="headerlink" title="1.2 跨域推荐的细节"></a>1.2 跨域推荐的细节</h4><p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
+<h4 id="跨域推荐的细节">1.2 跨域推荐的细节</h4>
+<p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
 <ul>
 <li>用户与物品之间没有都没有交集；</li>
 <li>两个域的用户有部分交集，但是物品没有交集。这种情况可以理解成鬼畜用户和舞蹈用户会有部分交集，这部分用户他们既访问了鬼畜区的视频又去舞蹈区看了小姐姐；</li>
 <li>两个域的用户没有交集，但是物品有部分重合。一种可能的情况：youtube和b站的用户在法定情况下是不一样的，但是b站的部分内容又是从youtube上搬运过来的；</li>
 <li>这个场景的重合度就比较高了，不论是用户还是物品都有一定程度上的重叠，这在b站上也是很常见的，比如自制区的视频同时也是数码区的视频。</li>
 </ul>
-<p>原文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2008.02974">MiNet:Mixed Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
+<p>原文链接：<a
+href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2008.02974">MiNet:Mixed
+Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html#more" rel="contents">
@@ -631,7 +643,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.4k</span>
+      <span>7.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -649,8 +661,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>$Deep　Crossing$ 模型是微软于2016年在 KDD 上提出的模型，它算是第一个企业以正式论文的形式分享深度学习推荐系统的技术细节的模型。由于手工设计特征（特征工程）花费巨大精力，因此文章提出了$Deep　Crossing$ 模型自动联合特征与特征交叉。$Deep　Crossing$ 并没有采用显式交叉特征的方式，而是利用残差网络结构挖掘特征间的关系，以现在的角度看待这个模型是非常简单的，也就是 $Embedding+MLP$ 的结构，但对当时影响是非常巨大。</p>
-<p>原文链接:<a target="_blank" rel="noopener" href="https://www.kdd.org/kdd2016/papers/files/adf0975-shanA.pdf">Deep Crossing: Web-Scale Modeling without Manually Crafted Combinatorial Features</a></p>
+          <h3 id="一简介">一、简介</h3>
+<p><span class="math inline">\(Deep　Crossing\)</span>
+模型是微软于2016年在 KDD
+上提出的模型，它算是第一个企业以正式论文的形式分享深度学习推荐系统的技术细节的模型。由于手工设计特征（特征工程）花费巨大精力，因此文章提出了<span
+class="math inline">\(Deep　Crossing\)</span>
+模型自动联合特征与特征交叉。<span
+class="math inline">\(Deep　Crossing\)</span>
+并没有采用显式交叉特征的方式，而是利用残差网络结构挖掘特征间的关系，以现在的角度看待这个模型是非常简单的，也就是
+<span class="math inline">\(Embedding+MLP\)</span>
+的结构，但对当时影响是非常巨大。</p>
+<p>原文链接:<a
+target="_blank" rel="noopener" href="https://www.kdd.org/kdd2016/papers/files/adf0975-shanA.pdf">Deep
+Crossing: Web-Scale Modeling without Manually Crafted Combinatorial
+Features</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-6-Deep-Crossing.html#more" rel="contents">
@@ -737,7 +761,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -755,8 +779,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>$AutoRec$ 模型是由澳大利亚国立大学在2015年提出的，它将自编码器($AutoEncoder$)的思想与协同过滤($Collaborative　Filter$)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。</p>
-<p>原文地址：<a target="_blank" rel="noopener" href="https://users.cecs.anu.edu.au/~akmenon/papers/autorec/autorec-paper.pdf">AutoRec: Autoencoders Meet Collaborative Filtering</a></p>
+          <h3 id="简介">简介</h3>
+<p><span class="math inline">\(AutoRec\)</span>
+模型是由澳大利亚国立大学在2015年提出的，它将自编码器(<span
+class="math inline">\(AutoEncoder\)</span>)的思想与协同过滤(<span
+class="math inline">\(Collaborative　Filter\)</span>)的思想结合起来，提出了一种单隐层的简单神经网络推荐模型。可以说这个模型的提出，拉开了使用深度学习解决推荐系统问题的序幕，为复杂深度学习网络的构建提供了思路。</p>
+<p>原文地址：<a
+target="_blank" rel="noopener" href="https://users.cecs.anu.edu.au/~akmenon/papers/autorec/autorec-paper.pdf">AutoRec:
+Autoencoders Meet Collaborative Filtering</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-5-AutoRec.html#more" rel="contents">
@@ -843,7 +873,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>454</span>
+      <span>485</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -861,7 +891,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、题目描述"><a href="#一、题目描述" class="headerlink" title="一、题目描述"></a>一、题目描述</h3><p><img src="https://z3.ax1x.com/2021/09/15/4eMWad.png" alt=""></p>
+          <h3 id="一题目描述">一、题目描述</h3>
+<p><img src="https://z3.ax1x.com/2021/09/15/4eMWad.png" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/LeetCodeLCP07-%E4%BC%A0%E9%80%92%E4%BF%A1%E6%81%AF.html#more" rel="contents">
@@ -948,7 +979,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>822</span>
+      <span>884</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -966,7 +997,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、题目描述"><a href="#一、题目描述" class="headerlink" title="一、题目描述"></a>一、题目描述</h3><p><img src="https://z3.ax1x.com/2021/09/15/4enpHs.png" alt=""></p>
+          <h3 id="一题目描述">一、题目描述</h3>
+<p><img src="https://z3.ax1x.com/2021/09/15/4enpHs.png" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/LeetCode338-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0.html#more" rel="contents">
@@ -1053,7 +1085,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>517</span>
+      <span>529</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1071,7 +1103,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、题目描述"><a href="#一、题目描述" class="headerlink" title="一、题目描述"></a>一、题目描述</h3><p><img src="https://z3.ax1x.com/2021/09/11/hzSGRI.png" alt=""></p>
+          <h3 id="一题目描述">一、题目描述</h3>
+<p><img src="https://z3.ax1x.com/2021/09/11/hzSGRI.png" /></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/LeetCode1442-%E5%BD%A2%E6%88%90%E4%B8%A4%E4%B8%AA%E5%BC%82%E6%88%96%E7%9B%B8%E7%AD%89%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%89%E5%85%83%E7%BB%84%E6%95%B0%E7%9B%AE.html#more" rel="contents">
@@ -1122,14 +1155,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

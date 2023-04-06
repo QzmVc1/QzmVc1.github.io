@@ -25,12 +25,12 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="一、引言1.1 跨域推荐的概念首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。 那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的">
+<meta name="description" content="一、引言 1.1 跨域推荐的概念 首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。 那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的推荐算法之路(7):MiNet">
 <meta property="og:url" content="http://qzmvc1.top/%E6%88%91%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E4%B9%8B%E8%B7%AF-7-MiNet.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="一、引言1.1 跨域推荐的概念首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。 那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的">
+<meta property="og:description" content="一、引言 1.1 跨域推荐的概念 首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。 那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s4.ax1x.com/2022/01/07/7967FK.png">
 <meta property="og:image" content="https://s4.ax1x.com/2022/01/07/79ctTx.png">
@@ -171,7 +171,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80"><span class="nav-text">一、引言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">1.1 跨域推荐的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-text">1.2 跨域推荐的细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="nav-text">二、模型设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">2.1 数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">2.2 结构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="nav-text">2.3 详细说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-Embedding%E5%B1%82"><span class="nav-text">2.3.1 Embedding层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-%E8%B7%A8%E5%9F%9F%E9%95%BF%E6%9C%9F%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.2 跨域长期建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-%E6%BA%90%E5%9F%9F%E7%9F%AD%E6%9C%9F%E5%85%B4%E8%B6%A3%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.3 源域短期兴趣建模</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-1-Item-attention"><span class="nav-text">2.3.3.1 Item attention</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-3-2-Aggregation"><span class="nav-text">2.3.3.2 Aggregation</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4-%E7%9B%AE%E6%A0%87%E5%9F%9F%E7%9F%AD%E6%9C%9F%E5%85%B4%E8%B6%A3%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.4 目标域短期兴趣建模</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-1-Item-attention"><span class="nav-text">2.3.4.1 Item attention</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-4-2-Aggregation"><span class="nav-text">2.3.4.2 Aggregation</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-5-Interest-Attention%E5%B1%82"><span class="nav-text">2.3.5 Interest Attention层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-6-Prediction%E5%B1%82%E5%92%8CLoss%E5%87%BD%E6%95%B0"><span class="nav-text">2.3.6 Prediction层和Loss函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">三、跨域推荐优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">四、参考链接</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%BC%95%E8%A8%80"><span class="nav-text">一、引言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">1.1 跨域推荐的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E7%9A%84%E7%BB%86%E8%8A%82"><span class="nav-text">1.2 跨域推荐的细节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1"><span class="nav-text">二、模型设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-text">2.1 数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">2.2 结构设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E"><span class="nav-text">2.3 详细说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embedding%E5%B1%82"><span class="nav-text">2.3.1 Embedding层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E9%95%BF%E6%9C%9F%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.2 跨域长期建模</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E5%9F%9F%E7%9F%AD%E6%9C%9F%E5%85%B4%E8%B6%A3%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.3 源域短期兴趣建模</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#item-attention"><span class="nav-text">2.3.3.1 Item attention</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aggregation"><span class="nav-text">2.3.3.2 Aggregation</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%9F%9F%E7%9F%AD%E6%9C%9F%E5%85%B4%E8%B6%A3%E5%BB%BA%E6%A8%A1"><span class="nav-text">2.3.4 目标域短期兴趣建模</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#item-attention-1"><span class="nav-text">2.3.4.1 Item attention</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#aggregation-1"><span class="nav-text">2.3.4.2 Aggregation</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#interest-attention%E5%B1%82"><span class="nav-text">2.3.5 Interest Attention层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prediction%E5%B1%82%E5%92%8Closs%E5%87%BD%E6%95%B0"><span class="nav-text">2.3.6 Prediction层和Loss函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%B7%A8%E5%9F%9F%E6%8E%A8%E8%8D%90%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">三、跨域推荐优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-text">四、参考链接</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -316,14 +316,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.8k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -334,28 +334,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><h4 id="1-1-跨域推荐的概念"><a href="#1-1-跨域推荐的概念" class="headerlink" title="1.1 跨域推荐的概念"></a>1.1 跨域推荐的概念</h4><p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
+        <h3 id="一引言">一、引言</h3>
+<h4 id="跨域推荐的概念">1.1 跨域推荐的概念</h4>
+<p>首先要引入“跨域推荐”的概念。什么是”域“呢？简单来说，可以把它看作是通过某种方式聚集在一起的集合。比如可以把新闻app中的某一个板块当做一个域，也可以是b站的鬼畜区，舞蹈区等等。当然我们也可以扩大域的概念，把短视频整体当成一个域。这些定义应该都是可以的，域的概念其实可大可小。</p>
 <p>那什么叫”跨域“呢？可能常见的推荐场景都是单域推荐比较多，也就是”游戏“只推荐”游戏“类的东西，它基于的数据也都是游戏用户本身的东西。但什么是”跨域推荐“呢？比如，我要给“鬼畜区”推荐东西，但是使用的数据不只是鬼畜区自己的，它还包括了”舞蹈区“，”数码区“，”游戏区“等其他域产生的数据。</p>
 <p>对于此，我们要定义两个”域“的概念：”源域“和”目标域“，我们要优化、提升的目标叫做”目标域“，比如我们要优化”鬼畜区“的CTR，那么“鬼畜区”就是“目标域”。而”源域“相当于是辅助的部分，我们会把“舞蹈区”，“数码区”等看做是“源域”。</p>
-<h4 id="1-2-跨域推荐的细节"><a href="#1-2-跨域推荐的细节" class="headerlink" title="1.2 跨域推荐的细节"></a>1.2 跨域推荐的细节</h4><p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
+<h4 id="跨域推荐的细节">1.2 跨域推荐的细节</h4>
+<p>跨域推荐实际是有一种前提的，就是基于重叠(overlap)。为什么会有跨域？那是因为有一部分的特征也好、用户也好、物品也好，能够有一些重叠，通过重叠的部分找到两个域之间的一些关联，共分为以下四种情况。</p>
 <ul>
 <li>用户与物品之间没有都没有交集；</li>
 <li>两个域的用户有部分交集，但是物品没有交集。这种情况可以理解成鬼畜用户和舞蹈用户会有部分交集，这部分用户他们既访问了鬼畜区的视频又去舞蹈区看了小姐姐；</li>
 <li>两个域的用户没有交集，但是物品有部分重合。一种可能的情况：youtube和b站的用户在法定情况下是不一样的，但是b站的部分内容又是从youtube上搬运过来的；</li>
 <li>这个场景的重合度就比较高了，不论是用户还是物品都有一定程度上的重叠，这在b站上也是很常见的，比如自制区的视频同时也是数码区的视频。</li>
 </ul>
-<p>原文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2008.02974">MiNet:Mixed Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
+<p>原文链接：<a
+href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/2008.02974">MiNet:Mixed
+Interest Network for Cross-Domain Click-Through Rate Prediction</a></p>
 <span id="more"></span>
-<h3 id="二、模型设计"><a href="#二、模型设计" class="headerlink" title="二、模型设计"></a>二、模型设计</h3><h4 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1 数据集"></a>2.1 数据集</h4><p>本文基于UC头条的应用场景，将新闻feed流作为源域，广告作为目标域。</p>
-<p><img src="https://s4.ax1x.com/2022/01/07/7967FK.png" alt=""></p>
-<h4 id="2-2-结构设计"><a href="#2-2-结构设计" class="headerlink" title="2.2 结构设计"></a>2.2 结构设计</h4><p>为了更好的利用好跨域数据，文中对三种不同的user interest进行建模：</p>
+<h3 id="二模型设计">二、模型设计</h3>
+<h4 id="数据集">2.1 数据集</h4>
+<p>本文基于UC头条的应用场景，将新闻feed流作为源域，广告作为目标域。</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/7967FK.png" /></p>
+<h4 id="结构设计">2.2 结构设计</h4>
+<p>为了更好的利用好跨域数据，文中对三种不同的user interest进行建模：</p>
 <ul>
-<li><p>跨域长期兴趣（Long-term interest across domains）：用户的profile feature能反映出他长期的、固有的兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。</p>
-</li>
-<li><p>源域短期兴趣（Short-term interest from the source domain）：对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联，尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p>
-</li>
-<li><p>目标域短期兴趣（Short-term interest from the target domain）：这个不言而喻了，就不多阐述了，简单来说就是对用户在目标域的短期行为进行建模。</p>
-</li>
+<li><p>跨域长期兴趣（Long-term interest across domains）：用户的profile
+feature能反映出他长期的、固有的兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user
+embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。</p></li>
+<li><p>源域短期兴趣（Short-term interest from the source
+domain）：对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联，尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p></li>
+<li><p>目标域短期兴趣（Short-term interest from the target
+domain）：这个不言而喻了，就不多阐述了，简单来说就是对用户在目标域的短期行为进行建模。</p></li>
 </ul>
 <p>尽管上面的三种user interest看起来可行性很高，但依然存在几个问题：</p>
 <ul>
@@ -366,82 +375,137 @@
 <li>用户兴趣向量的维度可能不一样</li>
 </ul>
 <p>为了解决这些问题，提出<strong>MiNet</strong>模型，模型结构如下：</p>
-<p><img src="https://s4.ax1x.com/2022/01/07/79ctTx.png" alt=""></p>
-<h4 id="2-3-详细说明"><a href="#2-3-详细说明" class="headerlink" title="2.3 详细说明"></a>2.3 详细说明</h4><h4 id="2-3-1-Embedding层"><a href="#2-3-1-Embedding层" class="headerlink" title="2.3.1 Embedding层"></a>2.3.1 Embedding层</h4><p>对于用户、新闻、广告来说，其某些特征可能如下表所示：</p>
-<div class="table-container">
+<p><img src="https://s4.ax1x.com/2022/01/07/79ctTx.png" /></p>
+<h4 id="详细说明">2.3 详细说明</h4>
+<h4 id="embedding层">2.3.1 Embedding层</h4>
+<p>对于用户、新闻、广告来说，其某些特征可能如下表所示：</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:center">type</th>
-<th style="text-align:center">feature</th>
+<tr class="header">
+<th style="text-align: center;">type</th>
+<th style="text-align: center;">feature</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">User information</td>
-<td style="text-align:center">user ID, city, age…</td>
+<tr class="odd">
+<td style="text-align: center;">User information</td>
+<td style="text-align: center;">user ID, city, age…</td>
 </tr>
-<tr>
-<td style="text-align:center">Ad information</td>
-<td style="text-align:center">creative ID, campaign ID, title…</td>
+<tr class="even">
+<td style="text-align: center;">Ad information</td>
+<td style="text-align: center;">creative ID, campaign ID, title…</td>
 </tr>
-<tr>
-<td style="text-align:center">News information</td>
-<td style="text-align:center">creative ID, campaign ID, title…</td>
+<tr class="odd">
+<td style="text-align: center;">News information</td>
+<td style="text-align: center;">creative ID, campaign ID, title…</td>
 </tr>
 </tbody>
 </table>
-</div>
 <p>以上表中的city特征为例，若对其进行one-hot编码之后直接输入到模型当中，结果往往是非常糟糕的，因为其one-hot向量是高度稀疏的，因此我们需要对其进行降维。正如大部分模型那样，这里同样使用了Embedding技术。在对每个特征Embedding之后，我们得到了相较之前维度较少的特征向量，再对各个特征的Embedding向量进行拼接之后，作为模型的输入并准备下一步的工作。</p>
-<p><img src="https://s4.ax1x.com/2022/01/07/79g14f.png" alt=""></p>
-<h4 id="2-3-2-跨域长期建模"><a href="#2-3-2-跨域长期建模" class="headerlink" title="2.3.2 跨域长期建模"></a>2.3.2 跨域长期建模</h4><p>用户的profile feature能反映出他长期的、固有的兴趣，⽐如20岁左右的男性⽤户可能对体育赛事或者游戏类的资讯或者⼴告⽐较感兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。这⾥主要做法是将⽤户ID、⽤户性别、⽤户所在地域、⽤户的⼿机设备等embedding向量进⾏拼接，输出为 $P_u$。例如⽤户ID为123，城市为北京，男性⽤户，使⽤苹果⼿机，得到的⻓期兴趣表示为：</p>
-<p>$$P_u=[e_{u123}||e_{BJ}||e_{male}||e_{ios}]$$</p>
-
-<p><img src="https://s4.ax1x.com/2022/01/07/79RPfK.png" alt=""></p>
-<h4 id="2-3-3-源域短期兴趣建模"><a href="#2-3-3-源域短期兴趣建模" class="headerlink" title="2.3.3 源域短期兴趣建模"></a>2.3.3 源域短期兴趣建模</h4><p>对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联。尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p>
-<p><img src="https://s4.ax1x.com/2022/01/07/79WlU1.png" alt=""></p>
-<h5 id="2-3-3-1-Item-attention"><a href="#2-3-3-1-Item-attention" class="headerlink" title="2.3.3.1 Item attention"></a>2.3.3.1 Item attention</h5><p>首先，定义</p>
-<p>$$\widetilde{a_i}=h_s^TReLU(W_s[r_{si}||q_t||p_u||Mr_{si}\odot{q_t}])$$</p>
-
+<p><img src="https://s4.ax1x.com/2022/01/07/79g14f.png" /></p>
+<h4 id="跨域长期建模">2.3.2 跨域长期建模</h4>
+<p>用户的profile
+feature能反映出他长期的、固有的兴趣，⽐如20岁左右的男性⽤户可能对体育赛事或者游戏类的资讯或者⼴告⽐较感兴趣。通过跨域数据（用户交互过的所有的新闻和广告记录）可以学习出一个包含更多语义信息和可信度更高的user
+embedding。简单来说，就是通过用户的基本信息建模用户的内在长期兴趣。这⾥主要做法是将⽤户ID、⽤户性别、⽤户所在地域、⽤户的⼿机设备等embedding向量进⾏拼接，输出为
+<span
+class="math inline">\(P_u\)</span>。例如⽤户ID为123，城市为北京，男性⽤户，使⽤苹果⼿机，得到的⻓期兴趣表示为：</p>
+<p>
+<span
+class="math display">\[P_u=[e_{u123}||e_{BJ}||e_{male}||e_{ios}]\]</span>
+</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/79RPfK.png" /></p>
+<h4 id="源域短期兴趣建模">2.3.3 源域短期兴趣建模</h4>
+<p>对于每个待预估的广告，都会有一个源域的短期用户兴趣与之关联。尽管广告和新闻的内容可能是完全不同，但其中很可能会存在一个确定的相关性比，如看了娱乐新闻后的用户可能会去点击游戏广告。基于这种相关性，我们能把源域的有用信息迁移到目标域来。简单来说就是对用户在源域的短期行为进行建模。</p>
+<p><img src="https://s4.ax1x.com/2022/01/07/79WlU1.png" /></p>
+<h5 id="item-attention">2.3.3.1 Item attention</h5>
+首先，定义
+<p>
+<span
+class="math display">\[\widetilde{a_i}=h_s^TReLU(W_s[r_{si}||q_t||p_u||Mr_{si}\odot{q_t}])\]</span>
+</p>
 <ul>
-<li>$r_{si}$ 是源域被点击新闻embedding并拼接后的特征向量；</li>
-<li>$q_t$ 是目标域目标广告embedding并拼接后的特征向量；</li>
-<li>$p_u$ 是用户长期兴趣向量；</li>
-<li>$Mr_{si}\odot{q_t}$ 中，$M$ 是待学习的矩阵，其将 $r_{si}$ 映射到目标域空间中与$q_t$ 作元素积；</li>
+<li><span class="math inline">\(r_{si}\)</span>
+是源域被点击新闻embedding并拼接后的特征向量；</li>
+<li><span class="math inline">\(q_t\)</span>
+是目标域目标广告embedding并拼接后的特征向量；</li>
+<li><span class="math inline">\(p_u\)</span> 是用户长期兴趣向量；</li>
+<li><span class="math inline">\(Mr_{si}\odot{q_t}\)</span> 中，<span
+class="math inline">\(M\)</span> 是待学习的矩阵，其将 <span
+class="math inline">\(r_{si}\)</span> 映射到目标域空间中与<span
+class="math inline">\(q_t\)</span> 作元素积；</li>
 </ul>
-<h5 id="2-3-3-2-Aggregation"><a href="#2-3-3-2-Aggregation" class="headerlink" title="2.3.3.2 Aggregation"></a>2.3.3.2 Aggregation</h5><p>通过softmax公式对 $\widetilde{a_i}$ 进行映射</p>
-<p>$$a_i =\frac{exp(\widetilde{a_i})}{\sum{exp(\widetilde{a_i})}}$$</p>
-
-<p>并线性加权得到最后的 $a_s$：</p>
-<p>$$a_s=\sum{a_ir_{si}}$$</p>
-
-<h4 id="2-3-4-目标域短期兴趣建模"><a href="#2-3-4-目标域短期兴趣建模" class="headerlink" title="2.3.4 目标域短期兴趣建模"></a>2.3.4 目标域短期兴趣建模</h4><p><img src="https://s4.ax1x.com/2022/01/07/795soj.png" alt=""></p>
-<h5 id="2-3-4-1-Item-attention"><a href="#2-3-4-1-Item-attention" class="headerlink" title="2.3.4.1 Item attention"></a>2.3.4.1 Item attention</h5><p>首先，定义</p>
-<p>$$\widetilde{\beta_j}=h_t^TReLU(W_t[r_{tj}||q_t||p_u||r_{tj}\odot{q_t}])$$</p>
-
-<p>与源域短期兴趣建模唯一的区别就是 $r_{tj}$, ${q_t}$ 都是目标域的向量，不需要训练映射矩阵。</p>
-<h5 id="2-3-4-2-Aggregation"><a href="#2-3-4-2-Aggregation" class="headerlink" title="2.3.4.2 Aggregation"></a>2.3.4.2 Aggregation</h5><p>通过softmax公式对 $\widetilde{\beta_j}$ 进行映射</p>
-<p>$$\beta_j =\frac{exp(\widetilde{\beta_j})}{\sum{exp(\widetilde{\beta_j})}}$$</p>
-
-<p>并线性加权得到最后的 $a_t$：</p>
-<p>$$a_t=\sum{\beta_jr_{tj}}$$</p>
-
-<h4 id="2-3-5-Interest-Attention层"><a href="#2-3-5-Interest-Attention层" class="headerlink" title="2.3.5 Interest Attention层"></a>2.3.5 Interest Attention层</h4><p><img src="https://s4.ax1x.com/2022/01/07/79ICtA.png" alt=""></p>
-<p>最终，输入到预测层的向量 $m_t=[q_t||v_up_u||v_sa_s||v_ta_t]$</p>
-<p>其中，</p>
-<p>$$v_u=exp(g^T_uReLU(V_u[q_t||p_u||a_s||a_t])+b_u)$$</p>
-
-<p>$$v_s=exp(g^T_sReLU(V_s[q_t||p_u||a_s||a_t])+b_s)$$</p>
-
-<p>$$v_t=exp(g^T_tReLU(V_t[q_t||p_u||a_s||a_t])+b_t)$$</p>
-
-<h4 id="2-3-6-Prediction层和Loss函数"><a href="#2-3-6-Prediction层和Loss函数" class="headerlink" title="2.3.6 Prediction层和Loss函数"></a>2.3.6 Prediction层和Loss函数</h4><p><img src="https://s4.ax1x.com/2022/01/07/79TDeO.png" alt=""></p>
-<p>预测层是一个多层的全连接神经网络，其输出是经过sigmoid函数映射后的 [0, 1] 值。$MiNet$ 采用了辅助任务，通过使用 $q_s$ 向量促进对 $p_u$ 向量的训练，并将其通过预测层。</p>
-<p>最终模型的损失函数包括两部分：$loss1$ 和 $loss2$，分别记为 $loss_t$ 和 $loss_s$ ，每个 $loss$ 都是用交叉熵作为损失函数，最终的损失函数 $loss$ 如下：</p>
-<p>$$loss=loss_t+\gamma loss_s$$</p>
-
-<p>其中，$\gamma$ 是平衡因子。 </p>
-<h3 id="三、跨域推荐优缺点"><a href="#三、跨域推荐优缺点" class="headerlink" title="三、跨域推荐优缺点"></a>三、跨域推荐优缺点</h3><p>优势：</p>
+<h5 id="aggregation">2.3.3.2 Aggregation</h5>
+通过softmax公式对 <span class="math inline">\(\widetilde{a_i}\)</span>
+进行映射
+<p>
+<span class="math display">\[a_i
+=\frac{exp(\widetilde{a_i})}{\sum{exp(\widetilde{a_i})}}\]</span>
+</p>
+并线性加权得到最后的 <span class="math inline">\(a_s\)</span>：
+<p>
+<span class="math display">\[a_s=\sum{a_ir_{si}}\]</span>
+</p>
+<h4 id="目标域短期兴趣建模">2.3.4 目标域短期兴趣建模</h4>
+<p><img src="https://s4.ax1x.com/2022/01/07/795soj.png" /></p>
+<h5 id="item-attention-1">2.3.4.1 Item attention</h5>
+首先，定义
+<p>
+<span
+class="math display">\[\widetilde{\beta_j}=h_t^TReLU(W_t[r_{tj}||q_t||p_u||r_{tj}\odot{q_t}])\]</span>
+</p>
+<p>与源域短期兴趣建模唯一的区别就是 <span
+class="math inline">\(r_{tj}\)</span>, <span
+class="math inline">\({q_t}\)</span>
+都是目标域的向量，不需要训练映射矩阵。</p>
+<h5 id="aggregation-1">2.3.4.2 Aggregation</h5>
+<p>通过softmax公式对 <span
+class="math inline">\(\widetilde{\beta_j}\)</span> 进行映射</p>
+<p>
+<span class="math display">\[\beta_j
+=\frac{exp(\widetilde{\beta_j})}{\sum{exp(\widetilde{\beta_j})}}\]</span>
+</p>
+并线性加权得到最后的 <span class="math inline">\(a_t\)</span>：
+<p>
+<span class="math display">\[a_t=\sum{\beta_jr_{tj}}\]</span>
+</p>
+<h4 id="interest-attention层">2.3.5 Interest Attention层</h4>
+<p><img src="https://s4.ax1x.com/2022/01/07/79ICtA.png" /></p>
+<p>最终，输入到预测层的向量 <span
+class="math inline">\(m_t=[q_t||v_up_u||v_sa_s||v_ta_t]\)</span></p>
+其中，
+<p>
+<span
+class="math display">\[v_u=exp(g^T_uReLU(V_u[q_t||p_u||a_s||a_t])+b_u)\]</span>
+</p>
+<p>
+<span
+class="math display">\[v_s=exp(g^T_sReLU(V_s[q_t||p_u||a_s||a_t])+b_s)\]</span>
+</p>
+<p>
+<span
+class="math display">\[v_t=exp(g^T_tReLU(V_t[q_t||p_u||a_s||a_t])+b_t)\]</span>
+</p>
+<h4 id="prediction层和loss函数">2.3.6 Prediction层和Loss函数</h4>
+<p><img src="https://s4.ax1x.com/2022/01/07/79TDeO.png" /></p>
+<p>预测层是一个多层的全连接神经网络，其输出是经过sigmoid函数映射后的 [0,
+1] 值。<span class="math inline">\(MiNet\)</span>
+采用了辅助任务，通过使用 <span class="math inline">\(q_s\)</span>
+向量促进对 <span class="math inline">\(p_u\)</span>
+向量的训练，并将其通过预测层。</p>
+<p>最终模型的损失函数包括两部分：<span
+class="math inline">\(loss1\)</span> 和 <span
+class="math inline">\(loss2\)</span>，分别记为 <span
+class="math inline">\(loss_t\)</span> 和 <span
+class="math inline">\(loss_s\)</span> ，每个 <span
+class="math inline">\(loss\)</span>
+都是用交叉熵作为损失函数，最终的损失函数 <span
+class="math inline">\(loss\)</span> 如下：</p>
+<p>
+<span class="math display">\[loss=loss_t+\gamma loss_s\]</span>
+</p>
+<p>其中，<span class="math inline">\(\gamma\)</span> 是平衡因子。</p>
+<h3 id="三跨域推荐优缺点">三、跨域推荐优缺点</h3>
+<p>优势：</p>
 <blockquote>
 <ul>
 <li>首先，它可以用来解决一部分冷启动的问题。目标域的新用户很可能是源域的旧用户，那么将源域的信息拿过来辅助提升推荐的效果，能一定程度上解决冷启动；</li>
@@ -455,8 +519,9 @@
 <li>跨域推荐还需要考虑一定的权衡，因为跨域必然会导致数据的稀疏，处理不当可能会有反作用。</li>
 </ul>
 </blockquote>
-<h3 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/221719082">https://zhuanlan.zhihu.com/p/221719082</a></li>
+<h3 id="四参考链接">四、参考链接</h3>
+<ul>
+<li>https://zhuanlan.zhihu.com/p/221719082</li>
 </ul>
 
     </div>
@@ -559,14 +624,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

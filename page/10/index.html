@@ -311,22 +311,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="一、爬取更多的URL"><a href="#一、爬取更多的URL" class="headerlink" title="一、爬取更多的URL"></a><b>一、爬取更多的URL</b></h3><p>到目前为止，我们使用的只是设置在爬虫的start_urls属性中的单一URL。而该属性实际为一个列表，我们可以硬编码写入更多的URL，如下所示：</p>
-<blockquote>
-<p>start_urls = [<br>　　　‘<a target="_blank" rel="noopener" href="https://jcoffeezph.top/">https://jcoffeezph.top/</a>‘,<br>　　　‘<a href="http://qzmvc1.top/">http://qzmvc1.top/</a>‘,<br>　　　···<br>]</p>
-</blockquote>
-<p>这种写法可能不会让你太激动。不过我们还可以使用文件作为URL的源，写法如下所示:</p>
-<blockquote>
-<p>start_urls = [ i.strip() for i in open(‘xxx.txt’,’r’).readlines()]</p>
-</blockquote>
-<p>这种写法其实也不那么令人激动，但它确实管用。更经常发生的情况是感兴趣的网站中包含一些索引页以及内容页。<br><img src="https://s1.ax1x.com/2018/11/19/FSRO5q.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2018/11/19/FSRLan.png" alt=""><br>一个典型的索引页会包含许多到博客的链接，以及一个能够让你从一个索引页前往另一个索引页的分页系统。</p>
-<p>因此，一个典型的爬虫会向两个方向移动：</p>
-<ul>
-<li>横向——从一个索引页到另一个索引页；</li>
-<li>纵向——从一个索引页到内容页并抽取Item。</li>
-</ul>
-<p>我们将前者称为<b>水平爬取</b>，因为这种情况下是在同一层级下爬取页面；而将后者成为<b>垂直爬取</b>，因为该方式是从一个更高的层级到一个更低的层级。<br>
+          <h3 id="一爬取更多的url"><b>一、爬取更多的URL</b></h3>
+<p>到目前为止，我们使用的只是设置在爬虫的start_urls属性中的单一URL。而该属性实际为一个列表，我们可以硬编码写入更多的URL，如下所示：
+&gt;start_urls = [ 　　　‘https://jcoffeezph.top/’,
+　　　‘http://qzmvc1.top/’, 　　　···]</p>
+<p>这种写法可能不会让你太激动。不过我们还可以使用文件作为URL的源，写法如下所示:
+&gt;start_urls = [ i.strip() for i in
+open(‘xxx.txt’,‘r’).readlines()]</p>
+<p>这种写法其实也不那么令人激动，但它确实管用。更经常发生的情况是感兴趣的网站中包含一些索引页以及内容页。
+<img src="https://s1.ax1x.com/2018/11/19/FSRO5q.png" /></p>
+<p><img src="https://s1.ax1x.com/2018/11/19/FSRLan.png" />
+一个典型的索引页会包含许多到博客的链接，以及一个能够让你从一个索引页前往另一个索引页的分页系统。</p>
+<p>因此，一个典型的爬虫会向两个方向移动： +
+横向——从一个索引页到另一个索引页； +
+纵向——从一个索引页到内容页并抽取Item。</p>
+<p>我们将前者称为<b>水平爬取</b>，因为这种情况下是在同一层级下爬取页面；而将后者成为<b>垂直爬取</b>，因为该方式是从一个更高的层级到一个更低的层级。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%BA%8C-%E6%8A%BD%E5%8F%96%E6%9B%B4%E5%A4%9A%E7%9A%84URL.html#more" rel="contents">
@@ -431,13 +430,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~</p>
-<p><b>本篇博客框架如下：</b></p>
-<ul>
-<li>第一个Scrapy项目</li>
-<li>编写爬虫</li>
-<li>清理—-item装载器与管理字段</li>
-<li>Scrapy Shell
+          <h3 id="前言"><b>前言</b></h3>
+<p>这几天在Scrapy框架里面挣扎了好久，各种碰坑，好在也懵懵懂懂的坚持了下来，话不多说，直接进入正题吧~</p>
+<p><b>本篇博客框架如下：</b> + 第一个Scrapy项目 + 编写爬虫 +
+清理—item装载器与管理字段 + Scrapy Shell
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Scrapy%E6%A1%86%E6%9E%B6-%E4%B8%80-%E7%AC%AC%E4%B8%80%E4%B8%AAScrapy%E9%A1%B9%E7%9B%AE.html#more" rel="contents">
@@ -524,7 +520,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>791</span>
+      <span>814</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -542,7 +538,9 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h4 id="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："><a href="#Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：" class="headerlink" title="Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点："></a><b>Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：</b></h4><ul>
+          <h4
+id="virtualenv是python的虚拟环境可以在同一台pc隔离不同的python开发环境virtualenv可以创建一个隔离的python环境沙盒使用沙盒的优点"><b>Virtualenv是Python的虚拟环境，可以在同一台PC隔离不同的python开发环境。Virtualenv可以创建一个隔离的Python环境（沙盒）。使用沙盒的优点：</b></h4>
+<ul>
 <li>解决库之间的版本依赖，比如同一系统上不同应用依赖同一个库的不同版本。</li>
 <li>解决权限限制，比如你没有root权限。</li>
 <li>尝试新的工具，而不用担心污染系统环境。
@@ -650,10 +648,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="http://47.93.163.221:8084/uploadimg/Material/978-7-115-47420-9/72jpg/47420_s300.jpg" alt=""></p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><b>前言</b></h3><p>很早之前学习了《Python网络数据采集》这本爬虫入门书籍，书上基本用的是Python标准库urllib和第三方库BeautifulSoup，还有一些少量的requests库。过了这么长时间，对爬虫也不是很熟悉了。想了想以后可能会从事大数据方面的工作，本人对数据也是hin感兴趣。于是想腾出时间学习一下Scrapy框架，也趁此机会巩固一下我的爬虫能力。</p>
-<p>这本《精通Python爬虫框架Scrapy》基于Scrapy1.0和Python2.x版本，虽然我学的是Python3.x，但这本书应该不会影响阅读，之后的博客就会基于这本书发布一些我学习Scrapy的进度，理解等等，路还很长，一起加油吧！</p>
-<hr>
+          <p><img
+src="http://47.93.163.221:8084/uploadimg/Material/978-7-115-47420-9/72jpg/47420_s300.jpg" />
+### <b>前言</b>
+很早之前学习了《Python网络数据采集》这本爬虫入门书籍，书上基本用的是Python标准库urllib和第三方库BeautifulSoup，还有一些少量的requests库。过了这么长时间，对爬虫也不是很熟悉了。想了想以后可能会从事大数据方面的工作，本人对数据也是hin感兴趣。于是想腾出时间学习一下Scrapy框架，也趁此机会巩固一下我的爬虫能力。</p>
+<p>这本《精通Python爬虫框架Scrapy》基于Scrapy1.0和Python2.x版本，虽然我学的是Python3.x，但这本书应该不会影响阅读，之后的博客就会基于这本书发布一些我学习Scrapy的进度，理解等等，路还很长，一起加油吧！
+******
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/%E6%96%B0%E7%AF%87-%E7%B2%BE%E9%80%9APython%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6Scrapy.html#more" rel="contents">
@@ -758,20 +758,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/a373595475/article/details/79580734">https://blog.csdn.net/a373595475/article/details/79580734</a></p>
-<h3 id="一、Numpy-简介"><a href="#一、Numpy-简介" class="headerlink" title="一、Numpy - 简介"></a><b>一、Numpy - 简介</b></h3><p>Numpy 是一个 Python 包。 它代表 “Numeric Python”。 它是一个由多维数组对象和用于处理数组的例程集合组成的库。</p>
-<p>Numeric，即 NumPy 的前身，是由 Jim Hugunin 开发的。 也开发了另一个包 Numarray ，它拥有一些额外的功能。 2005年，Travis Oliphant 通过将 Numarray 的功能集成到 Numeric 包中来创建 NumPy 包。 这个开源项目有很多贡献者。</p>
-<hr>
-<h3 id="二、Numpy-操作"><a href="#二、Numpy-操作" class="headerlink" title="二、Numpy 操作"></a><b>二、Numpy 操作</b></h3><p>使用Numpy，开发人员可以执行以下操作：</p>
+          <p>参考链接：https://blog.csdn.net/a373595475/article/details/79580734
+### <b>一、Numpy - 简介</b> Numpy 是一个 Python 包。 它代表 “Numeric
+Python”。 它是一个由多维数组对象和用于处理数组的例程集合组成的库。</p>
+<p>Numeric，即 NumPy 的前身，是由 Jim Hugunin 开发的。 也开发了另一个包
+Numarray ，它拥有一些额外的功能。 2005年，Travis Oliphant 通过将
+Numarray 的功能集成到 Numeric 包中来创建 NumPy 包。
+这个开源项目有很多贡献者。 ****** ### <b>二、Numpy 操作</b>
+使用Numpy，开发人员可以执行以下操作：</p>
 <ul>
-<li><p>数组的算数和逻辑运算。</p>
-</li>
-<li><p>傅立叶变换和用于图形操作的例程。</p>
-</li>
-<li><p>与线性代数有关的操作。 Numpy 拥有线性代数和随机数生成的内置函数。</p>
-</li>
+<li><p>数组的算数和逻辑运算。</p></li>
+<li><p>傅立叶变换和用于图形操作的例程。</p></li>
+<li><p>与线性代数有关的操作。 Numpy
+拥有线性代数和随机数生成的内置函数。</p></li>
 </ul>
-<hr>
+<hr />
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Python3-numpy%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3.html#more" rel="contents">
@@ -876,15 +877,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013332124/article/details/80621638">https://blog.csdn.net/u013332124/article/details/80621638</a></p>
-<h3 id="一、Xpath介绍"><a href="#一、Xpath介绍" class="headerlink" title="一、Xpath介绍"></a><b>一、Xpath介绍</b></h3><p>Xpath 是一门在 XML 文档中查找信息的语言，Xpath 用于在 XML 文档中通过元素和属性进行导航。</p>
-<ul>
-<li>Xpath 使用路径表达式在 XML 文档中进行导航</li>
-<li>Xpath 包含一个标准函数库</li>
-<li>Xpath 是 XSLT 中的主要元素</li>
-<li>Xpath 是一个 W3C 标准</li>
-</ul>
-<h5 id="节点"><a href="#节点" class="headerlink" title="节点"></a><b>节点</b></h5><p>在 Xpath 中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML 文档是被作为节点树来对待的。<br>
+          <p>参考链接：https://blog.csdn.net/u013332124/article/details/80621638</p>
+<h3 id="一xpath介绍"><b>一、Xpath介绍</b></h3>
+<p>Xpath 是一门在 XML 文档中查找信息的语言，Xpath 用于在 XML
+文档中通过元素和属性进行导航。 + Xpath 使用路径表达式在 XML
+文档中进行导航 + Xpath 包含一个标准函数库 + Xpath 是 XSLT 中的主要元素 +
+Xpath 是一个 W3C 标准</p>
+<h5 id="节点"><b>节点</b></h5>
+<p>在 Xpath
+中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档（根）节点。XML
+文档是被作为节点树来对待的。
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Xpath%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93.html#more" rel="contents">
@@ -989,8 +991,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaocaiju/article/details/6973175">https://blog.csdn.net/xiaocaiju/article/details/6973175</a></p>
-<p><b>Python中的random模块用于生成随机数。下面介绍一下random模块中最常用的几个函数。</b><br>
+          <p>参考链接：https://blog.csdn.net/xiaocaiju/article/details/6973175</p>
+<p><b>Python中的random模块用于生成随机数。下面介绍一下random模块中最常用的几个函数。</b>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Python3-random%E6%A8%A1%E5%9D%97%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93.html#more" rel="contents">
@@ -1077,7 +1079,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.7k</span>
+      <span>5.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1095,17 +1097,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>参考链接 : <a target="_blank" rel="noopener" href="https://www.cnblogs.com/ranxf/p/7808537.html">https://www.cnblogs.com/ranxf/p/7808537.html</a></p>
-<hr>
-<h3 id="一、安装requests"><a href="#一、安装requests" class="headerlink" title="一、安装requests"></a><b>一、安装requests</b></h3><ul>
-<li><p>通过pip安装</p>
-<blockquote>
-<p> <b>pip install requests</p>
-</blockquote>
-</li>
-<li><p>或者下载代码后通过git安装</p>
-<blockquote>
-<p><b>$ git clone git://github.com/kennethreitz/requests.git<br>$ cd requests<br>$ python setup.py install</b></p>
+          <p>参考链接 : https://www.cnblogs.com/ranxf/p/7808537.html ****** ###
+<b>一、安装requests</b> + 通过pip安装 &gt; <b>pip install requests</p>
+<ul>
+<li>或者下载代码后通过git安装 &gt; <b>$ git clone
+git://github.com/kennethreitz/requests.git $ cd requests $ python
+setup.py install</b>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Python3-requests%E6%A8%A1%E5%9D%97%E8%AF%A6%E8%A7%A3.html#more" rel="contents">
@@ -1156,14 +1153,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 

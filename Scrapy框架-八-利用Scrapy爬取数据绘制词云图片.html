@@ -25,18 +25,17 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qzmvc1.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.8.0","exturl":false,"sidebar":{"position":"left","width":310,"display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
 
-<meta name="description" content="前言偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
+<meta name="description" content="前言 偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。 虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scrapy框架(八) 利用Scrapy爬取数据绘制词云图片">
 <meta property="og:url" content="http://qzmvc1.top/Scrapy%E6%A1%86%E6%9E%B6-%E5%85%AB-%E5%88%A9%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE%E7%BB%98%E5%88%B6%E8%AF%8D%E4%BA%91%E5%9B%BE%E7%89%87.html">
 <meta property="og:site_name" content="QzmVc1">
-<meta property="og:description" content="前言偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
+<meta property="og:description" content="前言 偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，我就是这么热爱学习！ 哈哈哈哈hahahah。 虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlEkT.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlZhF.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZluc9.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlUcd.png">
-<meta property="og:image" content="https://s1.ax1x.com/2018/11/29/FZlajA.png">
 <meta property="article:published_time" content="2018-11-28T17:52:08.000Z">
 <meta property="article:modified_time" content="2021-10-06T11:57:46.000Z">
 <meta property="article:author" content="QzmVc1">
@@ -170,7 +169,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%A9%E7%94%A8Scrapy%E7%88%AC%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-text">一、利用Scrapy爬取数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%BC%80%E5%A7%8B%E7%BB%98%E5%9B%BE"><span class="nav-text">二、开始绘图</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -333,37 +332,34 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，<del>我就是这么热爱学习！</del> 哈哈哈哈hahahah。<br>虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~<br><span id="more"></span></p>
-<hr>
-<h3 id="一、利用Scrapy爬取数据"><a href="#一、利用Scrapy爬取数据" class="headerlink" title="一、利用Scrapy爬取数据"></a>一、利用Scrapy爬取数据</h3><p>应该是很熟练的一个操作了叭，可我还是掉进了很多坑，呜呜呜，wtcl。<br>像以前一样，新建Scrapy项目，然后创建我们的爬虫，直接上代码吧！</p>
-<p><strong><em>wordcloud.py</em></strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordcloudSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;wordcloud&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;web&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&#x27;https://movie.douban.com/subject/26752088/discussion/&#x27;</span>]</span><br><span class="line">    bash_url = <span class="string">&#x27;https://movie.douban.com/subject/26752088/discussion/&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        URL = response.xpath(<span class="string">&#x27;//span[@class=&quot;next&quot;]/a//@href&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),dont_filter=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),callback=self.parse_item,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        comments = response.xpath(<span class="string">&#x27;//a[@title]/text()&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> comment <span class="keyword">in</span> comments:</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">&#x27;title&#x27;</span>: comment.strip()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p><img src="https://s1.ax1x.com/2018/11/29/FZlEkT.png" alt=""></p>
+        <h3 id="前言">前言</h3>
+<p>偶然间看到了利用Python绘制词云图，一时兴起，睡意全无，导致现在已经深夜两点多了一个人默默坐在宿舍的客厅里敲着代码。现在的天气是真的冷啊，可有什么办法呢，<del>我就是这么热爱学习！</del>
+哈哈哈哈hahahah。
+虽然本篇博客把它归到了Scrapy里面，但是其大部分内容还是和绘图有关的(其实也没多少)。我们仅仅利用Scrapy爬取网上的相关数据做成一份单词表就够了，话不多说，直接正题叭~
+<span id="more"></span> ****** ### 一、利用Scrapy爬取数据
+应该是很熟练的一个操作了叭，可我还是掉进了很多坑，呜呜呜，wtcl。
+像以前一样，新建Scrapy项目，然后创建我们的爬虫，直接上代码吧！</p>
+<p><strong><em>wordcloud.py</em></strong> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordcloudSpider</span>(<span class="params">scrapy.Spider</span>):</span></span><br><span class="line">    name = <span class="string">&#x27;wordcloud&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;web&#x27;</span>]</span><br><span class="line">    start_urls = [<span class="string">&#x27;https://movie.douban.com/subject/26752088/discussion/&#x27;</span>]</span><br><span class="line">    bash_url = <span class="string">&#x27;https://movie.douban.com/subject/26752088/discussion/&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span>(<span class="params">self, response</span>):</span></span><br><span class="line">        URL = response.xpath(<span class="string">&#x27;//span[@class=&quot;next&quot;]/a//@href&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),dont_filter=<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">for</span> url <span class="keyword">in</span> URL:</span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(urljoin(self.bash_url,url),callback=self.parse_item,dont_filter=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_item</span>(<span class="params">self,response</span>):</span></span><br><span class="line">        comments = response.xpath(<span class="string">&#x27;//a[@title]/text()&#x27;</span>).extract()</span><br><span class="line">        <span class="keyword">for</span> comment <span class="keyword">in</span> comments:</span><br><span class="line">            <span class="keyword">yield</span> &#123;</span><br><span class="line">                <span class="string">&#x27;title&#x27;</span>: comment.strip()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlEkT.png" /></p>
 <p>这个代码的主要目的是爬取以上页面的title值做一份单词表。</p>
-<p>接下来我们执行命令将数据存入csv文件中:</p>
-<blockquote>
-<p>scrapy crawl wordcloud -o save.csv -s CLOSESPIDER_ITEMCOUNT=10</p>
-</blockquote>
+<p>接下来我们执行命令将数据存入csv文件中: &gt; scrapy crawl wordcloud -o
+save.csv -s CLOSESPIDER_ITEMCOUNT=10</p>
 <p><strong><em>save.csv</em></strong></p>
-<p><img src="https://s1.ax1x.com/2018/11/29/FZlZhF.png" alt=""></p>
-<hr>
-<h3 id="二、开始绘图"><a href="#二、开始绘图" class="headerlink" title="二、开始绘图"></a>二、开始绘图</h3><p><img src="https://s1.ax1x.com/2018/11/29/FZluc9.png" alt=""></p>
-<p>我们首先将以上文件放入同一文件夹中：</p>
-<ul>
-<li>ciyun.py 脚本</li>
-<li>save.csv 刚刚爬取的数据文件</li>
-<li>ciyun01.png 词云的背景图</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2018/11/29/FZlUcd.png" alt=""></p>
-<p>先上代码：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取脚本所在目录</span></span><br><span class="line">Path = os.path.dirname(__file__)</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取csv文件并用jieba分词库制作词表</span></span><br><span class="line">csv = <span class="built_in">open</span>(os.path.join(Path,<span class="string">&#x27;save.csv&#x27;</span>),encoding=<span class="string">&#x27;utf-8&#x27;</span>).read()</span><br><span class="line">seg_list = jieba.cut(csv,cut_all=<span class="literal">False</span>)</span><br><span class="line">seg_list = <span class="string">&quot; &quot;</span>.join(seg_list)</span><br><span class="line"></span><br><span class="line"><span class="comment">#用PIL.Image读取图片并通过numpy将之转化为数据矩阵</span></span><br><span class="line">picture = np.array(Image.<span class="built_in">open</span>(os.path.join(Path,<span class="string">&#x27;ciyun01.png&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成词云</span></span><br><span class="line">wc = WordCloud(font_path=<span class="string">&#x27;C:\QzmVc1\STZHONGS.TTF&#x27;</span>,background_color=<span class="string">&quot;white&quot;</span>,max_words=<span class="number">1000</span>,max_font_size=<span class="number">300</span>,mask=picture)</span><br><span class="line">wc.generate(seg_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过双插值算法将数据转化为图片</span></span><br><span class="line">plt.imshow(wc, interpolation=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"><span class="comment">#是否显示坐标尺</span></span><br><span class="line">plt.axis(<span class="string">&quot;off&quot;</span>)</span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">plt.show()</span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">wc.to_file(os.path.join(Path,<span class="string">&#x27;C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\WordCloud\WordCloud\ciyun_new01.png&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
-<p>关于以上代码做几点说明：</p>
-<blockquote>
-<p>1.<code>os.path.dirname(__file__)</code> 是当前py文件所在的文件目录，不包含py文件</p>
-<p>2.打开csv文件设置的 <b>encoding=’utf-8’</b> 是为了将数据显示为中文 </p>
-<p>3.WordCloud中设置了字体、字号、单词个数、图片数据等参数，stzhongs.ttf是宋体，需要自行下载，不设置此参数的话词云中的单词全是小方框！</p>
-<p>4.interpolation=’bilinear’这个是双插值算法绘制图片</p>
-</blockquote>
-<p>图片效果：<br><img src="https://s1.ax1x.com/2018/11/29/FZlajA.png" alt=""></p>
-<hr>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlZhF.png" /> ****** ###
+二、开始绘图 <img src="https://s1.ax1x.com/2018/11/29/FZluc9.png" /></p>
+<p>我们首先将以上文件放入同一文件夹中： + ciyun.py 脚本 + save.csv
+刚刚爬取的数据文件 + ciyun01.png 词云的背景图</p>
+<p><img src="https://s1.ax1x.com/2018/11/29/FZlUcd.png" /></p>
+<p>先上代码： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> wordcloud <span class="keyword">import</span> WordCloud</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取脚本所在目录</span></span><br><span class="line">Path = os.path.dirname(__file__)</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取csv文件并用jieba分词库制作词表</span></span><br><span class="line">csv = <span class="built_in">open</span>(os.path.join(Path,<span class="string">&#x27;save.csv&#x27;</span>),encoding=<span class="string">&#x27;utf-8&#x27;</span>).read()</span><br><span class="line">seg_list = jieba.cut(csv,cut_all=<span class="literal">False</span>)</span><br><span class="line">seg_list = <span class="string">&quot; &quot;</span>.join(seg_list)</span><br><span class="line"></span><br><span class="line"><span class="comment">#用PIL.Image读取图片并通过numpy将之转化为数据矩阵</span></span><br><span class="line">picture = np.array(Image.<span class="built_in">open</span>(os.path.join(Path,<span class="string">&#x27;ciyun01.png&#x27;</span>)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成词云</span></span><br><span class="line">wc = WordCloud(font_path=<span class="string">&#x27;C:\QzmVc1\STZHONGS.TTF&#x27;</span>,background_color=<span class="string">&quot;white&quot;</span>,max_words=<span class="number">1000</span>,max_font_size=<span class="number">300</span>,mask=picture)</span><br><span class="line">wc.generate(seg_list)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过双插值算法将数据转化为图片</span></span><br><span class="line">plt.imshow(wc, interpolation=<span class="string">&#x27;bilinear&#x27;</span>)</span><br><span class="line"><span class="comment">#是否显示坐标尺</span></span><br><span class="line">plt.axis(<span class="string">&quot;off&quot;</span>)</span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">plt.show()</span><br><span class="line"><span class="comment">#保存图片</span></span><br><span class="line">wc.to_file(os.path.join(Path,<span class="string">&#x27;C:\QzmVc1\Code\PyCharm\Python_Project\Python_Spider\Spider_Test1\WordCloud\WordCloud\ciyun_new01.png&#x27;</span>))</span><br></pre></td></tr></table></figure></p>
+<p>关于以上代码做几点说明： &gt;
+1.<code>os.path.dirname(__file__)</code>
+是当前py文件所在的文件目录，不包含py文件 &gt; &gt; 2.打开csv文件设置的
+<b>encoding=‘utf-8’</b> 是为了将数据显示为中文 &gt; &gt;
+3.WordCloud中设置了字体、字号、单词个数、图片数据等参数，stzhongs.ttf是宋体，需要自行下载，不设置此参数的话词云中的单词全是小方框！
+&gt; &gt; 4.interpolation=’bilinear’这个是双插值算法绘制图片</p>
+<p>图片效果： <img
+src="https://s1.ax1x.com/2018/11/29/FZlajA.png" /></p>
+<hr />
 
     </div>
 
@@ -467,14 +463,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">455k</span>
+    <span title="站点总字数">456k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:54</span>
+    <span title="站点阅读时长">6:55</span>
   </span>
 </div>
 
