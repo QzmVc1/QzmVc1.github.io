@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
@@ -34,7 +34,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://z3.ax1x.com/2021/08/07/fKQC26.png">
 <meta property="article:published_time" content="2021-08-07T01:24:43.000Z">
-<meta property="article:modified_time" content="2022-01-31T10:56:38.682Z">
+<meta property="article:modified_time" content="2023-03-22T08:28:37.719Z">
 <meta property="article:author" content="QzmVc1">
 <meta property="article:tag" content="推荐算法">
 <meta name="twitter:card" content="summary">
@@ -179,18 +179,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">87</span>
+          <span class="site-state-item-count">88</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -283,7 +283,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-01-31 18:56:38" itemprop="dateModified" datetime="2022-01-31T18:56:38+08:00">2022-01-31</time>
+        <time title="修改时间：2023-03-22 16:28:37" itemprop="dateModified" datetime="2023-03-22T16:28:37+08:00">2023-03-22</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -431,19 +431,16 @@
 <li>权重参数的数量由 $n$ 直接上升到 $n^2$ ，极大的增加了训练复杂度。</li>
 </ul>
 </blockquote>
-<h3 id="三、因子分解机模型（Factorization-Machine-FM）（2010年）"><a href="#三、因子分解机模型（Factorization-Machine-FM）（2010年）" class="headerlink" title="三、因子分解机模型（Factorization Machine, FM）（2010年）"></a>三、因子分解机模型（Factorization Machine, FM）（2010年）</h3><p>$$FM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_i}\cdot \vec{v_j}）x_ix_j$$</p>
-
-<p>与 $POLY2$ 相比，其主要区别是用两个向量的内积 $（\vec{v_i}\cdot \vec{v_j}）$ 取代了单一的权重系数 $w_{ij}$ 。具体地说，$FM$ 为每个特征学习了一个权重隐向量，在特征交叉时，使用两个特征隐向量的内积作为交叉特征的权重。</p>
+<h3 id="三、因子分解机模型（Factorization-Machine-FM）（2010年）"><a href="#三、因子分解机模型（Factorization-Machine-FM）（2010年）" class="headerlink" title="三、因子分解机模型（Factorization Machine, FM）（2010年）"></a>三、因子分解机模型（Factorization Machine, FM）（2010年）</h3><script type="math/tex; mode=display">
+FM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_i}\cdot \vec{v_j}）x_ix_j</script><p>与 $POLY2$ 相比，其主要区别是用两个向量的内积 $（\vec{v_i}\cdot \vec{v_j}）$ 取代了单一的权重系数 $w_{ij}$ 。具体地说，$FM$ 为每个特征学习了一个权重隐向量，在特征交叉时，使用两个特征隐向量的内积作为交叉特征的权重。</p>
 <p>本质上，$FM$ 引入隐向量的做法，与矩阵分解用隐向量代表用户和物品的做法异曲同工。可以说， $FM$ 是将矩阵分解隐向量的思想进行了进一步扩展，从单纯的用户、物品隐向量扩展到了所有特征上。</p>
 <p>$FM$ 通过引入特征隐向量的方式，直接把 $POLY2$ 模型 $n^2$ 级别的权重参数数量减少到了 $nk$ （$k$ 为隐向量维度， $n&gt;&gt;k$），极大地降低了训练开销；而且，隐向量的引入使  $FM$ 能更好地解决数据稀疏性的问题。比如在 $POLY2$ 模型中，只有当特征$x_i,x_j$ 均非零时，才能训练与之对应的 $w_{ij}$，而对于 $FM$ ，每个特征都有其对应的隐向量，减少了训练条件的苛刻性，并且对于未出现的特征组合，只要模型之前分别学习过对应的隐向量，就具备了计算其特征组合权重的能力。</p>
 <p>$FM$ 公式二次项后继推导如下：</p>
 <p><img src="https://z3.ax1x.com/2021/08/07/fKQC26.png" alt=""></p>
 <p>采用梯度下降法求解参数：</p>
-<p>$$\frac{∂FM}{∂ \theta}=\begin{cases}1,&\theta=w_0 \cr x_i,&\theta=w_i \cr x_i\sum_{i=1}^n(v_{ik}x_i)-v_{ik}x_i^2,&\theta=v_{ik}\end{cases}$$</p>
-
-<h3 id="四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）"><a href="#四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）" class="headerlink" title="四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）"></a>四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）</h3><p>$$FFM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_{i，f_j}}\cdot \vec{v_{j,f_i}}）x_ix_j$$</p>
-
-<p>其与 $FM$ 的区别在于隐向量由原来的 $\vec{v_i}$ 变成了 $\vec{v_{i，f_j}}$ ，这意味着每个特征对应的不是唯一一个隐向量，而是一组隐向量。当 $x_i$ 特征与 $x_j$ 特征进行交叉时， $x_i$ 特征会从 $x_i$ 的这一组隐向量中挑出与特征 $x_j$ 的域 $f_j$ 对应的隐向量 $\vec{v_{i，f_j}}$ 进行交叉。同理， $x_j$ 也会用与 $x_i$ 的域 $f_i$ 对应的隐向量 $\vec{v_{j，f_i}}$ 进行交叉。</p>
+<script type="math/tex; mode=display">
+\frac{∂FM}{∂ \theta}=\begin{cases}1,&\theta=w_0 \cr x_i,&\theta=w_i \cr x_i\sum_{i=1}^n(v_{ik}x_i)-v_{ik}x_i^2,&\theta=v_{ik}\end{cases}</script><h3 id="四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）"><a href="#四、特征域感知因子分解机模型（Field-aware-Factorization-Machines，FFM）（2015年）" class="headerlink" title="四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）"></a>四、特征域感知因子分解机模型（Field-aware Factorization Machines，FFM）（2015年）</h3><script type="math/tex; mode=display">
+FFM(w,x)=w_0+\sum_{i=1}^n w_ix_i+\sum_{i=1}^{n-1}\sum_{j=i+1}^n （\vec{v_{i，f_j}}\cdot \vec{v_{j,f_i}}）x_ix_j</script><p>其与 $FM$ 的区别在于隐向量由原来的 $\vec{v_i}$ 变成了 $\vec{v_{i，f_j}}$ ，这意味着每个特征对应的不是唯一一个隐向量，而是一组隐向量。当 $x_i$ 特征与 $x_j$ 特征进行交叉时， $x_i$ 特征会从 $x_i$ 的这一组隐向量中挑出与特征 $x_j$ 的域 $f_j$ 对应的隐向量 $\vec{v_{i，f_j}}$ 进行交叉。同理， $x_j$ 也会用与 $x_i$ 的域 $f_i$ 对应的隐向量 $\vec{v_{j，f_i}}$ 进行交叉。</p>
 <h4 id="为什么引入Field？"><a href="#为什么引入Field？" class="headerlink" title="为什么引入Field？"></a>为什么引入Field？</h4><p>如下表所示，其中性别和年龄同属于user维度特征，而tag属于item维度特征。<strong>在FM原理讲解中，“男性”与“篮球”、“男性”与“年龄”所起潜在作用是默认一样的，但实际上不一定。FM算法无法捕捉这个差异，因为它不区分更广泛类别field的概念，而会使用相同参数的点积来计算。</strong></p>
 <div class="table-box"><table border="1" cellpadding="1" cellspacing="1" style="width:500px;"><tbody><tr><td>field</td><td colspan="5" rowspan="1">user field(<em><strong>U</strong></em>)</td><td colspan="2" rowspan="1">item field(<em><strong>I</strong></em>)</td></tr><tr><td>clicked</td><td>userId</td><td>Gender_男</td><td>Gender_女</td><td>Age_[20,30]</td><td>Age_[30,40]</td><td>Tag_篮球</td><td>Tag_化妆品</td></tr><tr><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>1</td><td>2</td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr></tbody></table></div>
 
@@ -542,7 +539,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -554,14 +551,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">420k</span>
+    <span title="站点总字数">455k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:22</span>
+    <span title="站点阅读时长">6:54</span>
   </span>
 </div>
 
